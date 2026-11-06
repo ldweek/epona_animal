@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_om_account_followup_sending_results" model="ir.ui.view">
+            <field name="name">followup.sending.results.form</field>
+            <field name="model">followup.sending.results</field>
+            <field name="arch" type="xml">
+                <form string="Summary of Actions">
+                    <field name="needprinting" invisible="1"/>
+                    <field name="description" readonly="1" nolabel="1"/>
+                    <footer>
+                        <button name="do_report" string="Download Letters" type="object" class="btn-primary"
+                                invisible="not needprinting" data-hotkey="q"/>
+                        <button name="do_done" string="Close" type="object" class="btn-primary"
+                                invisible="needprinting" data-hotkey="q"/>
+                        <button string="Close" special="cancel" class="btn-secondary" invisible="not needprinting"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

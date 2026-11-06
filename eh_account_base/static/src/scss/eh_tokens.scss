@@ -1,0 +1,76 @@
+// ============================================================================
+// ERP Heritage
+// Copyright (C) 2026 (https://www.erpheritage.com.au/)
+// ============================================================================
+//
+// House design tokens - single source of truth (the "token bridge").
+//
+// These variables are the ERP Heritage backend design language: a quiet,
+// premium "command centre" on a near-black green-tinted ground with a
+// single mint accent, mono numerals, and a strict 8px spacing grid. They
+// were previously declared privately on .eh_dashboard_root inside the
+// dashboard module; lifting them into eh_account_base (which every
+// accounting-suite module depends on) lets the dashboard AND the dynamic
+// report viewer resolve the EXACT same values instead of each re-declaring
+// hex by hand and drifting over time.
+//
+// Load order matters: this file is registered FIRST in
+// eh_account_base web.assets_backend so the custom properties are defined
+// before either consumer's SCSS uses var(--eh-*). eh_account_base loads
+// ahead of eh_account_dashboard and eh_account_dynamic_reports by
+// dependency, so the tokens are always present before use. If for any
+// reason the bundle resolves a consumer before this block, var(--eh-*)
+// calls in those consumers carry a system fallback (see each consumer's
+// usage), so the surface degrades to readable defaults rather than
+// rendering unstyled.
+//
+// Defined on a shared selector list so both surfaces inherit identically.
+
+.eh_dashboard_root,
+.eh_dr {
+    /* Render native form controls (date inputs, multiselect lists, checkboxes,
+       scrollbars) in dark mode so their text is light, not the browser default
+       dark-on-dark. Without this the date fields and account/journal pickers
+       are unreadable on the near-black ground. */
+    color-scheme: dark;
+
+    /* ---- palette (myawqat dark) ---- */
+    --eh-bg: #080C0A;
+    --eh-bg-grad: radial-gradient(1200px 600px at 78% -8%, rgba(123, 206, 160, 0.06), transparent 60%);
+    --eh-surface: #0F1512;
+    --eh-surface-2: #151D19;
+    --eh-surface-hover: #18221C;
+    --eh-border: #1E2A24;
+    --eh-border-strong: #2A3B32;
+    --eh-text: #E8EDE9;
+    --eh-text-dim: #A6BAAF;
+    --eh-text-muted: #7E9089;
+    --eh-accent: #7BCEA0;
+    --eh-accent-soft: rgba(123, 206, 160, 0.10);
+    --eh-accent-glow: rgba(123, 206, 160, 0.16);
+    --eh-up: #7BCEA0;
+    --eh-up-soft: rgba(123, 206, 160, 0.12);
+    --eh-down: #E08C7B;
+    --eh-down-soft: rgba(224, 140, 123, 0.12);
+    --eh-warn: #E0C27B;
+    --eh-warn-soft: rgba(224, 194, 123, 0.12);
+    --eh-info: #7BB6E0;
+    --eh-info-soft: rgba(123, 182, 224, 0.12);
+    --eh-flat-soft: rgba(133, 151, 142, 0.14);
+
+    /* ---- spacing scale (8px grid) ---- */
+    --eh-1: 4px;
+    --eh-2: 8px;
+    --eh-3: 12px;
+    --eh-4: 16px;
+    --eh-5: 20px;
+    --eh-6: 24px;
+    --eh-8: 32px;
+    --eh-10: 40px;
+    --eh-radius: 14px;
+    --eh-radius-sm: 10px;
+
+    /* ---- type ---- */
+    --eh-font: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --eh-mono: "DM Mono", ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+}

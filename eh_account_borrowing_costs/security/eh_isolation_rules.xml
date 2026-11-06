@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="0">
+    <data>
+
+        <record id="rule_eh_borrowing_cost_company" model="ir.rule">
+            <field name="name">eh.borrowing.cost: company isolation</field>
+            <field name="model_id" ref="model_eh_borrowing_cost"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <!-- The dated-expenditure and suspension children carry a stored
+             company_id (related from the parent), but Odoo applies no implicit
+             multi-company filter on a direct search of a child model. Without
+             their own rules an accounting user could read and rewrite another
+             company's IAS 23 capitalisation base through the child model. -->
+        <record id="rule_eh_borrowing_cost_line_company" model="ir.rule">
+            <field name="name">eh.borrowing.cost.line: company isolation</field>
+            <field name="model_id" ref="model_eh_borrowing_cost_line"/>
+            <field name="domain_force">[('borrowing_cost_id.company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_borrowing_cost_suspension_company" model="ir.rule">
+            <field name="name">eh.borrowing.cost.suspension: company isolation</field>
+            <field name="model_id" ref="model_eh_borrowing_cost_suspension"/>
+            <field name="domain_force">[('borrowing_cost_id.company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

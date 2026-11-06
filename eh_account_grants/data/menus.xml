@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!-- Auditors and dedicated grant reviewers do not imply the broad EH
+             preparer group. Keep the shared IFRS parent reachable whenever
+             this module exposes a permitted read/review child below it. -->
+        <menuitem id="eh_account_base.menu_eh_ifrs"
+                  name="IFRS Standards"
+                  parent="account.menu_finance_entries"
+                  sequence="34"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor,eh_account_grants.group_eh_grant_reviewer"/>
+
+        <menuitem id="menu_eh_gov_grant"
+                  name="Government Grants"
+                  parent="eh_account_base.menu_eh_ifrs"
+                  action="action_eh_gov_grant"
+                  sequence="50"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor,eh_account_grants.group_eh_grant_reviewer"/>
+
+    </data>
+</odoo>

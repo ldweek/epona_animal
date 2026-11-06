@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_bas_gst_recon_form" model="ir.ui.view">
+        <field name="name">eh.bas.gst.recon.result.form</field>
+        <field name="model">eh.bas.gst.recon.result</field>
+        <field name="arch" type="xml">
+            <form string="GST control reconciliation">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="run_id" readonly="1"
+                                   options="{'no_open': True, 'no_create': True}"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="GST collected (1A)">
+                            <field name="label_1a" widget="monetary"/>
+                            <field name="gst_collected_movement"
+                                   widget="monetary"/>
+                            <field name="collected_diff" widget="monetary"/>
+                        </group>
+                        <group string="GST paid (1B)">
+                            <field name="label_1b" widget="monetary"/>
+                            <field name="gst_paid_movement"
+                                   widget="monetary"/>
+                            <field name="paid_diff" widget="monetary"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="not unclassified_movement">
+                        The tax control accounts contain movement that could
+                        not be attributed to 1A or 1B. Review it before
+                        lodging the BAS.
+                    </div>
+                    <field name="unclassified_movement" widget="monetary"
+                           readonly="1"/>
+                    <separator string="Tax control accounts considered"/>
+                    <field name="detail_lines" readonly="1"
+                           widget="text"/>
+                    <field name="currency_id" invisible="1"/>
+                </sheet>
+                <footer>
+                    <button special="cancel"
+                            string="Close"
+                            class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

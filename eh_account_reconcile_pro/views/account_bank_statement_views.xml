@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_bank_statement_list_reconcile_pro" model="ir.ui.view">
+        <field name="name">account.bank.statement.list.reconcile.pro</field>
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account.view_bank_statement_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='balance_end_real']" position="after">
+                <field name="eh_unmatched_line_count"
+                       string="Unmatched"
+                       optional="show"/>
+                <button name="action_view_eh_unmatched_lines"
+                        type="object"
+                        string="Review unmatched"
+                        icon="fa-search"
+                        invisible="eh_unmatched_line_count == 0"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

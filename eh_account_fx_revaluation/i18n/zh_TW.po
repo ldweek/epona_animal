@@ -1,0 +1,2170 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_fx_revaluation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Chinese (Traditional)\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "%(count)s rates updated."
+msgstr "已更新 %(count)s 項匯率。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "%(count)s rates written for %(date)s"
+msgstr "已為 %(date)s 寫入 %(count)s 項匯率"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "%s manual override(s)"
+msgstr "%s 個手動覆寫"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_kanban
+msgid "<i class=\"fa fa-calendar\" title=\"Revaluation date\"/>"
+msgstr "<i class=\"fa fa-calendar\" title=\"重估日期\"/>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "<strong>Auto reverse:</strong>"
+msgstr "<strong>自動沖銷:</strong>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "<strong>Company:</strong>"
+msgstr "<strong>公司:</strong>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "<strong>Journal:</strong>"
+msgstr "<strong>日記帳：</strong>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "<strong>Revaluation date:</strong>"
+msgstr "<strong>重估日期：</strong>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "<strong>State:</strong>"
+msgstr "<strong>狀態：</strong>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_form
+msgid ""
+"A manual override always wins over the fetched rate. Use it to pin a "
+"currency that has no clean feed (or whose terms restrict redistribution) "
+"while every other currency keeps auto-updating. This is finer grained than "
+"the all-or-nothing Manual provider."
+msgstr ""
+"手動覆寫始終優先於擷取的匯率。使用它來固定沒有乾淨資料來源（或其條款限制再散佈）的貨幣，同時讓所有其他貨幣繼續自動更新。這比全有或全無的手動供應者更精細。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__api_key
+msgid ""
+"API key for sources that require one (aggregator services). Central-bank "
+"sources ignore this field."
+msgstr "適用於需要金鑰的資料來源 (彙整服務) 的 API 金鑰。中央銀行資料來源會忽略此欄位。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "AUD/USD forward 2026-09-30 notional 1M, USD-denominated loan, ..."
+msgstr "AUD/USD 遠期 2026-09-30 名目金額 1M，USD 計價貸款，……"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__offset_ratio
+msgid ""
+"Absolute ratio of |instrument change| to |hedged change|. Must fall within "
+"0.80-1.25 to pass the dollar-offset test."
+msgstr "|工具變動| 與 |被避險變動| 的絕對比率。須落在 0.80-1.25 之間方可通過美元抵銷測試。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_account_account
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__account_id
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+msgid "Account"
+msgstr "帳戶"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/account_account.py:0
+msgid ""
+"Account %(code)s is non monetary (%(type)s) and cannot be flagged for FX "
+"revaluation. IAS 21 restricts period end retranslation to monetary items "
+"(cash, receivables, payables, loans); non monetary items such as fixed "
+"assets, prepayments and equity are carried at historical rate."
+msgstr ""
+"帳戶 %(code)s 為非貨幣性項目 (%(type)s)，無法標記用於 FX 重估。IAS 21 "
+"將期末重新換算限定於貨幣性項目（現金、應收款、應付款、貸款）；固定資產、預付款項與權益等非貨幣性項目按歷史匯率列示。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Accounts"
+msgstr "賬戶"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_needaction
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_needaction
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_needaction
+msgid "Action Needed"
+msgstr "需要採取行動"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__active
+msgid "Active"
+msgstr "啟用"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_ids
+msgid "Activities"
+msgstr "活動"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_exception_decoration
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_exception_decoration
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "活動異常圖示"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_state
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_state
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_state
+msgid "Activity State"
+msgstr "活動狀態"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_type_icon
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_type_icon
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "活動類型圖示"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.actions.act_window,help:eh_account_fx_revaluation.action_eh_fx_rate_config
+msgid ""
+"Add one config per company that revalues foreign-currency\n"
+"                balances. The daily cron fetches rates and writes them\n"
+"                into Odoo's standard res.currency.rate so every revaluation\n"
+"                run has the data it needs."
+msgstr ""
+"Add one config per company that revalues foreign-currency\\n                "
+"balances. The daily cron fetches rates and writes them\\n                "
+"into Odoo's standard res.currency.rate so every revaluation\\n"
+"                run has the data it needs."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__adjustment
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Adjustment"
+msgstr "調整"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__aggregate_by_partner
+msgid "Aggregate By Partner"
+msgstr "依合作夥伴彙總"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid "Amounts"
+msgstr "金額"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__api_key
+msgid "Api Key"
+msgstr "Api 密鑰"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_attachment_count
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_attachment_count
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_attachment_count
+msgid "Attachment Count"
+msgstr "附件數目"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Audit Trail"
+msgstr "審計追蹤"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__auto_reverse
+msgid "Auto Reverse"
+msgstr "自動沖銷"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__balance_company
+msgid "Balance Company"
+msgstr "公司餘額"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__balance_foreign
+msgid "Balance Foreign"
+msgstr "外幣餘額"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__instrument_account_id
+msgid ""
+"Balance-sheet account that carries the hedging instrument's fair value (e.g."
+" derivative asset / liability for a forward, FX-loan account)."
+msgstr "承載避險工具公允價值的資產負債表科目（例如遠期合約的衍生資產／負債、FX 貸款科目）。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Cancel"
+msgstr "取消"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_run__state__cancelled
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "Cancelled"
+msgstr "已取消"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__cancelled_at
+msgid "Cancelled At"
+msgstr "取消時間"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__cancelled_by_id
+msgid "Cancelled By"
+msgstr "取消人"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Cannot cancel a posted or reversed run."
+msgstr "無法取消已過帳或已沖銷的執行。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Cannot reverse: original revaluation move is missing."
+msgstr "無法沖銷：缺少原始重估分錄。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Carrying"
+msgstr "帳面價值"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__balance_company
+msgid "Carrying amount in company currency before revaluation."
+msgstr "重估前以公司貨幣計的帳面金額。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__new_balance_company
+msgid "Carrying amount restated at the closing rate."
+msgstr "按期末匯率重述的帳面金額。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Cash flow (CFH)"
+msgstr "現金流 (CFH)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__hedge_type__cash_flow
+msgid "Cash flow hedge (CFH)"
+msgstr "現金流量避險 (CFH)"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_form
+msgid ""
+"Central-bank sources (ECB, Bank of Canada, National Bank of Poland, Bank of "
+"Russia, Central Bank of Turkey, Reserve Bank of Australia, Central Bank of "
+"Brazil, HMRC) publish against their own base currency and need no API key; "
+"cross-rates into the company currency are derived automatically. Aggregator "
+"sources serve broad coverage and some require an API key in the field above."
+" The Manual provider disables automatic fetch so finance enters rates by "
+"hand into Currencies &gt; Rates."
+msgstr ""
+"中央銀行來源（ECB、Bank of Canada、National Bank of Poland、Bank of Russia、Central "
+"Bank of Turkey、Reserve Bank of Australia、Central Bank of "
+"Brazil、HMRC）以各自的基準貨幣發布，無需 API "
+"金鑰；系統會自動推導出兌換公司貨幣的交叉匯率。彙總來源提供廣泛的涵蓋範圍，其中一些需要在上方欄位中填寫 API 金鑰。Manual "
+"提供者會停用自動擷取，因此財務需要手動在 Currencies &gt; Rates 中輸入匯率。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__closing_rate
+msgid "Closing Rate"
+msgstr "期末匯率"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__revaluation_date
+msgid "Closing date for which rates are fetched and balances translated."
+msgstr "擷取匯率並換算餘額所依據的期末日期。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__company_id
+msgid "Company"
+msgstr "公司"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid ""
+"Company %s has no enabled FX rate config. Open Configuration > Heritage > FX"
+" Rate Config to select a provider."
+msgstr ""
+"公司 %s 沒有啟用的 FX 匯率設定。開啟 Configuration > Heritage > FX Rate Config 以選擇供應商。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Compute Lines"
+msgstr "計算明細列"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Compute is only available in draft or computed state."
+msgstr "計算僅在草稿或已計算狀態下可用。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_run__state__computed
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "Computed"
+msgstr "已計算"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__computed_at
+msgid "Computed At"
+msgstr "計算時間"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__computed_by_id
+msgid "Computed By"
+msgstr "計算人"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__config_id
+msgid "Config"
+msgstr "設定"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__create_uid
+msgid "Created by"
+msgstr "建立人員"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__create_date
+msgid "Created on"
+msgstr "建立於"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__cumulative_hedged_change
+msgid "Cumulative Hedged Change"
+msgstr "被避險項目累計變動"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__cumulative_instrument_change
+msgid "Cumulative Instrument Change"
+msgstr "避險工具累計變動"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__cumulative_hedged_change
+msgid ""
+"Cumulative fair-value change of the hedged item since designation. Positive "
+"= gain on hedged item. For CFH this is the variability in expected future "
+"cash flows."
+msgstr "被避險項目自指定以來的公允價值累計變動。正值 = 被避險項目利得。對於 CFH，這是預期未來現金流量的變動性。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__cumulative_instrument_change
+msgid ""
+"Cumulative fair-value change of the hedging instrument since designation. "
+"Positive = gain on instrument."
+msgstr "避險工具自指定以來的公允價值累計變動。正值 = 工具利得。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__currency_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__currency_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__currency_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__currency_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__currency_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__currency_id
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+msgid "Currency"
+msgstr "貨幣"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__hedged_currency_id
+msgid ""
+"Currency of the hedged exposure. For CFH on a USD forecast sale this is USD;"
+" for NIH on a EUR subsidiary this is EUR."
+msgstr "被避險風險曝險的貨幣。對於以美元計價的預測銷售的 CFH，此為 USD；對於歐元子公司的 NIH，此為 EUR。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_rate_config__fetch_frequency__daily
+msgid "Daily"
+msgstr "每天"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "Date (month)"
+msgstr "日期（月）"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__last_test_date
+msgid "Date of the most recent effectiveness test."
+msgstr "最近一次有效性測試的日期。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__termination_date
+msgid "Date the hedge relationship ended."
+msgstr "避險關係終止的日期。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "De-designate"
+msgstr "取消指定"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid ""
+"De-designate this hedge? Subsequent gains/losses on the instrument go "
+"straight to P&L; the OCI reserve stays."
+msgstr "取消指定此避險？該工具後續的損益將直接計入損益表；OCI 儲備保持不變。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__state__dedesignated
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "De-designated"
+msgstr "已取消指定"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__description
+msgid "Description"
+msgstr "說明"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Designate"
+msgstr "指定"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid ""
+"Designate this hedge? IFRS 9 requires risk management objective and strategy"
+" in the Notes field before designation."
+msgstr "指定此避險?IFRS 9 要求在指定前於備註欄位中填寫風險管理目標與策略。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__state__designated
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Designated"
+msgstr "已指定"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__designation_date
+msgid "Designation Date"
+msgstr "指定日期"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_account_account__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__display_name
+msgid "Display Name"
+msgstr "顯示名稱"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__name
+msgid ""
+"Display name for the hedge relationship. Convention: '<Type>: <Hedged item> "
+"via <Instrument>'."
+msgstr "避險關係的顯示名稱。慣例：'<Type>: <Hedged item> via <Instrument>'。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__test_method__dollar_offset
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge_test__method__dollar_offset
+msgid "Dollar-offset (80-125%)"
+msgstr "美元抵銷法 (80-125%)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__state__draft
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge_movement__state__draft
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_run__state__draft
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "Draft"
+msgstr "草稿"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.server,name:eh_account_fx_revaluation.cron_eh_fx_rate_fetch_daily_ir_actions_server
+msgid "EH FX: daily rate fetch"
+msgstr "EH FX：每日匯率擷取"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__state__effective
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Effective"
+msgstr "有效的"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__effective_portion
+msgid "Effective Portion"
+msgstr "有效部分"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Effective portion %.2f cannot exceed total change %.2f in absolute value."
+msgstr "有效部分 %.2f 的絕對值不能超過總變動 %.2f。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Effectiveness Tests"
+msgstr "有效性測試"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__enabled
+msgid "Enabled"
+msgstr "已啟用"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__provider
+msgid ""
+"External source for daily rates. Central-bank sources (ECB, Bank of Canada, "
+"National Bank of Poland, Bank of Russia, Central Bank of Turkey, Reserve "
+"Bank of Australia, Central Bank of Brazil, HMRC) need no API key; cross-"
+"rates are derived into the company currency. Aggregator sources serve broad "
+"coverage; some need an API key. Manual disables automatic fetch so finance "
+"enters rates by hand."
+msgstr ""
+"每日匯率的外部來源。中央銀行來源（ECB、Bank of Canada、National Bank of Poland、Bank of "
+"Russia、Central Bank of Turkey、Reserve Bank of Australia、Central Bank of "
+"Brazil、HMRC）無需 API 金鑰；交叉匯率會推導為公司貨幣。彙總器來源提供廣泛涵蓋；部分需要 API "
+"金鑰。手動模式會停用自動擷取，以便財務人工輸入匯率。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_form
+msgid "FX Rate Provider"
+msgstr "FX 匯率提供者"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.act_window,name:eh_account_fx_revaluation.action_eh_fx_rate_config
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_list
+msgid "FX Rate Providers"
+msgstr "FX 匯率提供者"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.report,name:eh_account_fx_revaluation.action_report_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_account_account__eh_fx_revalue
+#: model:ir.ui.menu,name:eh_account_fx_revaluation.menu_eh_fx_revaluation_root
+msgid "FX Revaluation"
+msgstr "FX 重估"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "FX Revaluation %s"
+msgstr "FX 重估 %s"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_revaluation_line
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_form
+msgid "FX Revaluation Line"
+msgstr "FX 重估明細"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.act_window,name:eh_account_fx_revaluation.action_eh_fx_revaluation_line
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_tree
+msgid "FX Revaluation Lines"
+msgstr "FX 重估明細"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "FX Revaluation Reversal %s"
+msgstr "FX 重估沖銷 %s"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_revaluation_run
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "FX Revaluation Run"
+msgstr "FX 重估執行"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.act_window,name:eh_account_fx_revaluation.action_eh_fx_revaluation_run
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_tree
+msgid "FX Revaluation Runs"
+msgstr "FX 重估執行"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "FX Revaluation —"
+msgstr "FX 重估 —"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_rate_override
+msgid "FX manual rate override"
+msgstr "FX 手動匯率覆寫"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_rate_config
+msgid "FX rate provider configuration"
+msgstr "FX 匯率提供者設定"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "FX rate update"
+msgstr "FX 匯率更新"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "FX revaluation %s"
+msgstr "FX 重估 %s"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Fair value (FVH)"
+msgstr "公允價值 (FVH)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__hedge_type__fair_value
+msgid "Fair value hedge (FVH)"
+msgstr "公允價值避險 (FVH)"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Fair-value hedge movements never post to OCI; no reclassification needed."
+msgstr "公允價值避險變動絕不計入 OCI；無需重分類。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__fallback_provider
+msgid "Fallback Provider"
+msgstr "備用提供者"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__fetch_frequency
+msgid "Fetch Frequency"
+msgstr "擷取頻率"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Fetch Rates"
+msgstr "擷取匯率"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Fetched %(count)s rate(s) from %(provider)s for %(date)s."
+msgstr "已從 %(provider)s 為 %(date)s 擷取 %(count)s 個匯率。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_follower_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_follower_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_follower_ids
+msgid "Followers"
+msgstr "關注人"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_partner_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_partner_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "關注人（業務夥伴）"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__activity_type_icon
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_type_icon
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font awesome 圖示，例如，fa-task"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Foreign Balance"
+msgstr "外幣餘額"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__foreign_currency_id
+msgid "Foreign Currency"
+msgstr "外幣幣種"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__designation_date
+msgid ""
+"Formal designation date. IFRS 9 hedge accounting starts from this date "
+"forward; gains and losses before this date go to P&L unconditionally."
+msgstr "正式指定日期。IFRS 9 避險會計自該日期起生效；該日期之前的損益無條件計入損益表。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__hedged_item_description
+msgid ""
+"Free-form description of the hedged item: forecast USD revenue Q3 2026, EUR-"
+"denominated trade receivable from Acme GmbH, net investment in DE "
+"subsidiary, etc. IFRS 9 requires the hedged item to be reliably measurable; "
+"document the measurement basis here."
+msgstr ""
+"被避險項目的自由描述：預測的 2026 年第三季 USD 收入、來自 Acme GmbH 的 EUR 計價應收貿易帳款、對 DE "
+"子公司的淨投資等。IFRS 9 要求被避險項目可靠可計量；請在此記錄計量基礎。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__hedging_instrument_description
+msgid ""
+"Free-form description of the hedging instrument: AUD/USD forward 2026-09-30 "
+"notional 1M, USD-denominated loan, etc."
+msgstr "避險工具的自由描述：AUD/USD 遠期 2026-09-30 名目金額 1M、USD 計價貸款等。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_line__nature__gain
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_tree
+msgid "Gain"
+msgstr "收益"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+msgid "Gains"
+msgstr "收益"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__has_message
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__has_message
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__has_message
+msgid "Has Message"
+msgstr "有訊息"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__hedge_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__hedge_id
+msgid "Hedge"
+msgstr "避險"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Hedge %s needs documented risk management objective and strategy in the "
+"Notes field before designation. IFRS 9 paragraph 6.4.1(b) requires this at "
+"inception."
+msgstr "避險 %s 在指定前需在備註欄位中記錄風險管理目標與策略。IFRS 9 第 6.4.1(b) 段要求於原始認列時提供此內容。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Hedge %s needs journal and instrument account configured before posting "
+"movements."
+msgstr "避險 %s 在過帳變動之前需要設定日記帳與工具科目。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Hedge %s requires a P&L account for the ineffective portion (and for the "
+"full FVH movement when applicable)."
+msgstr "避險 %s 需要一個損益科目用於無效部分（於適用時用於完整的 FVH 變動）。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Hedge %s requires an OCI / equity account to receive the effective portion "
+"of movements (CFH and NIH route the effective portion through OCI per IFRS "
+"9)."
+msgstr "避險 %s 需要一個 OCI / 權益科目來接收變動的有效部分（依 IFRS 9，CFH 與 NIH 透過 OCI 計入有效部分）。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__hedge_type
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__hedge_type
+msgid "Hedge Type"
+msgstr "避險類型"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Hedge de-designated. Subsequent movements on the hedging instrument go "
+"straight to P&L; the OCI reserve stays until the original hedged transaction"
+" occurs (CFH) or the foreign operation is disposed (NIH)."
+msgstr "避險已解除指定。避險工具的後續變動直接計入損益；OCI 準備保留至原被避險交易發生（CFH）或境外營運被處分（NIH）為止。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Hedge designated on %s."
+msgstr "避險已於 %s 指定。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_hedge
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Hedge designation"
+msgstr "避險指定"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__notes
+msgid ""
+"Hedge documentation: risk management objective, strategy, method of "
+"measuring effectiveness, sources of ineffectiveness. IFRS 9 requires this to"
+" be in place at designation."
+msgstr "避險文件：風險管理目標、策略、有效性衡量方法、無效性來源。IFRS 9 要求於指定時具備這些內容。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_hedge_test
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_form
+msgid "Hedge effectiveness test"
+msgstr "避險有效性測試"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__state
+msgid ""
+"Hedge lifecycle. draft: parameters being entered. designated: formal IFRS 9 "
+"designation in place but no test performed yet. effective: most recent test "
+"passed. de-designated: management voluntarily ended the hedge. terminated: "
+"the underlying instrument expired or was sold."
+msgstr ""
+"避險生命週期。draft：正在輸入參數。designated：已完成正式的 IFRS 9 "
+"指定但尚未執行測試。effective：最近一次測試通過。de-designated：管理層自願終止避險。terminated：基礎工具已到期或已出售。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid "Hedge movement"
+msgstr "避險變動"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Hedge movement %s on %s"
+msgstr "避險變動 %s 於 %s"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_hedge_movement
+msgid "Hedge movement (period gain/loss recognition)"
+msgstr "避險變動（期間損益認列）"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_tree
+msgid "Hedge movements"
+msgstr "避險變動"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_tree
+msgid "Hedge tests"
+msgstr "避險測試"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Hedge type"
+msgstr "避險類型"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__hedged_currency_id
+msgid "Hedged Currency"
+msgstr "被避險貨幣"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__hedged_item_description
+msgid "Hedged Item Description"
+msgstr "被避險項目描述"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Hedged item"
+msgstr "被避險項目"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.act_window,name:eh_account_fx_revaluation.action_eh_fx_hedge
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_tree
+msgid "Hedges"
+msgstr "避險"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__instrument_account_id
+msgid "Hedging Instrument Account"
+msgstr "避險工具科目"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__hedging_instrument_description
+msgid "Hedging Instrument Description"
+msgstr "避險工具描述"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Hedging instrument"
+msgstr "避險工具"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__fetch_frequency
+msgid ""
+"How often the scheduled job refreshes rates for this company. 'Manual only' "
+"never auto-fetches (finance pulls on demand); the others gate the daily cron"
+" on the elapsed time since the last successful fetch."
+msgstr ""
+"排程作業為此公司重新整理匯率的頻率。「僅手動」永不自動取得（由財務按需拉取）；其他選項則根據自上次成功取得以來經過的時間來控制每日 cron。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_account_account__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__id
+msgid "ID"
+msgstr "識別號"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__hedge_type
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__hedge_type
+msgid ""
+"IFRS 9 hedge type. Determines whether the effective portion goes to OCI "
+"(CFH, NIH) or P&L (FVH)."
+msgstr "IFRS 9 避險類型。決定有效部分計入 OCI（CFH、NIH）還是 P&L（FVH）。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_exception_icon
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_exception_icon
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_exception_icon
+msgid "Icon"
+msgstr "圖示"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__activity_exception_icon
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_exception_icon
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "用於指示異常活動的圖示。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__message_needaction
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_needaction
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "勾選代表有新訊息需要您留意。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_error
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_sms_error
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_error
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_sms_error
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_error
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "勾選代表有訊息發生傳送錯誤。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__aggregate_by_partner
+msgid ""
+"If set, lines are aggregated per (account, partner, currency). Otherwise "
+"lines are aggregated per (account, currency) only."
+msgstr "如果設定，明細行按（科目、合作夥伴、貨幣）彙總。否則，明細行僅按（科目、貨幣）彙總。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_account_account__eh_fx_revalue
+msgid ""
+"If set, open foreign currency balances on this account are translated at the"
+" closing rate during a period end FX revaluation run."
+msgstr "如果設定，此科目上的未結外幣餘額在期末 FX 重估執行期間按期末匯率換算。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__auto_reverse
+msgid ""
+"If set, posting the run also creates and posts a reversal entry dated the "
+"day after the revaluation date."
+msgstr "如果設定，過帳該執行還會建立並過帳一筆日期為重估日期次日的沖銷分錄。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__ineffective_portion
+msgid "Ineffective Portion"
+msgstr "無效部分"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_form
+msgid "Inputs (dollar-offset)"
+msgstr "輸入(美元抵銷)"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_form
+msgid "Inputs (regression)"
+msgstr "輸入(迴歸)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__is_effective
+msgid "Is Effective"
+msgstr "是否生效"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_is_follower
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_is_follower
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_is_follower
+msgid "Is Follower"
+msgstr "是關注人"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__move_id
+msgid "JE posted for the period gain/loss."
+msgstr "為期間損益過帳的日記帳分錄。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__reclassification_move_id
+msgid ""
+"JE that reclassifies the OCI portion to P&L when the hedged transaction "
+"occurs (CFH) or the foreign operation is disposed (NIH)."
+msgstr "在被避險交易發生（CFH）或處置境外經營（NIH）時，將 OCI 部分重分類至 P&L 的日記帳分錄。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__journal_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__journal_id
+msgid "Journal"
+msgstr "日記賬"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Journal Entries"
+msgstr "日記賬記項"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Journal entry:"
+msgstr "日記帳分錄："
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__journal_id
+msgid "Journal used to post hedge movements."
+msgstr "用於過帳避險變動的日記帳。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__last_error
+msgid "Last Error"
+msgstr "上次錯誤"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__last_fetch_summary
+msgid "Last Fetch Summary"
+msgstr "上次擷取摘要"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__last_fetched_at
+msgid "Last Fetched At"
+msgstr "上次擷取時間"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__last_test_date
+msgid "Last Test Date"
+msgstr "上次測試日期"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__last_test_effective
+msgid "Last Test Effective"
+msgstr "上次測試生效"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__write_uid
+msgid "Last Updated by"
+msgstr "最後更新者"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__write_date
+msgid "Last Updated on"
+msgstr "最後更新於"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__line_ids
+msgid "Line"
+msgstr "明細"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__line_count
+msgid "Line Count"
+msgstr "行數"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Lines"
+msgstr "資料行"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_line__nature__loss
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_tree
+msgid "Loss"
+msgstr "損失"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+msgid "Losses"
+msgstr "損失"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_rate_config__fetch_frequency__manual
+msgid "Manual only"
+msgstr "僅手動"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_form
+msgid "Manual overrides"
+msgstr "手動覆寫"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__override_line_ids
+msgid ""
+"Manual per-currency rates. An override always wins over the fetched value, "
+"so finance can pin a currency that has no clean feed while every other "
+"currency keeps auto-updating."
+msgstr "按幣別設定的手動匯率。覆寫值始終優先於取得的值，因此財務可以固定沒有乾淨資料來源的幣別，而其他每種幣別繼續自動更新。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Mark hedge as terminated?"
+msgstr "將避險標記為已終止？"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__enabled
+msgid "Master toggle. Disable to suspend the cron without losing config."
+msgstr "主開關。停用可暫停 cron，而不遺失設定。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_error
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_error
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_error
+msgid "Message Delivery error"
+msgstr "訊息遞送錯誤"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_ids
+msgid "Messages"
+msgstr "訊息"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__method
+msgid "Method"
+msgstr "方法"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__rsquared_threshold
+msgid ""
+"Minimum R-squared for the regression test. Standard industry threshold is "
+"0.80; some entities tighten to 0.90 for material hedges."
+msgstr "迴歸檢定的最小 R-squared 值。行業標準門檻為 0.80；部分實體對重大避險收緊至 0.90。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_rate_config__fetch_frequency__monthly
+msgid "Monthly"
+msgstr "每月"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__move_id
+msgid "Move"
+msgstr "分錄"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__movement_ids
+msgid "Movement"
+msgstr "移動"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Movement %s has zero effective portion; nothing to reclassify."
+msgstr "移動 %s 的有效部分為零；無需重新分類。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__movement_count
+msgid "Movement Count"
+msgstr "移動數量"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__movement_date
+msgid "Movement Date"
+msgstr "移動日期"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Movements"
+msgstr "移動"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__my_activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__my_activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "我的活動截止時間"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__name
+msgid "Name"
+msgstr "名稱"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__nature
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Nature"
+msgstr "性質"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_tree
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_tree
+msgid "Net"
+msgstr "淨額"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__net_adjustment
+msgid "Net Adjustment"
+msgstr "淨調整"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Net adjustment"
+msgstr "淨調整"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Net investment (NIH)"
+msgstr "淨投資 (NIH)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__hedge_type__net_investment
+msgid "Net investment hedge (NIH)"
+msgstr "淨投資避險 (NIH)"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_kanban
+msgid "Net:"
+msgstr "淨額："
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__timeout_seconds
+msgid "Network timeout in seconds for the provider HTTP call."
+msgstr "供應商 HTTP 呼叫的網路逾時時間（秒）。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__new_balance_company
+msgid "New Balance Company"
+msgstr "新餘額公司"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__regression_pairs
+msgid ""
+"Newline-delimited 'instrument_change,hedged_change' pairs across testing "
+"periods. Used by the regression method to compute R-squared."
+msgstr "跨測試期間以換行符分隔的 'instrument_change,hedged_change' 對。由迴歸方法用於計算 R-squared。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_calendar_event_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_calendar_event_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "下一個活動日曆事件"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "下一活動截止日期"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_summary
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_summary
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_summary
+msgid "Next Activity Summary"
+msgstr "下一活動摘要"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_type_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_type_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_type_id
+msgid "Next Activity Type"
+msgstr "下一活動類型"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.actions.act_window,help:eh_account_fx_revaluation.action_eh_fx_rate_config
+msgid "No FX rate provider configured."
+msgstr "未設定 FX 匯率提供者。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_line__nature__flat
+msgid "No change"
+msgstr "無變化"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "No closing rate available for currency %(name)s on %(date)s."
+msgstr "%(date)s 沒有貨幣 %(name)s 的期末匯率。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "No rates could be fetched for %(date)s: %(err)s"
+msgstr "無法取得 %(date)s 的匯率：%(err)s"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "No rates returned"
+msgstr "未回傳任何匯率"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "No rates returned."
+msgstr "未回傳任何匯率。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "No revaluation lines computed yet."
+msgstr "尚未計算任何重估明細。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "No revaluation lines to post."
+msgstr "沒有可過帳的重估明細。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__note
+msgid "Note"
+msgstr "備註"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__notes
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__notes
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__notes
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__notes
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Notes"
+msgstr "備註"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__notional_amount
+msgid "Notional Amount"
+msgstr "名目金額"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__notional_amount
+msgid ""
+"Notional amount of the hedging instrument in the hedged item's currency. "
+"Drives the dollar-offset and regression calculations."
+msgstr "以被避險項目貨幣計量的避險工具名目金額。用於驅動美元抵銷法和迴歸計算。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_needaction_counter
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_needaction_counter
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_needaction_counter
+msgid "Number of Actions"
+msgstr "動作數量"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_error_counter
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_error_counter
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_error_counter
+msgid "Number of errors"
+msgstr "錯誤數量"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__source_line_count
+msgid "Number of journal items aggregated into this line."
+msgstr "彙總到此行的日記帳項目數量。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__message_needaction_counter
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_needaction_counter
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "需要採取行動的訊息數目"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_error_counter
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_error_counter
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "有發送錯誤的郵件數量"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__oci_account_id
+msgid "OCI / Equity Account"
+msgstr "OCI / 權益帳戶"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "OCI reclassification %s on %s"
+msgstr "OCI 重分類 %s，日期 %s"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__oci_account_id
+msgid ""
+"OCI reserve where the effective portion of CFH and NIH gains/losses "
+"accumulates. Typically an equity-class account named 'Cash Flow Hedge "
+"Reserve' or 'Foreign Currency Translation Reserve'. Required for CFH and "
+"NIH; ignored for FVH."
+msgstr ""
+"用於累積 CFH 和 NIH 損益有效部分的 OCI 準備。通常是名為「Cash Flow Hedge Reserve」或「Foreign "
+"Currency Translation Reserve」的權益類帳戶。CFH 和 NIH 必填；FVH 忽略。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__offset_ratio
+msgid "Offset Ratio"
+msgstr "抵銷比率"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.constraint,message:eh_account_fx_revaluation.constraint_eh_fx_rate_config_unique_per_company
+msgid "One FX rate config per company."
+msgstr "每家公司一個 FX 匯率設定。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.constraint,message:eh_account_fx_revaluation.constraint_eh_fx_rate_override_unique_currency
+msgid "One manual override per currency on a configuration."
+msgstr "設定中每種貨幣一個手動覆寫。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_form
+msgid ""
+"One pair per line: instrument_change,hedged_change\n"
+"e.g.\n"
+"1000,-980\n"
+"-450,460\n"
+"700,-720"
+msgstr ""
+"每行一對：instrument_change,hedged_change\n"
+"例如\n"
+"1000,-980\n"
+"-450,460\n"
+"700,-720"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Only accounting managers can post FX revaluation runs."
+msgstr "只有會計經理才能過帳 FX 重估執行。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Only accounting managers can reverse FX revaluation runs."
+msgstr "只有會計經理才能沖銷 FX 重估執行。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Only active hedges can be de-designated."
+msgstr "只有作用中的避險才能取消指定。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Only cancelled runs can return to draft."
+msgstr "只有已取消的執行才能返回草稿。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Only draft hedges can be designated."
+msgstr "只有草稿避險才能指定。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Only draft movements can be posted."
+msgstr "只有草稿異動才能過帳。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.constraint,message:eh_account_fx_revaluation.constraint_eh_fx_revaluation_run_uniq_date_company
+msgid "Only one revaluation run per date per company."
+msgstr "每家公司每個日期只能執行一次重估作業。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Only posted movements can be reclassified."
+msgstr "只有已過帳的異動才能重新分類。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Only posted runs can be reversed."
+msgstr "只有已過帳的作業才能沖銷。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__balance_foreign
+msgid "Open balance in the foreign currency."
+msgstr "外幣未結餘額。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__description
+msgid "Optional label, e.g. 'March 2026 month end'."
+msgstr "選填標籤，例如 'March 2026 month end'。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__fallback_provider
+msgid ""
+"Optional second source used to fill any currency the primary provider does "
+"not return, or to cover the run when the primary is temporarily unreachable."
+" Leave on Manual to disable the fallback. A broad aggregator is a good "
+"choice here so a national feed that omits an exotic currency still resolves."
+msgstr ""
+"選填的第二來源，用於填充主要提供者未回傳的任何貨幣，或在主要來源暫時無法連線時涵蓋該次執行。保留為 Manual "
+"可停用備用來源。此處選擇一個涵蓋廣泛的彙整來源較為合適，如此即使某個國家級資料源遺漏了一種冷門貨幣，仍可解析。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__override_line_ids
+msgid "Override Line"
+msgstr "覆寫行"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__pl_account_id
+msgid "P&L Account"
+msgstr "損益帳戶"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__pl_account_id
+msgid ""
+"P&L account where the ineffective portion (and the entire FVH movement) is "
+"recognised. Typically the FX gain/loss account."
+msgstr "認列無效部分（以及整個 FVH 變動）的損益帳戶。通常為 FX 損益帳戶。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__partner_id
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Partner"
+msgstr "業務夥伴"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__test_ids
+msgid "Periodic effectiveness test results."
+msgstr "定期有效性測試結果。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__movement_ids
+msgid "Periodic gain/loss recognition records."
+msgstr "定期損益認列記錄。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__effective_portion
+msgid ""
+"Portion considered effective per the most recent effectiveness test. Goes to"
+" OCI for CFH and NIH; to P&L for FVH (under the FVH model the effective "
+"portion is the offsetting change in the hedged item, which still ends up in "
+"P&L)."
+msgstr ""
+"根據最近一次有效性測試認定為有效的部分。對於 CFH 和 NIH 計入 OCI；對於 FVH 計入 P&L（在 FVH "
+"模型下，有效部分是被避險項目的抵銷變動，其最終仍計入 P&L）。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_form
+msgid "Position"
+msgstr "職位"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid "Post"
+msgstr "過賬"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Post Entry"
+msgstr "過帳分錄"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Post Reversal"
+msgstr "過帳沖銷"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Post the revaluation entry? This is irreversible."
+msgstr "過帳重估分錄嗎？此操作不可逆。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge_movement__state__posted
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_run__state__posted
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "Posted"
+msgstr "已過賬"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__posted_at
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__posted_at
+msgid "Posted At"
+msgstr "過帳時間"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__posted_by_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__posted_by_id
+msgid "Posted By"
+msgstr "過帳人"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Posted Entries"
+msgstr "已過賬記項"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Posted by"
+msgstr "過帳人"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid "Posting / Audit"
+msgstr "過帳 / 稽核"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__provider
+msgid "Provider"
+msgstr "服務商"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid ""
+"Provider %(provider)s returned no rates for %(date)s. If %(date)s is a non-"
+"business day, try a prior date or wait for the next publication."
+msgstr "供應商 %(provider)s 未返回 %(date)s 的匯率。如果 %(date)s 為非工作日，請嘗試較早的日期或等待下次發布。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "Provider %s is not registered."
+msgstr "供應商 %s 未註冊。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__provider_needs_key
+msgid "Provider Needs Key"
+msgstr "供應商需要金鑰"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid ""
+"Pull closing rates from the configured provider for the revaluation date and"
+" write them into the currency table."
+msgstr "從已設定的提供者拉取重估日期的收盤匯率並寫入貨幣表。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__test_method
+msgid ""
+"Quantitative effectiveness test. Dollar-offset checks the ratio of "
+"cumulative gain on the instrument to cumulative loss on the hedged item "
+"falls within 80-125%. Regression performs a linear fit of period changes and"
+" requires R-squared above the threshold."
+msgstr ""
+"定量有效性測試。Dollar-offset 檢查工具的累計利得與被避險項目的累計損失之比是否落在 80-125% 範圍內。Regression "
+"對各期變動進行線性擬合，並要求 R-squared 高於門檻。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__rsquared
+msgid "R-squared of the linear regression on regression_pairs."
+msgstr "regression_pairs 上線性迴歸的 R-squared。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Rate"
+msgstr "比率"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.ui.menu,name:eh_account_fx_revaluation.menu_eh_fx_rate_config
+msgid "Rate Providers"
+msgstr "費率供應商"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__rating_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__rating_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__rating_ids
+msgid "Ratings"
+msgstr "評分"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__reclassification_move_id
+msgid "Reclassification Move"
+msgstr "重分類分錄"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge_movement__state__reclassified
+msgid "Reclassified to P&L"
+msgstr "已重分類至損益表 (P&L)"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid "Reclassify OCI to P&L"
+msgstr "將 OCI 重分類至損益表 (P&L)"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid ""
+"Reclassify the effective portion from OCI to the P&L account? Used when the "
+"hedged forecast transaction occurs (CFH) or the foreign operation is "
+"disposed (NIH)."
+msgstr "是否將有效部分從 OCI 重分類至 P&L 科目？當被避險的預期交易發生 (CFH) 或處置境外營運 (NIH) 時使用。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__test_method__regression
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge_test__method__regression
+msgid "Regression (R-squared threshold)"
+msgstr "迴歸（R-squared 閾值）"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__regression_pairs
+msgid "Regression Pairs"
+msgstr "迴歸配對"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_user_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_user_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_user_id
+msgid "Responsible User"
+msgstr "責任使用者"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Restated"
+msgstr "已重編"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_form
+msgid "Revaluation"
+msgstr "重估"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__revaluation_date
+msgid "Revaluation Date"
+msgstr "重估日期"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__move_id
+msgid "Revaluation Entry"
+msgstr "重估分錄"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.ui.menu,name:eh_account_fx_revaluation.menu_eh_fx_revaluation_line
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Revaluation Lines"
+msgstr "重估明細列"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.ui.menu,name:eh_account_fx_revaluation.menu_eh_fx_revaluation_run
+msgid "Revaluation Runs"
+msgstr "重估執行"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Revaluation lines"
+msgstr "重估明細列"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Revaluation produced no adjustments to post."
+msgstr "重估未產生需過帳的調整。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__reversal_move_id
+msgid "Reversal Entry"
+msgstr "沖銷分錄"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_run__state__reversed
+msgid "Reversed"
+msgstr "已撤銷"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__reversed_at
+msgid "Reversed At"
+msgstr "沖銷時間"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__reversed_by_id
+msgid "Reversed By"
+msgstr "沖銷人"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Risk management documentation (IFRS 9 6.4.1)"
+msgstr "風險管理文件 (IFRS 9 6.4.1)"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid ""
+"Risk management objective and strategy. Method of measuring effectiveness. "
+"Sources of ineffectiveness. Required at inception per IFRS 9."
+msgstr "風險管理目標和策略。有效性的衡量方法。無效性的來源。根據 IFRS 9 在初始確認時要求。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__rsquared
+msgid "Rsquared"
+msgstr ""
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__rsquared_threshold
+msgid "Rsquared Threshold"
+msgstr "Rsquared 閾值"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__run_id
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+msgid "Run"
+msgstr "執行"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Run %s has no foreign-currency exposure to fetch rates for."
+msgstr "執行 %s 沒有需要取得匯率的外幣曝險。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Run already has a reversal move."
+msgstr "此執行已存在沖銷分錄。"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Run must be in computed state before posting."
+msgstr "過帳前此執行必須處於已計算狀態。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_sms_error
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_sms_error
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "簡訊發送錯誤"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Set to Draft"
+msgstr "設為草稿"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__slope
+msgid "Slope"
+msgstr "斜率"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__slope
+msgid ""
+"Slope of the regression of hedged-item change on hedging-instrument change. "
+"An effective hedge offsets the hedged item, so the slope must be negative "
+"and close to -1 (its absolute value within 0.80 to 1.25). R-squared alone is"
+" sign-blind, so the slope guards against a positively correlated, non-"
+"hedging relationship."
+msgstr ""
+"被避險項目變動對避險工具變動的迴歸斜率。有效的避險會抵銷被避險項目，因此斜率必須為負且接近 -1（其絕對值在 0.80 至 1.25 "
+"之間）。R-squared 本身無法辨識正負號，因此斜率可防範正相關的非避險關係。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__source_line_count
+msgid "Source Line Count"
+msgstr "來源行數"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__state
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__state
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__state
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "State"
+msgstr "狀態"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__activity_state
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_state
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"根據活動的狀態 \n"
+" 逾期：已經超過截止日期 \n"
+" 現今：活動日期是當天 \n"
+" 計劃：未來活動。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Terminate"
+msgstr "終止"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__state__terminated
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Terminated"
+msgstr "已終止僱用"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__termination_date
+msgid "Termination Date"
+msgstr "終止日期"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__test_ids
+msgid "Test"
+msgstr "測試"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__test_count
+msgid "Test Count"
+msgstr "測試數量"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__test_date
+msgid "Test Date"
+msgstr "測試日期"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__test_method
+msgid "Test Method"
+msgstr "測試方法"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_form
+msgid "Test methodology notes..."
+msgstr "測試方法說明..."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Tests"
+msgstr "測試"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_override__currency_id
+msgid "The currency this manual rate applies to."
+msgstr "此手動匯率適用的貨幣。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__timeout_seconds
+msgid "Timeout Seconds"
+msgstr "逾時秒數"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__total_change
+msgid "Total Change"
+msgstr "變動合計"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__total_gain
+msgid "Total Gain"
+msgstr "收益總額"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__total_loss
+msgid "Total Loss"
+msgstr "損失總額"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__total_change
+msgid ""
+"Total fair-value change of the hedging instrument for this period (positive "
+"= gain on instrument)."
+msgstr "本期避險工具的公允價值變動總額 (正值 = 工具收益)。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Total gain"
+msgstr "收益總額"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Total loss"
+msgstr "總損失"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Totals"
+msgstr "合計"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__last_test_effective
+msgid ""
+"True when the most recent test passed. The state auto-flips to effective on "
+"a passing test and stays in designated otherwise."
+msgstr "當最近一次測試通過時為 True。測試通過時狀態自動切換為 effective，否則保持為 designated。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__provider_needs_key
+msgid "True when the selected provider requires an API key."
+msgstr "當所選提供者需要 API key 時為 True。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__is_effective
+msgid ""
+"True when the test passes. Dollar-offset: ratio in [0.80, 1.25]. Regression:"
+" R-squared >= threshold on the parent hedge."
+msgstr ""
+"當測試通過時為 True。Dollar-offset：比率在 [0.80, 1.25] 範圍內。Regression：父級避險的 R-squared "
+">= 閾值。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__activity_exception_decoration
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_exception_decoration
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "記錄的異常活動的類型。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid ""
+"USD revenue forecast Q3 2026, EUR receivable from Acme GmbH, net investment "
+"in DE subsidiary, ..."
+msgstr "2026 年第三季 USD 收入預測、來自 Acme GmbH 的 EUR 應收款、DE 子公司淨投資，……"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__closing_rate
+msgid ""
+"Units of company currency per 1 unit of foreign currency at the revaluation "
+"date."
+msgstr "重估日期時每 1 單位外幣對應的公司貨幣單位數。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_override__inverse_company_rate
+msgid ""
+"Units of this currency for one unit of the company currency (Odoo inverse "
+"rate). For example, with an AUD company and a USD override, 0.65 means 1 AUD"
+" = 0.65 USD."
+msgstr ""
+"每 1 單位公司貨幣對應的此貨幣單位數（Odoo 反向匯率）。例如，公司貨幣為 AUD 並使用 USD 覆寫時，0.65 表示 1 AUD = 0.65"
+" USD。"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__inverse_company_rate
+msgid "Units per company currency"
+msgstr "每單位公司貨幣的單位數"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__gain_account_id
+msgid "Unrealised FX Gain Account"
+msgstr "未實現 FX 收益帳戶"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__loss_account_id
+msgid "Unrealised FX Loss Account"
+msgstr "未實現 FX 損失帳戶"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Unrealised FX gain"
+msgstr "未實現 FX 收益"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Unrealised FX loss"
+msgstr "未實現 FX 損失"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_form
+msgid "Update now"
+msgstr "立即更新"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__website_message_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__website_message_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__website_message_ids
+msgid "Website Messages"
+msgstr "網站資訊"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__website_message_ids
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__website_message_ids
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__website_message_ids
+msgid "Website communication history"
+msgstr "網站溝通記錄"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_rate_config__fetch_frequency__weekly
+msgid "Weekly"
+msgstr "每週"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "e.g. March 2026 month end"
+msgstr "例如 2026 年 3 月月末"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "fallback %s"
+msgstr "回退 %s"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_kanban
+msgid "line(s)"
+msgstr "行"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__adjustment
+msgid ""
+"new_balance_company minus balance_company. Positive moves the account up; "
+"sign is interpreted in light of the account nature to assign the gain or "
+"loss leg."
+msgstr "new_balance_company 減去 balance_company。正值使帳戶上升；符號依帳戶性質解釋，以判定損益方向。"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "on"
+msgstr "於"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__ineffective_portion
+msgid "total_change minus effective_portion. Always to P&L."
+msgstr "total_change 減去 effective_portion。始終計入 P&L。"

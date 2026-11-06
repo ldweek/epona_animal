@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_cost_variance_run_search" model="ir.ui.view">
+        <field name="name">eh.cost.variance.run.search</field>
+        <field name="model">eh.cost.variance.run</field>
+        <field name="arch" type="xml">
+            <search string="Variance Runs">
+                <field name="name"/>
+                <field name="actual_ids"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <filter name="active_analysis" string="Active Analysis"
+                        domain="[('state', '!=', 'cancelled')]"/>
+                <filter name="draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="computed" string="Computed"
+                        domain="[('state', '=', 'computed')]"/>
+                <filter name="posted" string="Posted"
+                        domain="[('state', '=', 'posted')]"/>
+                <filter name="cancelled" string="Cancelled"
+                        domain="[('state', '=', 'cancelled')]"/>
+                <separator/>
+                <filter name="group_period" string="Period"
+                        context="{'group_by': 'period_start:month'}"/>
+                <filter name="group_state" string="State"
+                        context="{'group_by': 'state'}"/>
+                <filter name="group_company" string="Company"
+                        context="{'group_by': 'company_id'}"
+                        groups="base.group_multi_company"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_cost_variance_run_list" model="ir.ui.view">
+        <field name="name">eh.cost.variance.run.list</field>
+        <field name="model">eh.cost.variance.run</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="total_actual_cost" widget="monetary" optional="show"/>
+                <field name="total_absorbed_cost" widget="monetary" optional="show"/>
+                <field name="total_variance" widget="monetary"
+                       decoration-danger="total_variance &gt; 0"
+                       decoration-success="total_variance &lt; 0"/>
+                <field name="post_variances" optional="hide"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'posted'"
+                       decoration-info="state == 'computed'"
+                       decoration-warning="state == 'reversed'"
+                       decoration-muted="state == 'cancelled'"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_cost_variance_run_form" model="ir.ui.view">
+        <field name="name">eh.cost.variance.run.form</field>
+        <field name="model">eh.cost.variance.run</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_compute" type="object"
+                            string="Compute" class="btn-primary"
+                            invisible="state not in ('draft', 'computed')"/>
+                    <button name="action_post" type="object"
+                            string="Post" class="btn-primary"
+                            invisible="state != 'computed' or not post_variances"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reverse" type="object"
+                            string="Reverse Posting"
+                            invisible="state != 'posted'"
+                            groups="eh_account_base.group_eh_manager"
+                            confirm="Post a sealed counter-entry on the explicit reversal date?"/>
+                    <button name="action_reset_to_draft" type="object"
+                            string="Reset to Draft"
+                            invisible="state not in ('computed', 'cancelled')"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state not in ('draft', 'computed')"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,computed,posted,reversed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_moves" type="object"
+                                class="oe_stat_button" icon="fa-book">
+                            <field name="move_count" widget="statinfo"
+                                   string="Entries"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="period_start"
+                                   readonly="state in ('computed', 'posted', 'reversed')"/>
+                            <field name="period_end"
+                                   readonly="state in ('computed', 'posted', 'reversed')"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"
+                                   readonly="state != 'draft'"/>
+                            <field name="reversal_date"
+                                   invisible="state not in ('posted', 'reversed')"
+                                   readonly="state == 'reversed'"
+                                   groups="eh_account_base.group_eh_manager"/>
+                            <field name="reversal_move_id" readonly="1"
+                                   invisible="not reversal_move_id"/>
+                            <field name="reversed_at" readonly="1"
+                                   invisible="not reversed_at"/>
+                            <field name="reversed_by_id" readonly="1"
+                                   invisible="not reversed_by_id"/>
+                        </group>
+                        <group>
+                            <field name="total_actual_cost"
+                                   widget="monetary" readonly="1"/>
+                            <field name="total_absorbed_cost"
+                                   widget="monetary" readonly="1"/>
+                            <field name="total_variance"
+                                   widget="monetary" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Period Actuals">
+                        <field name="actual_ids" nolabel="1" colspan="2"
+                               readonly="state in ('computed', 'posted', 'reversed')"
+                               widget="many2many">
+                            <list>
+                                <field name="name"/>
+                                <field name="card_id"/>
+                                <field name="period_start"/>
+                                <field name="period_end"/>
+                                <field name="units_produced"/>
+                                <field name="total_actual_cost" widget="monetary"/>
+                                <field name="currency_id" column_invisible="1"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Variance Decomposition (adverse positive, favourable negative)">
+                        <field name="line_ids" nolabel="1" colspan="2" readonly="1">
+                            <list decoration-success="is_favourable"
+                                  decoration-danger="amount &gt; 0">
+                                <field name="card_id" optional="show"/>
+                                <field name="actual_id" optional="hide"/>
+                                <field name="name"/>
+                                <field name="element" optional="hide"/>
+                                <field name="kind" optional="hide"/>
+                                <field name="std_price" optional="show"/>
+                                <field name="actual_qty" optional="show"/>
+                                <field name="std_qty_allowed" optional="show"/>
+                                <field name="actual_cost" widget="monetary" optional="hide"/>
+                                <field name="flexible_amount" widget="monetary" optional="hide"/>
+                                <field name="absorbed_amount" widget="monetary" optional="hide"/>
+                                <field name="amount" widget="monetary" sum="Total"/>
+                                <field name="is_favourable" column_invisible="1"/>
+                                <field name="currency_id" column_invisible="1"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Posting (optional; analysis-only when off)">
+                        <group>
+                            <field name="post_variances"
+                                   readonly="state in ('computed', 'posted', 'reversed')"/>
+                            <field name="journal_id"
+                                   invisible="not post_variances"
+                                   readonly="state in ('computed', 'posted', 'reversed')"/>
+                            <field name="absorption_account_id"
+                                   invisible="not post_variances"
+                                   readonly="state in ('computed', 'posted', 'reversed')"/>
+                        </group>
+                        <group invisible="not post_variances">
+                            <field name="price_variance_account_id"
+                                   readonly="state in ('computed', 'posted', 'reversed')"/>
+                            <field name="usage_variance_account_id"
+                                   readonly="state in ('computed', 'posted', 'reversed')"/>
+                            <field name="rate_variance_account_id"
+                                   readonly="state in ('computed', 'posted', 'reversed')"/>
+                            <field name="efficiency_variance_account_id"
+                                   readonly="state in ('computed', 'posted', 'reversed')"/>
+                            <field name="spend_variance_account_id"
+                                   readonly="state in ('computed', 'posted', 'reversed')"/>
+                            <field name="volume_variance_account_id"
+                                   readonly="state in ('computed', 'posted', 'reversed')"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes" nolabel="1" colspan="2"
+                               placeholder="Root causes behind the period's variances, corrective actions, responsibility notes..."/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="eh_account_costing_variance_run_view_graph" model="ir.ui.view">
+        <field name="name">eh.cost.variance.run.graph</field>
+        <field name="model">eh.cost.variance.run</field>
+        <field name="arch" type="xml">
+            <graph string="Variance Runs" type="bar" sample="1">
+                <field name="period_start" interval="month"/>
+                <field name="state"/>
+                <field name="total_variance" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_costing_variance_run_view_pivot" model="ir.ui.view">
+        <field name="name">eh.cost.variance.run.pivot</field>
+        <field name="model">eh.cost.variance.run</field>
+        <field name="arch" type="xml">
+            <pivot string="Variance Runs" sample="1">
+                <field name="period_start" interval="month" type="row"/>
+                <field name="state" type="col"/>
+                <field name="total_variance" type="measure"/>
+                <field name="total_actual_cost" type="measure"/>
+                <field name="total_absorbed_cost" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_cost_variance_run" model="ir.actions.act_window">
+        <field name="name">Variance Runs</field>
+        <field name="res_model">eh.cost.variance.run</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_cost_variance_run_search"/>
+        <field name="context">{'search_default_active_analysis': 1}</field>
+    </record>
+
+</odoo>

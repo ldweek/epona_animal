@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_account_dynamic_report_tree" model="ir.ui.view">
+        <field name="name">eh.account.dynamic.report.list</field>
+        <field name="model">eh.account.dynamic.report</field>
+        <field name="arch" type="xml">
+            <list string="Dynamic Reports" default_order="sequence, name">
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="handler_model"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_account_dynamic_report_form" model="ir.ui.view">
+        <field name="name">eh.account.dynamic.report.form</field>
+        <field name="model">eh.account.dynamic.report</field>
+        <field name="arch" type="xml">
+            <form string="Dynamic Report">
+                <header>
+                    <button name="action_open_run_wizard"
+                            type="object"
+                            string="Run Report"
+                            class="btn-primary"/>
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="name" placeholder="Report Name"/>
+                    </h1>
+                    <group>
+                        <group string="Definition">
+                            <field name="code"/>
+                            <field name="handler_model"/>
+                        </group>
+                        <group string="Behaviour">
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_account_dynamic_report" model="ir.actions.act_window">
+        <field name="name">Dynamic Reports</field>
+        <field name="res_model">eh.account.dynamic.report</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No dynamic reports registered yet.</p>
+            <p>Each row points at a Python handler that knows how to compute one report. Install one of the ERP Heritage report addons (for example eh_account_dynamic_reports) to populate this list.</p>
+        </field>
+    </record>
+
+    <!-- The "Dynamic Reports Registry" menu lives in data/menus.xml so it can
+         anchor under the Heritage > Reports container (also defined there);
+         this file only declares its action, loaded first. -->
+
+</odoo>

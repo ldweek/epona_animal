@@ -1,0 +1,1987 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_approval
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Portuguese (Brazil)\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % 1000000 == 0) ? 1 : 2);\n"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid " (manual)"
+msgstr "(manual)"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid ""
+"%(move)s has approval request %(req)s in state %(state)s. Posting is blocked"
+" until the request is approved."
+msgstr ""
+"%(move)s tem uma solicitação de aprovação %(req)s no estado %(state)s. O "
+"lançamento está bloqueado até que a solicitação seja aprovada."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid ""
+"%(move)s requires approval per policy %(policy)s before posting. Click "
+"'Request Approval' to start."
+msgstr ""
+"%(move)s requer aprovação conforme a política %(policy)s antes do "
+"lançamento. Clique em 'Solicitar aprovação' para começar."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "(no SLA)"
+msgstr "(sem SLA)"
+
+#. module: eh_account_approval
+#: model:mail.template,body_html:eh_account_approval.email_template_eh_approval_reminder
+msgid ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #C9A372;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;letter-spacing:-0.01em;\">\n"
+"                                Approval awaiting your sign-off\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#6c757d;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;\">\n"
+"                                ERP Heritage Accounting Suite\n"
+"                            </p>\n"
+"                        </div>\n"
+"\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Hello,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            <strong t-out=\"object.name\"/> on\n"
+"                            <strong t-out=\"object.move_id.name\"/> is awaiting\n"
+"                            sign-off from\n"
+"                            <strong t-out=\"object.pending_group_id.name\"/>.\n"
+"                        </p>\n"
+"\n"
+"                        <table style=\"width:100%;border-collapse:collapse;margin:18px 0;background:#fff;border:1px solid #e1e4e8;border-radius:6px;\">\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    Amount\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;font-weight:600;border-bottom:1px solid #e1e4e8;text-align:right;\" t-out=\"'{:,.2f}'.format(object.submitted_amount or 0.0)\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    Requested by\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;border-bottom:1px solid #e1e4e8;text-align:right;\" t-out=\"object.requested_by_id.name\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;\">\n"
+"                                    Due\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;text-align:right;\" t-out=\"object.due_at and object.due_at.strftime('%Y-%m-%d %H:%M') or '(no SLA)'\"/>\n"
+"                            </tr>\n"
+"                        </table>\n"
+"\n"
+"                        <p style=\"margin:0 0 18px 0;font-size:14px;line-height:1.55;\">\n"
+"                            Open the request in Odoo to approve, reject, or comment.\n"
+"                        </p>\n"
+"\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #C9A372;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;letter-spacing:-0.01em;\">\n"
+"                                Uma aprovação aguarda sua assinatura\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#6c757d;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;\">\n"
+"                                ERP Heritage Accounting Suite\n"
+"                            </p>\n"
+"                        </div>\n"
+"\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Olá,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            <strong t-out=\"object.name\"/> em\n"
+"                            <strong t-out=\"object.move_id.name\"/> está aguardando a assinatura\n"
+"                            de\n"
+"                            <strong t-out=\"object.pending_group_id.name\"/>.\n"
+"                        </p>\n"
+"\n"
+"                        <table style=\"width:100%;border-collapse:collapse;margin:18px 0;background:#fff;border:1px solid #e1e4e8;border-radius:6px;\">\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    Valor\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;font-weight:600;border-bottom:1px solid #e1e4e8;text-align:right;\" t-out=\"'{:,.2f}'.format(object.submitted_amount or 0.0)\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    Solicitado por\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;border-bottom:1px solid #e1e4e8;text-align:right;\" t-out=\"object.requested_by_id.name\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;\">\n"
+"                                    Vencimento\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;text-align:right;\" t-out=\"object.due_at and object.due_at.strftime('%Y-%m-%d %H:%M') or '(no SLA)'\"/>\n"
+"                            </tr>\n"
+"                        </table>\n"
+"\n"
+"                        <p style=\"margin:0 0 18px 0;font-size:14px;line-height:1.55;\">\n"
+"                            Abra a solicitação no Odoo para aprovar, rejeitar ou comentar.\n"
+"                        </p>\n"
+"\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_kanban
+msgid "<i class=\"fa fa-clock-o\" title=\"Due date\"/>"
+msgstr "<i class=\"fa fa-clock-o\" title=\"Data de vencimento\"/>"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_kanban
+msgid ""
+"<i class=\"fa fa-exclamation-triangle\" title=\"Escalated\"/>\n"
+"                                Escalated"
+msgstr ""
+"<i class=\"fa fa-exclamation-triangle\" title=\"Escalado\"/>\n"
+"                                Escalado"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_kanban
+msgid "<i class=\"fa fa-users\" title=\"Approver group\"/>"
+msgstr "<i class=\"fa fa-users\" title=\"Grupo de aprovadores\"/>"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_account_move_form_approval
+msgid "<span class=\"o_stat_text\">Approval</span>"
+msgstr "<span class=\"o_stat_text\">Aprovação</span>"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy__document_type
+msgid "Account.move move_type this policy applies to."
+msgstr "O move_type de Account.move ao qual esta política se aplica."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__action
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+msgid "Action"
+msgstr "Ação"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_needaction
+msgid "Action Needed"
+msgstr "Requer ação"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__active
+msgid "Active"
+msgstr "Ativo"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_ids
+msgid "Activities"
+msgstr "Atividades"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoração de atividade excepcional"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_state
+msgid "Activity State"
+msgstr "Status da atividade"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Ícone do tipo de atividade"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__user_id
+msgid "Actor"
+msgstr "Ator"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__inject_manager
+msgid "Add requester's manager"
+msgstr "Adicionar o gerente do solicitante"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "All steps approved."
+msgstr "Todas as etapas aprovadas."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__allow_self_approval
+msgid "Allow Self Approval"
+msgstr "Permitir autoaprovação"
+
+#. module: eh_account_approval
+#: model:ir.model.constraint,message:eh_account_approval.constraint_eh_approval_policy_rule_check_amount_band
+msgid ""
+"Amount band invalid: min and max must be non-negative and max >= min when "
+"max is non-zero."
+msgstr ""
+"Faixa de valor inválida: min e max devem ser não negativos e max >= min "
+"quando max for diferente de zero."
+
+#. module: eh_account_approval
+#: model:ir.model.constraint,message:eh_account_approval.constraint_eh_approval_vote_unique_vote
+msgid "An approver can vote at most once per step."
+msgstr "Um aprovador pode votar no máximo uma vez por etapa."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__group_id
+msgid ""
+"Any user in this group can sign off when the request reaches this step. "
+"Optional when named approvers or manager injection are configured instead."
+msgstr ""
+"Qualquer usuário deste grupo pode aprovar quando a solicitação chegar a esta"
+" etapa. Opcional quando aprovadores nomeados ou injeção de gerente estão "
+"configurados em vez disso."
+
+#. module: eh_account_approval
+#: model:ir.actions.act_window,name:eh_account_approval.action_eh_approval_log
+#: model:ir.ui.menu,name:eh_account_approval.menu_eh_approval_log
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_list
+msgid "Approval Decisions"
+msgstr "Decisões de aprovação"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__approval_minimum
+msgid "Approval Minimum"
+msgstr "Mínimo de Aprovação"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__approval_mode
+msgid "Approval Mode"
+msgstr "Modo de Aprovação"
+
+#. module: eh_account_approval
+#: model:ir.actions.act_window,name:eh_account_approval.action_eh_approval_policy
+#: model:ir.ui.menu,name:eh_account_approval.menu_eh_approval_policy
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_list
+msgid "Approval Policies"
+msgstr "Políticas de Aprovação"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid "Approval Policy"
+msgstr "Política de Aprovação"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Approval Request"
+msgstr "Solicitação de aprovação"
+
+#. module: eh_account_approval
+#: model:ir.actions.act_window,name:eh_account_approval.action_eh_approval_request
+#: model:ir.ui.menu,name:eh_account_approval.menu_eh_approval_request
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_list
+msgid "Approval Requests"
+msgstr "Solicitações de Aprovação"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid "Approval Rule"
+msgstr "Regra de aprovação"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_log
+msgid "Approval log entry"
+msgstr "Entrada de log de aprovação"
+
+#. module: eh_account_approval
+#: model:ir.model.constraint,message:eh_account_approval.constraint_eh_approval_policy_rule_step_check_minimum
+msgid "Approval minimum must be at least 1."
+msgstr "O mínimo de aprovação deve ser pelo menos 1."
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_policy
+msgid "Approval policy"
+msgstr "Política de aprovação"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_policy_rule
+msgid "Approval policy rule"
+msgstr "Regra da política de aprovação"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_policy_rule_step
+msgid "Approval policy rule step"
+msgstr "Etapa da regra da política de aprovação"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_request
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_account_move_form_approval
+msgid "Approval request"
+msgstr "Solicitação de aprovação"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid "Approval requested for amount %.2f"
+msgstr "Aprovação solicitada para o valor %.2f"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_bank_statement_line__eh_approval_request_ids
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__eh_approval_request_ids
+msgid "Approval requests"
+msgstr "Solicitações de aprovação"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_bank_statement_line__eh_approval_state
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__eh_approval_state
+msgid "Approval state"
+msgstr "Estado de aprovação"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_log__step
+msgid "Approval step at which this action took place."
+msgstr "Etapa de aprovação em que esta ação ocorreu."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"Approval step has already advanced. Refresh the request and re-evaluate; "
+"another approver may have already signed off."
+msgstr ""
+"A etapa de aprovação já avançou. Atualize a solicitação e reavalie; outro "
+"aprovador pode já ter assinado."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__step_ids
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid "Approval steps (in order)"
+msgstr "Etapas de aprovação (em ordem)"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_vote
+msgid "Approval vote"
+msgstr "Voto de aprovação"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Approve"
+msgstr "Aprovar"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Approve this step? Any user in the pending group can sign."
+msgstr "Aprovar esta etapa? Qualquer usuário do grupo pendente pode assinar."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Approve: %s"
+msgstr "Aprovar: %s"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__approved
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__approved
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_vote__decision__approve
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Approved"
+msgstr "Aprovado"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__approver_count
+msgid "Approver Count"
+msgstr "Contagem de Aprovadores"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__approver_summary
+msgid "Approver chain"
+msgstr "Cadeia de aprovadores"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__group_id
+msgid "Approver group"
+msgstr "Grupo de aprovadores"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__request_note
+msgid "Approver note"
+msgstr "Nota do aprovador"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__required_approver_ids
+msgid ""
+"Approvers who MUST sign before this step advances, even if the minimum count"
+" is otherwise met. Must be a subset of the eligible approvers (named "
+"approvers or group members)."
+msgstr ""
+"Aprovadores que DEVEM assinar antes que esta etapa avance, mesmo que a "
+"contagem mínima já tenha sido atingida de outra forma. Deve ser um "
+"subconjunto dos aprovadores elegíveis (aprovadores nomeados ou membros do "
+"grupo)."
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__archived
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Archived"
+msgstr "Arquivado"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__sla_state__at_risk
+msgid "At risk"
+msgstr "Em risco"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_attachment_count
+msgid "Attachment Count"
+msgstr "Total de anexos"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Audit log"
+msgstr "Registro de auditoria"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Awaiting submission"
+msgstr "Aguardando envio"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__sla_state__breached
+msgid "Breached"
+msgstr "Violado"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__request_date
+msgid ""
+"Business date the request concerns (delivery, service period, etc.); "
+"distinct from the submission timestamp."
+msgstr ""
+"Data comercial a que a solicitação se refere (entrega, período de serviço, "
+"etc.); distinta do carimbo de data/hora do envio."
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid ""
+"Bypass the remaining approval chain and approve outright? This is logged."
+msgstr ""
+"Ignorar a cadeia de aprovação restante e aprovar diretamente? Isso é "
+"registrado."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Cannot withdraw %s in state %s."
+msgstr "Não é possível retirar %s no estado %s."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__comment
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__comment
+msgid "Comment"
+msgstr "Comentário"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__company_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__company_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__company_id
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Company"
+msgstr "Empresa"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__completed
+msgid "Completed"
+msgstr "Concluído"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_res_partner
+msgid "Contact"
+msgstr "Contato"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Created Month"
+msgstr "Mês de criação"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__create_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__create_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__create_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__create_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__create_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__create_uid
+msgid "Created by"
+msgstr "Criado por"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__create_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__create_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__create_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__create_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__create_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__create_date
+msgid "Created on"
+msgstr "Criado em"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__currency_id
+msgid "Currency"
+msgstr "Moeda"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__currency_id
+msgid ""
+"Currency of the underlying move; used by views to render submitted_amount "
+"with the correct symbol."
+msgstr ""
+"Moeda do lançamento subjacente; usada pelas visualizações para renderizar "
+"submitted_amount com o símbolo correto."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__current_step
+msgid "Current Step"
+msgstr "Etapa atual"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy__document_type__out_invoice
+msgid "Customer invoice"
+msgstr "Fatura de cliente"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Customer invoices"
+msgstr "Faturas de clientes"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy__document_type__out_refund
+msgid "Customer refund"
+msgstr "Reembolso do cliente"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Customer refunds"
+msgstr "Reembolsos de clientes"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__due_at
+msgid ""
+"Deadline derived from rule.sla_hours. Empty when the rule has no SLA target."
+msgstr ""
+"Prazo derivado de rule.sla_hours. Vazio quando a regra não tem meta de SLA."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__decision
+msgid "Decision"
+msgstr "Decisão"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__delegated
+msgid "Delegated"
+msgstr "Delegado"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Nome exibido"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__document_type
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Document Type"
+msgstr "Tipo de documento"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__due_at
+msgid "Due At"
+msgstr "Vence em"
+
+#. module: eh_account_approval
+#: model:mail.template,name:eh_account_approval.email_template_eh_approval_reminder
+msgid "EH Approval Reminder"
+msgstr "Lembrete de Aprovação EH"
+
+#. module: eh_account_approval
+#: model:ir.actions.server,name:eh_account_approval.cron_eh_approval_sla_sweep_ir_actions_server
+msgid "EH Approval: SLA reminder & escalation sweep"
+msgstr "Aprovação EH: lembrete de SLA e varredura de escalonamento"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_bank_statement_line__eh_active_approval_request_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__eh_active_approval_request_id
+msgid "Eh Active Approval Request"
+msgstr "Eh Solicitação de aprovação ativa"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_res_partner__eh_pending_approval_count
+#: model:ir.model.fields,field_description:eh_account_approval.field_res_users__eh_pending_approval_count
+msgid "Eh Pending Approval Count"
+msgstr "Contagem de aprovações pendentes"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_bank_statement_line__eh_requires_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__eh_requires_approval
+msgid "Eh Requires Approval"
+msgstr "Requer aprovação"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__escalate_after_hours
+msgid "Escalate After Hours"
+msgstr "Escalonar Após (Horas)"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Escalate Now"
+msgstr "Escalonar Agora"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__escalate_to_group_id
+msgid "Escalate To Group"
+msgstr "Escalonar para Grupo"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__escalated
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Escalated"
+msgstr "Transferido"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Escalated to %s%s"
+msgstr "Escalonado para %s%s"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__escalation_level
+msgid "Escalation Level"
+msgstr "Nível de Escalonamento"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"Escalation: approval %(name)s breached its SLA by %(hours).1f hours. "
+"Forwarding to %(group)s for intervention."
+msgstr ""
+"Escalonamento: a aprovação %(name)s ultrapassou seu SLA em %(hours).1f "
+"horas. Encaminhando para %(group)s para intervenção."
+
+#. module: eh_account_approval
+#: model_terms:ir.actions.act_window,help:eh_account_approval.action_eh_approval_log
+msgid ""
+"Every approval, rejection, withdrawal, and override appears here. Rows are "
+"append-only; the table refuses write and unlink at the framework level."
+msgstr ""
+"Cada aprovação, rejeição, retirada e substituição aparece aqui. As linhas "
+"são somente de acréscimo; a tabela recusa gravação e desvinculação no nível "
+"do framework."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (usuários)"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Ícone do Font Awesome. Ex.: fa-tasks"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Force Approve"
+msgstr "Forçar aprovação"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__force_approved
+msgid "Force approved"
+msgstr "Aprovado de forma forçada"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Force approved."
+msgstr "Aprovado de forma forçada."
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Forward this request to the configured escalation group?"
+msgstr ""
+"Encaminhar esta solicitação para o grupo de escalonamento configurado?"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_log__comment
+msgid ""
+"Free-form note. The only field that stays writable after the row is created."
+msgstr ""
+"Nota em formato livre. O único campo que permanece editável após a criação "
+"da linha."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__request_reference
+msgid ""
+"Free-form reference shown to approvers (PO number, contract id, ticket, "
+"etc.)."
+msgstr ""
+"Referência em formato livre exibida aos aprovadores (número do PO, id do "
+"contrato, ticket, etc.)."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__escalate_to_group_id
+msgid ""
+"Group the request is escalated to after the breach window expires. Leave "
+"empty to disable escalation; the cron will still post a chatter warning so "
+"the requester sees the miss."
+msgstr ""
+"Grupo para o qual a solicitação é escalonada após a expiração da janela de "
+"violação. Deixe em branco para desativar o escalonamento; o cron ainda "
+"publicará um aviso no chatter para que o solicitante veja a falha."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__has_message
+msgid "Has Message"
+msgstr "Tem uma mensagem"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_res_partner__id
+msgid "ID"
+msgstr "Id."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_exception_icon
+msgid "Icon"
+msgstr "Ícone"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Ícone para indicar uma atividade excepcional."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Se marcado, há novas mensagens precisando de sua atenção."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__message_has_error
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Se marcado, há mensagens com erros de entrega."
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__in_review
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "In review"
+msgstr "Em análise"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_is_follower
+msgid "Is Follower"
+msgstr "É um seguidor"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__is_overdue
+msgid "Is Overdue"
+msgstr "Está atrasado"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_account_move
+msgid "Journal Entry"
+msgstr "Lançamento de diário"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Journal entries"
+msgstr "Lançamentos contábeis"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy__document_type__entry
+msgid "Journal entry"
+msgstr "Lançamento contábil"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__last_escalated_at
+msgid "Last Escalated At"
+msgstr "Última escalação em"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__last_reminded_at
+msgid "Last Reminded At"
+msgstr "Último lembrete em"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__write_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__write_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__write_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__write_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__write_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__write_uid
+msgid "Last Updated by"
+msgstr "Última atualização por"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__write_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__write_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__write_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__write_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__write_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__write_date
+msgid "Last Updated on"
+msgstr "Última atualização em"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__sla_state
+msgid "Lifecycle bucket used by dashboards and the kanban view."
+msgstr ""
+"Grupo de ciclo de vida usado pelos painéis e pela visualização kanban."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__log_ids
+msgid "Log"
+msgstr "Registo"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__min_amount
+msgid "Lower bound of the amount band (inclusive)."
+msgstr "Limite inferior da faixa de valor (inclusivo)."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Material amount change triggered re-approval."
+msgstr "Uma alteração significativa no valor acionou uma nova aprovação."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__max_amount
+msgid "Max Amount"
+msgstr "Valor máx."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__pending_group_user_ids
+msgid "Members of the pending group, surfaced for the kanban inbox."
+msgstr "Membros do grupo pendente, exibidos para a caixa de entrada kanban."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_has_error
+msgid "Message Delivery error"
+msgstr "Erro na entrega da mensagem"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_ids
+msgid "Messages"
+msgstr "Mensagens"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__min_amount
+msgid "Min Amount"
+msgstr "Valor mín."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__approval_minimum
+msgid ""
+"Minimum number of distinct approvals before the step advances (N-of-M). "
+"Default 1 = any single eligible approver. The required approvers always "
+"count toward and must be included in this minimum."
+msgstr ""
+"Número mínimo de aprovações distintas antes de a etapa avançar (N-of-M). O "
+"padrão 1 = qualquer aprovador elegível único. Os aprovadores obrigatórios "
+"sempre contam e devem ser incluídos neste mínimo."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__move_id
+msgid "Move"
+msgstr "Movimentação"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__submitted_amount
+msgid "Move amount at submission. Used for re-approval detection."
+msgstr "Valor do lançamento no envio. Usado para detecção de reaprovação."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid ""
+"Move amount changed from %(old).2f to %(new).2f after approval; re-approval "
+"required."
+msgstr ""
+"O valor do lançamento mudou de %(old).2f para %(new).2f após a aprovação; "
+"reaprovação necessária."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid ""
+"Move amount changed materially after approval. The request has been reset; "
+"every step must re-sign before posting."
+msgstr ""
+"O valor do lançamento mudou de forma material após a aprovação. A "
+"solicitação foi redefinida; cada etapa deve reassinar antes de lançar."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Prazo da minha atividade"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "My pending step"
+msgstr "Minha etapa pendente"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__name
+msgid "Name"
+msgstr "Nome"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__approver_ids
+msgid "Named approvers"
+msgstr "Aprovadores nomeados"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Evento no calendário para a próxima atividade"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Prazo da próxima atividade"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumo da próxima atividade"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo da próxima atividade"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__sla_state__na
+msgid "No SLA"
+msgstr "Sem SLA"
+
+#. module: eh_account_approval
+#: model_terms:ir.actions.act_window,help:eh_account_approval.action_eh_approval_log
+msgid "No approval decisions yet."
+msgstr "Nenhuma decisão de aprovação ainda."
+
+#. module: eh_account_approval
+#: model_terms:ir.actions.act_window,help:eh_account_approval.action_eh_approval_policy
+msgid "No approval policies yet."
+msgstr "Nenhuma política de aprovação ainda."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid "No approval policy applies to %s. Configure one or post directly."
+msgstr ""
+"Nenhuma política de aprovação se aplica a %s. Configure uma ou lance "
+"diretamente."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"No escalation group is configured on rule %(name)s. Set escalate_to_group_id"
+" on the policy rule first."
+msgstr ""
+"Nenhum grupo de escalonamento está configurado na regra %(name)s. Defina "
+"escalate_to_group_id na regra da política primeiro."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__notes
+msgid "Notes"
+msgstr "Notas"
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid ""
+"Now find the <b>Approval Policies</b> entry under Configuration. A policy "
+"maps a document type (vendor bills, customer invoices, journal entries) to a"
+" set of approver groups."
+msgstr ""
+"Agora localize a entrada <b>Políticas de Aprovação</b> em Configuração. Uma "
+"política mapeia um tipo de documento (contas de fornecedor, faturas de "
+"cliente, lançamentos contábeis) para um conjunto de grupos de aprovadores."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de ações"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de erros"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensagens que requerem ação"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensagens com erro de entrega"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__escalation_level
+msgid ""
+"Number of times the SLA has been breached on this request. Each escalation "
+"pass increments by one."
+msgstr ""
+"Número de vezes que o SLA foi violado nesta solicitação. Cada passagem de "
+"escalonamento incrementa em um."
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid ""
+"On a policy, add at least one <b>rule</b> with an amount band and an ordered"
+" list of approver groups. The first rule whose band matches the move's "
+"amount wins; the request walks the group list one signature at a time."
+msgstr ""
+"Em uma política, adicione pelo menos uma <b>regra</b> com uma faixa de valor"
+" e uma lista ordenada de grupos aprovadores. A primeira regra cuja faixa "
+"corresponde ao valor do lançamento prevalece; a solicitação percorre a lista"
+" de grupos uma assinatura de cada vez."
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__sla_state__on_track
+msgid "On track"
+msgstr "No caminho certo"
+
+#. module: eh_account_approval
+#: model_terms:ir.actions.act_window,help:eh_account_approval.action_eh_approval_policy
+msgid ""
+"One policy per (company, document type). Rules within a policy carry an "
+"amount band and an ordered list of approver groups. Documents below the "
+"lowest band post without approval."
+msgstr ""
+"Uma política por (empresa, tipo de documento). As regras dentro de uma "
+"política têm uma faixa de valor e uma lista ordenada de grupos de "
+"aprovadores. Documentos abaixo da faixa mais baixa são lançados sem "
+"aprovação."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Only an EH Accounting Manager can force-approve a request."
+msgstr ""
+"Somente um gerente de contabilidade EH pode forçar a aprovação de uma "
+"solicitação."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Only approved requests can be archived."
+msgstr "Somente solicitações aprovadas podem ser arquivadas."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Only in-review requests can be force-approved; %s is %s."
+msgstr "Somente solicitações em revisão podem ser aprovadas à força; %s é %s."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Only pending requests can be submitted; %s is %s."
+msgstr "Apenas solicitações pendentes podem ser enviadas; %s é %s."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"Only the requester or an EH Accounting Manager can withdraw an approval "
+"request."
+msgstr ""
+"Apenas o solicitante ou um EH Accounting Manager pode retirar uma "
+"solicitação de aprovação."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Only withdrawn or rejected requests can be restarted."
+msgstr "Apenas solicitações retiradas ou rejeitadas podem ser reiniciadas."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_res_partner__eh_pending_approval_count
+#: model:ir.model.fields,help:eh_account_approval.field_res_users__eh_pending_approval_count
+msgid ""
+"Open approval requests on invoices/bills for this partner. Pending and "
+"in_review states count; approved, rejected, withdrawn and archived do not."
+msgstr ""
+"Solicitações de aprovação em aberto em faturas/contas para este parceiro. Os"
+" estados pending e in_review contam; approved, rejected, withdrawn e "
+"archived não."
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid "Open the <b>Accounting</b> menu first."
+msgstr "Abra primeiro o menu <b>Contabilidade</b>."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy__re_approval_threshold_abs
+msgid ""
+"Optional absolute floor for re-approval. A change of less than this amount "
+"never triggers re-approval, even if it exceeds the percentage threshold. 0 "
+"disables the floor."
+msgstr ""
+"Piso absoluto opcional para reaprovação. Uma alteração inferior a este valor"
+" nunca aciona a reaprovação, mesmo que exceda o limite percentual. 0 "
+"desativa o piso."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__name
+msgid "Optional label shown in the policy form rule list."
+msgstr "Rótulo opcional exibido na lista de regras do formulário de política."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__step_ids
+msgid ""
+"Ordered approval steps. The request walks the steps one at a time, top to "
+"bottom; any user in the step's group can sign off to advance the request. "
+"The step sequence is the single source of truth for order, so creating or "
+"removing unrelated security groups in the system never reorders the steps of"
+" a rule already in use."
+msgstr ""
+"Etapas de aprovação ordenadas. A solicitação percorre as etapas uma de cada "
+"vez, de cima para baixo; qualquer usuário no grupo da etapa pode aprovar "
+"para avançar a solicitação. A sequência de etapas é a única fonte de verdade"
+" para a ordem, portanto criar ou remover grupos de segurança não "
+"relacionados no sistema nunca reordena as etapas de uma regra já em uso."
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Overdue (SLA breached)"
+msgstr "Em atraso (SLA violado)"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy_rule__approval_mode__parallel
+msgid "Parallel"
+msgstr "Paralelo"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__pending
+msgid "Pending"
+msgstr "Pendente"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_partner_form_approvals
+msgid "Pending Approvals"
+msgstr "Aprovações pendentes"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__pending_group_id
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Pending Group"
+msgstr "Grupo pendente"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__pending_group_user_ids
+msgid "Pending Group User"
+msgstr "Usuário do grupo pendente"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_partner_form_approvals
+msgid "Pending approvals"
+msgstr "Aprovações pendentes"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Pending approvers"
+msgstr "Aprovadores pendentes"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__vote_ids
+msgid ""
+"Per-approver decisions, used for N-of-M and required approver tracking."
+msgstr ""
+"Decisões por aprovador, usadas para rastreamento N-de-M e de aprovadores "
+"obrigatórios."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__policy_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__policy_id
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Policy"
+msgstr "Política"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid ""
+"Policy %(policy)s has no rule covering amount %(amt).2f. Adjust the policy's"
+" amount bands."
+msgstr ""
+"A política %(policy)s não tem nenhuma regra cobrindo o valor %(amt).2f. "
+"Ajuste as faixas de valor da política."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_policy.py:0
+msgid ""
+"Policy %s has no rules. Add at least one rule with an amount band and an "
+"approver group."
+msgstr ""
+"A política %s não tem regras. Adicione pelo menos uma regra com uma faixa de"
+" valor e um grupo de aprovadores."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__sequence
+msgid ""
+"Position of this step in the approval chain. The request advances through "
+"the steps in ascending sequence; ties break on record id. This column is the"
+" only thing that decides step order, so it cannot drift when unrelated "
+"security groups are created or removed elsewhere in the system, even for a "
+"request already in review."
+msgstr ""
+"Posição desta etapa na cadeia de aprovação. A solicitação avança pelas "
+"etapas em sequência crescente; os empates são decididos pelo ID do registro."
+" Esta coluna é a única coisa que define a ordem das etapas, portanto ela não"
+" pode se desviar quando grupos de segurança não relacionados são criados ou "
+"removidos em outro ponto do sistema, mesmo para uma solicitação já em "
+"análise."
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Post a chatter note tagging the current approver group."
+msgstr "Publique uma nota no chatter marcando o grupo de aprovadores atual."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__rating_ids
+msgid "Ratings"
+msgstr "Avaliações"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__re_approval_threshold_abs
+msgid "Re Approval Threshold Abs"
+msgstr "Limite de reaprovação (absoluto)"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__re_approval_threshold_pct
+msgid "Re Approval Threshold Pct"
+msgstr "Limite de reaprovação (percentual)"
+
+#. module: eh_account_approval
+#: model:ir.model.constraint,message:eh_account_approval.constraint_eh_approval_policy_check_thresholds
+msgid "Re-approval thresholds cannot be negative."
+msgstr "Os limites de reaprovação não podem ser negativos."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__approver_summary
+msgid "Read-only preview of the ordered approver groups."
+msgstr "Visualização somente leitura dos grupos de aprovadores ordenados."
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Reject"
+msgstr "Rejeitar"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid ""
+"Reject the request? This is terminal; the move cannot post until a new "
+"request is created."
+msgstr ""
+"Rejeitar a solicitação? Isso é definitivo; o lançamento não pode ser lançado"
+" até que uma nova solicitação seja criada."
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__rejected
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__rejected
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_vote__decision__reject
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+msgid "Rejected"
+msgstr "Rejeitado"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Rejected / Withdrawn"
+msgstr "Rejeitado / Retirado"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Rejected: %s"
+msgstr "Rejeitado: %s"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__rejection_reason
+msgid "Rejection Reason"
+msgstr "Motivo da rejeição"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__request_partner_id
+msgid "Related partner"
+msgstr "Parceiro relacionado"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__reminder_after_hours
+msgid "Reminder After Hours"
+msgstr "Lembrete Após o Expediente"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"Reminder: approval %(name)s for %(amount).2f is awaiting sign-off by "
+"%(group)s. Due %(due)s."
+msgstr ""
+"Lembrete: a aprovação %(name)s de %(amount).2f está aguardando autorização "
+"de %(group)s. Vencimento %(due)s."
+
+#. module: eh_account_approval
+#: model:mail.template,subject:eh_account_approval.email_template_eh_approval_reminder
+msgid "Reminder: approval awaiting your sign-off — {{ object.name }}"
+msgstr "Lembrete: aprovação aguardando sua autorização — {{ object.name }}"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__request_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__request_id
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+msgid "Request"
+msgstr "Solicitação"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Request %s has no pending step; nothing to approve."
+msgstr "A solicitação %s não tem etapa pendente; nada a aprovar."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Request %s is %s; only in-review requests can be approved or rejected."
+msgstr ""
+"A solicitação %s está %s; somente solicitações em análise podem ser "
+"aprovadas ou rejeitadas."
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_account_move_form_approval
+msgid "Request Approval"
+msgstr "Aprovação da solicitação"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__request_date
+msgid "Request Date"
+msgstr "Data da solicitação:"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__request_reference
+msgid "Request Reference"
+msgstr "Referência da solicitação"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Request details"
+msgstr "Detalhes da solicitação"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__requested_by_id
+msgid "Requested By"
+msgstr "Solicitado por"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Requester"
+msgstr "Solicitante"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__required_approver_ids
+msgid "Required approvers"
+msgstr "Aprovadores obrigatórios"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__reset
+msgid "Reset (re-approval triggered)"
+msgstr "Redefinido (reaprovação acionada)"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_user_id
+msgid "Responsible User"
+msgstr "Usuário responsável"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Restart"
+msgstr "Reiniciar"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__restarted
+msgid "Restarted"
+msgstr "Reiniciado"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Restarted."
+msgstr "Reiniciado."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__rule_ids
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__rule_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__rule_id
+msgid "Rule"
+msgstr "Regra"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_policy.py:0
+msgid ""
+"Rule %s has no approval steps. Add at least one step; the rule is "
+"meaningless without one."
+msgstr ""
+"A regra %s não tem etapas de aprovação. Adicione pelo menos uma etapa; sem "
+"ela a regra não tem sentido."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__rule_count
+msgid "Rule Count"
+msgstr "Contagem de regras"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid "Rules"
+msgstr "Regras"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid ""
+"Rules are evaluated in sequence; the first rule whose amount band matches "
+"wins. Use min_amount=0 / max_amount=0 to match any amount. Approver groups "
+"are signed in the listed order; any user in the current group can sign for "
+"that step."
+msgstr ""
+"As regras são avaliadas em sequência; vence a primeira regra cuja faixa de "
+"valor corresponde. Use min_amount=0 / max_amount=0 para corresponder a "
+"qualquer valor. Os grupos de aprovadores assinam na ordem listada; qualquer "
+"usuário do grupo atual pode assinar essa etapa."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"SLA breached on %(name)s by %(hours).1f hours. No escalation group is "
+"configured; manual follow-up needed."
+msgstr ""
+"SLA violado em %(name)s por %(hours).1f horas. Nenhum grupo de escalonamento"
+" está configurado; é necessário acompanhamento manual."
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid ""
+"SLA hours sets the deadline from submission to final approval. Reminder "
+"hours pings the current approver group at that fraction of the window. "
+"Escalation hours forwards a still-unsigned request to the escalation group "
+"after the breach."
+msgstr ""
+"As horas de SLA definem o prazo desde o envio até a aprovação final. As "
+"horas de lembrete notificam o grupo de aprovadores atual nessa fração da "
+"janela. As horas de escalonamento encaminham uma solicitação ainda não "
+"assinada ao grupo de escalonamento após a violação."
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "SLA tracking"
+msgstr "Rastreamento de SLA"
+
+#. module: eh_account_approval
+#: model:ir.model.constraint,message:eh_account_approval.constraint_eh_approval_policy_rule_check_sla_hours_non_negative
+msgid "SLA, reminder and escalation hours must be zero or positive."
+msgstr ""
+"As horas de SLA, lembrete e escalonamento devem ser zero ou positivas."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Erro no envio de SMS"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Send Reminder"
+msgstr "Enviar lembrete"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__reminder_after_hours
+msgid ""
+"Send a chatter ping to the current approver group when this many hours of "
+"the SLA have elapsed. Zero disables the pre-deadline reminder. Reminders are"
+" idempotent per step; a subsequent run will not double-post."
+msgstr ""
+"Envia um ping no chatter para o grupo de aprovadores atual quando este "
+"número de horas do SLA tiver decorrido. Zero desativa o lembrete antes do "
+"prazo. Os lembretes são idempotentes por etapa; uma execução subsequente não"
+" publicará em duplicidade."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__sequence
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__sequence
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__sequence
+msgid "Sequence"
+msgstr "Sequência"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy_rule__approval_mode__sequential
+msgid "Sequential"
+msgstr "Sequencial"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__approval_mode
+msgid ""
+"Sequential: steps are signed in order, one after another. Parallel: every "
+"step is open at once and the request is approved when all steps are "
+"satisfied."
+msgstr ""
+"Sequencial: as etapas são assinadas em ordem, uma após a outra. Paralelo: "
+"cada etapa fica aberta ao mesmo tempo e a solicitação é aprovada quando "
+"todas as etapas são satisfeitas."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__sla_hours
+msgid ""
+"Service-level target in hours from request submission to the final approval."
+" Zero disables SLA tracking for this band. The cron uses this value to "
+"compute due_at and to send reminders before the deadline."
+msgstr ""
+"Meta de nível de serviço em horas desde o envio da solicitação até a "
+"aprovação final. Zero desativa o rastreamento de SLA para esta faixa. O cron"
+" usa esse valor para calcular due_at e enviar lembretes antes do prazo."
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid ""
+"Set <b>SLA hours</b>, <b>Reminder hours</b>, and an <b>Escalation group</b> "
+"on the rule for the request to track its deadline. The hourly cron sends "
+"reminders inside the SLA window and forwards a breached request to the "
+"escalation group once."
+msgstr ""
+"Defina <b>Horas de SLA</b>, <b>Horas de lembrete</b> e um <b>Grupo de "
+"escalonamento</b> na regra para que a solicitação acompanhe seu prazo. O "
+"cron por hora envia lembretes dentro da janela de SLA e encaminha uma "
+"solicitação violada ao grupo de escalonamento uma vez."
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid ""
+"Skip the SLA window and escalate immediately. Requires an escalation group "
+"on the rule."
+msgstr ""
+"Ignorar a janela de SLA e escalar imediatamente. Requer um grupo de "
+"escalonamento na regra."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__sla_hours
+msgid "Sla Hours"
+msgstr "Horas de SLA"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__sla_state
+msgid "Sla State"
+msgstr "Estado do SLA"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__approver_ids
+msgid ""
+"Specific users who may sign this step, in addition to any group members. Use"
+" for per-person routing rather than a broad security group."
+msgstr ""
+"Usuários específicos que podem assinar esta etapa, além de quaisquer membros"
+" do grupo. Use para roteamento por pessoa em vez de um grupo de segurança "
+"amplo."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__last_escalated_at
+msgid "Stamped when the cron last escalated the request."
+msgstr "Registrado quando o cron escalou a solicitação pela última vez."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__last_reminded_at
+msgid "Stamped when the cron last sent a pre-deadline reminder."
+msgstr ""
+"Registrado quando o cron enviou pela última vez um lembrete antes do prazo."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__submitted_at
+msgid "Stamped when the request first transitions out of pending."
+msgstr ""
+"Registrado quando a solicitação sai pela primeira vez do estado pendente."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__state
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "State"
+msgstr "Estado"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Status baseado em atividades\n"
+"Atrasado: data de vencimento já passou\n"
+"Hoje: data da atividade é hoje\n"
+"Planejado: atividades futuras."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__step
+msgid "Step"
+msgstr "Etapa"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_policy.py:0
+msgid ""
+"Step %s has no approver source: set a group, name approvers, or enable "
+"manager injection."
+msgstr ""
+"A etapa %s não tem origem de aprovador: defina um grupo, nomeie aprovadores "
+"ou ative a injeção de gerente."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__step_index
+msgid "Step Index"
+msgstr "Índice da etapa"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Step completed; advanced."
+msgstr "Etapa concluída; avançado."
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid ""
+"Steps are signed top to bottom. Drag the handle to reorder. Any user in a "
+"step's group can sign for that step."
+msgstr ""
+"As etapas são assinadas de cima para baixo. Arraste a alça para reordenar. "
+"Qualquer usuário no grupo de uma etapa pode assinar essa etapa."
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Submit"
+msgstr "Enviar"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__submitted
+msgid "Submitted"
+msgstr "Enviada"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__submitted_amount
+msgid "Submitted Amount"
+msgstr "Valor enviado"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__submitted_at
+msgid "Submitted At"
+msgstr "Enviado em"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Submitted for approval."
+msgstr "Enviado para aprovação."
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid ""
+"That's it. Once a policy + rule cover a document, users see a <b>Request "
+"Approval</b> button on the draft form, and posting is blocked until every "
+"group in the rule has signed off. <br/><br/>The Approvals menu shows the "
+"live pipeline as a kanban grouped by state."
+msgstr ""
+"É isso. Assim que uma política + regra cobrem um documento, os usuários veem"
+" um botão <b>Solicitar aprovação</b> no formulário de rascunho, e o "
+"lançamento fica bloqueado até que todos os grupos da regra tenham aprovado. "
+"<br/><br/>O menu Aprovações mostra o pipeline ao vivo como um kanban "
+"agrupado por estado."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_account_bank_statement_line__eh_active_approval_request_id
+#: model:ir.model.fields,help:eh_account_approval.field_account_move__eh_active_approval_request_id
+msgid ""
+"The currently-effective approval request for this move. Empty when no policy"
+" applies, no request exists, or the request was withdrawn / rejected."
+msgstr ""
+"A solicitação de aprovação atualmente em vigor para este lançamento. Vazio "
+"quando nenhuma política se aplica, nenhuma solicitação existe ou a "
+"solicitação foi retirada / rejeitada."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__pending_group_id
+msgid "The group that owns the next signature."
+msgstr "O grupo que possui a próxima assinatura."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__rule_id
+msgid "The rule whose amount band matched at submission time."
+msgstr "A regra cuja faixa de valor correspondeu no momento do envio."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__total_steps
+msgid "Total Steps"
+msgstr "Total de Etapas"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_account_bank_statement_line__eh_requires_approval
+#: model:ir.model.fields,help:eh_account_approval.field_account_move__eh_requires_approval
+msgid ""
+"True when a policy applies to this move and the approval is not yet "
+"complete. Used by the form to surface the Submit for approval button."
+msgstr ""
+"True quando uma política se aplica a este lançamento e a aprovação ainda não"
+" está concluída. Usado pelo formulário para exibir o botão Submit for "
+"approval."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__is_overdue
+msgid "True when the request is past its due_at and still open."
+msgstr "True quando a solicitação passou do seu due_at e ainda está aberta."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de atividade de exceção registrada."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Unsupported search operator on is_overdue."
+msgstr "Operador de pesquisa não suportado em is_overdue."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__max_amount
+msgid ""
+"Upper bound of the amount band (inclusive). Use 0 for no upper bound; the "
+"rule then matches any amount at or above min_amount."
+msgstr ""
+"Limite superior da faixa de valor (inclusive). Use 0 para não haver limite "
+"superior; a regra então corresponde a qualquer valor igual ou superior a "
+"min_amount."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__user_id
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+msgid "User"
+msgstr "Usuário"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_log__user_id
+msgid "User who performed the action this row records."
+msgstr "Usuário que executou a ação registrada por esta linha."
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy__document_type__in_invoice
+msgid "Vendor bill"
+msgstr "Fatura de fornecedor"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Vendor bills"
+msgstr "Faturas de fornecedores"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid "Vendor bills above 1000"
+msgstr "Faturas de fornecedores acima de 1000"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy__document_type__in_refund
+msgid "Vendor refund"
+msgstr "Reembolso do fornecedor"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Vendor refunds"
+msgstr "Reembolsos de fornecedores"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__vote_ids
+msgid "Vote"
+msgstr "Voto"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__voted_at
+msgid "Voted At"
+msgstr "Votado em"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Votes"
+msgstr "Votos"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__website_message_ids
+msgid "Website Messages"
+msgstr "Mensagens do site"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__website_message_ids
+msgid "Website communication history"
+msgstr "Histórico de comunicação do site"
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid ""
+"Welcome to the <b>Approval Workflow</b>. This walkthrough shows the two "
+"setup steps you need to do before approvals start gating posts."
+msgstr ""
+"Bem-vindo ao <b>Approval Workflow</b>. Este guia mostra as duas etapas de "
+"configuração que você precisa realizar antes que as aprovações comecem a "
+"controlar os lançamentos."
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "When"
+msgstr "Quando"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy__re_approval_threshold_pct
+msgid ""
+"When a partially approved move's amount changes by more than this "
+"percentage, the approval request resets and every step must re-sign. Default"
+" seeded from the company's Heritage settings."
+msgstr ""
+"Quando o valor de um lançamento parcialmente aprovado varia mais do que esse"
+" percentual, a solicitação de aprovação é redefinida e cada etapa deve "
+"assinar novamente. Padrão derivado das configurações Heritage da empresa."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy__allow_self_approval
+msgid ""
+"When off (the default), the user who submitted a request cannot approve or "
+"reject it, even if they belong to a pending approver group. Segregation of "
+"duties: someone else must sign. Turn on only for single-operator companies "
+"that accept self sign-off."
+msgstr ""
+"Quando desativado (padrão), o usuário que enviou uma solicitação não pode "
+"aprová-la ou rejeitá-la, mesmo que pertença a um grupo de aprovadores "
+"pendente. Segregação de funções: outra pessoa deve assinar. Ative apenas "
+"para empresas de operador único que aceitam a autoaprovação."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__inject_manager
+msgid ""
+"When set, the HR manager of the user who submitted the request is added as "
+"an eligible approver for this step."
+msgstr ""
+"Quando definido, lançar uma out_invoice para este parceiro dispara um "
+"espelho intercompanhia como fatura de fornecedor na empresa indicada. Deixe "
+"em branco se o parceiro for um cliente comum."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__escalate_after_hours
+msgid ""
+"When the SLA breach exceeds this many hours past due_at, the cron promotes "
+"the request to the escalation group. Zero disables auto-escalation; in that "
+"case the breach is logged but the queue stays with the original group."
+msgstr ""
+"Quando a violação do SLA excede este número de horas após due_at, o cron "
+"promove a solicitação ao grupo de escalonamento. Zero desativa o "
+"escalonamento automático; nesse caso, a violação é registrada, mas a fila "
+"permanece com o grupo original."
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Withdraw"
+msgstr "Anular"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__withdrawn
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__withdrawn
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+msgid "Withdrawn"
+msgstr "Retirado"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"You are not an eligible approver for the pending step(s) of request %s."
+msgstr ""
+"Você não é um aprovador elegível para a(s) etapa(s) pendente(s) da "
+"solicitação %s."
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"You submitted request %s and cannot approve or reject your own request. "
+"Segregation of duties requires a different approver to sign off."
+msgstr ""
+"Você enviou a solicitação %s e não pode aprovar ou rejeitar sua própria "
+"solicitação. A segregação de funções exige que um aprovador diferente faça a"
+" validação."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_vote__step_index
+msgid "Zero-based index of the step this vote applies to."
+msgstr "Índice baseado em zero da etapa à qual este voto se aplica."
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_kanban
+msgid "x"
+msgstr ""

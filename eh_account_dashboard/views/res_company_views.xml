@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- Ratio warn thresholds: edited on the company form. Deliberately
+         not mirrored into res.config.settings. -->
+    <record id="view_company_form_eh_ratio_thresholds" model="ir.ui.view">
+        <field name="name">res.company.form.eh.ratio.thresholds</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Ratio Thresholds" name="eh_ratio_thresholds">
+                    <group>
+                        <group string="Warn when below">
+                            <field name="eh_ratio_warn_current"/>
+                            <field name="eh_ratio_warn_quick"/>
+                            <field name="eh_ratio_warn_cash"/>
+                            <field name="eh_ratio_warn_interest_cover"/>
+                            <field name="eh_ratio_warn_net_margin_pct"/>
+                        </group>
+                        <group string="Warn when above">
+                            <field name="eh_ratio_warn_debt_equity"/>
+                            <field name="eh_ratio_warn_ccc_days"/>
+                        </group>
+                    </group>
+                    <div class="text-muted">
+                        These levels drive the status colour of the ratio
+                        tiles on the ERP Heritage financial dashboard.
+                        Ratios without a threshold render in the neutral
+                        informational style.
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

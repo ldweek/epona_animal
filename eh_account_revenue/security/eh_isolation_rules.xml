@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="0">
+    <data>
+
+        <record id="rule_eh_revenue_contract_company" model="ir.rule">
+            <field name="name">eh.revenue.contract: company isolation</field>
+            <field name="model_id" ref="model_eh_revenue_contract"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_revenue_obligation_company" model="ir.rule">
+            <field name="name">eh.revenue.obligation: company isolation</field>
+            <field name="model_id" ref="model_eh_revenue_obligation"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_revenue_modification_company" model="ir.rule">
+            <field name="name">eh.revenue.modification: company isolation</field>
+            <field name="model_id" ref="model_eh_revenue_modification"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_revenue_constraint_review_company" model="ir.rule">
+            <field name="name">eh.revenue.constraint.review: company isolation</field>
+            <field name="model_id" ref="model_eh_revenue_constraint_review"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

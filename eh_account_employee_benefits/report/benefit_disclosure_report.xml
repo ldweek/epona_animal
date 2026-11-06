@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_report_benefit_disclosure" model="ir.actions.report">
+        <field name="name">IAS 19 Disclosure Schedule</field>
+        <field name="model">eh.benefit.plan</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">eh_account_employee_benefits.report_benefit_disclosure</field>
+        <field name="report_file">eh_account_employee_benefits.report_benefit_disclosure</field>
+        <field name="binding_model_id" ref="model_eh_benefit_plan"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'IAS 19 - %s' % (object.name)</field>
+    </record>
+
+    <template id="report_benefit_disclosure">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="disclosure" t-value="doc.get_disclosure_values()"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>IAS 19 Defined Benefit Disclosure Schedule</h2>
+                        <p>
+                            <strong>Plan:</strong>
+                            <span t-field="doc.name"/>
+                            <span> | </span>
+                            <strong>Currency:</strong>
+                            <span t-field="doc.currency_id.name"/>
+                        </p>
+
+                        <t t-if="not disclosure['periods']">
+                            <p>No posted valuations are available for this plan.</p>
+                        </t>
+                        <t t-foreach="disclosure['periods']" t-as="row">
+                            <h3>
+                                Period ended
+                                <span t-esc="row['period_end']"/>
+                            </h3>
+
+                            <h4>Statement of Financial Position (net presentation)</h4>
+                            <table class="table table-sm o_main_table">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th class="text-end">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span t-esc="row['presentation_label']"/></td>
+                                        <td class="text-end">
+                                            <span t-esc="'{:,.2f}'.format(row['presentation_amount'])"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h4>Defined Benefit Obligation Reconciliation</h4>
+                            <table class="table table-sm o_main_table">
+                                <thead>
+                                    <tr>
+                                        <th>Opening</th>
+                                        <th>Service cost</th>
+                                        <th>Interest cost</th>
+                                        <th>Benefits paid</th>
+                                        <th>Actuarial loss/(gain)</th>
+                                        <th>Settlements</th>
+                                        <th>Closing</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td t-esc="'{:,.2f}'.format(row['opening_dbo'])"/>
+                                        <td t-esc="'{:,.2f}'.format(row['service_cost'])"/>
+                                        <td t-esc="'{:,.2f}'.format(row['interest_cost'])"/>
+                                        <td t-esc="'{:,.2f}'.format(row['benefits_paid'])"/>
+                                        <td t-esc="'{:,.2f}'.format(row['actuarial_loss_gain'])"/>
+                                        <td t-esc="'{:,.2f}'.format(row['settlement_dbo_released'])"/>
+                                        <td t-esc="'{:,.2f}'.format(row['closing_dbo'])"/>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <t t-if="doc.funded">
+                                <h4>Plan Asset Reconciliation</h4>
+                                <table class="table table-sm o_main_table">
+                                    <thead>
+                                        <tr>
+                                            <th>Opening</th>
+                                            <th>Interest income</th>
+                                            <th>Contributions</th>
+                                            <th>Benefits paid</th>
+                                            <th>Excess return</th>
+                                            <th>Settlements</th>
+                                            <th>Closing</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td t-esc="'{:,.2f}'.format(row['opening_assets'])"/>
+                                            <td t-esc="'{:,.2f}'.format(row['interest_income'])"/>
+                                            <td t-esc="'{:,.2f}'.format(row['contributions_employer'])"/>
+                                            <td t-esc="'{:,.2f}'.format(row['benefits_paid'])"/>
+                                            <td t-esc="'{:,.2f}'.format(row['return_excess'])"/>
+                                            <td t-esc="'{:,.2f}'.format(row['settlement_payment'])"/>
+                                            <td t-esc="'{:,.2f}'.format(row['closing_assets'])"/>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <p>
+                                    <strong>Asset ceiling effect:</strong>
+                                    <span t-esc="'{:,.2f}'.format(row['ceiling_effect'])"/>
+                                </p>
+                            </t>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

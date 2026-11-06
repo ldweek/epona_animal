@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        Pipeline kanban: cards grouped by state so approvers see the
+        queue at a glance. Card carries amount + due_at + SLA badge so
+        a glance reveals what's at risk and what's on track.
+    -->
+    <record id="view_eh_approval_request_kanban" model="ir.ui.view">
+        <field name="name">eh.approval.request.kanban</field>
+        <field name="model">eh.approval.request</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state"
+                    quick_create="false"
+                    records_draggable="false"
+                    class="o_kanban_small_column"
+                    sample="1">
+                <field name="name"/>
+                <field name="move_id"/>
+                <field name="policy_id"/>
+                <field name="submitted_amount"/>
+                <field name="pending_group_id"/>
+                <field name="due_at"/>
+                <field name="sla_state"/>
+                <field name="state"/>
+                <field name="requested_by_id"/>
+                <field name="company_id"/>
+                <field name="escalation_level"/>
+                <field name="currency_id"/>
+                <templates>
+                    <t t-name="card" class="row g-0">
+                        <main class="col-12">
+                            <field name="name" class="fs-5 fw-bold"/>
+                            <field name="move_id" class="text-muted"/>
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <field name="submitted_amount"
+                                       widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                                <field name="sla_state"
+                                       widget="label_selection"
+                                       options="{
+                                           'classes': {
+                                               'on_track':'success',
+                                               'at_risk':'warning',
+                                               'breached':'danger',
+                                               'na':'muted'
+                                           }
+                                       }"/>
+                            </div>
+                            <div class="text-muted mt-1">
+                                <i class="fa fa-users" title="Approver group"/>
+                                <field name="pending_group_id"/>
+                            </div>
+                            <div class="text-muted mt-1" t-if="record.due_at.value">
+                                <i class="fa fa-clock-o" title="Due date"/>
+                                <field name="due_at" widget="remaining_days"/>
+                            </div>
+                            <div t-if="record.escalation_level.raw_value &gt; 0"
+                                 class="text-danger small mt-1">
+                                <i class="fa fa-exclamation-triangle" title="Escalated"/>
+                                Escalated <field name="escalation_level"/>x
+                            </div>
+                            <footer class="d-flex justify-content-between mt-2">
+                                <field name="requested_by_id"
+                                       widget="many2one_avatar_user"/>
+                                <field name="company_id"
+                                       groups="base.group_multi_company"/>
+                            </footer>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_eh_approval_request_list" model="ir.ui.view">
+        <field name="name">eh.approval.request.list</field>
+        <field name="model">eh.approval.request</field>
+        <field name="arch" type="xml">
+            <list string="Approval Requests" default_order="state, create_date desc">
+                <field name="name"/>
+                <field name="move_id"/>
+                <field name="policy_id"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="submitted_amount" widget="monetary"/>
+                <field name="current_step"/>
+                <field name="total_steps"/>
+                <field name="pending_group_id"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'approved'"
+                       decoration-info="state == 'in_review'"
+                       decoration-warning="state == 'pending'"
+                       decoration-danger="state in ('rejected', 'withdrawn')"
+                       decoration-muted="state == 'archived'"/>
+                <field name="due_at" optional="show"/>
+                <field name="sla_state" widget="badge"
+                       optional="show"
+                       decoration-success="sla_state == 'on_track'"
+                       decoration-warning="sla_state == 'at_risk'"
+                       decoration-danger="sla_state == 'breached'"
+                       decoration-muted="sla_state == 'na'"/>
+                <field name="escalation_level" optional="hide"/>
+                <field name="requested_by_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_approval_request_form" model="ir.ui.view">
+        <field name="name">eh.approval.request.form</field>
+        <field name="model">eh.approval.request</field>
+        <field name="arch" type="xml">
+            <form string="Approval Request">
+                <header>
+                    <button name="action_submit"
+                            type="object"
+                            string="Submit"
+                            class="btn-primary"
+                            invisible="state != 'pending'"/>
+                    <button name="action_open_approve_wizard"
+                            type="object"
+                            string="Approve"
+                            class="btn-success"
+                            invisible="state != 'in_review'"/>
+                    <button name="action_open_reject_wizard"
+                            type="object"
+                            string="Reject"
+                            invisible="state != 'in_review'"/>
+                    <button name="action_withdraw"
+                            type="object"
+                            string="Withdraw"
+                            invisible="state in ('approved', 'rejected', 'archived')"/>
+                    <button name="action_restart"
+                            type="object"
+                            string="Restart"
+                            invisible="state not in ('withdrawn', 'rejected')"/>
+                    <button name="action_send_reminder"
+                            type="object"
+                            string="Send Reminder"
+                            invisible="state != 'in_review'"
+                            help="Post a chatter note tagging the current approver group."/>
+                    <button name="action_force_escalate"
+                            type="object"
+                            string="Escalate Now"
+                            invisible="state != 'in_review'"
+                            confirm="Forward this request to the configured escalation group?"
+                            help="Skip the SLA window and escalate immediately. Requires an escalation group on the rule."/>
+                    <button name="action_force_approve"
+                            type="object"
+                            string="Force Approve"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'in_review'"
+                            confirm="Bypass the remaining approval chain and approve outright? This is logged."/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="pending,in_review,approved"/>
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="move_id" options="{'no_create': True}"
+                                   readonly="state != 'pending'"/>
+                            <field name="policy_id"
+                                   options="{'no_create': True}"
+                                   readonly="state != 'pending'"/>
+                            <field name="rule_id"
+                                   options="{'no_create': True}"
+                                   readonly="state != 'pending'"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="submitted_amount" widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"
+                                   readonly="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="requested_by_id" readonly="1"/>
+                            <field name="current_step" readonly="1"/>
+                            <field name="total_steps" readonly="1"/>
+                            <field name="pending_group_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <group invisible="state != 'rejected'">
+                        <field name="rejection_reason" colspan="2"/>
+                    </group>
+                    <group string="Pending approvers"
+                           invisible="state != 'in_review'">
+                        <field name="pending_group_user_ids"
+                               readonly="1" widget="many2many_tags"/>
+                    </group>
+                    <notebook>
+                        <page string="Request details" name="request_details">
+                            <group>
+                                <group>
+                                    <field name="request_reference"
+                                           readonly="state != 'pending'"/>
+                                    <field name="request_partner_id"
+                                           readonly="state != 'pending'"/>
+                                </group>
+                                <group>
+                                    <field name="request_date"
+                                           readonly="state != 'pending'"/>
+                                </group>
+                            </group>
+                            <field name="request_note" widget="text"
+                                   readonly="state != 'pending'"/>
+                        </page>
+                        <page string="SLA tracking" name="sla_tracking"
+                              invisible="state in ('approved', 'rejected', 'withdrawn', 'archived')">
+                            <group>
+                                <group>
+                                    <field name="submitted_at" readonly="1"/>
+                                    <field name="due_at" readonly="1"/>
+                                    <field name="sla_state" readonly="1"
+                                           widget="badge"
+                                           decoration-success="sla_state == 'on_track'"
+                                           decoration-warning="sla_state == 'at_risk'"
+                                           decoration-danger="sla_state == 'breached'"
+                                           decoration-muted="sla_state == 'na'"/>
+                                </group>
+                                <group>
+                                    <field name="last_reminded_at" readonly="1"/>
+                                    <field name="last_escalated_at" readonly="1"/>
+                                    <field name="escalation_level" readonly="1"/>
+                                    <field name="escalated_to_group_id" readonly="1"/>
+                                    <field name="is_overdue" invisible="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Votes" name="votes">
+                            <field name="vote_ids" readonly="1">
+                                <list>
+                                    <field name="voted_at"/>
+                                    <field name="step_index"/>
+                                    <field name="user_id"/>
+                                    <field name="decision"/>
+                                    <field name="comment"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Audit log" name="audit_log">
+                            <field name="log_ids" readonly="1">
+                                <list>
+                                    <field name="create_date" string="When"/>
+                                    <field name="action"/>
+                                    <field name="step"/>
+                                    <field name="user_id"/>
+                                    <field name="comment"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_approval_request_search" model="ir.ui.view">
+        <field name="name">eh.approval.request.search</field>
+        <field name="model">eh.approval.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="move_id"/>
+                <field name="policy_id"/>
+                <field name="requested_by_id"/>
+                <filter name="filter_pending" string="Awaiting submission"
+                        domain="[('state', '=', 'pending')]"/>
+                <filter name="filter_in_review" string="In review"
+                        domain="[('state', '=', 'in_review')]"/>
+                <filter name="filter_approved" string="Approved"
+                        domain="[('state', '=', 'approved')]"/>
+                <filter name="filter_rejected_or_withdrawn" string="Rejected / Withdrawn"
+                        domain="[('state', 'in', ['rejected', 'withdrawn'])]"/>
+                <separator/>
+                <filter name="filter_my_pending" string="My pending step"
+                        domain="[('pending_group_user_ids', 'in', uid),
+                                 ('state', '=', 'in_review')]"/>
+                <separator/>
+                <!--
+                    is_overdue and escalation_level are searchable; sla_state
+                    is a non-stored compute that depends on the current
+                    clock, so it has no search method and cannot back a
+                    filter. Users still see sla_state on the list and
+                    form via the badge widget; "Overdue" + "Escalated"
+                    cover the practical filter cases.
+                -->
+                <filter name="filter_overdue" string="Overdue (SLA breached)"
+                        domain="[('is_overdue', '=', True)]"/>
+                <filter name="filter_escalated" string="Escalated"
+                        domain="[('escalation_level', '&gt;', 0)]"/>
+                <group>
+                    <filter name="group_state" string="State"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_policy" string="Policy"
+                            context="{'group_by': 'policy_id'}"/>
+                    <filter name="group_pending_group" string="Pending Group"
+                            context="{'group_by': 'pending_group_id'}"/>
+                    <filter name="group_requested_by" string="Requester"
+                            context="{'group_by': 'requested_by_id'}"/>
+                    <filter name="group_company" string="Company"
+                            context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company"/>
+                    <filter name="group_create_month" string="Created Month"
+                            context="{'group_by': 'create_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="eh_account_approval_request_view_graph" model="ir.ui.view">
+        <field name="name">eh.approval.request.graph</field>
+        <field name="model">eh.approval.request</field>
+        <field name="arch" type="xml">
+            <graph string="Approval Requests" type="bar" sample="1">
+                <field name="state"/>
+                <field name="submitted_amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_approval_request_view_pivot" model="ir.ui.view">
+        <field name="name">eh.approval.request.pivot</field>
+        <field name="model">eh.approval.request</field>
+        <field name="arch" type="xml">
+            <pivot string="Approval Requests" sample="1">
+                <field name="policy_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="submitted_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_approval_request" model="ir.actions.act_window">
+        <field name="name">Approval Requests</field>
+        <field name="res_model">eh.approval.request</field>
+        <field name="view_mode">kanban,list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_approval_request_search"/>
+        <field name="context">{'search_default_filter_my_pending': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No approval requests yet</p>
+            <p>This is the approver queue for accounting documents held for sign-off. Requests are raised automatically when a document matches an approval policy, so submit or post a covered document to see the first one here.</p>
+        </field>
+    </record>
+
+</odoo>

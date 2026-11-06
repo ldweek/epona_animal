@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_consol_entity_tree" model="ir.ui.view">
+        <field name="name">eh.consol.entity.list</field>
+        <field name="model">eh.consol.entity</field>
+        <field name="arch" type="xml">
+            <list string="Consolidation entities">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="parent_company_id"/>
+                <field name="presentation_currency_id"/>
+                <field name="member_count"/>
+                <field name="run_count"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_consol_entity_search" model="ir.ui.view">
+        <field name="name">eh.consol.entity.search</field>
+        <field name="model">eh.consol.entity</field>
+        <field name="arch" type="xml">
+            <search string="Consolidation entities">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="parent_company_id"/>
+                <filter name="active" string="Active"
+                        domain="[('active', '=', True)]"/>
+                <filter name="inactive" string="Archived"
+                        domain="[('active', '=', False)]"/>
+                <group>
+                    <filter name="group_parent_company"
+                            string="Parent company"
+                            context="{'group_by': 'parent_company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_consol_entity_form" model="ir.ui.view">
+        <field name="name">eh.consol.entity.form</field>
+        <field name="model">eh.consol.entity</field>
+        <field name="arch" type="xml">
+            <form string="Consolidation entity">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_members"
+                                type="object" class="oe_stat_button"
+                                icon="fa-sitemap">
+                            <field name="member_count"
+                                   widget="statinfo" string="Members"/>
+                        </button>
+                        <button name="action_view_runs"
+                                type="object" class="oe_stat_button"
+                                icon="fa-line-chart">
+                            <field name="run_count"
+                                   widget="statinfo" string="Runs"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Acme Group Consolidated"/>
+                        </h1>
+                        <h3>
+                            <field name="code" placeholder="acme_group"/>
+                        </h3>
+                    </div>
+                    <group>
+                        <group string="Definition">
+                            <field name="parent_company_id"/>
+                            <field name="presentation_currency_id"/>
+                        </group>
+                        <group string="Status">
+                            <field name="active"/>
+                        </group>
+                        <group string="Consolidation ledger (optional)">
+                            <field name="consolidation_company_id"
+                                   options="{'no_create': True}"/>
+                            <field name="consolidation_journal_id"
+                                   invisible="not consolidation_company_id"
+                                   options="{'no_create': True}"/>
+                        </group>
+                        <group string="Consolidation accounts (optional)">
+                            <field name="cta_account_id"
+                                   options="{'no_create': True}"/>
+                            <field name="nci_account_id"
+                                   options="{'no_create': True}"/>
+                            <field name="parent_retained_earnings_account_id"
+                                   options="{'no_create': True}"/>
+                            <field name="bargain_purchase_gain_account_id"
+                                   options="{'no_create': True}"/>
+                            <field name="cta_gain_account_id"
+                                   options="{'no_create': True}"/>
+                            <field name="cta_loss_account_id"
+                                   options="{'no_create': True}"/>
+                        </group>
+                        <group string="Automatic eliminations">
+                            <field name="auto_eliminate_intragroup"/>
+                            <field name="auto_eliminate_investment"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Members">
+                            <field name="member_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="company_id"/>
+                                    <field name="ownership_pct"/>
+                                    <field name="method"/>
+                                    <field name="functional_currency_id"/>
+                                    <field name="retained_earnings_account_id"
+                                           optional="hide"
+                                           options="{'no_create': True}"/>
+                                    <field name="investment_account_id"
+                                           optional="show"
+                                           invisible="method == 'proportional'"/>
+                                    <field name="investment_currency_id"
+                                           column_invisible="1"/>
+                                    <field name="investment_amount"
+                                           optional="hide"
+                                           invisible="method == 'proportional'"/>
+                                    <field name="acquisition_date"
+                                           optional="hide"
+                                           invisible="method != 'full'"/>
+                                    <field name="acquisition_equity"
+                                           optional="hide"
+                                           invisible="method != 'full'"/>
+                                    <field name="historical_rate"
+                                           optional="hide"
+                                           invisible="method != 'full'"/>
+                                    <field name="equity_elimination_account_id"
+                                           optional="hide"
+                                           invisible="method != 'full'"/>
+                                    <field name="goodwill_account_id"
+                                           optional="hide"
+                                           invisible="method != 'full'"/>
+                                    <field name="nci_basis"
+                                           optional="hide"
+                                           invisible="method != 'full'"/>
+                                    <field name="nci_fair_value"
+                                           optional="hide"
+                                           invisible="nci_basis != 'fair_value'"/>
+                                    <field name="nci_account_id"
+                                           optional="hide"
+                                           invisible="method != 'full'"/>
+                                    <field name="share_of_profit_account_id"
+                                           optional="hide"
+                                           invisible="method != 'equity'"/>
+                                    <field name="fv_option"
+                                           optional="hide"
+                                           invisible="method != 'equity'"/>
+                                    <field name="policy_aligned"
+                                           optional="hide"/>
+                                    <field name="reporting_date_offset_months"
+                                           optional="hide"/>
+                                    <field name="consolidation_account_map"
+                                           optional="hide"/>
+                                    <field name="cta_position_id"
+                                           optional="hide"
+                                           options="{'no_create': True}"/>
+                                    <field name="disposal_pct"
+                                           optional="hide"/>
+                                    <field name="disposal_loses_control"
+                                           optional="hide"
+                                           invisible="method != 'full' or disposal_pct == 100"/>
+                                    <field name="notes"/>
+                                    <button name="action_dispose_member"
+                                            type="object"
+                                            icon="fa-sign-out"
+                                            title="Apply IAS 21 CTA disposal treatment on the latest computed run"
+                                            confirm="Apply CTA disposal treatment? Loss of control recycles the remaining CTA to profit or loss; a partial disposal retaining control reattributes its share to NCI. Balanced lines and treatment are logged in the run chatter."
+                                            invisible="method == 'equity'"
+                                            groups="eh_account_base.group_eh_manager"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_consol_member_tree" model="ir.ui.view">
+        <field name="name">eh.consol.member.list</field>
+        <field name="model">eh.consol.member</field>
+        <field name="arch" type="xml">
+            <list string="Consolidation members">
+                <field name="sequence" widget="handle"/>
+                <field name="entity_id"/>
+                <field name="company_id"/>
+                <field name="ownership_pct"/>
+                <field name="method"/>
+                <field name="functional_currency_id"/>
+                <field name="investment_account_id" optional="hide"/>
+                <field name="acquisition_equity" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_consol_member_form" model="ir.ui.view">
+        <field name="name">eh.consol.member.form</field>
+        <field name="model">eh.consol.member</field>
+        <field name="arch" type="xml">
+            <form string="Consolidation member">
+                <sheet>
+                    <group>
+                        <group string="Scope and method">
+                            <field name="entity_id" options="{'no_create': True}"/>
+                            <field name="company_id" options="{'no_create': True}"/>
+                            <field name="ownership_pct"/>
+                            <field name="method"/>
+                            <field name="functional_currency_id"/>
+                            <field name="retained_earnings_account_id"
+                                   options="{'no_create': True}"/>
+                        </group>
+                        <group string="Policy evidence">
+                            <field name="policy_aligned"/>
+                            <field name="reporting_date_offset_months"/>
+                            <field name="fv_option" invisible="method != 'equity'"/>
+                            <field name="cta_position_id"
+                                   options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="IFRS 3 acquisition" invisible="method != 'full'">
+                            <group>
+                                <group>
+                                    <field name="investment_account_id"
+                                           options="{'no_create': True}"/>
+                                    <field name="investment_currency_id" invisible="1"/>
+                                    <field name="investment_amount"/>
+                                    <field name="acquisition_date"/>
+                                    <field name="acquisition_equity"/>
+                                    <field name="historical_rate"/>
+                                </group>
+                                <group>
+                                    <field name="nci_basis"/>
+                                    <field name="nci_fair_value"
+                                           invisible="nci_basis != 'fair_value'"/>
+                                    <field name="nci_account_id"
+                                           options="{'no_create': True}"/>
+                                    <field name="goodwill_account_id"
+                                           options="{'no_create': True}"/>
+                                </group>
+                            </group>
+                            <field name="acquisition_component_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="source_account_id"
+                                           options="{'no_create': True}"/>
+                                    <field name="target_account_id"
+                                           options="{'no_create': True}"/>
+                                    <field name="amount" widget="monetary"
+                                           sum="Acquisition equity"/>
+                                    <field name="presentation_currency_id"
+                                           column_invisible="1"/>
+                                    <field name="notes" optional="hide"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="IAS 28" invisible="method != 'equity'">
+                            <group>
+                                <field name="investment_account_id"
+                                       options="{'no_create': True}"/>
+                                <field name="share_of_profit_account_id"
+                                       options="{'no_create': True}"/>
+                            </group>
+                        </page>
+                        <page string="Account map">
+                            <field name="consolidation_account_map"
+                                   placeholder="400100 -&gt; 4000&#10;500100 -&gt; 5000"/>
+                        </page>
+                        <page string="Disposal">
+                            <group>
+                                <field name="disposal_pct"/>
+                                <field name="disposal_loses_control"/>
+                                <button name="action_dispose_member" type="object"
+                                        string="Apply CTA disposal treatment"
+                                        class="btn-primary"
+                                        groups="eh_account_base.group_eh_manager"/>
+                            </group>
+                        </page>
+                        <page string="Notes"><field name="notes"/></page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_consol_entity" model="ir.actions.act_window">
+        <field name="name">Consolidation entities</field>
+        <field name="res_model">eh.consol.entity</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_consol_entity_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first consolidation entity</p>
+            <p>A consolidation entity is the reporting group whose subsidiaries are combined into one set of statements. Set its presentation currency and member companies here, then run a consolidation against it.</p>
+        </field>
+    </record>
+
+</odoo>

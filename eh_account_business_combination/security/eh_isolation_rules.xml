@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="0">
+    <data>
+
+        <record id="rule_eh_business_combination_company" model="ir.rule">
+            <field name="name">eh.business.combination: company isolation</field>
+            <field name="model_id" ref="model_eh_business_combination"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <!-- Identifiable asset/liability lines carry a stored company_id
+             related from their parent combination; without their own global
+             rule a direct search on the child model leaks another tenant's
+             IFRS 3.18 purchase-price-allocation fair values and tax bases. -->
+        <record id="rule_eh_business_combination_asset_company" model="ir.rule">
+            <field name="name">eh.business.combination.asset: company isolation</field>
+            <field name="model_id" ref="model_eh_business_combination_asset"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_bizcombo_adjustment_company" model="ir.rule">
+            <field name="name">eh.bizcombo.adjustment: company isolation</field>
+            <field name="model_id" ref="model_eh_bizcombo_adjustment"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <!-- Measurement-period line deltas carry a stored company_id related
+             from their parent adjustment; without their own global rule a
+             direct search on the child model leaks another tenant's IFRS
+             3.45-49 measurement-period restatement amounts. -->
+        <record id="rule_eh_bizcombo_adjustment_line_company" model="ir.rule">
+            <field name="name">eh.bizcombo.adjustment.line: company isolation</field>
+            <field name="model_id" ref="model_eh_bizcombo_adjustment_line"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_bizcombo_contingent_remeasure_company" model="ir.rule">
+            <field name="name">eh.bizcombo.contingent.remeasure: company isolation</field>
+            <field name="model_id" ref="model_eh_bizcombo_contingent_remeasure"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_equity_investment_company" model="ir.rule">
+            <field name="name">eh.equity.investment: company isolation</field>
+            <field name="model_id" ref="model_eh_equity_investment"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

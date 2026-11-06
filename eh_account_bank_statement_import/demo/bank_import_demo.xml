@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <!--
+            Demo CSV import profile. Maps a five-column layout that
+            mirrors the export of common AU and SMB bank portals:
+            Date, Amount, Reference, Memo, Counter party. Reuses the
+            first available bank journal so the demo installs cleanly
+            without depending on a particular chart of accounts.
+        -->
+
+        <record id="demo_profile_au_basic" model="eh.account.bank.statement.import.profile">
+            <field name="name">Demo AU bank, simple CSV</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="journal_id"
+                   search="[('type', '=', 'bank'), ('company_id', '=', ref('base.main_company'))]"/>
+            <field name="currency_code">AUD</field>
+            <field name="csv_delimiter">,</field>
+            <field name="csv_quotechar">"</field>
+            <field name="csv_encoding">utf-8</field>
+            <field name="csv_header_rows">1</field>
+            <field name="decimal_separator">.</field>
+            <field name="date_format">%Y-%m-%d</field>
+            <field name="col_date">0</field>
+            <field name="col_amount">1</field>
+            <field name="col_debit">-1</field>
+            <field name="col_credit">-1</field>
+            <field name="col_ref">2</field>
+            <field name="col_narration">3</field>
+            <field name="col_partner">4</field>
+            <field name="notes">Five column layout: Date, Amount, Reference, Memo, Counter party. Use as a starting point and edit per bank.</field>
+        </record>
+
+        <record id="demo_profile_eu_debit_credit" model="eh.account.bank.statement.import.profile">
+            <field name="name">Demo EU bank, debit credit columns</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="journal_id"
+                   search="[('type', '=', 'bank'), ('company_id', '=', ref('base.main_company'))]"/>
+            <field name="currency_code">EUR</field>
+            <field name="csv_delimiter">;</field>
+            <field name="csv_quotechar">"</field>
+            <field name="csv_encoding">utf-8</field>
+            <field name="csv_header_rows">1</field>
+            <field name="decimal_separator">,</field>
+            <field name="date_format">%d/%m/%Y</field>
+            <field name="col_date">0</field>
+            <field name="col_amount">-1</field>
+            <field name="col_debit">1</field>
+            <field name="col_credit">2</field>
+            <field name="col_ref">3</field>
+            <field name="col_narration">4</field>
+            <field name="col_partner">5</field>
+            <field name="notes">Six column layout with separate debit and credit columns plus comma decimals. Common across EU banks.</field>
+        </record>
+
+    </data>
+</odoo>

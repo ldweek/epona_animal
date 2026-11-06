@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="eh_account_legacy_seal_reversal_view_form" model="ir.ui.view">
+        <field name="name">eh.account.legacy.seal.reversal.form</field>
+        <field name="model">eh.account.legacy.seal.reversal</field>
+        <field name="arch" type="xml">
+            <form string="Reverse Legacy-Quarantined Entry">
+                <group>
+                    <field name="move_id"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="date"/>
+                    <field name="reason" placeholder="Document the manager review and correction reason..."/>
+                </group>
+                <footer>
+                    <button name="action_reverse"
+                            string="Post Sealed Counter-Entry"
+                            type="object"
+                            class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="account_move_form_legacy_quarantine_reversal" model="ir.ui.view">
+        <field name="name">account.move.form.legacy.quarantine.reversal</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="eh_legacy_unverified_seal" invisible="1"/>
+                <field name="eh_sealed" invisible="1"/>
+                <button name="action_eh_reverse_legacy_quarantine"
+                        string="Reverse Reviewed Legacy Entry"
+                        type="object"
+                        class="btn-secondary"
+                        groups="eh_account_base.group_eh_manager"
+                        invisible="state != 'posted' or eh_sealed or not eh_legacy_unverified_seal"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

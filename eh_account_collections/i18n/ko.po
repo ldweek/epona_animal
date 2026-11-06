@@ -1,0 +1,2276 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_collections
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Korean\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/reminder_wizard.py:0
+msgid "%s has no mobile or phone number for SMS."
+msgstr "%s에게 SMS를 보낼 휴대폰 또는 전화번호가 없습니다."
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.email_template_eh_dunning_friendly
+msgid ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #C9A372;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                A friendly reminder\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#6c757d;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;\">\n"
+"                                <t t-out=\"object.company_id.name\"/>\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Dear <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            We noticed that an open balance of\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> is showing on your account.\n"
+"                            The oldest invoice dates back to\n"
+"                            <strong t-out=\"object.oldest_overdue_date and object.oldest_overdue_date.strftime('%Y-%m-%d') or ''\"/>.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            If payment has been issued in the last few days,\n"
+"                            please ignore this message — our records may\n"
+"                            simply be a couple of days behind. Otherwise,\n"
+"                            we'd appreciate it if you could settle the\n"
+"                            balance at your earliest convenience.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            Thank you,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #C9A372;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                안내 말씀\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#6c757d;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;\">\n"
+"                                <t t-out=\"object.company_id.name\"/>\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            친애하는 <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            귀하의 계정에\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> 의 미결제 잔액이 표시되어 있음을 확인했습니다. 가장 오래된 청구서의 날짜는 다음과 같습니다:\n"
+"                            <strong t-out=\"object.oldest_overdue_date and object.oldest_overdue_date.strftime('%Y-%m-%d') or ''\"/>.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            지난 며칠 사이에 결제를 완료하셨다면 본 메시지를 무시해 주십시오 — 저희 기록이 단지 며칠 늦어졌을 수 있습니다. 그렇지 않은 경우 가능한 한 빨리 잔액을 정산해 주시면 감사하겠습니다.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            감사합니다,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.email_template_eh_dunning_final
+msgid ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #dc3545;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                Final notice\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#721c24;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;font-weight:700;\">\n"
+"                                Before external referral\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Dear <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Despite our prior reminders, the balance of\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> remains\n"
+"                            unpaid and is now\n"
+"                            <strong t-out=\"object.days_overdue_max or 0\"/> days overdue.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            This is our final notice before we refer the\n"
+"                            matter externally for collection. We strongly\n"
+"                            encourage you to settle this balance, or to\n"
+"                            contact us within 7 days to make alternative\n"
+"                            arrangements.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            Sincerely,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #dc3545;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                최종 통지\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#721c24;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;font-weight:700;\">\n"
+"                                외부 이관 전\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            친애하는 <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            이전 안내에도 불구하고\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> 의 잔액이 여전히 미지급 상태이며 현재\n"
+"                            <strong t-out=\"object.days_overdue_max or 0\"/> 일 연체되었습니다.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            이는 본 건을 채권 추심을 위해 외부에 이관하기 전의 최종 통지입니다. 이 잔액을 정산하시거나, 대체 방안을 마련하기 위해 7일 이내에 저희에게 연락해 주시기를 강력히 권고드립니다.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            감사합니다,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.email_template_eh_dunning_firm
+msgid ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #ffc107;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                Action required\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#856404;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;font-weight:600;\">\n"
+"                                Overdue balance\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Dear <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Our previous reminder appears to have gone\n"
+"                            unanswered. The balance of\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> is now\n"
+"                            <strong t-out=\"object.days_overdue_max or 0\"/> days past due.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Please arrange payment or contact us to discuss\n"
+"                            a payment plan within the next 7 days. Continued\n"
+"                            non-payment may result in late fees and could\n"
+"                            affect future credit terms.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            Sincerely,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #ffc107;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                조치 필요\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#856404;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;font-weight:600;\">\n"
+"                                연체 잔액\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            친애하는 <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            이전 안내에 대한 회신을 받지 못한 것으로 보입니다.\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> 의 잔액이 현재\n"
+"                            <strong t-out=\"object.days_overdue_max or 0\"/> 일 지났습니다.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            향후 7일 이내에 결제를 준비하시거나 결제 계획 논의를 위해 저희에게 연락해 주시기 바랍니다. 지속적인 미결제 시 연체 수수료가 부과될 수 있으며 향후 신용 조건에 영향을 줄 수 있습니다.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            감사합니다,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.mail_template_followup_final
+msgid ""
+"<div>\n"
+"                    <p>Dear <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        Despite previous reminders, the balance of\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>\n"
+"                        on your account remains unpaid. The oldest item\n"
+"                        has been outstanding since\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        This is the final notice before the case is\n"
+"                        escalated for collection. Please contact us\n"
+"                        within seven days to settle the balance or\n"
+"                        agree a payment plan.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Regards,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div>\n"
+"                    <p>친애하는 <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        이전 안내에도 불구하고 귀하의 계정에 있는\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>\n"
+"                        의 잔액이 여전히 미지급 상태입니다. 가장 오래된 항목은 다음 날짜부터 연체되었습니다:\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        이것은 채권 추심으로 이관되기 전의 최종 통지입니다. 잔액을 정산하거나 결제 계획에 합의하시려면 7일 이내에 저희에게 연락해 주시기 바랍니다.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        감사합니다,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.mail_template_followup_reminder_2
+msgid ""
+"<div>\n"
+"                    <p>Hi <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        We have not received payment on outstanding\n"
+"                        invoices totalling\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>.\n"
+"                        The oldest item has been due since\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>\n"
+"                        (<t t-out=\"object.days_overdue_max\"/> days overdue).\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Please settle the balance within the next seven\n"
+"                        days, or reply to this email to arrange a\n"
+"                        payment plan if you are facing difficulty.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Kind regards,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div>\n"
+"                    <p>안녕하세요 <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        총액\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>.\n"
+"                        의 미결제 청구서에 대한 결제를 아직 받지 못했습니다. 가장 오래된 항목은 다음 날짜부터 기한이 지났습니다:\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>\n"
+"                        (<t t-out=\"object.days_overdue_max\"/> 일 연체).\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        향후 7일 이내에 잔액을 정산해 주시거나, 어려움이 있으시면 본 이메일에 회신하여 결제 계획을 마련해 주시기 바랍니다.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        감사합니다,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.mail_template_followup_reminder_1
+msgid ""
+"<div>\n"
+"                    <p>Hi <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        We notice an outstanding balance of\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>\n"
+"                        on your account, with the oldest item due on\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        If you have already settled the balance, please\n"
+"                        ignore this note. Otherwise, please arrange\n"
+"                        payment at your earliest convenience or reply to\n"
+"                        this email if you have any questions.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Kind regards,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div>\n"
+"                    <p>안녕하세요 <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        귀하의 계정에\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>\n"
+"                        의 미결제 잔액이 확인되었으며, 가장 오래된 항목의 기한은 다음과 같습니다:\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        이미 잔액을 정산하셨다면 본 안내를 무시해 주십시오. 그렇지 않은 경우 가능한 한 빨리 결제를 준비해 주시거나, 문의 사항이 있으시면 본 이메일에 회신해 주시기 바랍니다.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        감사합니다,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_kanban
+msgid ""
+"<i class=\"fa fa-comment-o\" title=\"Actions logged\" aria-label=\"Actions "
+"logged\"/>"
+msgstr "<i class=\"fa fa-comment-o\" title=\"기록된 작업\" aria-label=\"기록된 작업\"/>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "<span class=\"o_stat_text\">Invoices</span>"
+msgstr "<span class=\"o_stat_text\">청구서</span>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "<strong>Company:</strong>"
+msgstr "<strong>회사:</strong>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "<strong>Generated:</strong>"
+msgstr "<strong>생성됨:</strong>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "<strong>Reference:</strong>"
+msgstr "<strong>참조 : </strong>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "<strong>Stage:</strong>"
+msgstr "<strong>단계:</strong>"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__responsible_type__account_manager
+msgid "Accounting manager"
+msgstr "회계 관리자"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__action_ids
+msgid "Action"
+msgstr "추가 작업"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__action_count
+msgid "Action Count"
+msgstr "작업 수"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__action_date
+msgid "Action Date"
+msgstr "작업 날짜"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Action History"
+msgstr "작업 기록"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+#: model:ir.actions.act_window,name:eh_account_collections.action_eh_collections_action
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_collections_action_log
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_form
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_tree
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Action Log"
+msgstr "작업 로그"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_needaction
+msgid "Action Needed"
+msgstr "조치 필요"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__action_type
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__last_action_type
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__action_type
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_search
+msgid "Action Type"
+msgstr "작업 유형"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.email_template_eh_dunning_firm
+msgid "Action required: overdue balance — {{ object.partner_id.name }}"
+msgstr "조치 필요: 연체 잔액 — {{ object.partner_id.name }}"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Actions"
+msgstr "활동"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__active
+msgid "Active"
+msgstr "활성화"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_partner_form_collections
+msgid "Active Collections"
+msgstr "활성 채권 회수"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_ids
+msgid "Activities"
+msgstr "활동"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid "Activity"
+msgstr "활동"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "활동 예외 장식"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__activity_offset_days
+msgid "Activity Offset Days"
+msgstr "활동 오프셋 일수"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_state
+msgid "Activity State"
+msgstr "활동 상태"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__activity_summary
+msgid "Activity Summary"
+msgstr "활동 요약"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__activity_type_id
+msgid "Activity Type"
+msgstr "활동 유형"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "활동 유형 아이콘"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__responsible_type
+msgid "Activity responsible"
+msgstr "활동 담당자"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__activity_type_id
+msgid ""
+"Activity type to schedule when action_type involves an activity. Defaults to"
+" 'Call' when not set."
+msgstr "action_type이 활동을 포함할 때 예약할 활동 유형입니다. 설정하지 않으면 기본값은 'Call'입니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__also_send_sms
+msgid "Also send SMS"
+msgstr "SMS도 전송"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_attachment_count
+msgid "Attachment Count"
+msgstr "첨부 파일 수"
+
+#. module: eh_account_collections
+#: model:ir.actions.server,name:eh_account_collections.action_eh_collections_auto_create
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_collections_auto_create
+msgid "Auto Create Cases"
+msgstr "케이스 자동 생성"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__auto_post
+msgid "Auto Post"
+msgstr "자동 전기"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__name
+msgid "Auto computed from partner and company."
+msgstr "협력사와 회사에서 자동으로 계산됩니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__body
+msgid "Body"
+msgstr "본문"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_form
+msgid "Brief summary"
+msgstr "간략한 요약"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__broken_promise
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Broken Promise"
+msgstr "이행되지 않은 약속"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid ""
+"Broken promise detected. Promised %(amount).2f by %(date)s; case escalated."
+msgstr "이행되지 않은 약속이 감지되었습니다. %(date)s까지 %(amount).2f 약속; 사례가 상급으로 상신되었습니다."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Broken promise: amount %(amount).2f, due %(date)s"
+msgstr "이행되지 않은 약속: 금액 %(amount).2f, 기한 %(date)s"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid ""
+"Bump priority, escalate the stage, and fire the next follow-up. Continue?"
+msgstr "우선순위를 올리고, 단계를 에스컬레이션하고, 다음 후속 조치를 실행합니다. 계속하시겠습니까?"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "By"
+msgstr "작성자"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__call
+msgid "Call"
+msgstr "전화"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,activity_summary:eh_account_collections.followup_level_2
+msgid "Call the customer about outstanding balance"
+msgstr "미결제 잔액에 대해 고객에게 전화하기"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_late_fee_wizard_form
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_reminder_wizard_form
+msgid "Cancel"
+msgstr "취소"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__case_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__case_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__case_id
+msgid "Case"
+msgstr "사례"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Case %s does not have a broken promise to handle."
+msgstr "케이스 %s에는 처리할 이행되지 않은 약속이 없습니다."
+
+#. module: eh_account_collections
+#: model:ir.actions.report,name:eh_account_collections.action_report_case_statement
+msgid "Case Statement"
+msgstr "Case 문"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__responsible_type__collector
+msgid "Case collector"
+msgstr "케이스 수집기"
+
+#. module: eh_account_collections
+#. odoo-javascript
+#: code:addons/eh_account_collections/static/src/js/tours/collections_tour.js:0
+msgid ""
+"Cases <b>auto-create</b> from overdue customer AR via the nightly cron. You "
+"almost never create a case manually — the system opens one when a partner "
+"crosses the configured grace days, and closes it when the AR clears."
+msgstr ""
+"케이스는 야간 cron을 통해 연체된 고객 AR에서 <b>자동으로 생성</b>됩니다. 케이스를 수동으로 생성하는 경우는 거의 없습니다. "
+"파트너가 구성된 유예 일수를 초과하면 시스템이 케이스를 열고, AR이 해소되면 닫습니다."
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_new
+msgid "Cases that have not yet been contacted."
+msgstr "아직 연락하지 않은 케이스입니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__channel
+msgid "Channel"
+msgstr "채널"
+
+#. module: eh_account_collections
+#. odoo-javascript
+#: code:addons/eh_account_collections/static/src/js/tours/collections_tour.js:0
+msgid ""
+"Click <b>Late Fee</b> on any case to issue a customer invoice for the "
+"configured fee — flat or percentage of the overdue. The wizard posts a real "
+"invoice, not a memo entry, so your AR balances stay correct."
+msgstr ""
+"사건에서 <b>Late Fee</b>를 클릭하면 구성된 수수료(정액 또는 연체 금액의 백분율)로 고객 청구서를 발행합니다. 마법사는 메모"
+" 항목이 아닌 실제 청구서를 전기하므로 AR 잔액이 정확하게 유지됩니다."
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_written_off
+msgid "Closed as bad debt; no further action."
+msgstr "대손으로 종료됨; 추가 조치 없음."
+
+#. module: eh_account_collections
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_collections_stage
+msgid "Collection Stages"
+msgstr "수금 단계"
+
+#. module: eh_account_collections
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_collections_root
+msgid "Collections"
+msgstr "수금"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Collections Case"
+msgstr "수금 사례"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_tree
+msgid "Collections Cases"
+msgstr "수금 사례"
+
+#. module: eh_account_collections
+#: model:ir.actions.act_window,name:eh_account_collections.action_eh_collections_stage
+msgid "Collections Stages"
+msgstr "수금 단계"
+
+#. module: eh_account_collections
+#: model:ir.actions.act_window,name:eh_account_collections.action_eh_collections_case
+msgid "Collections Workbench"
+msgstr "수금 작업 공간"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/action.py:0
+msgid "Collections action log rows are append-only."
+msgstr "수금 작업 로그 행은 추가만 가능합니다."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/action.py:0
+msgid "Collections action log rows cannot be deleted."
+msgstr "수금 작업 로그 행은 삭제할 수 없습니다."
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_case
+msgid "Collections case"
+msgstr "수금 사례"
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_action
+msgid "Collections case action log"
+msgstr "수금 사례 작업 로그"
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_stage
+msgid "Collections case stage"
+msgstr "수금 사례 단계"
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_followup_level
+msgid "Collections follow-up level"
+msgstr "수금 후속 조치 단계"
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_reminder_wizard
+msgid "Collections manual reminder"
+msgstr "수금 수동 알림"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.mail_template_followup_final
+msgid "Collections: Final Notice"
+msgstr "수금: 최종 통지"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.mail_template_followup_reminder_1
+msgid "Collections: Reminder 1"
+msgstr "수금: 알림 1"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.mail_template_followup_reminder_2
+msgid "Collections: Reminder 2"
+msgstr "수금: 알림 2"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__collector_id
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Collector"
+msgstr "수금 담당자"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__color
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__color
+msgid "Color"
+msgstr "색상"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__color
+msgid "Color tag used by the kanban card decoration."
+msgstr "kanban 카드 장식에 사용되는 색상 태그입니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__company_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__company_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__company_id
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Company"
+msgstr "회사"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__computed_fee
+msgid "Computed Fee"
+msgstr "계산된 수수료"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid ""
+"Computed fee is zero or negative; adjust the rate or the overdue cut-off and"
+" try again."
+msgstr "계산된 수수료가 0이거나 음수입니다. 요율 또는 연체 기준을 조정한 후 다시 시도하세요."
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_res_partner
+msgid "Contact"
+msgstr "연락처"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__contact_made
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_search
+msgid "Contact Made"
+msgstr "연락 완료"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_contacted
+msgid "Contacted"
+msgstr "연락됨"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Created Month"
+msgstr "생성 월"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__create_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__create_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__create_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__create_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__create_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__create_uid
+msgid "Created by"
+msgstr "작성자"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__create_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__create_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__create_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__create_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__create_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__create_date
+msgid "Created on"
+msgstr "작성일자"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__currency_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__currency_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__currency_id
+msgid "Currency"
+msgstr "통화"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__current_followup_level_id
+msgid "Current Followup Level"
+msgstr "현재 후속 조치 단계"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Customer"
+msgstr "고객"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__responsible_type__salesperson
+msgid "Customer salesperson"
+msgstr "고객 영업 담당자"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Date"
+msgstr "날짜"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__next_followup_date
+msgid ""
+"Date on which the next follow-up becomes due, derived from "
+"last_followup_sent_at plus the current level's delay_days. Indexed via the "
+"cron's domain filter."
+msgstr ""
+"다음 후속 조치의 기한 날짜로, last_followup_sent_at에 현재 레벨의 delay_days를 더해 산출됩니다. cron의 "
+"도메인 필터를 통해 인덱싱됩니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_action__promise_date
+msgid "Date the partner promised to pay by."
+msgstr "거래처가 지급을 약속한 기한입니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__days_overdue
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__days_overdue
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Days Overdue"
+msgstr "연체 일수"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__days_overdue_max
+msgid "Days Overdue Max"
+msgstr "최대 연체 일수"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__days_overdue_max
+msgid "Days between today and oldest_overdue_date."
+msgstr "오늘과 oldest_overdue_date 사이의 일수입니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__activity_offset_days
+msgid ""
+"Days from today to set the activity due date. 0 means today; 2 means the day"
+" after tomorrow."
+msgstr "활동 마감일을 설정하기 위한 오늘부터의 일수입니다. 0은 오늘, 2는 모레를 의미합니다."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Days overdue"
+msgstr "연체 일수"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__delay_days
+msgid ""
+"Days to wait after this level fires before advancing to the next level. Used"
+" to compute the case's next_followup_date."
+msgstr ""
+"이 단계가 실행된 후 다음 단계로 진행하기 전에 대기할 일수입니다. 사례의 next_followup_date를 계산하는 데 사용됩니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__activity_summary
+msgid "Default summary for the scheduled activity."
+msgstr "예약된 활동의 기본 요약."
+
+#. module: eh_account_collections
+#: model_terms:ir.actions.act_window,help:eh_account_collections.action_eh_followup_level
+msgid ""
+"Define an escalation ladder once. The cron picks the highest applicable "
+"level for each overdue case and applies it (send email, schedule call, "
+"escalate stage). Common shape: Reminder 1 at 7 days, Reminder 2 at 30, Final"
+" Notice at 60, Legal at 90."
+msgstr ""
+"에스컬레이션 단계를 한 번 정의하세요. cron이 연체된 각 사례에 적용 가능한 최고 수준을 선택하여 실행합니다(이메일 발송, 통화 "
+"예약, 단계 에스컬레이션). 일반적인 형태: 알림 1은 7일, 알림 2는 30일, 최종 통지는 60일, 법적 조치는 90일."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__delay_days
+msgid "Delay Days"
+msgstr "지연 일수"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__description
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__description
+msgid "Description"
+msgstr "설명"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__detail
+msgid "Detail"
+msgstr "세부정보"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_form
+msgid "Detail of the conversation, email content, etc."
+msgstr "대화 상세 정보, 이메일 내용 등."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_action__contact_made
+msgid ""
+"Did we actually reach the partner? Voicemails, undelivered emails, and "
+"unanswered calls should be False."
+msgstr "실제로 파트너에게 연락이 닿았습니까? 음성 메일, 미전달 이메일, 응답 없는 통화는 False여야 합니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_res_partner__display_name
+msgid "Display Name"
+msgstr "표시명"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_disputed
+msgid "Disputed"
+msgstr "분쟁 중"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__sequence
+msgid "Drag to reorder. Lower numbers fire first."
+msgstr "끌어서 순서를 바꿉니다. 낮은 번호가 먼저 실행됩니다."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Due"
+msgstr "결제 금액"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.email_template_eh_dunning_final
+msgid "EH Dunning — Final Notice"
+msgstr "EH 독촉 — 최종 통지"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.email_template_eh_dunning_firm
+msgid "EH Dunning — Firm Follow-Up"
+msgstr "EH 독촉 — 강경 후속 조치"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.email_template_eh_dunning_friendly
+msgid "EH Dunning — Friendly Reminder"
+msgstr "EH 독촉 — 친절한 알림"
+
+#. module: eh_account_collections
+#: model:ir.actions.server,name:eh_account_collections.cron_eh_collections_auto_create_ir_actions_server
+msgid "ERP Heritage: Auto create collections cases"
+msgstr "ERP Heritage: 수금 사례 자동 생성"
+
+#. module: eh_account_collections
+#: model:ir.actions.server,name:eh_account_collections.cron_eh_collections_handle_broken_promises_ir_actions_server
+msgid "ERP Heritage: Handle broken collections promises"
+msgstr "ERP Heritage: 이행되지 않은 수금 약속 처리"
+
+#. module: eh_account_collections
+#: model:ir.actions.server,name:eh_account_collections.cron_eh_collections_refresh_open_ir_actions_server
+msgid "ERP Heritage: Refresh aging on open collections cases"
+msgstr "ERP Heritage: 미결 수금 사례의 연령 새로 고침"
+
+#. module: eh_account_collections
+#: model:ir.actions.server,name:eh_account_collections.cron_eh_collections_send_followups_ir_actions_server
+msgid "ERP Heritage: Send collections follow-ups"
+msgstr "ERP Heritage: 수금 후속 조치 발송"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__oldest_overdue_date
+msgid "Earliest due date among the open receivables for this partner."
+msgstr "이 파트너의 미결제 채권 중 가장 이른 만기일입니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_res_partner__eh_active_collections_count
+#: model:ir.model.fields,field_description:eh_account_collections.field_res_users__eh_active_collections_count
+msgid "Eh Active Collections Count"
+msgstr "Eh 활성 수금 건수"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__email
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_reminder_wizard__channel__email
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid "Email"
+msgstr "이메일"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_reminder_wizard__channel__both
+msgid "Email and SMS"
+msgstr "이메일 및 SMS"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Escalate"
+msgstr "에스컬레이션"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__escalate_to_stage_id
+msgid "Escalate To Stage"
+msgstr "단계로 에스컬레이션"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,name:eh_account_collections.followup_level_4_escalate
+msgid "Escalate to legal (90 days)"
+msgstr "법무팀으로 에스컬레이션 (90일)"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_escalated
+msgid "Escalated"
+msgstr "심화"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_escalated
+msgid "Escalated to manager or legal."
+msgstr "관리자 또는 법무팀으로 에스컬레이션되었습니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__fee_mode
+msgid "Fee Mode"
+msgstr "수수료 모드"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_late_fee_wizard_form
+msgid "Fee policy"
+msgstr "수수료 정책"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,activity_summary:eh_account_collections.followup_level_3
+msgid "Final follow-up call before escalation"
+msgstr "에스컬레이션 전 마지막 후속 통화"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,name:eh_account_collections.followup_level_3
+msgid "Final notice (60 days)"
+msgstr "최종 통지 (60일)"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.mail_template_followup_final
+msgid "Final notice before escalation"
+msgstr "에스컬레이션 전 최종 통지"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.email_template_eh_dunning_final
+msgid "Final notice before referral — {{ object.partner_id.name }}"
+msgstr "이관 전 최종 통지 — {{ object.partner_id.name }}"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_contacted
+msgid "First contact made; awaiting response."
+msgstr "첫 연락 완료; 응답 대기 중입니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__flat_amount
+msgid "Flat Amount"
+msgstr "정액"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_late_fee_wizard__fee_mode__flat
+msgid "Flat amount"
+msgstr "정액"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__fold
+msgid "Fold"
+msgstr "접기"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__fold
+msgid "Fold this stage's column on the kanban view by default."
+msgstr "칸반 보기에서 이 단계의 열을 기본적으로 접습니다."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid "Follow-up Level"
+msgstr "후속조치 수준"
+
+#. module: eh_account_collections
+#: model:ir.actions.act_window,name:eh_account_collections.action_eh_followup_level
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_followup_level
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_list
+msgid "Follow-up Levels"
+msgstr "후속조치 수준"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Follow-up applied: %(name)s (level %(seq)s). Source: %(src)s."
+msgstr "후속 조치 적용됨: %(name)s (수준 %(seq)s). 출처: %(src)s."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Follow-up call"
+msgstr "후속 통화"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Follow-up engine"
+msgstr "후속 조치 엔진"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Follow-up level"
+msgstr "후속 조치 수준"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Follow-up: %s"
+msgstr "후속 조치: %s"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_follower_ids
+msgid "Followers"
+msgstr "팔로워"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "팔로워 (협력사)"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__followup_count
+msgid "Followup Count"
+msgstr "후속 조치 횟수"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__followup_paused
+msgid "Followup Paused"
+msgstr "후속 조치 일시 중지됨"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "멋진 아이콘 폰트 예: fa-tasks"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.email_template_eh_dunning_friendly
+msgid "Friendly reminder: outstanding balance — {{ object.partner_id.name }}"
+msgstr "안내 알림: 미결제 잔액 — {{ object.partner_id.name }}"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.mail_template_followup_reminder_1
+msgid "Friendly reminder: outstanding invoices"
+msgstr "안내 알림: 미결제 청구서"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Handle Broken Promise"
+msgstr "이행되지 않은 약속 처리"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__has_active_promise
+msgid "Has Active Promise"
+msgstr "활성 약속 있음"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__has_message
+msgid "Has Message"
+msgstr "메시지가 있습니다"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_case__priority__2
+msgid "High"
+msgstr "높음"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "High Priority"
+msgstr "우선순위 높음"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_exception_icon
+msgid "Icon"
+msgstr "아이콘"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "예외 활동을 표시하기 위한 아이콘"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "만약 선택하였으면, 신규 메시지에 주의를 기울여야 합니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__message_has_error
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "이 옵션을 선택하면 일부 정보가 전달 오류를 생성합니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__income_account_id
+msgid "Income Account"
+msgstr "수입 계정"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_late_fee_wizard__income_account_id
+msgid "Income account where the late fee lands."
+msgstr "연체료가 기록되는 수익 계정입니다."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Invoice"
+msgstr "청구서"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__is_default
+msgid "Is Default"
+msgstr "기본값 여부"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__is_disputed
+msgid "Is Disputed"
+msgstr "이의 제기 여부"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__is_escalated
+msgid "Is Escalated"
+msgstr "에스컬레이션 여부"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_is_follower
+msgid "Is Follower"
+msgstr "팔로워임"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__is_resolved
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__is_resolved
+msgid "Is Resolved"
+msgstr "해결 여부"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__is_terminal
+msgid "Is Terminal"
+msgstr "종료 상태 여부"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_late_fee_wizard_form
+msgid "Issue invoice"
+msgstr "청구서 발행"
+
+#. module: eh_account_collections
+#: model:ir.actions.act_window,name:eh_account_collections.action_eh_collections_late_fee_wizard
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_late_fee_wizard_form
+msgid "Issue late-fee invoice"
+msgstr "연체 수수료 청구서 발행"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__journal_id
+msgid "Journal"
+msgstr "전표"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__last_action_at
+msgid "Last Action At"
+msgstr "마지막 작업 시각"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__last_broken_promise_handled_at
+msgid "Last Broken Promise Handled At"
+msgstr "마지막 파기된 약속 처리 시각"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__last_followup_sent_at
+msgid "Last Followup Sent At"
+msgstr "마지막 후속 조치 발송 시각"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__write_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__write_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__write_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__write_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__write_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__write_uid
+msgid "Last Updated by"
+msgstr "최근 갱신한 사람"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__write_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__write_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__write_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__write_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__write_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__write_date
+msgid "Last Updated on"
+msgstr "최근 갱신 일자"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid "Late-fee invoice"
+msgstr "연체료 청구서"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid "Late-fee invoice %(ref)s issued for %(amount).2f (state: %(state)s)."
+msgstr "%(amount).2f에 대한 연체료 청구서 %(ref)s가 발행되었습니다(상태: %(state)s)."
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_late_fee_wizard
+msgid "Late-fee invoicing wizard"
+msgstr "연체료 청구 마법사"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid ""
+"Late-payment fee on overdue %(amt).2f, %(days)s days overdue, %(mode)s."
+msgstr "연체 금액 %(amt).2f에 대한 연체료, %(days)s일 연체, %(mode)s."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__letter
+msgid "Letter"
+msgstr "메일"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/followup_level.py:0
+msgid "Level %(name)s sends email but has no mail_template_id configured."
+msgstr "레벨 %(name)s은(는) 이메일을 보내지만 mail_template_id가 구성되어 있지 않습니다."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/followup_level.py:0
+msgid ""
+"Level %(name)s template must target eh.collections.case (got %(model)r)."
+msgstr "레벨 %(name)s 템플릿은 eh.collections.case를 대상으로 해야 합니다(%(model)r 받음)."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Level %s has no mail_template_id configured."
+msgstr "%s 레벨에 mail_template_id가 구성되어 있지 않습니다."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Log Action"
+msgstr "작업 기록"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Log Call"
+msgstr "통화 기록"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Log Email"
+msgstr "이메일 기록"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Log SMS"
+msgstr "SMS 기록"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_case__priority__0
+msgid "Low"
+msgstr "낮음"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__mail_template_id
+msgid "Mail Template"
+msgstr "메일 서식"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__mail_template_id
+msgid ""
+"Mail template used when action_type involves email. Templates must be bound "
+"to eh.collections.case so {{ object.* }} expressions resolve to the case."
+msgstr ""
+"action_type에 이메일이 포함될 때 사용되는 메일 템플릿입니다. {{ object.* }} 표현식이 케이스로 해석되도록 템플릿은 "
+"eh.collections.case에 바인딩되어야 합니다."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/reminder_wizard.py:0
+msgid "Manual reminder (%s)"
+msgstr "수동 알림 (%s)"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__next_action_date
+msgid "Manually set next follow up date for this case."
+msgstr "이 사례의 다음 후속 조치 날짜를 수동으로 설정합니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__is_disputed
+msgid "Mark cases in this stage as disputed for downstream filtering."
+msgstr "다운스트림 필터링을 위해 이 단계의 사례를 분쟁 중으로 표시합니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__is_terminal
+msgid ""
+"Mark the last level in the chain. Cases on a terminal level are not auto-"
+"advanced; the cron stops sending follow-ups for them and a collector must "
+"intervene."
+msgstr ""
+"체인의 마지막 단계를 표시합니다. 종료 단계의 사례는 자동으로 진행되지 않으며, cron은 해당 사례에 대한 후속 조치 발송을 중단하고 "
+"수금 담당자가 개입해야 합니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_case__priority__1
+msgid "Medium"
+msgstr "중간"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__meeting
+msgid "Meeting"
+msgstr "회의"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_has_error
+msgid "Message Delivery error"
+msgstr "메시지 전송 오류"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_ids
+msgid "Messages"
+msgstr "메시지"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__action_type__escalate
+msgid "Move case to Escalated stage (no email)"
+msgstr "케이스를 에스컬레이션됨 단계로 이동(이메일 없음)"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "내 활동 마감일"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "My Cases"
+msgstr "내 사례"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__name
+msgid "Name"
+msgstr "이름"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_new
+msgid "New"
+msgstr "신규"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__next_action_date
+msgid "Next Action Date"
+msgstr "다음 조치 날짜"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "다음 활동 캘린더 행사"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "다음 활동 마감일"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_summary
+msgid "Next Activity Summary"
+msgstr "다음 활동 요약"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_type_id
+msgid "Next Activity Type"
+msgstr "다음 활동 유형"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__next_followup_date
+msgid "Next Followup Date"
+msgstr "다음 후속 조치 날짜"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Next action"
+msgstr "다음 작업"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_kanban
+msgid "Next action:"
+msgstr "다음 작업:"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "No actions recorded yet."
+msgstr "아직 기록된 작업이 없습니다."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid ""
+"No applicable follow-up level for case %s. Either the case is not overdue "
+"enough, the chain is exhausted (terminal level), or there are no levels "
+"configured for this company."
+msgstr ""
+"케이스 %s에 적용 가능한 후속 조치 수준이 없습니다. 케이스가 충분히 연체되지 않았거나, 체인이 소진되었거나(최종 수준), 이 회사에 "
+"구성된 수준이 없습니다."
+
+#. module: eh_account_collections
+#: model_terms:ir.actions.act_window,help:eh_account_collections.action_eh_collections_case
+msgid "No cases yet."
+msgstr "아직 케이스가 없습니다."
+
+#. module: eh_account_collections
+#: model_terms:ir.actions.act_window,help:eh_account_collections.action_eh_followup_level
+msgid "No follow-up levels yet."
+msgstr "아직 후속 조치 단계가 없습니다."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid "No income account is configured for company %s; cannot post the fee."
+msgstr "회사 %s에 대한 수익 계정이 구성되지 않아 수수료를 전기할 수 없습니다."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "No open invoices on the account."
+msgstr "계정에 미결제 청구서가 없습니다."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "No resolved stage configured. Add one with is_resolved=True."
+msgstr "해결됨 단계가 구성되지 않았습니다. is_resolved=True로 하나 추가하세요."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid ""
+"No sales journal is configured for company %s; cannot issue a late-fee "
+"invoice."
+msgstr "회사 %s에 대해 구성된 매출 전표가 없어 연체료 청구서를 발행할 수 없습니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__note
+msgid "Note"
+msgstr "노트"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__notes
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__notes
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid "Notes"
+msgstr "메모"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_needaction_counter
+msgid "Number of Actions"
+msgstr "작업 수"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_has_error_counter
+msgid "Number of errors"
+msgstr "오류 횟수"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "조치가 필요한 메시지 수"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "전송 오류가 발생한 메시지 수입니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_res_partner__eh_active_collections_count
+#: model:ir.model.fields,help:eh_account_collections.field_res_users__eh_active_collections_count
+msgid ""
+"Number of non-resolved collections cases on this partner. Refreshed on form "
+"load; the auto-creator cron and the manual refresh action update the "
+"underlying case totals."
+msgstr ""
+"이 파트너의 미해결 채권 회수 건 수. 양식 로드 시 새로 고쳐집니다. 자동 생성 cron과 수동 새로 고침 작업이 기반 사건 합계를 "
+"업데이트합니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__oldest_overdue_date
+msgid "Oldest Overdue Date"
+msgstr "가장 오래된 연체일"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Oldest due date"
+msgstr "가장 오래된 만기일"
+
+#. module: eh_account_collections
+#. odoo-javascript
+#: code:addons/eh_account_collections/static/src/js/tours/collections_tour.js:0
+msgid ""
+"On each case, the <b>Action History</b> log is the audit trail: every email "
+"sent, every phone-call logged, every promise-to-pay captured, every late-fee"
+" invoice issued. Filter the case list by Last Action to find stale follow-"
+"ups."
+msgstr ""
+"각 사건에서 <b>Action History</b> 로그는 감사 추적입니다. 발송된 모든 이메일, 기록된 모든 통화, 확보된 모든 지급 "
+"약속, 발행된 모든 연체료 청구서가 포함됩니다. 사건 목록을 최종 조치 기준으로 필터링하여 지연된 후속 조치를 찾으십시오."
+
+#. module: eh_account_collections
+#: model:ir.model.constraint,message:eh_account_collections.constraint_eh_collections_case_open_case_per_partner_company
+msgid "Only one open case per partner per company."
+msgstr "회사별 파트너당 열린 사례는 하나만 허용됩니다."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Open"
+msgstr "열기"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Open Invoices"
+msgstr "미결 청구서"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Over 60 Days"
+msgstr "60일 초과"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Over 90 Days"
+msgstr "90일 초과"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__overdue_amount
+msgid "Overdue Amount"
+msgstr "연체 금액"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Overdue position"
+msgstr "기한 초과 상태"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_resolved
+msgid "Paid in full. Closed."
+msgstr "전액 결제 완료. 종료됨."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__partner_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__partner_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__partner_id
+msgid "Partner"
+msgstr "협력사"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid "Partner %s has no overdue receivable; nothing to charge a late fee on."
+msgstr "협력사 %s에 연체된 미수금이 없으므로 연체료를 부과할 대상이 없습니다."
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_promise
+msgid "Partner committed to a promised amount and date."
+msgstr "협력사가 약속한 금액과 날짜를 확약했습니다."
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_disputed
+msgid "Partner disputes the invoice or amount."
+msgstr "협력사가 청구서 또는 금액에 이의를 제기합니다."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Pause Follow-ups"
+msgstr "후속 조치 일시 중지"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__followup_paused
+msgid ""
+"Pause auto follow-ups on this case (for example while negotiating a payment "
+"plan). The cron skips paused cases; manual sends are still permitted."
+msgstr ""
+"이 사건에 대한 자동 후속 조치를 일시 중지합니다(예: 지불 계획 협상 중). cron은 일시 중지된 사건을 건너뜁니다. 수동 발송은 "
+"여전히 허용됩니다."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/reminder_wizard.py:0
+msgid "Payment reminder"
+msgstr "결제 알림"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__percent_per_month
+msgid "Percent Per Month"
+msgstr "월별 백분율"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_late_fee_wizard__fee_mode__percent
+msgid "Percent of overdue per month"
+msgstr "월별 연체 비율"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__priority
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Priority"
+msgstr "우선 순위"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__promise_amount
+msgid "Promise Amount"
+msgstr "약속 금액"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__promise_date
+msgid "Promise Date"
+msgstr "약속 날짜"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_promise
+msgid "Promise to Pay"
+msgstr "지급 약속"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Promise to pay"
+msgstr "지급 약속"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_kanban
+msgid "Promise:"
+msgstr "약속:"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Promised"
+msgstr "약속됨"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__promised_amount
+msgid "Promised Amount"
+msgstr "약속된 금액"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__promised_date
+msgid "Promised Date"
+msgstr "약속된 날짜"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__rating_ids
+msgid "Ratings"
+msgstr "평가"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Refresh Overdue"
+msgstr "연체 새로 고침"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid "Reminder 1"
+msgstr "알림 1"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,name:eh_account_collections.followup_level_1
+msgid "Reminder 1 (7 days)"
+msgstr "알림 1 (7일)"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,name:eh_account_collections.followup_level_2
+msgid "Reminder 2 (30 days)"
+msgstr "알림 2 (30일)"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_reminder_wizard_form
+msgid "Reminder message..."
+msgstr "알림 메시지..."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Residual"
+msgstr "잔존"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Resolve"
+msgstr "해결"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_resolved
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Resolved"
+msgstr "해결됨"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_user_id
+msgid "Responsible User"
+msgstr "담당 사용자"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Resume Follow-ups"
+msgstr "후속 조치 재개"
+
+#. module: eh_account_collections
+#: model_terms:ir.actions.act_window,help:eh_account_collections.action_eh_collections_case
+msgid ""
+"Run the auto creator (or wait for the daily cron) to populate cases from "
+"your overdue receivables. Each open partner gets one case; the cron "
+"refreshes the totals daily."
+msgstr ""
+"자동 생성기를 실행하거나(또는 일일 cron을 기다려) 연체 채권에서 사례를 채웁니다. 열려 있는 각 협력사마다 하나의 사례가 생성되며,"
+" cron이 매일 합계를 갱신합니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__sms
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_reminder_wizard__channel__sms
+msgid "SMS"
+msgstr ""
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS 전송 에러"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__sms_template_id
+msgid ""
+"SMS template used when 'Also send SMS' is on. Bound to eh.collections.case "
+"so {{ object.* }} resolves to the case."
+msgstr ""
+"'Also send SMS'가 켜져 있을 때 사용되는 SMS 템플릿입니다. eh.collections.case에 바인딩되어 {{ "
+"object.* }}가 해당 케이스로 확인됩니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_late_fee_wizard__journal_id
+msgid "Sales journal that issues the late-fee invoice."
+msgstr "연체료 청구서를 발행하는 매출 전표입니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__action_type__activity
+msgid "Schedule a call activity (no email)"
+msgstr "통화 활동 예약 (이메일 없음)"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.mail_template_followup_reminder_2
+msgid "Second reminder: invoices past due"
+msgstr "두 번째 알림: 연체된 청구서"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_reminder_wizard_form
+msgid "Send"
+msgstr "보내기"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Send Follow-up"
+msgstr "후속 조치 보내기"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Send Reminder"
+msgstr "알림 전송"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__action_type__email_and_activity
+msgid "Send email and schedule a call activity"
+msgstr "이메일을 보내고 통화 활동을 예약합니다"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_reminder_wizard_form
+msgid "Send reminder"
+msgstr "알림 보내기"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__action_type__email
+msgid "Send templated email"
+msgstr "템플릿 이메일 보내기"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Send the next follow-up email and advance the level. Continue?"
+msgstr "다음 후속 이메일을 보내고 단계를 진행합니다. 계속하시겠습니까?"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__sequence
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__sequence
+msgid "Sequence"
+msgstr "순서"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__sms_template_id
+msgid "Sms Template"
+msgstr "SMS 서식"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__stage_id
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_stage_form
+msgid "Stage"
+msgstr "단계"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__is_escalated
+msgid ""
+"Stage to which the broken-promise cron escalates cases. When no stage "
+"carries this flag, the cron leaves the stage unchanged and only bumps "
+"priority."
+msgstr ""
+"약속 불이행 cron이 사례를 에스컬레이션하는 단계. 이 플래그를 가진 단계가 없으면 cron은 단계를 변경하지 않고 우선순위만 "
+"높입니다."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_stage_tree
+msgid "Stages"
+msgstr "단계"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Statement of Account"
+msgstr "계정 명세서"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"활동 기준 상태\n"
+"기한 초과: 기한이 이미 지났습니다.\n"
+"오늘: 활동 날짜가 오늘입니다.\n"
+"예정: 향후 계획된 활동입니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__subject
+msgid "Subject"
+msgstr "제목"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__total_overdue_amount
+msgid ""
+"Sum of amount_residual on overdue receivable AML for this partner. Refreshed"
+" by the auto creator and on demand."
+msgstr "이 파트너의 연체 채권 AML에 대한 amount_residual의 합계입니다. 자동 생성기 및 요청 시 새로 고쳐집니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__summary
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Summary"
+msgstr "요약"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__is_resolved
+msgid ""
+"Terminal state. Cases here are considered closed; the auto creator does not "
+"refresh or duplicate them."
+msgstr "종료 상태. 여기의 사례는 종료된 것으로 간주됩니다. 자동 생성기는 이를 새로 고치거나 복제하지 않습니다."
+
+#. module: eh_account_collections
+#. odoo-javascript
+#: code:addons/eh_account_collections/static/src/js/tours/collections_tour.js:0
+msgid ""
+"The Configuration menu has <b>Stages</b> and <b>Follow-up Levels</b>. Stages"
+" drive the kanban columns; follow-up levels schedule recurring reminder "
+"emails based on days overdue."
+msgstr ""
+"구성 메뉴에는 <b>단계</b>와 <b>후속 조치 수준</b>이 있습니다. 단계는 칸반 열을 제어하고, 후속 조치 수준은 연체 일수를 "
+"기준으로 반복 알림 이메일을 예약합니다."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid ""
+"The mail template must target eh.collections.case so {{ object.* }} "
+"expressions resolve to the case record. Create or edit templates from "
+"Settings &gt; Technical &gt; Email Templates."
+msgstr ""
+"메일 템플릿은 eh.collections.case를 대상으로 해야 {{ object.* }} 표현식이 케이스 레코드로 확인됩니다. "
+"Settings &gt; Technical &gt; Email Templates에서 템플릿을 생성하거나 편집하세요."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__current_followup_level_id
+msgid ""
+"The most recent follow-up level applied to this case. The next cron pass "
+"picks the next applicable level above this one whose days_overdue threshold "
+"is met."
+msgstr ""
+"이 케이스에 적용된 가장 최근의 후속 조치 수준입니다. 다음 cron 실행은 이 수준보다 위에 있으며 days_overdue 임계값이 "
+"충족된 다음 적용 가능한 수준을 선택합니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__collector_id
+msgid "The user responsible for following up on this case."
+msgstr "이 사례의 후속 조치를 담당하는 사용자입니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__last_followup_sent_at
+msgid "Timestamp of the most recent follow-up email sent on this case."
+msgstr "이 사례에 대해 전송된 가장 최근 후속 이메일의 타임스탬프입니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__today
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_search
+msgid "Today"
+msgstr "오늘"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_tree
+msgid "Total"
+msgstr "총계"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__total_overdue_amount
+msgid "Total Overdue Amount"
+msgstr "총 연체 금액"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__followup_count
+msgid "Total follow-up messages sent across this case's lifetime."
+msgstr "이 케이스의 전체 수명 동안 발송된 총 후속 메시지 수입니다."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Total open"
+msgstr "총 미결제"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Total overdue"
+msgstr "총 연체"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__days_overdue
+msgid ""
+"Trigger this level when the case's days_overdue_max is at least this many "
+"days. Levels fire in ascending order; a case at 45 days overdue with levels "
+"at 7 / 30 / 60 sits on the 30 level until it crosses 60."
+msgstr ""
+"케이스의 days_overdue_max가 최소 이 일수 이상일 때 이 레벨을 트리거합니다. 레벨은 오름차순으로 실행됩니다. 7 / 30 "
+"/ 60 레벨에서 45일 연체된 케이스는 60을 넘을 때까지 30 레벨에 머무릅니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__is_resolved
+msgid "True when the case is in a terminal stage."
+msgstr "케이스가 종료 단계에 있을 때 True입니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__broken_promise
+msgid ""
+"True when the latest promise to pay has lapsed (promise date is in the past)"
+" and the case has not been resolved. The broken-promise cron escalates these"
+" cases."
+msgstr ""
+"최근 지급 약속이 만료되고(약속일이 과거임) 케이스가 해결되지 않았을 때 True입니다. 약속 불이행 cron이 이러한 케이스를 "
+"에스컬레이션합니다."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Type"
+msgstr "유형"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "레코드에 있는 예외 활동의 유형입니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_case__priority__3
+msgid "Urgent"
+msgstr "긴급"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__is_default
+msgid ""
+"Used by the auto creator to place new cases. Only one stage should carry "
+"this flag at any given time."
+msgstr "새 사례를 배치하기 위해 자동 생성기가 사용합니다. 특정 시점에 이 플래그를 가진 단계는 하나만 있어야 합니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_late_fee_wizard__flat_amount
+msgid "Used when fee_mode = 'flat'."
+msgstr "fee_mode = 'flat'일 때 사용됩니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_late_fee_wizard__percent_per_month
+msgid ""
+"Used when fee_mode = 'percent'. Applied to the overdue amount, prorated by "
+"days_overdue / 30."
+msgstr ""
+"fee_mode = 'percent'일 때 사용됩니다. 연체 금액에 적용되며 days_overdue / 30으로 일할 계산됩니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__user_id
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_search
+msgid "User"
+msgstr "사용자"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__website_message_ids
+msgid "Website Messages"
+msgstr "웹사이트 메시지"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__website_message_ids
+msgid "Website communication history"
+msgstr "웹사이트 대화 이력"
+
+#. module: eh_account_collections
+#. odoo-javascript
+#: code:addons/eh_account_collections/static/src/js/tours/collections_tour.js:0
+msgid ""
+"Welcome to <b>Collections Workbench</b>. This walkthrough shows what the "
+"workbench does differently from a follow-up list, and how to use it day-to-"
+"day."
+msgstr ""
+"<b>Collections Workbench</b>에 오신 것을 환영합니다. 이 안내에서는 이 워크벤치가 후속 조치 목록과 어떻게 "
+"다른지, 그리고 일상적으로 어떻게 사용하는지를 보여줍니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_late_fee_wizard__auto_post
+msgid ""
+"When True, the fee invoice is posted immediately. Off by default so the "
+"collector can review the draft first."
+msgstr "True인 경우 수수료 청구서가 즉시 전기됩니다. 수금 담당자가 먼저 초안을 검토할 수 있도록 기본값은 꺼짐입니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__escalate_to_stage_id
+msgid ""
+"When action_type is 'escalate', the case moves to this stage. Defaults to "
+"the first stage flagged is_disputed when blank."
+msgstr ""
+"action_type가 'escalate'인 경우 케이스가 이 단계로 이동합니다. 비어 있으면 기본값은 is_disputed가 표시된 첫"
+" 번째 단계입니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__also_send_sms
+msgid ""
+"When set, an SMS rendered from the SMS template is sent to the partner's "
+"mobile alongside whatever the action type does, giving multi-channel "
+"dunning."
+msgstr ""
+"설정하면 작업 유형이 수행하는 작업과 함께 SMS 템플릿에서 생성된 SMS가 파트너의 휴대폰으로 전송되어 멀티채널 독촉을 제공합니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__last_broken_promise_handled_at
+msgid ""
+"When the broken-promise cron last escalated this case. Prevents repeated "
+"escalation on the same broken promise."
+msgstr ""
+"지켜지지 않은 약속 cron이 이 사례를 마지막으로 에스컬레이션한 시점. 동일한 깨진 약속에 대한 반복 에스컬레이션을 방지합니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_action__promise_amount
+msgid ""
+"When this action results in a promise to pay, record the amount here. The "
+"case's promise tracking pulls from the most recent action that has a non "
+"zero promise_amount."
+msgstr ""
+"이 조치가 지급 약속으로 이어지는 경우 여기에 금액을 기록하세요. 사건의 약속 추적은 promise_amount가 0이 아닌 가장 최근 "
+"조치에서 가져옵니다."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__responsible_type
+msgid ""
+"Who the scheduled follow-up activity is assigned to: the case collector, the"
+" customer's salesperson, or an accounting manager."
+msgstr "예약된 후속 활동이 할당되는 대상: 사건 수금 담당자, 고객의 영업 담당자 또는 회계 관리자."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "With Active Promise"
+msgstr "활성 약속 있음"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_search
+msgid "With Promise"
+msgstr "약속 포함"
+
+#. module: eh_account_collections
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_collections_workbench
+msgid "Workbench"
+msgstr "작업대"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_written_off
+msgid "Written Off"
+msgstr "상각됨"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_kanban
+msgid "by"
+msgstr "작성자"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_kanban
+msgid "days overdue"
+msgstr "연체 일수"
+
+#. module: eh_account_collections
+#: model:ir.model.constraint,message:eh_account_collections.constraint_eh_collections_followup_level_check_days_non_negative
+msgid "days_overdue cannot be negative."
+msgstr "days_overdue 는 음수일 수 없습니다."
+
+#. module: eh_account_collections
+#: model:ir.model.constraint,message:eh_account_collections.constraint_eh_collections_followup_level_check_delay_non_negative
+msgid "delay_days cannot be negative."
+msgstr "delay_days 는 음수일 수 없습니다."

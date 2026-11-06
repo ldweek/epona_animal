@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.home.theme</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <app string="Home Screen Theme" name="home_theme" logo="/home_theme/static/description/icon.png">
+
+                        <!-- ========== Backend Colors (light | dark side by side) ========== -->
+                        <block name="ht_colors" title="Backend Colors" help="Customize the palette for light and dark mode, side by side. Colors are grouped by what they affect.">
+                            <div class="row">
+                                <!-- Light column -->
+                                <div class="col-12 col-lg-6 o_ht_color_col" name="ht_colors_light">
+                                    <div class="o_ht_color_col_title">Light mode colors</div>
+                                    <div class="text-muted small mb-2">Customize the light mode appearance</div>
+
+                                    <div class="o_ht_color_group_title">Buttons &amp; alerts</div>
+                                    <div class="o_ht_color_row"><label for="color_brand_light" string="Brand"/><field name="color_brand_light" class="p-0 m-0" widget="ht_color"/></div>
+                                    <div class="o_ht_color_row"><label for="color_primary_light" string="Primary"/><field name="color_primary_light" class="p-0 m-0" widget="ht_color"/></div>
+                                    <div class="o_ht_color_row"><label for="color_info_light" string="Info"/><field name="color_info_light" class="p-0 m-0" widget="ht_color"/></div>
+                                    <div class="o_ht_color_row"><label for="color_success_light" string="Success"/><field name="color_success_light" class="p-0 m-0" widget="ht_color"/></div>
+                                    <div class="o_ht_color_row"><label for="color_warning_light" string="Warning"/><field name="color_warning_light" class="p-0 m-0" widget="ht_color"/></div>
+                                    <div class="o_ht_color_row"><label for="color_danger_light" string="Danger"/><field name="color_danger_light" class="p-0 m-0" widget="ht_color"/></div>
+
+                                    <div class="o_ht_color_group_title">Navbar &amp; sidebar</div>
+                                    <div class="o_ht_color_row"><label for="color_navbar_bg_light" string="Background"/><field name="color_navbar_bg_light" class="p-0 m-0" widget="ht_color"/></div>
+                                    <div class="o_ht_color_row"><label for="color_navbar_text_light" string="Text &amp; icons"/><field name="color_navbar_text_light" class="p-0 m-0" widget="ht_color"/></div>
+
+                                    <div class="o_ht_color_group_title">Home screen</div>
+                                    <div class="o_ht_color_row"><label for="color_home_app_text_light" string="App names"/><field name="color_home_app_text_light" class="p-0 m-0" widget="ht_color"/></div>
+
+                                    <div class="mt-3">
+                                        <button name="action_reset_light_color_assets" icon="fa-refresh" type="object" string="Reset light colors" class="btn btn-link p-0"/>
+                                    </div>
+                                </div>
+                                <!-- Dark column: fully editable in the free theme (dark mode,
+                                     palette included, moved here from Pro). -->
+                                <div class="col-12 col-lg-6 o_ht_color_col" name="ht_colors_dark">
+                                    <div class="o_ht_color_col_title">Dark mode colors</div>
+                                    <div class="text-muted small mb-2">Customize the dark mode appearance</div>
+
+                                    <div class="o_ht_color_group_title">Buttons &amp; alerts</div>
+                                    <div class="o_ht_color_row"><label for="color_brand_dark" string="Brand"/><field name="color_brand_dark" class="p-0 m-0" widget="ht_color"/></div>
+                                    <div class="o_ht_color_row"><label for="color_primary_dark" string="Primary"/><field name="color_primary_dark" class="p-0 m-0" widget="ht_color"/></div>
+                                    <div class="o_ht_color_row"><label for="color_info_dark" string="Info"/><field name="color_info_dark" class="p-0 m-0" widget="ht_color"/></div>
+                                    <div class="o_ht_color_row"><label for="color_success_dark" string="Success"/><field name="color_success_dark" class="p-0 m-0" widget="ht_color"/></div>
+                                    <div class="o_ht_color_row"><label for="color_warning_dark" string="Warning"/><field name="color_warning_dark" class="p-0 m-0" widget="ht_color"/></div>
+                                    <div class="o_ht_color_row"><label for="color_danger_dark" string="Danger"/><field name="color_danger_dark" class="p-0 m-0" widget="ht_color"/></div>
+
+                                    <div class="o_ht_color_group_title">Navbar &amp; sidebar</div>
+                                    <div class="o_ht_color_row"><label for="color_navbar_bg_dark" string="Background"/><field name="color_navbar_bg_dark" class="p-0 m-0" widget="ht_color"/></div>
+                                    <div class="o_ht_color_row"><label for="color_navbar_text_dark" string="Text &amp; icons"/><field name="color_navbar_text_dark" class="p-0 m-0" widget="ht_color"/></div>
+
+                                    <div class="o_ht_color_group_title">Home screen</div>
+                                    <div class="o_ht_color_row"><label for="color_home_app_text_dark" string="App names"/><field name="color_home_app_text_dark" class="p-0 m-0" widget="ht_color"/></div>
+
+                                    <div class="mt-3">
+                                        <button name="action_reset_dark_color_assets" icon="fa-refresh" type="object" string="Reset dark colors" class="btn btn-link p-0"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </block>
+
+                        <!-- ========== Home Screen Background ========== -->
+                        <block name="ht_home_bg" title="Home Screen Background" help="Background image for the home dashboard">
+                            <setting string="Background Image" help="Upload a custom image for the home screen background. Recommended 1920×1080 or larger.">
+                                <div class="content-group">
+                                    <div class="mt16 d-flex align-items-start gap-3">
+                                        <field name="home_background_image" widget="image" class="oe_avatar"/>
+                                        <div class="text-muted small">
+                                            <i class="fa fa-info-circle me-1" title="Info"/>Accepted formats: JPG, PNG, SVG.
+                                        </div>
+                                    </div>
+                                </div>
+                            </setting>
+                            <setting string="Wallpaper Gallery" help="Thirteen bundled wallpapers &#8212; six colour-matched to the theme palettes, three signature backgrounds and four light business looks. One click applies.">
+                                <div class="d-flex flex-wrap gap-2 mt-2">
+                                    <button name="action_apply_wallpaper" type="object" context="{'wallpaper': 'hacienda'}" class="btn p-0 border rounded overflow-hidden" title="Hacienda"><img src="/home_theme/static/wallpapers/bg_hacienda.png" alt="Hacienda" style="height:54px;width:96px;object-fit:cover;display:block;"/></button>
+                                    <button name="action_apply_wallpaper" type="object" context="{'wallpaper': 'ocean'}" class="btn p-0 border rounded overflow-hidden" title="Ocean"><img src="/home_theme/static/wallpapers/bg_ocean.png" alt="Ocean" style="height:54px;width:96px;object-fit:cover;display:block;"/></button>
+                                    <button name="action_apply_wallpaper" type="object" context="{'wallpaper': 'forest'}" class="btn p-0 border rounded overflow-hidden" title="Forest"><img src="/home_theme/static/wallpapers/bg_forest.png" alt="Forest" style="height:54px;width:96px;object-fit:cover;display:block;"/></button>
+                                    <button name="action_apply_wallpaper" type="object" context="{'wallpaper': 'sunset'}" class="btn p-0 border rounded overflow-hidden" title="Sunset"><img src="/home_theme/static/wallpapers/bg_sunset.png" alt="Sunset" style="height:54px;width:96px;object-fit:cover;display:block;"/></button>
+                                    <button name="action_apply_wallpaper" type="object" context="{'wallpaper': 'plum'}" class="btn p-0 border rounded overflow-hidden" title="Plum"><img src="/home_theme/static/wallpapers/bg_plum.png" alt="Plum" style="height:54px;width:96px;object-fit:cover;display:block;"/></button>
+                                    <button name="action_apply_wallpaper" type="object" context="{'wallpaper': 'graphite'}" class="btn p-0 border rounded overflow-hidden" title="Graphite"><img src="/home_theme/static/wallpapers/bg_graphite.png" alt="Graphite" style="height:54px;width:96px;object-fit:cover;display:block;"/></button>
+                                    <button name="action_apply_wallpaper" type="object" context="{'wallpaper': 'midnight'}" class="btn p-0 border rounded overflow-hidden" title="Midnight"><img src="/home_theme/static/wallpapers/bg_midnight.png" alt="Midnight" style="height:54px;width:96px;object-fit:cover;display:block;"/></button>
+                                    <button name="action_apply_wallpaper" type="object" context="{'wallpaper': 'aurora'}" class="btn p-0 border rounded overflow-hidden" title="Aurora"><img src="/home_theme/static/wallpapers/bg_aurora.png" alt="Aurora" style="height:54px;width:96px;object-fit:cover;display:block;"/></button>
+                                    <button name="action_apply_wallpaper" type="object" context="{'wallpaper': 'slate'}" class="btn p-0 border rounded overflow-hidden" title="Slate"><img src="/home_theme/static/wallpapers/bg_slate.png" alt="Slate" style="height:54px;width:96px;object-fit:cover;display:block;"/></button>
+                                    <button name="action_apply_wallpaper" type="object" context="{'wallpaper': 'daylight'}" class="btn p-0 border rounded overflow-hidden" title="Daylight"><img src="/home_theme/static/wallpapers/bg_daylight.png" alt="Daylight" style="height:54px;width:96px;object-fit:cover;display:block;"/></button>
+                                    <button name="action_apply_wallpaper" type="object" context="{'wallpaper': 'porcelain'}" class="btn p-0 border rounded overflow-hidden" title="Porcelain"><img src="/home_theme/static/wallpapers/bg_porcelain.png" alt="Porcelain" style="height:54px;width:96px;object-fit:cover;display:block;"/></button>
+                                    <button name="action_apply_wallpaper" type="object" context="{'wallpaper': 'linen'}" class="btn p-0 border rounded overflow-hidden" title="Linen"><img src="/home_theme/static/wallpapers/bg_linen.png" alt="Linen" style="height:54px;width:96px;object-fit:cover;display:block;"/></button>
+                                    <button name="action_apply_wallpaper" type="object" context="{'wallpaper': 'horizon'}" class="btn p-0 border rounded overflow-hidden" title="Horizon"><img src="/home_theme/static/wallpapers/bg_horizon.png" alt="Horizon" style="height:54px;width:96px;object-fit:cover;display:block;"/></button>
+                                </div>
+                                <div class="text-muted small mt-2"><i class="fa fa-info-circle me-1" title="Info"/>Applied as the home-screen background. The page reloads.</div>
+                            </setting>
+                        </block>
+
+                    </app>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

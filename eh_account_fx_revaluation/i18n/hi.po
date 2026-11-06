@@ -1,0 +1,2292 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_fx_revaluation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Hindi\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "%(count)s rates updated."
+msgstr "%(count)s दरें अपडेट की गईं।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "%(count)s rates written for %(date)s"
+msgstr "%(date)s के लिए %(count)s दरें लिखी गईं"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "%s manual override(s)"
+msgstr "%s मैन्युअल ओवरराइड"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_kanban
+msgid "<i class=\"fa fa-calendar\" title=\"Revaluation date\"/>"
+msgstr "<i class=\"fa fa-calendar\" title=\"पुनर्मूल्यांकन तिथि\"/>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "<strong>Auto reverse:</strong>"
+msgstr "<strong>स्वतः प्रत्यावर्तन:</strong>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "<strong>Company:</strong>"
+msgstr "<strong>कंपनी:</strong>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "<strong>Journal:</strong>"
+msgstr "<strong>जर्नल:</strong>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "<strong>Revaluation date:</strong>"
+msgstr "<strong>पुनर्मूल्यांकन तिथि:</strong>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "<strong>State:</strong>"
+msgstr "<strong>स्थिति:</strong>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_form
+msgid ""
+"A manual override always wins over the fetched rate. Use it to pin a "
+"currency that has no clean feed (or whose terms restrict redistribution) "
+"while every other currency keeps auto-updating. This is finer grained than "
+"the all-or-nothing Manual provider."
+msgstr ""
+"एक मैनुअल ओवरराइड हमेशा प्राप्त की गई दर पर हावी रहता है। इसका उपयोग किसी "
+"ऐसी मुद्रा को पिन करने के लिए करें जिसका कोई साफ फ़ीड नहीं है (या जिसकी "
+"शर्तें पुनर्वितरण को प्रतिबंधित करती हैं) जबकि हर दूसरी मुद्रा स्वतः अपडेट "
+"होती रहती है। यह सब-कुछ-या-कुछ-नहीं वाले मैनुअल प्रदाता की तुलना में अधिक "
+"बारीक है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__api_key
+msgid ""
+"API key for sources that require one (aggregator services). Central-bank "
+"sources ignore this field."
+msgstr ""
+"उन स्रोतों के लिए API कुंजी जिन्हें इसकी आवश्यकता होती है (एग्रीगेटर "
+"सेवाएँ)। केंद्रीय बैंक स्रोत इस फ़ील्ड को अनदेखा करते हैं।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "AUD/USD forward 2026-09-30 notional 1M, USD-denominated loan, ..."
+msgstr "AUD/USD फॉरवर्ड 2026-09-30 काल्पनिक 1M, USD-मूल्यांकित ऋण, ..."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__offset_ratio
+msgid ""
+"Absolute ratio of |instrument change| to |hedged change|. Must fall within "
+"0.80-1.25 to pass the dollar-offset test."
+msgstr ""
+"|उपकरण परिवर्तन| और |हेज किए गए परिवर्तन| का पूर्ण अनुपात। डॉलर-ऑफसेट "
+"परीक्षण पास करने के लिए यह 0.80-1.25 के भीतर होना चाहिए।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_account_account
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__account_id
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+msgid "Account"
+msgstr "खाता"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/account_account.py:0
+msgid ""
+"Account %(code)s is non monetary (%(type)s) and cannot be flagged for FX "
+"revaluation. IAS 21 restricts period end retranslation to monetary items "
+"(cash, receivables, payables, loans); non monetary items such as fixed "
+"assets, prepayments and equity are carried at historical rate."
+msgstr ""
+"खाता %(code)s गैर-मौद्रिक (%(type)s) है और इसे FX पुनर्मूल्यांकन के लिए "
+"फ़्लैग नहीं किया जा सकता। IAS 21 अवधि-अंत पुनरनुवाद को मौद्रिक मदों (नकद, "
+"प्राप्य, देय, ऋण) तक सीमित करता है; अचल संपत्तियों, पूर्वदत्त व्यय और "
+"इक्विटी जैसी गैर-मौद्रिक मदें ऐतिहासिक दर पर दर्ज की जाती हैं।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Accounts"
+msgstr "अकाउंट"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_needaction
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_needaction
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_needaction
+msgid "Action Needed"
+msgstr "कार्रवाई की ज़रूरत है"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__active
+msgid "Active"
+msgstr "ऐक्टिव"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_ids
+msgid "Activities"
+msgstr "गतिविधियाँ"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_exception_decoration
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_exception_decoration
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "ऐक्टिविटी एक्सेप्शन डेकोरेशन"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_state
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_state
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_state
+msgid "Activity State"
+msgstr "ऐक्टिविटी स्टेट"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_type_icon
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_type_icon
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "ऐक्टिविटी टाइप आइकॉन"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.actions.act_window,help:eh_account_fx_revaluation.action_eh_fx_rate_config
+msgid ""
+"Add one config per company that revalues foreign-currency\n"
+"                balances. The daily cron fetches rates and writes them\n"
+"                into Odoo's standard res.currency.rate so every revaluation\n"
+"                run has the data it needs."
+msgstr ""
+"Add one config per company that revalues foreign-currency\\n                "
+"balances. The daily cron fetches rates and writes them\\n                "
+"into Odoo's standard res.currency.rate so every revaluation\\n"
+"                run has the data it needs."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__adjustment
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Adjustment"
+msgstr "एडजस्टमेंट"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__aggregate_by_partner
+msgid "Aggregate By Partner"
+msgstr "पार्टनर के अनुसार समुच्चय"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid "Amounts"
+msgstr "राशियाँ"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__api_key
+msgid "Api Key"
+msgstr "API कुंजी"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_attachment_count
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_attachment_count
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_attachment_count
+msgid "Attachment Count"
+msgstr "अटैचमेंट की संख्या"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Audit Trail"
+msgstr "ऑडिट ट्रेल"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__auto_reverse
+msgid "Auto Reverse"
+msgstr "स्वतः रिवर्स करें"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__balance_company
+msgid "Balance Company"
+msgstr "कंपनी शेष"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__balance_foreign
+msgid "Balance Foreign"
+msgstr "विदेशी शेष"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__instrument_account_id
+msgid ""
+"Balance-sheet account that carries the hedging instrument's fair value (e.g."
+" derivative asset / liability for a forward, FX-loan account)."
+msgstr ""
+"बैलेंस-शीट खाता जो हेजिंग साधन का उचित मूल्य वहन करता है (उदा. फॉरवर्ड के "
+"लिए व्युत्पन्न परिसंपत्ति / देयता, FX-ऋण खाता)।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Cancel"
+msgstr "रद्द"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_run__state__cancelled
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "Cancelled"
+msgstr "रद्द किया गया"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__cancelled_at
+msgid "Cancelled At"
+msgstr "रद्द किए जाने का समय"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__cancelled_by_id
+msgid "Cancelled By"
+msgstr "रद्द किया गया द्वारा"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Cannot cancel a posted or reversed run."
+msgstr "पोस्ट किए गए या उलटे किए गए रन को रद्द नहीं किया जा सकता।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Cannot reverse: original revaluation move is missing."
+msgstr "उलटा नहीं किया जा सकता: मूल पुनर्मूल्यांकन प्रविष्टि अनुपस्थित है।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Carrying"
+msgstr "वहन मूल्य"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__balance_company
+msgid "Carrying amount in company currency before revaluation."
+msgstr "पुनर्मूल्यांकन से पहले कंपनी मुद्रा में वहन राशि।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__new_balance_company
+msgid "Carrying amount restated at the closing rate."
+msgstr "समापन दर पर पुनः निर्धारित वहन राशि।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Cash flow (CFH)"
+msgstr "नकदी प्रवाह (CFH)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__hedge_type__cash_flow
+msgid "Cash flow hedge (CFH)"
+msgstr "नकदी प्रवाह हेज (CFH)"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_form
+msgid ""
+"Central-bank sources (ECB, Bank of Canada, National Bank of Poland, Bank of "
+"Russia, Central Bank of Turkey, Reserve Bank of Australia, Central Bank of "
+"Brazil, HMRC) publish against their own base currency and need no API key; "
+"cross-rates into the company currency are derived automatically. Aggregator "
+"sources serve broad coverage and some require an API key in the field above."
+" The Manual provider disables automatic fetch so finance enters rates by "
+"hand into Currencies &gt; Rates."
+msgstr ""
+"केंद्रीय बैंक स्रोत (ECB, Bank of Canada, National Bank of Poland, Bank of "
+"Russia, Central Bank of Turkey, Reserve Bank of Australia, Central Bank of "
+"Brazil, HMRC) अपनी स्वयं की आधार मुद्रा के सापेक्ष प्रकाशित करते हैं और "
+"उन्हें किसी API कुंजी की आवश्यकता नहीं होती; कंपनी मुद्रा में क्रॉस-दरें "
+"स्वचालित रूप से प्राप्त की जाती हैं। एग्रीगेटर स्रोत व्यापक कवरेज प्रदान "
+"करते हैं और कुछ को ऊपर दिए गए फ़ील्ड में एक API कुंजी की आवश्यकता होती है। "
+"Manual प्रदाता स्वचालित फ़ेच को अक्षम कर देता है ताकि वित्त विभाग दरों को "
+"हाथ से Currencies &gt; Rates में दर्ज करे।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__closing_rate
+msgid "Closing Rate"
+msgstr "समापन दर"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__revaluation_date
+msgid "Closing date for which rates are fetched and balances translated."
+msgstr ""
+"समापन तिथि जिसके लिए दरें प्राप्त की जाती हैं और शेष राशि परिवर्तित की जाती "
+"है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__company_id
+msgid "Company"
+msgstr "कंपनी"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid ""
+"Company %s has no enabled FX rate config. Open Configuration > Heritage > FX"
+" Rate Config to select a provider."
+msgstr ""
+"कंपनी %s के पास कोई सक्षम FX दर कॉन्फ़िगरेशन नहीं है। प्रदाता चुनने के लिए "
+"Configuration > Heritage > FX Rate Config खोलें।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Compute Lines"
+msgstr "पंक्तियाँ परिकलित करें"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Compute is only available in draft or computed state."
+msgstr "गणना केवल ड्राफ्ट या परिकलित स्थिति में उपलब्ध है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_run__state__computed
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "Computed"
+msgstr "परिकलित"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__computed_at
+msgid "Computed At"
+msgstr "परिकलित तिथि"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__computed_by_id
+msgid "Computed By"
+msgstr "परिकलित द्वारा"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__config_id
+msgid "Config"
+msgstr "कॉन्फ़िग"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__create_uid
+msgid "Created by"
+msgstr "इन्होंने बनाया"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__create_date
+msgid "Created on"
+msgstr "इस तारीख को बनाया गया"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__cumulative_hedged_change
+msgid "Cumulative Hedged Change"
+msgstr "संचयी हेज्ड परिवर्तन"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__cumulative_instrument_change
+msgid "Cumulative Instrument Change"
+msgstr "संचयी उपकरण परिवर्तन"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__cumulative_hedged_change
+msgid ""
+"Cumulative fair-value change of the hedged item since designation. Positive "
+"= gain on hedged item. For CFH this is the variability in expected future "
+"cash flows."
+msgstr ""
+"पदनाम के बाद से हेज्ड आइटम का संचयी उचित-मूल्य परिवर्तन। सकारात्मक = हेज्ड "
+"आइटम पर लाभ। CFH के लिए यह अपेक्षित भावी नकदी प्रवाह में परिवर्तनशीलता है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__cumulative_instrument_change
+msgid ""
+"Cumulative fair-value change of the hedging instrument since designation. "
+"Positive = gain on instrument."
+msgstr ""
+"पदनाम के बाद से हेजिंग उपकरण का संचयी उचित-मूल्य परिवर्तन। सकारात्मक = उपकरण"
+" पर लाभ।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__currency_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__currency_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__currency_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__currency_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__currency_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__currency_id
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+msgid "Currency"
+msgstr "करेंसी"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__hedged_currency_id
+msgid ""
+"Currency of the hedged exposure. For CFH on a USD forecast sale this is USD;"
+" for NIH on a EUR subsidiary this is EUR."
+msgstr ""
+"हेज्ड एक्सपोज़र की मुद्रा। USD पूर्वानुमानित बिक्री पर CFH के लिए यह USD है;"
+" EUR सहायक कंपनी पर NIH के लिए यह EUR है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_rate_config__fetch_frequency__daily
+msgid "Daily"
+msgstr "हर दिन"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "Date (month)"
+msgstr "दिनांक (माह)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__last_test_date
+msgid "Date of the most recent effectiveness test."
+msgstr "सबसे हाल के प्रभावशीलता परीक्षण की तिथि।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__termination_date
+msgid "Date the hedge relationship ended."
+msgstr "वह तिथि जब हेज संबंध समाप्त हुआ।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "De-designate"
+msgstr "पदनाम रद्द करें"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid ""
+"De-designate this hedge? Subsequent gains/losses on the instrument go "
+"straight to P&L; the OCI reserve stays."
+msgstr ""
+"इस हेज का पदनाम रद्द करें? इंस्ट्रूमेंट पर आगे के लाभ/हानि सीधे P&L में जाते"
+" हैं; OCI आरक्षित शेष रहता है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__state__dedesignated
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "De-designated"
+msgstr "पदनाम रद्द किया गया"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__description
+msgid "Description"
+msgstr "विवरण"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Designate"
+msgstr "नामित करें"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid ""
+"Designate this hedge? IFRS 9 requires risk management objective and strategy"
+" in the Notes field before designation."
+msgstr ""
+"इस हेज को नामित करें? IFRS 9 के लिए नामांकन से पहले नोट्स फ़ील्ड में जोखिम "
+"प्रबंधन उद्देश्य और रणनीति आवश्यक है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__state__designated
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Designated"
+msgstr "नामित"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__designation_date
+msgid "Designation Date"
+msgstr "नामांकन तिथि"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_account_account__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__display_name
+msgid "Display Name"
+msgstr "डिस्प्ले का नाम"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__name
+msgid ""
+"Display name for the hedge relationship. Convention: '<Type>: <Hedged item> "
+"via <Instrument>'."
+msgstr ""
+"हेज संबंध के लिए प्रदर्शन नाम। परिपाटी: '<Type>: <Hedged item> via "
+"<Instrument>'।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__test_method__dollar_offset
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge_test__method__dollar_offset
+msgid "Dollar-offset (80-125%)"
+msgstr "डॉलर-ऑफसेट (80-125%)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__state__draft
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge_movement__state__draft
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_run__state__draft
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "Draft"
+msgstr "मसौदा"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.server,name:eh_account_fx_revaluation.cron_eh_fx_rate_fetch_daily_ir_actions_server
+msgid "EH FX: daily rate fetch"
+msgstr "EH FX: दैनिक दर फ़ेच"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__state__effective
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Effective"
+msgstr "प्रभावी"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__effective_portion
+msgid "Effective Portion"
+msgstr "प्रभावी हिस्सा"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Effective portion %.2f cannot exceed total change %.2f in absolute value."
+msgstr ""
+"प्रभावी हिस्सा %.2f निरपेक्ष मान में कुल परिवर्तन %.2f से अधिक नहीं हो सकता।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Effectiveness Tests"
+msgstr "प्रभावशीलता परीक्षण"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__enabled
+msgid "Enabled"
+msgstr "चालू किया गया"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__provider
+msgid ""
+"External source for daily rates. Central-bank sources (ECB, Bank of Canada, "
+"National Bank of Poland, Bank of Russia, Central Bank of Turkey, Reserve "
+"Bank of Australia, Central Bank of Brazil, HMRC) need no API key; cross-"
+"rates are derived into the company currency. Aggregator sources serve broad "
+"coverage; some need an API key. Manual disables automatic fetch so finance "
+"enters rates by hand."
+msgstr ""
+"दैनिक दरों के लिए बाहरी स्रोत। केंद्रीय बैंक स्रोतों (ECB, Bank of Canada, "
+"National Bank of Poland, Bank of Russia, Central Bank of Turkey, Reserve "
+"Bank of Australia, Central Bank of Brazil, HMRC) को API कुंजी की आवश्यकता "
+"नहीं है; क्रॉस-रेट कंपनी मुद्रा में व्युत्पन्न किए जाते हैं। एग्रीगेटर स्रोत"
+" व्यापक कवरेज प्रदान करते हैं; कुछ को API कुंजी की आवश्यकता होती है। "
+"मैन्युअल स्वचालित फ़ेच को अक्षम कर देता है ताकि वित्त दरें हाथ से दर्ज करे।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_form
+msgid "FX Rate Provider"
+msgstr "FX दर प्रदाता"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.act_window,name:eh_account_fx_revaluation.action_eh_fx_rate_config
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_list
+msgid "FX Rate Providers"
+msgstr "FX दर प्रदाता"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.report,name:eh_account_fx_revaluation.action_report_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_account_account__eh_fx_revalue
+#: model:ir.ui.menu,name:eh_account_fx_revaluation.menu_eh_fx_revaluation_root
+msgid "FX Revaluation"
+msgstr "FX पुनर्मूल्यांकन"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "FX Revaluation %s"
+msgstr "FX पुनर्मूल्यांकन %s"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_revaluation_line
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_form
+msgid "FX Revaluation Line"
+msgstr "FX पुनर्मूल्यांकन पंक्ति"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.act_window,name:eh_account_fx_revaluation.action_eh_fx_revaluation_line
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_tree
+msgid "FX Revaluation Lines"
+msgstr "FX पुनर्मूल्यांकन पंक्तियाँ"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "FX Revaluation Reversal %s"
+msgstr "FX पुनर्मूल्यांकन प्रतिवर्तन %s"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_revaluation_run
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "FX Revaluation Run"
+msgstr "FX पुनर्मूल्यांकन रन"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.act_window,name:eh_account_fx_revaluation.action_eh_fx_revaluation_run
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_tree
+msgid "FX Revaluation Runs"
+msgstr "FX पुनर्मूल्यांकन रन"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "FX Revaluation —"
+msgstr "FX पुनर्मूल्यांकन —"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_rate_override
+msgid "FX manual rate override"
+msgstr "FX मैन्युअल दर ओवरराइड"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_rate_config
+msgid "FX rate provider configuration"
+msgstr "FX दर प्रदाता कॉन्फ़िगरेशन"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "FX rate update"
+msgstr "FX दर अपडेट"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "FX revaluation %s"
+msgstr "FX पुनर्मूल्यांकन %s"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Fair value (FVH)"
+msgstr "उचित मूल्य (FVH)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__hedge_type__fair_value
+msgid "Fair value hedge (FVH)"
+msgstr "उचित मूल्य हेज (FVH)"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Fair-value hedge movements never post to OCI; no reclassification needed."
+msgstr ""
+"उचित मूल्य हेज गतिविधियाँ कभी OCI में पोस्ट नहीं होतीं; किसी पुनर्वर्गीकरण "
+"की आवश्यकता नहीं है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__fallback_provider
+msgid "Fallback Provider"
+msgstr "फ़ॉलबैक प्रदाता"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__fetch_frequency
+msgid "Fetch Frequency"
+msgstr "प्राप्ति आवृत्ति"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Fetch Rates"
+msgstr "दरें प्राप्त करें"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Fetched %(count)s rate(s) from %(provider)s for %(date)s."
+msgstr "%(provider)s से %(date)s के लिए %(count)s दर प्राप्त की गईं।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_follower_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_follower_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_follower_ids
+msgid "Followers"
+msgstr "फ़ॉलोवर"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_partner_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_partner_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "फ़ॉलोवर (पार्टनर)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__activity_type_icon
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_type_icon
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "फॉन्ट के बेहतरीन आइकॉन जैसे, फा-टॉस्क"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Foreign Balance"
+msgstr "विदेशी शेष"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__foreign_currency_id
+msgid "Foreign Currency"
+msgstr "फॉरेन करेंसी"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__designation_date
+msgid ""
+"Formal designation date. IFRS 9 hedge accounting starts from this date "
+"forward; gains and losses before this date go to P&L unconditionally."
+msgstr ""
+"औपचारिक पदनाम तिथि. IFRS 9 हेज लेखांकन इस तिथि से आगे शुरू होता है; इस तिथि "
+"से पहले के लाभ और हानि बिना शर्त लाभ-हानि खाते में जाते हैं."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__hedged_item_description
+msgid ""
+"Free-form description of the hedged item: forecast USD revenue Q3 2026, EUR-"
+"denominated trade receivable from Acme GmbH, net investment in DE "
+"subsidiary, etc. IFRS 9 requires the hedged item to be reliably measurable; "
+"document the measurement basis here."
+msgstr ""
+"हेज किए गए मद का मुक्त-रूप विवरण: पूर्वानुमानित USD राजस्व Q3 2026, Acme "
+"GmbH से EUR में अंकित व्यापार प्राप्य, DE सहायक कंपनी में शुद्ध निवेश, आदि। "
+"IFRS 9 के लिए आवश्यक है कि हेज किया गया मद विश्वसनीय रूप से मापने योग्य हो; "
+"माप का आधार यहाँ दर्ज करें।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__hedging_instrument_description
+msgid ""
+"Free-form description of the hedging instrument: AUD/USD forward 2026-09-30 "
+"notional 1M, USD-denominated loan, etc."
+msgstr ""
+"हेजिंग साधन का मुक्त-रूप विवरण: AUD/USD फ़ॉरवर्ड 2026-09-30 नोशनल 1M, USD "
+"में अंकित ऋण, आदि।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_line__nature__gain
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_tree
+msgid "Gain"
+msgstr "लाभ"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+msgid "Gains"
+msgstr "लाभ"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__has_message
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__has_message
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__has_message
+msgid "Has Message"
+msgstr "मैसेज है"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__hedge_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__hedge_id
+msgid "Hedge"
+msgstr "हेज"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Hedge %s needs documented risk management objective and strategy in the "
+"Notes field before designation. IFRS 9 paragraph 6.4.1(b) requires this at "
+"inception."
+msgstr ""
+"हेज %s को नामांकन से पहले नोट्स फ़ील्ड में प्रलेखित जोखिम प्रबंधन उद्देश्य "
+"और रणनीति की आवश्यकता है। IFRS 9 पैराग्राफ 6.4.1(b) प्रारंभ के समय इसकी "
+"आवश्यकता रखता है।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Hedge %s needs journal and instrument account configured before posting "
+"movements."
+msgstr ""
+"हेज %s को गतिविधियां पोस्ट करने से पहले जर्नल और इंस्ट्रूमेंट खाता कॉन्फ़िगर"
+" करने की आवश्यकता है।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Hedge %s requires a P&L account for the ineffective portion (and for the "
+"full FVH movement when applicable)."
+msgstr ""
+"हेज %s को अप्रभावी हिस्से के लिए एक P&L खाता चाहिए (और लागू होने पर पूरी FVH"
+" गतिविधि के लिए)।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Hedge %s requires an OCI / equity account to receive the effective portion "
+"of movements (CFH and NIH route the effective portion through OCI per IFRS "
+"9)."
+msgstr ""
+"हेज %s को गतिविधियों के प्रभावी हिस्से को प्राप्त करने के लिए एक OCI / "
+"इक्विटी खाता चाहिए (IFRS 9 के अनुसार CFH और NIH प्रभावी हिस्से को OCI के "
+"माध्यम से भेजते हैं)।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__hedge_type
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__hedge_type
+msgid "Hedge Type"
+msgstr "हेज प्रकार"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Hedge de-designated. Subsequent movements on the hedging instrument go "
+"straight to P&L; the OCI reserve stays until the original hedged transaction"
+" occurs (CFH) or the foreign operation is disposed (NIH)."
+msgstr ""
+"हेज का नामांकन रद्द किया गया। हेजिंग इंस्ट्रूमेंट पर बाद की गतिविधियां सीधे "
+"P&L में जाती हैं; OCI रिज़र्व तब तक बना रहता है जब तक मूल हेज किया गया "
+"लेनदेन घटित न हो (CFH) या विदेशी परिचालन का निपटान न हो (NIH)।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Hedge designated on %s."
+msgstr "हेज %s को नामांकित किया गया।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_hedge
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Hedge designation"
+msgstr "हेज नामांकन"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__notes
+msgid ""
+"Hedge documentation: risk management objective, strategy, method of "
+"measuring effectiveness, sources of ineffectiveness. IFRS 9 requires this to"
+" be in place at designation."
+msgstr ""
+"हेज प्रलेखन: जोखिम प्रबंधन उद्देश्य, रणनीति, प्रभावशीलता मापने की विधि, "
+"अप्रभावशीलता के स्रोत। IFRS 9 के लिए नामांकन के समय इसका मौजूद होना आवश्यक "
+"है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_hedge_test
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_form
+msgid "Hedge effectiveness test"
+msgstr "हेज प्रभावशीलता परीक्षण"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__state
+msgid ""
+"Hedge lifecycle. draft: parameters being entered. designated: formal IFRS 9 "
+"designation in place but no test performed yet. effective: most recent test "
+"passed. de-designated: management voluntarily ended the hedge. terminated: "
+"the underlying instrument expired or was sold."
+msgstr ""
+"हेज जीवनचक्र। draft: पैरामीटर दर्ज किए जा रहे हैं। designated: औपचारिक IFRS "
+"9 नामांकन मौजूद है लेकिन अभी तक कोई परीक्षण नहीं किया गया। effective: सबसे "
+"हालिया परीक्षण पास हुआ। de-designated: प्रबंधन ने स्वेच्छा से हेज समाप्त "
+"किया। terminated: अंतर्निहित इंस्ट्रूमेंट समाप्त हो गया या बेच दिया गया।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid "Hedge movement"
+msgstr "हेज गतिविधि"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Hedge movement %s on %s"
+msgstr "हेज गतिविधि %s दिनांक %s"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_hedge_movement
+msgid "Hedge movement (period gain/loss recognition)"
+msgstr "हेज गतिविधि (अवधि लाभ/हानि की मान्यता)"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_tree
+msgid "Hedge movements"
+msgstr "हेज गतिविधियां"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_tree
+msgid "Hedge tests"
+msgstr "हेज परीक्षण"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Hedge type"
+msgstr "हेज प्रकार"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__hedged_currency_id
+msgid "Hedged Currency"
+msgstr "हेज की गई मुद्रा"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__hedged_item_description
+msgid "Hedged Item Description"
+msgstr "हेज की गई मद का विवरण"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Hedged item"
+msgstr "हेज की गई मद"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.act_window,name:eh_account_fx_revaluation.action_eh_fx_hedge
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_tree
+msgid "Hedges"
+msgstr "हेज"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__instrument_account_id
+msgid "Hedging Instrument Account"
+msgstr "हेजिंग इंस्ट्रूमेंट खाता"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__hedging_instrument_description
+msgid "Hedging Instrument Description"
+msgstr "हेजिंग इंस्ट्रूमेंट विवरण"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Hedging instrument"
+msgstr "हेजिंग इंस्ट्रूमेंट"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__fetch_frequency
+msgid ""
+"How often the scheduled job refreshes rates for this company. 'Manual only' "
+"never auto-fetches (finance pulls on demand); the others gate the daily cron"
+" on the elapsed time since the last successful fetch."
+msgstr ""
+"अनुसूचित जॉब इस कंपनी के लिए कितनी बार दरें रीफ़्रेश करता है। 'केवल मैनुअल' "
+"कभी स्वतः प्राप्त नहीं करता (वित्त मांग पर खींचता है); अन्य विकल्प अंतिम सफल"
+" फ़ेच के बाद बीते समय के आधार पर दैनिक cron को नियंत्रित करते हैं।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_account_account__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__id
+msgid "ID"
+msgstr "आईडी"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__hedge_type
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__hedge_type
+msgid ""
+"IFRS 9 hedge type. Determines whether the effective portion goes to OCI "
+"(CFH, NIH) or P&L (FVH)."
+msgstr ""
+"IFRS 9 हेज प्रकार। यह निर्धारित करता है कि प्रभावी हिस्सा OCI (CFH, NIH) में"
+" जाता है या P&L (FVH) में।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_exception_icon
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_exception_icon
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_exception_icon
+msgid "Icon"
+msgstr "आइकॉन"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__activity_exception_icon
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_exception_icon
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "एक छोटा निशान जो बताता है कि कुछ अलग या असामान्य हुआ है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__message_needaction
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_needaction
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "अगर यह बॉक्स चेक है, तो नए मैसेज देखने ज़रूरी हैं।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_error
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_sms_error
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_error
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_sms_error
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_error
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "अगर बॉक्स पर टिक है, तो कुछ मैसेज भेजने में गलती हुई है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__aggregate_by_partner
+msgid ""
+"If set, lines are aggregated per (account, partner, currency). Otherwise "
+"lines are aggregated per (account, currency) only."
+msgstr ""
+"यदि सेट किया गया है, तो पंक्तियों को (खाता, भागीदार, मुद्रा) के अनुसार "
+"समेकित किया जाता है। अन्यथा पंक्तियों को केवल (खाता, मुद्रा) के अनुसार "
+"समेकित किया जाता है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_account_account__eh_fx_revalue
+msgid ""
+"If set, open foreign currency balances on this account are translated at the"
+" closing rate during a period end FX revaluation run."
+msgstr ""
+"यदि सेट किया गया है, तो इस खाते पर खुले विदेशी मुद्रा शेष को अवधि के अंत में"
+" FX पुनर्मूल्यांकन रन के दौरान समापन दर पर परिवर्तित किया जाता है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__auto_reverse
+msgid ""
+"If set, posting the run also creates and posts a reversal entry dated the "
+"day after the revaluation date."
+msgstr ""
+"यदि सेट किया गया है, तो रन को पोस्ट करने से पुनर्मूल्यांकन तिथि के अगले दिन "
+"की तिथि वाली एक प्रतिवर्तन प्रविष्टि भी बनती और पोस्ट होती है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__ineffective_portion
+msgid "Ineffective Portion"
+msgstr "अप्रभावी भाग"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_form
+msgid "Inputs (dollar-offset)"
+msgstr "इनपुट (डॉलर-ऑफसेट)"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_form
+msgid "Inputs (regression)"
+msgstr "इनपुट (रिग्रेशन)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__is_effective
+msgid "Is Effective"
+msgstr "क्या प्रभावी है"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_is_follower
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_is_follower
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_is_follower
+msgid "Is Follower"
+msgstr "फ़ॉलोवर है"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__move_id
+msgid "JE posted for the period gain/loss."
+msgstr "अवधि लाभ/हानि के लिए पोस्ट की गई जर्नल प्रविष्टि।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__reclassification_move_id
+msgid ""
+"JE that reclassifies the OCI portion to P&L when the hedged transaction "
+"occurs (CFH) or the foreign operation is disposed (NIH)."
+msgstr ""
+"जर्नल प्रविष्टि जो हेज किए गए लेनदेन के होने (CFH) या विदेशी परिचालन के "
+"निपटान (NIH) पर OCI हिस्से को P&L में पुनर्वर्गीकृत करती है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__journal_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__journal_id
+msgid "Journal"
+msgstr "पत्रिका"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Journal Entries"
+msgstr "जर्नल एंट्रीज़"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Journal entry:"
+msgstr "जर्नल प्रविष्टि:"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__journal_id
+msgid "Journal used to post hedge movements."
+msgstr "हेज मूवमेंट पोस्ट करने के लिए उपयोग किया जाने वाला जर्नल।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__last_error
+msgid "Last Error"
+msgstr "अंतिम त्रुटि"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__last_fetch_summary
+msgid "Last Fetch Summary"
+msgstr "अंतिम फ़ेच सारांश"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__last_fetched_at
+msgid "Last Fetched At"
+msgstr "अंतिम फ़ेच का समय"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__last_test_date
+msgid "Last Test Date"
+msgstr "अंतिम परीक्षण दिनांक"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__last_test_effective
+msgid "Last Test Effective"
+msgstr "अंतिम परीक्षण प्रभावी"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__write_uid
+msgid "Last Updated by"
+msgstr "इन्होंने आखिरी बार अपडेट किया"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__write_date
+msgid "Last Updated on"
+msgstr "आखिरी बार अपडेट हुआ"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__line_ids
+msgid "Line"
+msgstr "लाइन"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__line_count
+msgid "Line Count"
+msgstr "पंक्ति गणना"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Lines"
+msgstr "लाइऩें"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_line__nature__loss
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_tree
+msgid "Loss"
+msgstr "नुकसान"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+msgid "Losses"
+msgstr "हानियाँ"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_rate_config__fetch_frequency__manual
+msgid "Manual only"
+msgstr "केवल मैनुअल"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_form
+msgid "Manual overrides"
+msgstr "मैनुअल ओवरराइड"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__override_line_ids
+msgid ""
+"Manual per-currency rates. An override always wins over the fetched value, "
+"so finance can pin a currency that has no clean feed while every other "
+"currency keeps auto-updating."
+msgstr ""
+"प्रति मुद्रा मैनुअल दरें। ओवरराइड हमेशा प्राप्त मूल्य पर हावी रहता है, इसलिए"
+" वित्त उस मुद्रा को पिन कर सकता है जिसका कोई साफ फ़ीड नहीं है जबकि हर दूसरी "
+"मुद्रा स्वतः अपडेट होती रहती है।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Mark hedge as terminated?"
+msgstr "हेज को समाप्त के रूप में चिह्नित करें?"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__enabled
+msgid "Master toggle. Disable to suspend the cron without losing config."
+msgstr ""
+"मुख्य टॉगल। कॉन्फ़िगरेशन खोए बिना cron को निलंबित करने के लिए अक्षम करें।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_error
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_error
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_error
+msgid "Message Delivery error"
+msgstr "मैसेज डिलीवरी में गड़बड़ी"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_ids
+msgid "Messages"
+msgstr "संदेश"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__method
+msgid "Method"
+msgstr "मेथड"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__rsquared_threshold
+msgid ""
+"Minimum R-squared for the regression test. Standard industry threshold is "
+"0.80; some entities tighten to 0.90 for material hedges."
+msgstr ""
+"प्रतिगमन परीक्षण के लिए न्यूनतम R-squared। मानक उद्योग सीमा 0.80 है; कुछ "
+"इकाइयाँ महत्वपूर्ण हेज के लिए इसे 0.90 तक कड़ा करती हैं।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_rate_config__fetch_frequency__monthly
+msgid "Monthly"
+msgstr "महीने के हिसाब से"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__move_id
+msgid "Move"
+msgstr "मूव"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__movement_ids
+msgid "Movement"
+msgstr "संचलन"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Movement %s has zero effective portion; nothing to reclassify."
+msgstr ""
+"संचलन %s का प्रभावी हिस्सा शून्य है; पुनर्वर्गीकरण के लिए कुछ नहीं है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__movement_count
+msgid "Movement Count"
+msgstr "संचलन गणना"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__movement_date
+msgid "Movement Date"
+msgstr "संचलन तिथि"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Movements"
+msgstr "संचलन"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__my_activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__my_activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "मेरी गतिविधि की डेडलाइन"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__name
+msgid "Name"
+msgstr "नाम"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__nature
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Nature"
+msgstr "प्रकृति"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_tree
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_tree
+msgid "Net"
+msgstr "नेट"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__net_adjustment
+msgid "Net Adjustment"
+msgstr "शुद्ध समायोजन"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Net adjustment"
+msgstr "शुद्ध समायोजन"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Net investment (NIH)"
+msgstr "शुद्ध निवेश (NIH)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__hedge_type__net_investment
+msgid "Net investment hedge (NIH)"
+msgstr "शुद्ध निवेश हेज (NIH)"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_kanban
+msgid "Net:"
+msgstr "शुद्ध:"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__timeout_seconds
+msgid "Network timeout in seconds for the provider HTTP call."
+msgstr "प्रदाता HTTP कॉल के लिए सेकंड में नेटवर्क टाइमआउट।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__new_balance_company
+msgid "New Balance Company"
+msgstr "नई शेष कंपनी"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__regression_pairs
+msgid ""
+"Newline-delimited 'instrument_change,hedged_change' pairs across testing "
+"periods. Used by the regression method to compute R-squared."
+msgstr ""
+"परीक्षण अवधियों में नई-पंक्ति द्वारा सीमांकित "
+"'instrument_change,hedged_change' युग्म। R-squared की गणना के लिए प्रतिगमन "
+"विधि द्वारा उपयोग किया जाता है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_calendar_event_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_calendar_event_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "अगली गतिविधि कैलेंडर इवेंट"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "अगली गतिविधि की डेडलाइन"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_summary
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_summary
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_summary
+msgid "Next Activity Summary"
+msgstr "अगली गतिविधी की जानकारी"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_type_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_type_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_type_id
+msgid "Next Activity Type"
+msgstr "अगली गतिविधि का प्रकार"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.actions.act_window,help:eh_account_fx_revaluation.action_eh_fx_rate_config
+msgid "No FX rate provider configured."
+msgstr "कोई FX दर प्रदाता कॉन्फ़िगर नहीं किया गया।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_line__nature__flat
+msgid "No change"
+msgstr "कोई परिवर्तन नहीं"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "No closing rate available for currency %(name)s on %(date)s."
+msgstr "%(date)s को मुद्रा %(name)s के लिए कोई समापन दर उपलब्ध नहीं है।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "No rates could be fetched for %(date)s: %(err)s"
+msgstr "%(date)s के लिए कोई दर प्राप्त नहीं की जा सकी: %(err)s"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "No rates returned"
+msgstr "कोई दर वापस नहीं आई"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "No rates returned."
+msgstr "कोई दर वापस नहीं आई।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "No revaluation lines computed yet."
+msgstr "अभी तक कोई पुनर्मूल्यांकन पंक्ति गणना नहीं की गई है।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "No revaluation lines to post."
+msgstr "पोस्ट करने के लिए कोई पुनर्मूल्यांकन पंक्ति नहीं है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__note
+msgid "Note"
+msgstr "ध्यान दें"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__notes
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__notes
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__notes
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__notes
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Notes"
+msgstr "नोट्स"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__notional_amount
+msgid "Notional Amount"
+msgstr "काल्पनिक राशि"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__notional_amount
+msgid ""
+"Notional amount of the hedging instrument in the hedged item's currency. "
+"Drives the dollar-offset and regression calculations."
+msgstr ""
+"हेज की गई मद की मुद्रा में हेजिंग इंस्ट्रूमेंट की काल्पनिक राशि। डॉलर-ऑफसेट "
+"और रिग्रेशन गणनाओं को संचालित करती है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_needaction_counter
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_needaction_counter
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_needaction_counter
+msgid "Number of Actions"
+msgstr "ऐक्शन की संख्या"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_error_counter
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_error_counter
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_error_counter
+msgid "Number of errors"
+msgstr "गड़बड़ी की संख्या"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__source_line_count
+msgid "Number of journal items aggregated into this line."
+msgstr "इस पंक्ति में समेकित जर्नल आइटम की संख्या।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__message_needaction_counter
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_needaction_counter
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "ऐसे मैसेज की संख्या जिनपर कार्रवाई की ज़रूरत है"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_error_counter
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_error_counter
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "डिलीवरी में गड़बड़ी वाले मैसेज की संख्या"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__oci_account_id
+msgid "OCI / Equity Account"
+msgstr "OCI / इक्विटी खाता"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "OCI reclassification %s on %s"
+msgstr "OCI पुनर्वर्गीकरण %s पर %s"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__oci_account_id
+msgid ""
+"OCI reserve where the effective portion of CFH and NIH gains/losses "
+"accumulates. Typically an equity-class account named 'Cash Flow Hedge "
+"Reserve' or 'Foreign Currency Translation Reserve'. Required for CFH and "
+"NIH; ignored for FVH."
+msgstr ""
+"OCI रिज़र्व जहाँ CFH और NIH लाभ/हानि का प्रभावी हिस्सा संचित होता है। "
+"सामान्यतः 'Cash Flow Hedge Reserve' या 'Foreign Currency Translation "
+"Reserve' नामक इक्विटी-श्रेणी खाता। CFH और NIH के लिए आवश्यक; FVH के लिए "
+"अनदेखा किया गया।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__offset_ratio
+msgid "Offset Ratio"
+msgstr "ऑफसेट अनुपात"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.constraint,message:eh_account_fx_revaluation.constraint_eh_fx_rate_config_unique_per_company
+msgid "One FX rate config per company."
+msgstr "प्रति कंपनी एक FX दर कॉन्फ़िगरेशन।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.constraint,message:eh_account_fx_revaluation.constraint_eh_fx_rate_override_unique_currency
+msgid "One manual override per currency on a configuration."
+msgstr "किसी कॉन्फ़िगरेशन पर प्रति मुद्रा एक मैनुअल ओवरराइड।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_form
+msgid ""
+"One pair per line: instrument_change,hedged_change\n"
+"e.g.\n"
+"1000,-980\n"
+"-450,460\n"
+"700,-720"
+msgstr ""
+"प्रति पंक्ति एक जोड़ा: instrument_change,hedged_change\n"
+"जैसे\n"
+"1000,-980\n"
+"-450,460\n"
+"700,-720"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Only accounting managers can post FX revaluation runs."
+msgstr "केवल लेखांकन प्रबंधक ही FX पुनर्मूल्यांकन रन पोस्ट कर सकते हैं।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Only accounting managers can reverse FX revaluation runs."
+msgstr "केवल लेखांकन प्रबंधक ही FX पुनर्मूल्यांकन रन को उलट सकते हैं।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Only active hedges can be de-designated."
+msgstr "केवल सक्रिय हेज को अ-निर्दिष्ट किया जा सकता है।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Only cancelled runs can return to draft."
+msgstr "केवल रद्द किए गए रन ही ड्राफ्ट पर वापस जा सकते हैं।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Only draft hedges can be designated."
+msgstr "केवल ड्राफ्ट हेज को निर्दिष्ट किया जा सकता है।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Only draft movements can be posted."
+msgstr "केवल ड्राफ्ट संचलनों को पोस्ट किया जा सकता है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.constraint,message:eh_account_fx_revaluation.constraint_eh_fx_revaluation_run_uniq_date_company
+msgid "Only one revaluation run per date per company."
+msgstr "प्रति कंपनी प्रति तिथि केवल एक पुनर्मूल्यांकन रन।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Only posted movements can be reclassified."
+msgstr "केवल पोस्ट की गई गतिविधियों को पुनर्वर्गीकृत किया जा सकता है।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Only posted runs can be reversed."
+msgstr "केवल पोस्ट किए गए रन को उलटा किया जा सकता है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__balance_foreign
+msgid "Open balance in the foreign currency."
+msgstr "विदेशी मुद्रा में खुला शेष।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__description
+msgid "Optional label, e.g. 'March 2026 month end'."
+msgstr "वैकल्पिक लेबल, उदाहरण के लिए 'March 2026 month end'।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__fallback_provider
+msgid ""
+"Optional second source used to fill any currency the primary provider does "
+"not return, or to cover the run when the primary is temporarily unreachable."
+" Leave on Manual to disable the fallback. A broad aggregator is a good "
+"choice here so a national feed that omits an exotic currency still resolves."
+msgstr ""
+"वैकल्पिक दूसरा स्रोत, जिसका उपयोग किसी भी ऐसी मुद्रा को भरने के लिए किया "
+"जाता है जिसे प्राथमिक प्रदाता वापस नहीं करता, या जब प्राथमिक अस्थायी रूप से "
+"पहुँच से बाहर हो तब रन को कवर करने के लिए। फ़ॉलबैक को अक्षम करने के लिए इसे "
+"Manual पर छोड़ दें। यहाँ एक व्यापक एग्रीगेटर अच्छा विकल्प है ताकि किसी "
+"असामान्य मुद्रा को छोड़ने वाला राष्ट्रीय फ़ीड भी हल हो सके।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__override_line_ids
+msgid "Override Line"
+msgstr "अधिरोहण पंक्ति"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__pl_account_id
+msgid "P&L Account"
+msgstr "लाभ-हानि खाता"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__pl_account_id
+msgid ""
+"P&L account where the ineffective portion (and the entire FVH movement) is "
+"recognised. Typically the FX gain/loss account."
+msgstr ""
+"लाभ-हानि खाता जहाँ अप्रभावी भाग (और संपूर्ण FVH गतिविधि) को मान्यता दी जाती "
+"है। आमतौर पर FX लाभ/हानि खाता।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__partner_id
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Partner"
+msgstr "साथी"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__test_ids
+msgid "Periodic effectiveness test results."
+msgstr "आवधिक प्रभावशीलता परीक्षण परिणाम।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__movement_ids
+msgid "Periodic gain/loss recognition records."
+msgstr "आवधिक लाभ/हानि मान्यता रिकॉर्ड।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__effective_portion
+msgid ""
+"Portion considered effective per the most recent effectiveness test. Goes to"
+" OCI for CFH and NIH; to P&L for FVH (under the FVH model the effective "
+"portion is the offsetting change in the hedged item, which still ends up in "
+"P&L)."
+msgstr ""
+"सबसे हाल के प्रभावशीलता परीक्षण के अनुसार प्रभावी माना गया भाग। CFH और NIH "
+"के लिए OCI में जाता है; FVH के लिए P&L में जाता है (FVH मॉडल के तहत प्रभावी "
+"भाग हेज की गई मद में प्रतिकारी परिवर्तन होता है, जो फिर भी P&L में ही समाप्त"
+" होता है)।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_form
+msgid "Position"
+msgstr "पोज़िशन"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid "Post"
+msgstr "पोस्ट करें"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Post Entry"
+msgstr "प्रविष्टि पोस्ट करें"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Post Reversal"
+msgstr "प्रतिवर्तन पोस्ट करें"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Post the revaluation entry? This is irreversible."
+msgstr "पुनर्मूल्यांकन प्रविष्टि पोस्ट करें? यह अपरिवर्तनीय है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge_movement__state__posted
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_run__state__posted
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "Posted"
+msgstr "पोस्ट किया गया"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__posted_at
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__posted_at
+msgid "Posted At"
+msgstr "पोस्ट किया गया"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__posted_by_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__posted_by_id
+msgid "Posted By"
+msgstr "द्वारा पोस्ट किया गया"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Posted Entries"
+msgstr "पोस्ट की गई एंट्रीज़"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Posted by"
+msgstr "द्वारा पोस्ट किया गया"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid "Posting / Audit"
+msgstr "पोस्टिंग / ऑडिट"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__provider
+msgid "Provider"
+msgstr "प्रोवाइडर"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid ""
+"Provider %(provider)s returned no rates for %(date)s. If %(date)s is a non-"
+"business day, try a prior date or wait for the next publication."
+msgstr ""
+"प्रदाता %(provider)s ने %(date)s के लिए कोई दरें नहीं लौटाईं। यदि %(date)s "
+"एक गैर-कार्य दिवस है, तो पिछली तारीख आज़माएँ या अगले प्रकाशन की प्रतीक्षा "
+"करें।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "Provider %s is not registered."
+msgstr "प्रदाता %s पंजीकृत नहीं है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__provider_needs_key
+msgid "Provider Needs Key"
+msgstr "प्रदाता को कुंजी चाहिए"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid ""
+"Pull closing rates from the configured provider for the revaluation date and"
+" write them into the currency table."
+msgstr ""
+"पुनर्मूल्यांकन तिथि के लिए कॉन्फ़िगर किए गए प्रदाता से समापन दरें पुल करें "
+"और उन्हें मुद्रा तालिका में लिखें।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__test_method
+msgid ""
+"Quantitative effectiveness test. Dollar-offset checks the ratio of "
+"cumulative gain on the instrument to cumulative loss on the hedged item "
+"falls within 80-125%. Regression performs a linear fit of period changes and"
+" requires R-squared above the threshold."
+msgstr ""
+"मात्रात्मक प्रभावशीलता परीक्षण। Dollar-offset जाँचता है कि उपकरण पर संचयी "
+"लाभ का हेज किए गए मद पर संचयी हानि से अनुपात 80-125% के भीतर आता है। "
+"Regression अवधि परिवर्तनों का रैखिक फिट करता है और R-squared को थ्रेशोल्ड से"
+" ऊपर होना आवश्यक करता है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__rsquared
+msgid "R-squared of the linear regression on regression_pairs."
+msgstr "regression_pairs पर रैखिक प्रतिगमन का R-squared।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Rate"
+msgstr "रेट"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.ui.menu,name:eh_account_fx_revaluation.menu_eh_fx_rate_config
+msgid "Rate Providers"
+msgstr "दर प्रदाता"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__rating_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__rating_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__rating_ids
+msgid "Ratings"
+msgstr "रेटिंग"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__reclassification_move_id
+msgid "Reclassification Move"
+msgstr "पुनर्वर्गीकरण मूवमेंट"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge_movement__state__reclassified
+msgid "Reclassified to P&L"
+msgstr "P&L में पुनर्वर्गीकृत"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid "Reclassify OCI to P&L"
+msgstr "OCI को P&L में पुनर्वर्गीकृत करें"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid ""
+"Reclassify the effective portion from OCI to the P&L account? Used when the "
+"hedged forecast transaction occurs (CFH) or the foreign operation is "
+"disposed (NIH)."
+msgstr ""
+"प्रभावी हिस्से को OCI से P&L खाते में पुनर्वर्गीकृत करें? इसका उपयोग तब किया"
+" जाता है जब हेज्ड पूर्वानुमानित लेन-देन घटित होता है (CFH) या विदेशी परिचालन"
+" का निपटान किया जाता है (NIH)।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__test_method__regression
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge_test__method__regression
+msgid "Regression (R-squared threshold)"
+msgstr "प्रतिगमन (R-squared सीमा)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__regression_pairs
+msgid "Regression Pairs"
+msgstr "प्रतिगमन जोड़े"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_user_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_user_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_user_id
+msgid "Responsible User"
+msgstr "जिम्मेदार उपयोगकर्ता"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Restated"
+msgstr "पुनः निर्धारित"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_form
+msgid "Revaluation"
+msgstr "पुनर्मूल्यांकन"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__revaluation_date
+msgid "Revaluation Date"
+msgstr "पुनर्मूल्यांकन तिथि"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__move_id
+msgid "Revaluation Entry"
+msgstr "पुनर्मूल्यांकन प्रविष्टि"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.ui.menu,name:eh_account_fx_revaluation.menu_eh_fx_revaluation_line
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Revaluation Lines"
+msgstr "पुनर्मूल्यांकन पंक्तियाँ"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.ui.menu,name:eh_account_fx_revaluation.menu_eh_fx_revaluation_run
+msgid "Revaluation Runs"
+msgstr "पुनर्मूल्यांकन रन"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Revaluation lines"
+msgstr "पुनर्मूल्यांकन पंक्तियाँ"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Revaluation produced no adjustments to post."
+msgstr "पुनर्मूल्यांकन से पोस्ट करने के लिए कोई समायोजन उत्पन्न नहीं हुआ।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__reversal_move_id
+msgid "Reversal Entry"
+msgstr "प्रतिवर्तन प्रविष्टि"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_run__state__reversed
+msgid "Reversed"
+msgstr "रिवर्स किया गया"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__reversed_at
+msgid "Reversed At"
+msgstr "प्रतिवर्तित तिथि"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__reversed_by_id
+msgid "Reversed By"
+msgstr "प्रतिवर्तित करने वाला"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Risk management documentation (IFRS 9 6.4.1)"
+msgstr "जोखिम प्रबंधन दस्तावेज़ीकरण (IFRS 9 6.4.1)"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid ""
+"Risk management objective and strategy. Method of measuring effectiveness. "
+"Sources of ineffectiveness. Required at inception per IFRS 9."
+msgstr ""
+"जोखिम प्रबंधन उद्देश्य और रणनीति। प्रभावशीलता मापने की विधि। अप्रभावशीलता के"
+" स्रोत। IFRS 9 के अनुसार प्रारंभ में आवश्यक।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__rsquared
+msgid "Rsquared"
+msgstr ""
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__rsquared_threshold
+msgid "Rsquared Threshold"
+msgstr "Rsquared सीमा"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__run_id
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+msgid "Run"
+msgstr "चलाएँ"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Run %s has no foreign-currency exposure to fetch rates for."
+msgstr ""
+"रन %s में विनिमय दरें प्राप्त करने के लिए कोई विदेशी मुद्रा एक्सपोज़र नहीं "
+"है।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Run already has a reversal move."
+msgstr "रन में पहले से ही एक प्रतिवर्तन प्रविष्टि है।"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Run must be in computed state before posting."
+msgstr "पोस्ट करने से पहले रन का गणना की गई स्थिति में होना आवश्यक है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_sms_error
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_sms_error
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "एसएमएस डिलीवरी में गड़बड़ी"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Set to Draft"
+msgstr "ड्राफ्ट के लिए सेट करें"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__slope
+msgid "Slope"
+msgstr "ढाल"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__slope
+msgid ""
+"Slope of the regression of hedged-item change on hedging-instrument change. "
+"An effective hedge offsets the hedged item, so the slope must be negative "
+"and close to -1 (its absolute value within 0.80 to 1.25). R-squared alone is"
+" sign-blind, so the slope guards against a positively correlated, non-"
+"hedging relationship."
+msgstr ""
+"हेजिंग-इंस्ट्रूमेंट परिवर्तन पर हेज-किए-गए-मद परिवर्तन के प्रतिगमन की ढाल। "
+"एक प्रभावी हेज हेज-किए-गए मद की भरपाई करता है, इसलिए ढाल ऋणात्मक और -1 के "
+"करीब होनी चाहिए (इसका निरपेक्ष मान 0.80 से 1.25 के भीतर)। अकेले R-squared "
+"चिह्न के प्रति अंधा होता है, इसलिए ढाल एक धनात्मक रूप से सहसंबद्ध, "
+"गैर-हेजिंग संबंध से रक्षा करती है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__source_line_count
+msgid "Source Line Count"
+msgstr "स्रोत पंक्ति संख्या"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__state
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__state
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__state
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "State"
+msgstr "राज्य"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__activity_state
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_state
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"ऐक्टिविटी के हिसाब से स्टेटस\n"
+"ओवरड्यू: जिस काम की आखिरी तारीख निकल गई हो\n"
+"टुडे: जो काम आज करना है\n"
+"प्लान्ड: जो काम भविष्य में करने हैं।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Terminate"
+msgstr "समाप्त करें"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__state__terminated
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Terminated"
+msgstr "समाप्त"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__termination_date
+msgid "Termination Date"
+msgstr "समाप्ति तिथि"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__test_ids
+msgid "Test"
+msgstr "टेस्ट"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__test_count
+msgid "Test Count"
+msgstr "परीक्षण संख्या"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__test_date
+msgid "Test Date"
+msgstr "परीक्षण तिथि"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__test_method
+msgid "Test Method"
+msgstr "परीक्षण विधि"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_form
+msgid "Test methodology notes..."
+msgstr "परीक्षण पद्धति संबंधी टिप्पणियाँ..."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Tests"
+msgstr "परीक्षण"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_override__currency_id
+msgid "The currency this manual rate applies to."
+msgstr "वह मुद्रा जिस पर यह मैनुअल दर लागू होती है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__timeout_seconds
+msgid "Timeout Seconds"
+msgstr "टाइमआउट सेकंड"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__total_change
+msgid "Total Change"
+msgstr "कुल परिवर्तन"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__total_gain
+msgid "Total Gain"
+msgstr "कुल लाभ"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__total_loss
+msgid "Total Loss"
+msgstr "कुल हानि"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__total_change
+msgid ""
+"Total fair-value change of the hedging instrument for this period (positive "
+"= gain on instrument)."
+msgstr ""
+"इस अवधि के लिए हेजिंग इंस्ट्रूमेंट के उचित मूल्य में कुल परिवर्तन (धनात्मक ="
+" इंस्ट्रूमेंट पर लाभ)।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Total gain"
+msgstr "कुल लाभ"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Total loss"
+msgstr "कुल हानि"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Totals"
+msgstr "कुल योग"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__last_test_effective
+msgid ""
+"True when the most recent test passed. The state auto-flips to effective on "
+"a passing test and stays in designated otherwise."
+msgstr ""
+"True जब सबसे हालिया टेस्ट पास हो जाए। टेस्ट पास होने पर स्थिति स्वतः "
+"effective में बदल जाती है और अन्यथा designated में बनी रहती है।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__provider_needs_key
+msgid "True when the selected provider requires an API key."
+msgstr "True जब चयनित प्रदाता को API key की आवश्यकता हो।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__is_effective
+msgid ""
+"True when the test passes. Dollar-offset: ratio in [0.80, 1.25]. Regression:"
+" R-squared >= threshold on the parent hedge."
+msgstr ""
+"True जब टेस्ट पास हो जाए। Dollar-offset: अनुपात [0.80, 1.25] में। "
+"Regression: पैरेंट हेज पर R-squared >= सीमा।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__activity_exception_decoration
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_exception_decoration
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "रिकॉर्ड में जो अलग तरह की गतिविधि हुई है, वह किस तरह की है।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid ""
+"USD revenue forecast Q3 2026, EUR receivable from Acme GmbH, net investment "
+"in DE subsidiary, ..."
+msgstr ""
+"USD राजस्व पूर्वानुमान Q3 2026, Acme GmbH से EUR प्राप्य, DE सहायक कंपनी में"
+" शुद्ध निवेश, ..."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__closing_rate
+msgid ""
+"Units of company currency per 1 unit of foreign currency at the revaluation "
+"date."
+msgstr ""
+"पुनर्मूल्यांकन तिथि पर विदेशी मुद्रा की 1 इकाई के लिए कंपनी मुद्रा की "
+"इकाइयाँ।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_override__inverse_company_rate
+msgid ""
+"Units of this currency for one unit of the company currency (Odoo inverse "
+"rate). For example, with an AUD company and a USD override, 0.65 means 1 AUD"
+" = 0.65 USD."
+msgstr ""
+"कंपनी मुद्रा की एक इकाई के लिए इस मुद्रा की इकाइयाँ (Odoo व्युत्क्रम दर)। "
+"उदाहरण के लिए, AUD कंपनी और USD ओवरराइड के साथ, 0.65 का अर्थ है 1 AUD = 0.65"
+" USD।"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__inverse_company_rate
+msgid "Units per company currency"
+msgstr "प्रति कंपनी मुद्रा इकाइयाँ"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__gain_account_id
+msgid "Unrealised FX Gain Account"
+msgstr "अवास्तविक FX लाभ खाता"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__loss_account_id
+msgid "Unrealised FX Loss Account"
+msgstr "अवास्तविक FX हानि खाता"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Unrealised FX gain"
+msgstr "अवास्तविक FX लाभ"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Unrealised FX loss"
+msgstr "अवास्तविक FX हानि"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_form
+msgid "Update now"
+msgstr "अभी अपडेट करें"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__website_message_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__website_message_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__website_message_ids
+msgid "Website Messages"
+msgstr "वेबसाइट मैसेज"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__website_message_ids
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__website_message_ids
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__website_message_ids
+msgid "Website communication history"
+msgstr "वेबसाइट कम्यूनिकेशन हिस्ट्री"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_rate_config__fetch_frequency__weekly
+msgid "Weekly"
+msgstr "साप्ताहिक"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "e.g. March 2026 month end"
+msgstr "उदा. मार्च 2026 माह अंत"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "fallback %s"
+msgstr "फ़ॉलबैक %s"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_kanban
+msgid "line(s)"
+msgstr "पंक्ति(यां)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__adjustment
+msgid ""
+"new_balance_company minus balance_company. Positive moves the account up; "
+"sign is interpreted in light of the account nature to assign the gain or "
+"loss leg."
+msgstr ""
+"new_balance_company घटा balance_company. धनात्मक मान खाते को ऊपर ले जाता है;"
+" लाभ या हानि पक्ष निर्धारित करने के लिए चिह्न को खाते की प्रकृति के अनुसार "
+"समझा जाता है।"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "on"
+msgstr "चालू"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__ineffective_portion
+msgid "total_change minus effective_portion. Always to P&L."
+msgstr "total_change घटा effective_portion. हमेशा P&L में।"

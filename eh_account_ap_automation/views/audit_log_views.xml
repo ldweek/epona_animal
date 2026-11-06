@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_ap_duplicate_override_log_list" model="ir.ui.view">
+        <field name="name">eh.ap.duplicate.override.log.list</field>
+        <field name="model">eh.ap.duplicate.override.log</field>
+        <field name="arch" type="xml">
+            <list string="AP Duplicate Overrides" create="0" edit="0" delete="0"
+                  default_order="overridden_at desc">
+                <field name="overridden_at"/>
+                <field name="overridden_by_id"/>
+                <field name="intake_id"/>
+                <field name="duplicate_intake_id"/>
+                <field name="duplicate_move_id"/>
+                <field name="reason"/>
+                <field name="evidence_fingerprint" optional="hide"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_ap_duplicate_override_log_form" model="ir.ui.view">
+        <field name="name">eh.ap.duplicate.override.log.form</field>
+        <field name="model">eh.ap.duplicate.override.log</field>
+        <field name="arch" type="xml">
+            <form string="AP Duplicate Override" create="0" edit="0" delete="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="intake_id"/>
+                            <field name="duplicate_intake_id"/>
+                            <field name="duplicate_move_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="overridden_at"/>
+                            <field name="overridden_by_id"/>
+                            <field name="evidence_fingerprint"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="reason" colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_ap_duplicate_override_log_search" model="ir.ui.view">
+        <field name="name">eh.ap.duplicate.override.log.search</field>
+        <field name="model">eh.ap.duplicate.override.log</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="intake_id"/>
+                <field name="duplicate_intake_id"/>
+                <field name="duplicate_move_id"/>
+                <field name="overridden_by_id"/>
+                <group>
+                    <filter name="group_duplicate_actor" string="Actor"
+                            context="{'group_by': 'overridden_by_id'}"/>
+                    <filter name="group_duplicate_company" string="Company"
+                            context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_ap_duplicate_override_log" model="ir.actions.act_window">
+        <field name="name">AP Duplicate Overrides</field>
+        <field name="res_model">eh.ap.duplicate.override.log</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_ap_duplicate_override_log_search"/>
+    </record>
+
+    <record id="view_eh_ap_line_decision_log_list" model="ir.ui.view">
+        <field name="name">eh.ap.intake.line.decision.list</field>
+        <field name="model">eh.ap.intake.line.decision</field>
+        <field name="arch" type="xml">
+            <list string="AP Line Decisions" create="0" edit="0" delete="0"
+                  default_order="decided_at desc">
+                <field name="decided_at"/>
+                <field name="decided_by_id"/>
+                <field name="intake_id"/>
+                <field name="line_id"/>
+                <field name="decision" widget="badge"
+                       decoration-success="decision == 'override'"
+                       decoration-danger="decision == 'reject'"/>
+                <field name="reason"/>
+                <field name="evidence_fingerprint" optional="hide"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_ap_line_decision_log_form" model="ir.ui.view">
+        <field name="name">eh.ap.intake.line.decision.form</field>
+        <field name="model">eh.ap.intake.line.decision</field>
+        <field name="arch" type="xml">
+            <form string="AP Line Decision" create="0" edit="0" delete="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="intake_id"/>
+                            <field name="line_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="decision"/>
+                            <field name="decided_at"/>
+                            <field name="decided_by_id"/>
+                            <field name="evidence_fingerprint"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="reason" colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_ap_line_decision_log_search" model="ir.ui.view">
+        <field name="name">eh.ap.intake.line.decision.search</field>
+        <field name="model">eh.ap.intake.line.decision</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="intake_id"/>
+                <field name="line_id"/>
+                <field name="decided_by_id"/>
+                <filter name="line_decision_override" string="Overrides"
+                        domain="[('decision', '=', 'override')]"/>
+                <filter name="line_decision_reject" string="Rejections"
+                        domain="[('decision', '=', 'reject')]"/>
+                <group>
+                    <filter name="group_line_decision" string="Decision"
+                            context="{'group_by': 'decision'}"/>
+                    <filter name="group_line_actor" string="Actor"
+                            context="{'group_by': 'decided_by_id'}"/>
+                    <filter name="group_line_company" string="Company"
+                            context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_ap_line_decision_log" model="ir.actions.act_window">
+        <field name="name">AP Line Decisions</field>
+        <field name="res_model">eh.ap.intake.line.decision</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_ap_line_decision_log_search"/>
+    </record>
+
+    <record id="view_eh_ap_payment_hold_log_list" model="ir.ui.view">
+        <field name="name">eh.ap.payment.hold.log.list</field>
+        <field name="model">eh.ap.payment.hold.log</field>
+        <field name="arch" type="xml">
+            <list string="AP Payment Holds" create="0" edit="0" delete="0"
+                  default_order="action_at desc">
+                <field name="action_at"/>
+                <field name="actor_id"/>
+                <field name="move_id"/>
+                <field name="action" widget="badge"
+                       decoration-warning="action == 'hold'"
+                       decoration-success="action == 'release'"/>
+                <field name="reason"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_ap_payment_hold_log_form" model="ir.ui.view">
+        <field name="name">eh.ap.payment.hold.log.form</field>
+        <field name="model">eh.ap.payment.hold.log</field>
+        <field name="arch" type="xml">
+            <form string="AP Payment Hold Event" create="0" edit="0" delete="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="move_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="action"/>
+                            <field name="action_at"/>
+                            <field name="actor_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="reason" colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_ap_payment_hold_log_search" model="ir.ui.view">
+        <field name="name">eh.ap.payment.hold.log.search</field>
+        <field name="model">eh.ap.payment.hold.log</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="move_id"/>
+                <field name="actor_id"/>
+                <filter name="payment_action_hold" string="Holds"
+                        domain="[('action', '=', 'hold')]"/>
+                <filter name="payment_action_release" string="Releases"
+                        domain="[('action', '=', 'release')]"/>
+                <group>
+                    <filter name="group_payment_action" string="Action"
+                            context="{'group_by': 'action'}"/>
+                    <filter name="group_payment_actor" string="Actor"
+                            context="{'group_by': 'actor_id'}"/>
+                    <filter name="group_payment_company" string="Company"
+                            context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_ap_payment_hold_log" model="ir.actions.act_window">
+        <field name="name">AP Payment Holds</field>
+        <field name="res_model">eh.ap.payment.hold.log</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_ap_payment_hold_log_search"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_eh_reconciliation_undo_wizard_form" model="ir.ui.view">
+        <field name="name">eh.reconciliation.undo.wizard.form</field>
+        <field name="model">eh.reconciliation.undo.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Controlled Reconciliation Undo">
+                <group>
+                    <field name="audit_id"/>
+                    <field name="reversal_date"/>
+                    <field name="reason"
+                           placeholder="Explain why the original decision is being undone and what evidence was reviewed."/>
+                </group>
+                <div class="alert alert-warning" role="alert">
+                    This reopens the bank line and matched items. Any ERP
+                    Heritage adjustment is reversed by a new immutable entry;
+                    the original entry and audit rows are never deleted.
+                </div>
+                <footer>
+                    <button name="action_confirm" type="object"
+                            string="Undo and Reverse" class="btn-primary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

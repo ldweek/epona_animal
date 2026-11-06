@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+
+    <!-- Foundations -->
+
+    <record id="task_company_currency" model="eh.account.setup.task">
+        <field name="key">company_currency</field>
+        <field name="name">Set the company currency</field>
+        <field name="description">The company currency anchors every report and reconciliation. Confirm the value before posting any journal entries; changing it later requires a migration.</field>
+        <field name="sequence">5</field>
+        <field name="category">foundations</field>
+        <field name="required_modules">eh_account_base</field>
+        <field name="action_xmlid">account.action_account_config</field>
+        <field name="icon">building-o</field>
+    </record>
+
+    <record id="task_chart_of_accounts" model="eh.account.setup.task">
+        <field name="key">chart_of_accounts</field>
+        <field name="name">Set up the Chart of Accounts</field>
+        <field name="description">Pick a localisation pack or define accounts manually. Every other accounting feature in this suite refuses to silently invent missing accounts, so this is the first task to clear.</field>
+        <field name="sequence">10</field>
+        <field name="category">foundations</field>
+        <field name="required_modules">eh_account_base</field>
+        <field name="action_xmlid">account.action_account_form</field>
+        <field name="icon">th-list</field>
+    </record>
+
+    <record id="task_journals" model="eh.account.setup.task">
+        <field name="key">journals</field>
+        <field name="name">Configure journals</field>
+        <field name="description">Sales, purchase, bank, cash, miscellaneous. Each posting flow needs at least one journal of the right type with default debit and credit accounts set.</field>
+        <field name="sequence">20</field>
+        <field name="category">foundations</field>
+        <field name="required_modules">eh_account_base</field>
+        <field name="action_xmlid">account.action_account_journal_form</field>
+        <field name="icon">book</field>
+    </record>
+
+    <!-- Currencies -->
+
+    <record id="task_currency_rates" model="eh.account.setup.task">
+        <field name="key">currency_rates</field>
+        <field name="name">Activate currencies and rates</field>
+        <field name="description">Activate every currency you transact in and load opening rates. The FX revaluation module reads from this table and surfaces an explicit error on a missing date rather than defaulting to the previous day.</field>
+        <field name="sequence">10</field>
+        <field name="category">currencies</field>
+        <field name="required_modules">eh_account_base</field>
+        <field name="action_xmlid">base.action_currency_form</field>
+        <field name="icon">money</field>
+    </record>
+
+    <record id="task_fx_revaluation_accounts" model="eh.account.setup.task">
+        <field name="key">fx_revaluation_accounts</field>
+        <field name="name">Configure FX revaluation accounts</field>
+        <field name="description">Pick the unrealised gain and unrealised loss accounts that the period end revaluation posts to. Without them, the wizard refuses to run.</field>
+        <field name="sequence">20</field>
+        <field name="category">currencies</field>
+        <field name="required_modules">eh_account_fx_revaluation</field>
+        <field name="action_xmlid">eh_account_fx_revaluation.action_eh_fx_revaluation_run</field>
+        <field name="icon">exchange</field>
+    </record>
+
+    <!-- Receivables -->
+
+    <record id="task_credit_policy" model="eh.account.setup.task">
+        <field name="key">credit_policy</field>
+        <field name="name">Define a credit policy</field>
+        <field name="description">A credit policy sets the default limit, the override approver, and the post time enforcement behaviour. Without one, the credit limit module raises on every invoice post.</field>
+        <field name="sequence">10</field>
+        <field name="category">receivables</field>
+        <field name="required_modules">eh_account_credit_limit</field>
+        <field name="action_xmlid">eh_account_credit_limit.action_eh_credit_policy</field>
+        <field name="icon">credit-card</field>
+    </record>
+
+    <record id="task_collections_strategy" model="eh.account.setup.task">
+        <field name="key">collections_strategy</field>
+        <field name="name">Set up the collections strategy</field>
+        <field name="description">Define the dunning ladder, reminder templates, and follow up cadence. The collections workbench reads tasks off this strategy.</field>
+        <field name="sequence">20</field>
+        <field name="category">receivables</field>
+        <field name="required_modules">eh_account_collections</field>
+        <field name="action_xmlid">eh_account_collections.action_eh_followup_level</field>
+        <field name="icon">phone</field>
+    </record>
+
+    <record id="task_pdc_bounce_reasons" model="eh.account.setup.task">
+        <field name="key">pdc_bounce_reasons</field>
+        <field name="name">Seed post dated cheque bounce reasons</field>
+        <field name="description">Bounce reasons drive the cheque state machine and the bank charge journal entry. Define at least one bounce reason per recurring cause your bank uses.</field>
+        <field name="sequence">30</field>
+        <field name="category">receivables</field>
+        <field name="required_modules">eh_account_pdc</field>
+        <field name="action_xmlid">eh_account_pdc.action_eh_cheque_bounce_reason</field>
+        <field name="icon">ticket</field>
+    </record>
+
+    <record id="task_portal_extra" model="eh.account.setup.task">
+        <field name="key">portal_extra</field>
+        <field name="name">Enable customer self service balance card</field>
+        <field name="description">The portal extension adds an aged balance card and a one click statement download for portal customers. Confirm which partner groups should see it.</field>
+        <field name="sequence">40</field>
+        <field name="category">receivables</field>
+        <field name="required_modules">eh_account_portal_extra</field>
+        <field name="action_xmlid">base.action_partner_form</field>
+        <field name="icon">user-circle-o</field>
+    </record>
+
+    <!-- Payables -->
+
+    <record id="task_ap_automation_rules" model="eh.account.setup.task">
+        <field name="key">ap_automation_rules</field>
+        <field name="name">Configure vendor bill automation</field>
+        <field name="description">Map the regex parser to your vendors and pick the three way match accounts. The automation module refuses to post a bill that fails the match check.</field>
+        <field name="sequence">10</field>
+        <field name="category">payables</field>
+        <field name="required_modules">eh_account_ap_automation</field>
+        <field name="action_xmlid">eh_account_ap_automation.action_eh_ap_tolerance_profile</field>
+        <field name="icon">file-text</field>
+    </record>
+
+    <record id="task_sepa_ct" model="eh.account.setup.task">
+        <field name="key">sepa_ct</field>
+        <field name="name">Configure SEPA credit transfers</field>
+        <field name="description">Pick the originator IBAN, the BIC, and the PAIN.001 sequence type. The exporter validates against the schema and refuses on a missing originator.</field>
+        <field name="sequence">20</field>
+        <field name="category">payables</field>
+        <field name="required_modules">eh_account_sepa_ct</field>
+        <field name="action_xmlid">eh_account_sepa_ct.action_eh_sepa_originator</field>
+        <field name="icon">paper-plane</field>
+    </record>
+
+    <record id="task_sepa_dd" model="eh.account.setup.task">
+        <field name="key">sepa_dd</field>
+        <field name="name">Configure SEPA direct debits</field>
+        <field name="description">Set up the creditor identifier, the mandate sequence types, and the PAIN.008 schema version. The mandate lifecycle is enforced; an export of a mandate in the wrong state surfaces an error.</field>
+        <field name="sequence">30</field>
+        <field name="category">payables</field>
+        <field name="required_modules">eh_account_sepa_dd</field>
+        <field name="action_xmlid">eh_account_sepa_dd.action_eh_sepa_creditor</field>
+        <field name="icon">handshake-o</field>
+    </record>
+
+    <record id="task_batch_payments" model="eh.account.setup.task">
+        <field name="key">batch_payments</field>
+        <field name="name">Configure batch payment runs</field>
+        <field name="description">Pick the batch payment journal, the cut off rules, and the approver chain. The exporter wraps each line in a per record savepoint, so one rejected line never blocks the batch.</field>
+        <field name="sequence">40</field>
+        <field name="category">payables</field>
+        <field name="required_modules">eh_account_batch_payment</field>
+        <field name="action_xmlid">eh_account_batch_payment.action_eh_batch_payment</field>
+        <field name="icon">files-o</field>
+    </record>
+
+    <!-- Approvals -->
+
+    <record id="task_approval_policy" model="eh.account.setup.task">
+        <field name="key">approval_policy</field>
+        <field name="name">Define approval policies</field>
+        <field name="description">Approval policies bind document types to approver groups and amount thresholds. A change to the amount on an already approved document triggers automatic re approval.</field>
+        <field name="sequence">10</field>
+        <field name="category">approvals</field>
+        <field name="required_modules">eh_account_approval</field>
+        <field name="action_xmlid">eh_account_approval.action_eh_approval_policy</field>
+        <field name="icon">check-square-o</field>
+    </record>
+
+    <!-- Reporting -->
+
+    <record id="task_dashboard_tiles" model="eh.account.setup.task">
+        <field name="key">dashboard_tiles</field>
+        <field name="name">Configure dashboard ratio thresholds</field>
+        <field name="description">Set the company warning thresholds used by the financial dashboard ratio tiles, then review the dashboard drill throughs.</field>
+        <field name="sequence">10</field>
+        <field name="category">reporting</field>
+        <field name="required_modules">eh_account_dashboard</field>
+        <field name="action_xmlid">base.action_res_company_form</field>
+        <field name="icon">tachometer</field>
+    </record>
+
+    <record id="task_dynamic_report_subscriptions" model="eh.account.setup.task">
+        <field name="key">dynamic_report_subscriptions</field>
+        <field name="name">Schedule dynamic report deliveries</field>
+        <field name="description">Optional. Schedule a Profit and Loss, Balance Sheet, or Aged report to land in stakeholder inboxes on a cadence. Each scheduled run captures an audit log row.</field>
+        <field name="sequence">20</field>
+        <field name="category">reporting</field>
+        <field name="required_modules">eh_account_dynamic_reports_pro</field>
+        <field name="action_xmlid">eh_account_dynamic_reports_pro.action_eh_report_schedule</field>
+        <field name="icon">envelope-o</field>
+    </record>
+
+    <!-- Period Close -->
+
+    <record id="task_close_checklist" model="eh.account.setup.task">
+        <field name="key">close_checklist</field>
+        <field name="name">Build the period close checklist</field>
+        <field name="description">Define the reusable monthly close template. Run instances copy from this template, so getting it right once pays off every month.</field>
+        <field name="sequence">10</field>
+        <field name="category">close</field>
+        <field name="required_modules">eh_account_close_workflow</field>
+        <field name="action_xmlid">eh_account_close_workflow.action_eh_close_checklist</field>
+        <field name="icon">tasks</field>
+    </record>
+
+    <record id="task_year_end_accounts" model="eh.account.setup.task">
+        <field name="key">year_end_accounts</field>
+        <field name="name">Pick year end closing accounts</field>
+        <field name="description">The income summary and retained earnings accounts must be set before the year end wizard runs. The wizard refuses on missing references rather than guessing.</field>
+        <field name="sequence">20</field>
+        <field name="category">close</field>
+        <field name="required_modules">eh_account_year_end</field>
+        <field name="action_xmlid">eh_account_year_end.action_eh_year_end_run</field>
+        <field name="icon">calendar-times-o</field>
+    </record>
+
+    <record id="task_assets_categories" model="eh.account.setup.task">
+        <field name="key">assets_categories</field>
+        <field name="name">Define asset categories</field>
+        <field name="description">Each asset belongs to a category that drives depreciation method, useful life, and posting accounts. Without categories, asset creation refuses.</field>
+        <field name="sequence">30</field>
+        <field name="category">close</field>
+        <field name="required_modules">eh_account_assets_pro</field>
+        <field name="action_xmlid">eh_account_assets_pro.action_eh_asset_category</field>
+        <field name="icon">cubes</field>
+    </record>
+
+    <record id="task_recurring_templates" model="eh.account.setup.task">
+        <field name="key">recurring_templates</field>
+        <field name="name">Build recurring invoice templates</field>
+        <field name="description">Define templates with cadence, partner, and lines. The cron generates invoices from each template inside a per record savepoint, so one bad template never blocks the batch.</field>
+        <field name="sequence">40</field>
+        <field name="category">close</field>
+        <field name="required_modules">eh_account_recurring_invoices</field>
+        <field name="action_xmlid">eh_account_recurring_invoices.action_eh_recurring_template</field>
+        <field name="icon">refresh</field>
+    </record>
+
+    <record id="task_intercompany_pairs" model="eh.account.setup.task">
+        <field name="key">intercompany_pairs</field>
+        <field name="name">Configure intercompany account pairs</field>
+        <field name="description">Mirror posting needs the matched payable and receivable accounts on each side, plus a currency policy. The mirror refuses on a missing pair rather than posting an unbalanced entry.</field>
+        <field name="sequence">50</field>
+        <field name="category">close</field>
+        <field name="required_modules">eh_account_intercompany</field>
+        <field name="action_xmlid">eh_account_intercompany.action_eh_intercompany_config</field>
+        <field name="icon">link</field>
+    </record>
+
+    <record id="task_consolidation_setup" model="eh.account.setup.task">
+        <field name="key">consolidation_setup</field>
+        <field name="name">Configure consolidation perimeter</field>
+        <field name="description">Pick the parent and subsidiaries, the elimination accounts, and the reporting currency. The consolidator refuses on incomplete perimeters.</field>
+        <field name="sequence">60</field>
+        <field name="category">close</field>
+        <field name="required_modules">eh_account_consolidation</field>
+        <field name="action_xmlid">eh_account_consolidation.action_eh_consol_entity</field>
+        <field name="icon">sitemap</field>
+    </record>
+
+    <record id="task_budget_pro" model="eh.account.setup.task">
+        <field name="key">budget_pro</field>
+        <field name="name">Set up budget versions</field>
+        <field name="description">Multi version budgeting tracks original, revised, and forecast. Pick the version policy and the variance reporting cadence.</field>
+        <field name="sequence">70</field>
+        <field name="category">reporting</field>
+        <field name="required_modules">eh_account_budget_pro</field>
+        <field name="action_xmlid">eh_account_budget_pro.action_eh_budget</field>
+        <field name="icon">line-chart</field>
+    </record>
+
+    <record id="task_bank_statement_import" model="eh.account.setup.task">
+        <field name="key">bank_statement_import</field>
+        <field name="name">Configure bank statement import formats</field>
+        <field name="description">Pick the parser per bank account. The importer validates the file format and surfaces an explicit error on a header mismatch rather than silently skipping rows.</field>
+        <field name="sequence">15</field>
+        <field name="category">foundations</field>
+        <field name="required_modules">eh_account_bank_statement_import</field>
+        <field name="action_xmlid">eh_account_bank_statement_import.action_eh_bsi_profile</field>
+        <field name="icon">upload</field>
+    </record>
+
+    <record id="task_reconcile_pro_rules" model="eh.account.setup.task">
+        <field name="key">reconcile_pro_rules</field>
+        <field name="name">Author reconciliation rules</field>
+        <field name="description">User defined rules drive the bank reconciliation suggestions. Start with one rule per recurring counterparty and refine as the suggestion accuracy report rolls in.</field>
+        <field name="sequence">25</field>
+        <field name="category">foundations</field>
+        <field name="required_modules">eh_account_reconcile_pro</field>
+        <field name="action_xmlid">eh_account_reconcile_pro.action_eh_reconciliation_rule</field>
+        <field name="icon">magic</field>
+    </record>
+
+    <record id="task_einvoice_peppol" model="eh.account.setup.task">
+        <field name="key">einvoice_peppol</field>
+        <field name="name">Connect to the e invoicing network</field>
+        <field name="description">Pick the access point credentials and confirm the participant identifier scheme. The exporter validates against the published schema before transmission.</field>
+        <field name="sequence">50</field>
+        <field name="category">payables</field>
+        <field name="required_modules">eh_account_einvoice_peppol</field>
+        <field name="action_xmlid">base.action_res_company_form</field>
+        <field name="icon">plug</field>
+    </record>
+
+</odoo>

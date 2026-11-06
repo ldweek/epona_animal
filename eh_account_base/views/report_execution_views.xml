@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_account_report_execution_tree" model="ir.ui.view">
+        <field name="name">eh.account.report.execution.list</field>
+        <field name="model">eh.account.report.execution</field>
+        <field name="arch" type="xml">
+            <list string="Report Executions"
+                  default_order="executed_at desc"
+                  sample="1"
+                  create="0"
+                  edit="0">
+                <field name="executed_at"/>
+                <field name="report_code"/>
+                <field name="name"/>
+                <field name="executed_by"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-warning="state == 'running'"
+                       decoration-danger="state == 'error'"/>
+                <field name="duration_ms" sum="Total ms"/>
+                <field name="row_count" sum="Total rows"/>
+                <field name="result_format"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_account_report_execution_form" model="ir.ui.view">
+        <field name="name">eh.account.report.execution.form</field>
+        <field name="model">eh.account.report.execution</field>
+        <field name="arch" type="xml">
+            <form string="Report Execution" create="0" edit="0">
+                <sheet>
+                    <h1>
+                        <field name="display_name" readonly="1"/>
+                    </h1>
+                    <group>
+                        <group string="Execution">
+                            <field name="report_code"/>
+                            <field name="executed_at"/>
+                            <field name="executed_by"/>
+                            <field name="company_ids" widget="many2many_tags"/>
+                            <field name="result_format"/>
+                            <field name="state"/>
+                        </group>
+                        <group string="Result">
+                            <field name="duration_ms"/>
+                            <field name="row_count"/>
+                            <field name="move_version_at_start"/>
+                            <field name="options_hash"/>
+                            <field name="result_hash"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Options Snapshot">
+                            <field name="options_snapshot" widget="text" readonly="1"/>
+                        </page>
+                        <page string="Error" invisible="state != 'error'">
+                            <field name="error_message" widget="text" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_account_report_execution_search" model="ir.ui.view">
+        <field name="name">eh.account.report.execution.search</field>
+        <field name="model">eh.account.report.execution</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="report_code"/>
+                <field name="name"/>
+                <field name="executed_by"/>
+                <field name="options_hash"/>
+                <filter name="filter_done" string="Done" domain="[('state', '=', 'done')]"/>
+                <filter name="filter_running" string="Running" domain="[('state', '=', 'running')]"/>
+                <filter name="filter_error" string="Error" domain="[('state', '=', 'error')]"/>
+                <separator/>
+                <filter name="filter_today" string="Today"
+                        domain="[('executed_at', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter name="filter_last_7_days" string="Last 7 Days"
+                        domain="[('executed_at', '&gt;=', (context_today() - relativedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                <group>
+                    <filter name="group_report_code" string="Report"
+                            context="{'group_by': 'report_code'}"/>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_executed_by" string="User"
+                            context="{'group_by': 'executed_by'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_account_report_execution" model="ir.actions.act_window">
+        <field name="name">Report Audit Log</field>
+        <field name="res_model">eh.account.report.execution</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_account_report_execution_search"/>
+        <field name="context">{'search_default_filter_last_7_days': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No report executions yet.</p>
+            <p>This log records every accounting report rendered through the ERP Heritage reporting engine. Each row captures the user, options, duration, and result hash for compliance and reproducibility.</p>
+        </field>
+    </record>
+
+    <!--
+    Legacy ERP Heritage container kept for back compat with downstream
+    modules that may still chain under it. Hidden from navigation via
+    base.group_no_one so it does not show up in the navbar.
+    -->
+    <menuitem id="menu_eh_account_root"
+              name="ERP Heritage"
+              parent="account.menu_finance"
+              sequence="900"
+              groups="base.group_no_one"/>
+
+</odoo>

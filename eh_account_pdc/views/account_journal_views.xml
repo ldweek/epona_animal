@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Bank journal form: PDC transit, outstanding, and charge routing. -->
+<odoo>
+
+    <record id="view_account_journal_form_eh_pdc" model="ir.ui.view">
+        <field name="name">account.journal.form.eh.pdc</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='suspense_account_id']" position="after">
+                <field name="eh_pdc_incoming_transit_account_id"
+                       invisible="type not in ('bank', 'cash')"
+                       options="{'no_quick_create': True}"
+                       groups="account.group_account_readonly"/>
+                <field name="eh_pdc_outgoing_transit_account_id"
+                       invisible="type not in ('bank', 'cash')"
+                       options="{'no_quick_create': True}"
+                       groups="account.group_account_readonly"/>
+                <field name="eh_pdc_inbound_payment_method_line_id"
+                       invisible="type not in ('bank', 'cash')"
+                       options="{'no_create': True, 'no_open': True}"
+                       groups="account.group_account_readonly"/>
+                <field name="eh_pdc_outbound_payment_method_line_id"
+                       invisible="type not in ('bank', 'cash')"
+                       options="{'no_create': True, 'no_open': True}"
+                       groups="account.group_account_readonly"/>
+                <field name="eh_pdc_bounce_charge_account_id"
+                       invisible="type not in ('bank', 'cash')"
+                       options="{'no_quick_create': True}"
+                       groups="account.group_account_readonly"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

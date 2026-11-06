@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_ap_intake_line_tree" model="ir.ui.view">
+        <field name="name">eh.ap.intake.line.list</field>
+        <field name="model">eh.ap.intake.line</field>
+        <field name="arch" type="xml">
+            <list string="Intake Lines" sample="1"
+                  decoration-success="match_status in ('ok', 'overridden')"
+                  decoration-warning="match_status in ('qty_exception', 'price_exception', 'over_received')"
+                  decoration-danger="match_status in ('no_match', 'rejected')">
+                <field name="intake_id"/>
+                <field name="product_code"/>
+                <field name="product_id"/>
+                <field name="invoice_qty"/>
+                <field name="invoice_price"/>
+                <field name="subtotal" sum="Total"/>
+                <field name="extractor_confidence" optional="hide"/>
+                <field name="purchase_order_line_id"/>
+                <field name="po_qty"/>
+                <field name="po_price"/>
+                <field name="received_qty"/>
+                <field name="qty_diff"/>
+                <field name="price_diff"/>
+                <field name="match_status"
+                       widget="badge"
+                       decoration-success="match_status in ('ok', 'overridden')"
+                       decoration-warning="match_status in ('qty_exception', 'price_exception', 'over_received')"
+                       decoration-danger="match_status in ('no_match', 'rejected')"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_ap_intake_line_form" model="ir.ui.view">
+        <field name="name">eh.ap.intake.line.form</field>
+        <field name="model">eh.ap.intake.line</field>
+        <field name="arch" type="xml">
+            <form string="Intake Line">
+                <header>
+                    <button name="action_override" type="object"
+                            string="Override" class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="match_status not in ('qty_exception', 'price_exception', 'over_received', 'no_match')"/>
+                    <button name="action_reject_line" type="object"
+                            string="Reject" class="btn-warning"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="match_status not in ('qty_exception', 'price_exception', 'over_received', 'no_match')"/>
+                    <button name="action_reopen_line" type="object"
+                            string="Reopen" class="btn-secondary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="match_status != 'rejected'"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Bill line">
+                            <field name="intake_id"/>
+                            <field name="sequence"/>
+                            <field name="product_code"/>
+                            <field name="product_id"/>
+                            <field name="description"/>
+                            <field name="invoice_qty"/>
+                            <field name="invoice_price"/>
+                            <field name="subtotal"/>
+                            <field name="extractor_confidence" readonly="1"/>
+                            <field name="extractor_metadata_json" readonly="1"/>
+                            <field name="tax_ids" widget="many2many_tags"/>
+                            <field name="tax_provenance" readonly="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Match">
+                            <field name="purchase_order_line_id" readonly="1"/>
+                            <field name="po_qty" readonly="1"/>
+                            <field name="po_price" readonly="1"/>
+                            <field name="received_qty" readonly="1"/>
+                            <field name="qty_diff" readonly="1"/>
+                            <field name="price_diff" readonly="1"/>
+                            <field name="match_status" readonly="1"/>
+                            <field name="match_notes" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Override">
+                        <field name="override_reason" colspan="2"/>
+                        <field name="overridden_at" readonly="1"/>
+                        <field name="overridden_by_id" readonly="1"/>
+                        <field name="decision_log_id" readonly="1"/>
+                        <field name="match_evidence_fingerprint" readonly="1"/>
+                        <field name="decision_log_ids" readonly="1" colspan="2">
+                            <list create="0" edit="0" delete="0">
+                                <field name="decided_at"/>
+                                <field name="decision"/>
+                                <field name="decided_by_id"/>
+                                <field name="reason"/>
+                                <field name="evidence_fingerprint" optional="hide"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_ap_intake_line_search" model="ir.ui.view">
+        <field name="name">eh.ap.intake.line.search</field>
+        <field name="model">eh.ap.intake.line</field>
+        <field name="arch" type="xml">
+            <search string="Intake Lines">
+                <field name="intake_id"/>
+                <field name="product_id"/>
+                <field name="purchase_order_line_id"/>
+                <filter string="OK" name="filter_ok"
+                        domain="[('match_status', 'in', ['ok', 'overridden'])]"/>
+                <filter string="Exceptions" name="filter_exceptions"
+                        domain="[('match_status', 'in', ['qty_exception', 'price_exception', 'over_received', 'no_match'])]"/>
+                <filter string="Pending" name="filter_pending"
+                        domain="[('match_status', '=', 'pending')]"/>
+                <group>
+                    <filter string="Status" name="group_status"
+                            context="{'group_by': 'match_status'}"/>
+                    <filter string="Product" name="group_product"
+                            context="{'group_by': 'product_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_ap_intake_line" model="ir.actions.act_window">
+        <field name="name">All Intake Lines</field>
+        <field name="res_model">eh.ap.intake.line</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_ap_intake_line_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No intake lines yet</p>
+            <p>Each row is a single bill line with its three way match outcome against the purchase order and receipts. Lines appear here once a bill in the Inbox has been parsed.</p>
+        </field>
+    </record>
+
+</odoo>

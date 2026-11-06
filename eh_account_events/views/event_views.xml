@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- IAS 8 -->
+    <record id="view_eh_accounting_change_list" model="ir.ui.view">
+        <field name="name">eh.accounting.change.list</field>
+        <field name="model">eh.accounting.change</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="change_type"/>
+                <field name="application"/>
+                <field name="change_date"/>
+                <field name="restatement_date" optional="show"/>
+                <field name="equity_presentation" optional="hide"/>
+                <field name="retained_earnings_impact" widget="monetary" optional="show"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_accounting_change_form" model="ir.ui.view">
+        <field name="name">eh.accounting.change.form</field>
+        <field name="model">eh.accounting.change</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_post_restatement" type="object"
+                            string="Post Restatement" class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft' or application != 'retrospective'"/>
+                    <button name="action_reset_to_draft" type="object"
+                            string="Reset to Draft"
+                            groups="eh_account_base.group_eh_manager"
+                            confirm="This reverses the posted restatement entry and reopens the record. Continue?"
+                            invisible="state != 'posted'"/>
+                    <button name="action_remediate_legacy_provenance"
+                            type="object" string="Review &amp; Neutralise"
+                            groups="eh_account_base.group_eh_manager"
+                            confirm="This posts an exact counter-entry. Legacy evidence stays immutable. Continue?"
+                            invisible="not legacy_provenance_quarantined or state != 'posted'"/>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <field name="legacy_provenance_quarantined" invisible="1"/>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not legacy_provenance_quarantined">
+                        <strong>Legacy evidence quarantined.</strong>
+                        <field name="legacy_provenance_quarantine_note"
+                               readonly="1" nolabel="1"/>
+                        <group>
+                            <field name="legacy_remediation_reference"/>
+                            <field name="legacy_remediation_date"/>
+                        </group>
+                    </div>
+                    <field name="legacy_remediation_move_id" readonly="1"
+                           invisible="not legacy_remediation_move_id"/>
+                    <field name="legacy_remediated_by_id" readonly="1"
+                           invisible="not legacy_remediated_by_id"/>
+                    <field name="legacy_remediated_at" readonly="1"
+                           invisible="not legacy_remediated_at"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_move" type="object"
+                                class="oe_stat_button" icon="fa-book"
+                                invisible="move_count == 0">
+                            <field name="move_count" widget="statinfo"
+                                   string="Restatement Entry"/>
+                        </button>
+                    </div>
+                    <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="change_type"/>
+                            <field name="application" readonly="1"/>
+                            <field name="change_date"/>
+                            <field name="restatement_date"
+                                   readonly="state != 'draft'"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="comparative_mode"
+                                   readonly="state != 'draft'"/>
+                            <field name="retained_earnings_impact" widget="monetary" readonly="1"/>
+                            <field name="equity_presentation" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Restatement posting"
+                           invisible="application != 'retrospective'">
+                        <field name="retained_earnings_account_id"
+                               readonly="state != 'draft'"/>
+                        <field name="adjustment_account_id"
+                               readonly="state != 'draft'"
+                               invisible="comparative_mode"
+                               required="not comparative_mode and state != 'posted'"/>
+                        <field name="journal_id"
+                               readonly="state != 'draft'"/>
+                        <field name="move_id" readonly="1"/>
+                    </group>
+                    <field name="description" placeholder="Nature of the change or error and the reason for it..."/>
+                    <field name="comparative_mode" invisible="1"/>
+                    <field name="line_ids" readonly="state != 'draft'">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="role"/>
+                            <field name="fiscal_year" optional="show"/>
+                            <field name="period_label" optional="hide"/>
+                            <field name="account_id" optional="show"/>
+                            <field name="as_previously_reported" widget="monetary"/>
+                            <field name="adjustment" widget="monetary"/>
+                            <field name="as_restated" widget="monetary" readonly="1"/>
+                            <field name="currency_id" column_invisible="1"/>
+                            <field name="company_id" column_invisible="1"/>
+                        </list>
+                    </field>
+                    <field name="notes"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_accounting_change_search" model="ir.ui.view">
+        <field name="name">eh.accounting.change.search</field>
+        <field name="model">eh.accounting.change</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <filter name="filter_policy" string="Policy Changes"
+                        domain="[('change_type', '=', 'policy_change')]"/>
+                <filter name="filter_estimate" string="Estimate Changes"
+                        domain="[('change_type', '=', 'estimate_change')]"/>
+                <filter name="filter_error" string="Error Corrections"
+                        domain="[('change_type', '=', 'error_correction')]"/>
+                <separator/>
+                <filter name="filter_draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_posted" string="Posted"
+                        domain="[('state', '=', 'posted')]"/>
+                <group>
+                    <filter name="group_change_type" string="Change Type"
+                            context="{'group_by': 'change_type'}"/>
+                    <filter name="group_equity_presentation"
+                            string="Equity Presentation"
+                            context="{'group_by': 'equity_presentation'}"/>
+                    <filter name="group_change_date" string="Change Date"
+                            context="{'group_by': 'change_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="eh_account_events_accounting_change_view_graph" model="ir.ui.view">
+        <field name="name">eh.accounting.change.graph</field>
+        <field name="model">eh.accounting.change</field>
+        <field name="arch" type="xml">
+            <graph string="Restatement Impact" type="bar" sample="1">
+                <field name="change_date" interval="month"/>
+                <field name="change_type"/>
+                <field name="retained_earnings_impact" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_events_accounting_change_view_pivot" model="ir.ui.view">
+        <field name="name">eh.accounting.change.pivot</field>
+        <field name="model">eh.accounting.change</field>
+        <field name="arch" type="xml">
+            <pivot string="Restatement Impact" sample="1">
+                <field name="change_type" type="row"/>
+                <field name="change_date" interval="year" type="col"/>
+                <field name="retained_earnings_impact" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_accounting_change" model="ir.actions.act_window">
+        <field name="name">Accounting Changes</field>
+        <field name="res_model">eh.accounting.change</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id"
+               ref="view_eh_accounting_change_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Record your first accounting change or error correction</p>
+            <p>Track IAS 8 changes in accounting policy, changes in estimate and prior-period error corrections, with the retrospective or prospective treatment and the restatement of comparatives. Use the Create button to log a change and its opening retained-earnings impact.</p>
+        </field>
+    </record>
+
+    <!-- IAS 10 -->
+    <record id="view_eh_subsequent_event_list" model="ir.ui.view">
+        <field name="name">eh.subsequent.event.list</field>
+        <field name="model">eh.subsequent.event</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="reference"/>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="event_date"/>
+                <field name="is_adjusting"/>
+                <field name="treatment" readonly="1"/>
+                <field name="estimated_effect" widget="monetary"/>
+                <field name="estimation_status" optional="show"/>
+                <field name="reporting_date"/>
+                <field name="authorized_for_issue_date" optional="hide"/>
+                <field name="next_period" optional="show"/>
+                <field name="state" optional="show"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_subsequent_event_form" model="ir.ui.view">
+        <field name="name">eh.subsequent.event.form</field>
+        <field name="model">eh.subsequent.event</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_book_adjusting_entry" type="object"
+                            string="Book Adjusting Entry" class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft' or treatment != 'adjust'"/>
+                    <button name="action_reset_to_draft" type="object"
+                            string="Reset to Draft"
+                            groups="eh_account_base.group_eh_manager"
+                            confirm="This reverses the posted adjusting entry and reopens the record. Continue?"
+                            invisible="state != 'posted'"/>
+                    <button name="action_remediate_legacy_provenance"
+                            type="object" string="Review &amp; Neutralise"
+                            groups="eh_account_base.group_eh_manager"
+                            confirm="This posts an exact counter-entry. Legacy evidence stays immutable. Continue?"
+                            invisible="not legacy_provenance_quarantined or state != 'posted'"/>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <field name="legacy_provenance_quarantined" invisible="1"/>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not legacy_provenance_quarantined">
+                        <strong>Legacy evidence quarantined.</strong>
+                        <field name="legacy_provenance_quarantine_note"
+                               readonly="1" nolabel="1"/>
+                        <group>
+                            <field name="legacy_remediation_reference"/>
+                            <field name="legacy_remediation_date"/>
+                        </group>
+                    </div>
+                    <field name="legacy_remediation_move_id" readonly="1"
+                           invisible="not legacy_remediation_move_id"/>
+                    <field name="legacy_remediated_by_id" readonly="1"
+                           invisible="not legacy_remediated_by_id"/>
+                    <field name="legacy_remediated_at" readonly="1"
+                           invisible="not legacy_remediated_at"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_move" type="object"
+                                class="oe_stat_button" icon="fa-book"
+                                invisible="move_count == 0">
+                            <field name="move_count" widget="statinfo"
+                                   string="Adjusting Entry"/>
+                        </button>
+                    </div>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <field name="reference" readonly="1"/>
+                    <group>
+                        <group>
+                            <field name="category"/>
+                            <field name="is_adjusting" readonly="state != 'draft'"/>
+                            <field name="treatment" readonly="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="reporting_date" readonly="state != 'draft'"/>
+                            <field name="event_date" readonly="state != 'draft'"/>
+                            <field name="authorized_for_issue_date"
+                                   readonly="state != 'draft'"/>
+                            <field name="authorized_for_issue_by"
+                                   readonly="state != 'draft'"/>
+                            <field name="next_period" readonly="1"/>
+                            <field name="estimation_status"
+                                   readonly="state != 'draft'"/>
+                            <field name="estimated_effect" widget="monetary"
+                                   readonly="state != 'draft'"
+                                   invisible="estimation_status == 'cannot_estimate'"/>
+                        </group>
+                    </group>
+                    <group string="Adjusting entry"
+                           invisible="treatment != 'adjust'">
+                        <field name="journal_id" readonly="state != 'draft'"/>
+                        <field name="debit_account_id" readonly="state != 'draft'"/>
+                        <field name="credit_account_id" readonly="state != 'draft'"/>
+                        <field name="move_id" readonly="1"/>
+                    </group>
+                    <field name="description" placeholder="Nature of the event..."/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_subsequent_event_search" model="ir.ui.view">
+        <field name="name">eh.subsequent.event.search</field>
+        <field name="model">eh.subsequent.event</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="category"/>
+                <filter name="filter_adjusting" string="Adjusting"
+                        domain="[('is_adjusting', '=', True)]"/>
+                <filter name="filter_disclose" string="Disclose Only"
+                        domain="[('is_adjusting', '=', False)]"/>
+                <separator/>
+                <filter name="filter_next_period" string="Next Period"
+                        domain="[('next_period', '=', True)]"
+                        help="Legacy rows dated after the cutoff; new rows must be registered against the next reporting period (IAS 10.3)."/>
+                <separator/>
+                <filter name="filter_posted" string="Posted"
+                        domain="[('state', '=', 'posted')]"/>
+                <!-- Odoo 19 dropped the search <group> attributes
+                     (expand/string); a bare group is the portable form. -->
+                <group>
+                    <filter name="group_category" string="Category"
+                            context="{'group_by': 'category'}"/>
+                    <filter name="group_treatment" string="Treatment"
+                            context="{'group_by': 'treatment'}"/>
+                    <filter name="group_reporting_date" string="Reporting Date"
+                            context="{'group_by': 'reporting_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="eh_account_events_subsequent_event_view_graph" model="ir.ui.view">
+        <field name="name">eh.subsequent.event.graph</field>
+        <field name="model">eh.subsequent.event</field>
+        <field name="arch" type="xml">
+            <graph string="Estimated Effect" type="bar" sample="1">
+                <field name="event_date" interval="month"/>
+                <field name="category"/>
+                <field name="estimated_effect" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_events_subsequent_event_view_pivot" model="ir.ui.view">
+        <field name="name">eh.subsequent.event.pivot</field>
+        <field name="model">eh.subsequent.event</field>
+        <field name="arch" type="xml">
+            <pivot string="Estimated Effect" sample="1">
+                <field name="category" type="row"/>
+                <field name="event_date" interval="year" type="col"/>
+                <field name="estimated_effect" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_subsequent_event" model="ir.actions.act_window">
+        <field name="name">Subsequent Events</field>
+        <field name="res_model">eh.subsequent.event</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Log your first event after the reporting period</p>
+            <p>Register IAS 10 events after the reporting period, classify each as adjusting or disclose-only, and capture its estimated financial effect. Use the Create button to record an event between the reporting date and the date the statements were authorised for issue.</p>
+        </field>
+    </record>
+
+</odoo>

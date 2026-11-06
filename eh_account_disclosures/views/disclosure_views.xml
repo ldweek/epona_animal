@@ -1,0 +1,953 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- IAS 24 Related Party -->
+    <record id="view_eh_related_party_list" model="ir.ui.view">
+        <field name="name">eh.related.party.list</field>
+        <field name="model">eh.related.party</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="relationship"/>
+                <field name="total_transactions" widget="monetary" optional="show"/>
+                <field name="outstanding_balance" widget="monetary" optional="show"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_related_party_form" model="ir.ui.view">
+        <field name="name">eh.related.party.form</field>
+        <field name="model">eh.related.party</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_finalise" type="object"
+                            string="Finalise" class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_reopen" type="object"
+                            string="Reopen"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'finalised'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,finalised" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" readonly="state == 'finalised'"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="relationship" readonly="state == 'finalised'"/>
+                            <field name="is_kmp" readonly="state == 'finalised'"/>
+                            <field name="partner_id" readonly="state == 'finalised'"/>
+                            <field name="reporting_date" readonly="state == 'finalised'"/>
+                            <field name="controlling_party_name" readonly="state == 'finalised'"/>
+                            <field name="ultimate_controlling_party_name" readonly="state == 'finalised'"/>
+                            <field name="include_branch_companies" readonly="state == 'finalised'"/>
+                            <field name="company_id"
+                                   readonly="state == 'finalised'"
+                                   groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="total_transactions" widget="monetary" readonly="1"/>
+                            <field name="outstanding_balance" widget="monetary" readonly="1"/>
+                            <field name="ledger_balance" widget="monetary" readonly="1"
+                                   invisible="not partner_id"/>
+                            <field name="balance_residual" widget="monetary" readonly="1"
+                                   invisible="not partner_id"/>
+                            <field name="balance_tied" readonly="1"
+                                   invisible="not partner_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Transactions">
+                            <field name="transaction_ids" readonly="state == 'finalised'">
+                                <list editable="bottom">
+                                    <field name="date"/>
+                                    <field name="transaction_type"/>
+                                    <field name="description"/>
+                                    <field name="amount" widget="monetary"/>
+                                    <field name="balance" widget="monetary"/>
+                                    <field name="terms_and_conditions" optional="show"/>
+                                    <field name="secured" optional="show"/>
+                                    <field name="security_details" optional="hide"/>
+                                    <field name="guarantee_details" optional="show"/>
+                                    <field name="doubtful_debt_provision" widget="monetary" optional="show"/>
+                                    <field name="doubtful_debt_expense" widget="monetary" optional="show"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="KMP Compensation (IAS 24.17)">
+                            <group>
+                                <group>
+                                    <field name="compensation_date_from" readonly="state == 'finalised'"/>
+                                </group>
+                                <group>
+                                    <field name="total_compensation" widget="monetary" readonly="1"/>
+                                    <field name="total_doubtful_debt_provision" widget="monetary" readonly="1"/>
+                                    <field name="total_doubtful_debt_expense" widget="monetary" readonly="1"/>
+                                </group>
+                            </group>
+                            <button name="action_populate_kmp" type="object"
+                                    string="Populate KMP Compensation from Ledger"
+                                    class="btn-secondary"
+                                    groups="eh_account_base.group_eh_manager"
+                                    invisible="state != 'draft' or not is_kmp"/>
+                            <button name="action_prefill_share_based" type="object"
+                                    string="Prefill Share-based from IFRS 2 Engine"
+                                    class="btn-secondary"
+                                    groups="eh_account_base.group_eh_manager"
+                                    invisible="state != 'draft'"/>
+                            <field name="compensation_line_ids" readonly="state == 'finalised'">
+                                <list editable="bottom">
+                                    <field name="category" readonly="origin != 'manual'"/>
+                                    <field name="amount" widget="monetary" readonly="origin != 'manual'"/>
+                                    <field name="origin" readonly="1"/>
+                                    <field name="note" readonly="origin != 'manual'"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes"><field name="notes" nolabel="1" readonly="state == 'finalised'"/></page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_related_party_search" model="ir.ui.view">
+        <field name="name">eh.related.party.search</field>
+        <field name="model">eh.related.party</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="relationship"/>
+                <field name="company_id"/>
+                <filter name="kmp" string="KMP" domain="[('is_kmp', '=', True)]"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="finalised" string="Finalised" domain="[('state', '=', 'finalised')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_related_party" model="ir.actions.act_window">
+        <field name="name">Related Parties</field>
+        <field name="res_model">eh.related.party</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_related_party_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Record your first related party</p>
+            <p>Track IAS 24 related-party relationships, transactions and outstanding balances. Click New to add a party and capture its dealings and key management compensation.</p>
+        </field>
+    </record>
+
+    <!-- IFRS 8 Segments -->
+    <record id="view_eh_segment_report_list" model="ir.ui.view">
+        <field name="name">eh.segment.report.list</field>
+        <field name="model">eh.segment.report</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="period_end"/>
+                <field name="total_segment_revenue" widget="monetary" optional="show"/>
+                <field name="revenue_reconciliation" widget="monetary" optional="show"/>
+                <field name="segments_tie_out" optional="show"/>
+                <field name="state"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_segment_report_form" model="ir.ui.view">
+        <field name="name">eh.segment.report.form</field>
+        <field name="model">eh.segment.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_finalise" type="object"
+                            string="Finalise" class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_compute_major_customers" type="object"
+                            string="Compute Major Customers"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_reopen" type="object"
+                            string="Reopen"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'finalised'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,finalised" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="period_end" readonly="state == 'finalised'"/>
+                            <field name="include_branch_companies" readonly="state == 'finalised'"/>
+                            <field name="company_id"
+                                   readonly="state == 'finalised'"
+                                   groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="date_from" readonly="state == 'finalised'"/>
+                            <field name="entity_revenue" widget="monetary" readonly="state == 'finalised'"/>
+                            <field name="entity_result" widget="monetary" readonly="state == 'finalised'"/>
+                            <field name="entity_assets" widget="monetary" readonly="state == 'finalised'"/>
+                            <field name="entity_liabilities" widget="monetary" readonly="state == 'finalised'"/>
+                            <field name="total_segment_revenue" widget="monetary" readonly="1"/>
+                            <field name="revenue_reconciliation" widget="monetary" readonly="1"/>
+                            <field name="segments_tie_out" readonly="1"/>
+                            <field name="total_segment_result" widget="monetary" readonly="1"/>
+                            <field name="result_reconciliation" widget="monetary" readonly="1"/>
+                            <field name="result_tie_out" readonly="1"/>
+                            <field name="total_segment_assets" widget="monetary" readonly="1"/>
+                            <field name="assets_reconciliation" widget="monetary" readonly="1"/>
+                            <field name="assets_tie_out" readonly="1"/>
+                            <field name="total_segment_liabilities" widget="monetary" readonly="1"/>
+                            <field name="liabilities_reconciliation" widget="monetary" readonly="1"/>
+                            <field name="liabilities_tie_out" readonly="1"/>
+                        </group>
+                    </group>
+                    <field name="segment_ids" readonly="state == 'finalised'">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="analytic_account_id"/>
+                            <field name="revenue" widget="monetary"/>
+                            <field name="ledger_revenue" widget="monetary" readonly="1" optional="show"/>
+                            <field name="revenue_residual" widget="monetary" readonly="1" optional="show"/>
+                            <field name="revenue_tied" readonly="1" optional="show"/>
+                            <field name="inter_segment_revenue" widget="monetary" optional="hide"/>
+                            <field name="result" widget="monetary"/>
+                            <field name="ledger_result" widget="monetary" readonly="1" optional="hide"/>
+                            <field name="result_residual" widget="monetary" readonly="1" optional="hide"/>
+                            <field name="result_tied" readonly="1" optional="hide"/>
+                            <field name="assets" widget="monetary"/>
+                            <field name="liabilities" widget="monetary"/>
+                            <field name="is_reportable" readonly="1" optional="show"/>
+                            <field name="reportable_reason" readonly="1" optional="hide"/>
+                            <field name="company_id" column_invisible="1"/>
+                            <field name="currency_id" column_invisible="1"/>
+                        </list>
+                    </field>
+                    <group string="Major Customers (IFRS 8.34)">
+                        <group>
+                            <field name="major_customer_threshold_pct" readonly="state == 'finalised'"/>
+                            <field name="major_customer_count" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="ledger_total_revenue" widget="monetary" readonly="1"/>
+                            <field name="reportable_external_revenue" widget="monetary" readonly="1"/>
+                            <field name="reportable_coverage_pct" readonly="1"/>
+                            <field name="coverage_75_met" readonly="1"/>
+                        </group>
+                    </group>
+                    <field name="major_customer_line_ids" readonly="1">
+                        <list>
+                            <field name="company_id" column_invisible="1"/>
+                            <field name="partner_id"/>
+                            <field name="revenue" widget="monetary"/>
+                            <field name="revenue_pct"/>
+                            <field name="segment_names"/>
+                            <field name="currency_id" column_invisible="1"/>
+                        </list>
+                    </field>
+                    <field name="notes" readonly="state == 'finalised'"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_segment_report_search" model="ir.ui.view">
+        <field name="name">eh.segment.report.search</field>
+        <field name="model">eh.segment.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="period_end"/>
+                <field name="company_id"/>
+                <filter name="not_tied" string="Reconciliation differences" domain="['|', '|', '|', ('segments_tie_out', '=', False), ('result_tie_out', '=', False), ('assets_tie_out', '=', False), ('liabilities_tie_out', '=', False)]"/>
+                <filter name="coverage_shortfall" string="Below 75% coverage" domain="[('coverage_75_met', '=', False)]"/>
+                <filter name="finalised" string="Finalised" domain="[('state', '=', 'finalised')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_segment_report" model="ir.actions.act_window">
+        <field name="name">Operating Segments</field>
+        <field name="res_model">eh.segment.report</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_segment_report_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Build your first segment report</p>
+            <p>Prepare IFRS 8 operating-segment disclosures with revenue, result and asset reconciliations. Click New to set a reporting period and add its segments.</p>
+        </field>
+    </record>
+
+    <!-- IFRS 7 Financial Risk -->
+    <record id="view_eh_fin_risk_list" model="ir.ui.view">
+        <field name="name">eh.fin.risk.list</field>
+        <field name="model">eh.fin.risk</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name" readonly="state == 'finalised'"/>
+                <field name="instrument_class" readonly="state == 'finalised'"/>
+                <field name="risk_category" readonly="state == 'finalised'"/>
+                <field name="carrying_amount" widget="monetary" readonly="state == 'finalised'"/>
+                <field name="ecl_stage" optional="show" readonly="state == 'finalised'"/>
+                <field name="ecl_basis" optional="hide"/>
+                <field name="loss_allowance" widget="monetary" optional="show" readonly="state == 'finalised'"/>
+                <field name="net_carrying_amount" widget="monetary" readonly="1" optional="show"/>
+                <field name="ledger_account_ids" widget="many2many_tags" optional="show" readonly="state == 'finalised'"/>
+                <field name="ledger_carrying_amount" widget="monetary" readonly="1" optional="show"/>
+                <field name="carrying_residual" widget="monetary" readonly="1" optional="show"/>
+                <field name="carrying_tied" readonly="1" optional="show"/>
+                <field name="maturity_band" readonly="state == 'finalised'"/>
+                <field name="floating_rate" optional="hide" readonly="state == 'finalised'"/>
+                <field name="sensitivity_note" optional="hide" readonly="state == 'finalised'"/>
+                <field name="reporting_date" readonly="state == 'finalised'"/>
+                <field name="state"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="company_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_fin_risk_form" model="ir.ui.view">
+        <field name="name">eh.fin.risk.form</field>
+        <field name="model">eh.fin.risk</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_finalise" type="object"
+                            string="Finalise" class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_reopen" type="object"
+                            string="Reopen"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'finalised'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,finalised" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" readonly="state == 'finalised'"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="instrument_class" readonly="state == 'finalised'"/>
+                            <field name="risk_category" readonly="state == 'finalised'"/>
+                            <field name="carrying_amount" widget="monetary" readonly="state == 'finalised'"/>
+                            <field name="maturity_band" readonly="state == 'finalised'"/>
+                            <field name="floating_rate" readonly="state == 'finalised'"/>
+                            <field name="sensitivity_note" readonly="state == 'finalised'"/>
+                            <field name="reporting_date" readonly="state == 'finalised'"/>
+                            <field name="include_branch_companies" readonly="state == 'finalised'"/>
+                            <field name="company_id"
+                                   readonly="state == 'finalised'"
+                                   groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="ecl_stage" readonly="state == 'finalised'"/>
+                            <field name="ecl_basis" readonly="1"/>
+                            <field name="loss_allowance" widget="monetary" readonly="state == 'finalised'"/>
+                            <field name="net_carrying_amount" widget="monetary" readonly="1"/>
+                            <field name="ledger_account_ids" widget="many2many_tags" readonly="state == 'finalised'"/>
+                            <field name="ledger_carrying_amount" widget="monetary" readonly="1"
+                                   invisible="not ledger_account_ids"/>
+                            <field name="carrying_residual" widget="monetary" readonly="1"
+                                   invisible="not ledger_account_ids"/>
+                            <field name="carrying_tied" readonly="1"
+                                   invisible="not ledger_account_ids"/>
+                        </group>
+                    </group>
+                    <field name="notes" readonly="state == 'finalised'"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="eh_account_disclosures_fin_risk_view_graph" model="ir.ui.view">
+        <field name="name">eh.fin.risk.graph</field>
+        <field name="model">eh.fin.risk</field>
+        <field name="arch" type="xml">
+            <graph string="Financial Risk" type="bar">
+                <field name="risk_category"/>
+                <field name="carrying_amount" type="measure"/>
+                <field name="net_carrying_amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_disclosures_fin_risk_view_pivot" model="ir.ui.view">
+        <field name="name">eh.fin.risk.pivot</field>
+        <field name="model">eh.fin.risk</field>
+        <field name="arch" type="xml">
+            <pivot string="Financial Risk">
+                <field name="risk_category" type="row"/>
+                <field name="maturity_band" type="col"/>
+                <field name="carrying_amount" type="measure"/>
+                <field name="loss_allowance" type="measure"/>
+                <field name="net_carrying_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_eh_fin_risk_search" model="ir.ui.view">
+        <field name="name">eh.fin.risk.search</field>
+        <field name="model">eh.fin.risk</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="instrument_class"/>
+                <field name="risk_category"/>
+                <field name="reporting_date"/>
+                <field name="company_id"/>
+                <filter name="credit" string="Credit risk" domain="[('risk_category', '=', 'credit')]"/>
+                <filter name="liquidity" string="Liquidity risk" domain="[('risk_category', '=', 'liquidity')]"/>
+                <filter name="finalised" string="Finalised" domain="[('state', '=', 'finalised')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_fin_risk" model="ir.actions.act_window">
+        <field name="name">Financial Risk</field>
+        <field name="res_model">eh.fin.risk</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_fin_risk_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Add your first financial-risk exposure</p>
+            <p>Capture IFRS 7 exposures with carrying amounts, ECL staging and loss allowances by risk category and maturity band. Click New to record an instrument, then use the graph and pivot views to analyse exposure.</p>
+        </field>
+    </record>
+
+    <!-- IFRS 12 Interests -->
+    <record id="view_eh_entity_interest_list" model="ir.ui.view">
+        <field name="name">eh.entity.interest.list</field>
+        <field name="model">eh.entity.interest</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="interest_type"/>
+                <field name="principal_place"/>
+                <field name="ownership_pct"/>
+                <field name="nci_pct" readonly="1"/>
+                <field name="voting_rights_pct"/>
+                <field name="consolidation_method"/>
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_entity_interest_form" model="ir.ui.view">
+        <field name="name">eh.entity.interest.form</field>
+        <field name="model">eh.entity.interest</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_populate_from_consolidation" type="object"
+                            string="Populate from Consolidation" class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_finalise" type="object"
+                            string="Finalise" class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_reopen" type="object"
+                            string="Reopen"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'finalised'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,finalised" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" readonly="state == 'finalised'"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="interest_type" readonly="state == 'finalised'"/>
+                            <field name="principal_place" readonly="state == 'finalised'"/>
+                            <field name="ownership_pct" readonly="state == 'finalised'"/>
+                            <field name="nci_pct" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="voting_rights_pct" readonly="state == 'finalised'"/>
+                            <field name="consolidation_method" readonly="state == 'finalised'"/>
+                            <field name="include_branch_companies" readonly="state == 'finalised'"/>
+                            <field name="total_restricted" widget="monetary" readonly="1"/>
+                            <field name="company_id"
+                                   readonly="state == 'finalised'"
+                                   groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Summarised Financial Information (IFRS 12.B10-B12)">
+                            <group>
+                                <group>
+                                    <field name="consol_run_name" readonly="1"/>
+                                    <field name="nci_carrying_amount" widget="monetary" readonly="state == 'finalised'"/>
+                                    <field name="summarised_assets" widget="monetary" readonly="state == 'finalised'"/>
+                                    <field name="summarised_liabilities" widget="monetary" readonly="state == 'finalised'"/>
+                                </group>
+                                <group>
+                                    <field name="summarised_revenue" widget="monetary" readonly="state == 'finalised'"/>
+                                    <field name="summarised_profit" widget="monetary" readonly="state == 'finalised'"/>
+                                    <field name="consol_run_res_id" invisible="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Restrictions (IFRS 12.13/22)">
+                            <field name="restriction_line_ids" readonly="state == 'finalised'">
+                                <list editable="bottom">
+                                    <field name="kind"/>
+                                    <field name="description"/>
+                                    <field name="carrying_amount" widget="monetary"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Significant Judgements (IFRS 12.7-9)">
+                            <field name="significant_judgements" nolabel="1"
+                                   readonly="state == 'finalised'"
+                                   placeholder="Judgements and assumptions behind the control / joint control / significant influence conclusion..."/>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" nolabel="1" readonly="state == 'finalised'" placeholder="Notes..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_entity_interest_search" model="ir.ui.view">
+        <field name="name">eh.entity.interest.search</field>
+        <field name="model">eh.entity.interest</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="interest_type"/>
+                <field name="principal_place"/>
+                <field name="company_id"/>
+                <filter name="subsidiary" string="Subsidiaries" domain="[('interest_type', '=', 'subsidiary')]"/>
+                <filter name="finalised" string="Finalised" domain="[('state', '=', 'finalised')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_entity_interest" model="ir.actions.act_window">
+        <field name="name">Interests in Other Entities</field>
+        <field name="res_model">eh.entity.interest</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_entity_interest_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Record your first interest in another entity</p>
+            <p>Disclose IFRS 12 interests in subsidiaries, joint arrangements and associates with ownership, voting rights and consolidation method. Click New to add an entity and its summarised information.</p>
+        </field>
+    </record>
+
+    <!-- IFRS 7.39 Contractual Maturity Analysis (ledger-driven) -->
+    <record id="view_eh_fin_maturity_run_list" model="ir.ui.view">
+        <field name="name">eh.fin.maturity.run.list</field>
+        <field name="model">eh.fin.maturity.run</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="reporting_date"/>
+                <field name="total_undiscounted" widget="monetary" optional="show"/>
+                <field name="total_receivable_inflows" widget="monetary"
+                       optional="show"/>
+                <field name="state"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_fin_maturity_run_form" model="ir.ui.view">
+        <field name="name">eh.fin.maturity.run.form</field>
+        <field name="model">eh.fin.maturity.run</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_populate" type="object"
+                            string="Populate from Ledger" class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_confirm_legacy_lines_manual"
+                            type="object" string="Confirm Legacy Rows as Manual"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft' or legacy_ambiguous_count == 0"/>
+                    <button name="action_exclude_legacy_lines"
+                            type="object" string="Exclude Ambiguous Legacy Rows"
+                            groups="eh_account_base.group_eh_manager"
+                            confirm="Retain these legacy rows as audit evidence but exclude them from the maturity total?"
+                            invisible="state != 'draft' or legacy_ambiguous_count == 0"/>
+                    <button name="action_finalise" type="object"
+                            string="Finalise" class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_reopen" type="object"
+                            string="Reopen"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'finalised'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,finalised" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="reporting_date" readonly="state == 'finalised'"/>
+                            <field name="band_scheme" readonly="state == 'finalised'"/>
+                            <field name="annual_interest_rate" readonly="state == 'finalised'"/>
+                            <field name="include_branch_companies" readonly="state == 'finalised'"/>
+                            <field name="company_id"
+                                   readonly="state == 'finalised'"
+                                   groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="include_open_items" readonly="state == 'finalised'"/>
+                            <field name="include_leases" readonly="state == 'finalised'"/>
+                            <field name="total_undiscounted" widget="monetary" readonly="1"/>
+                            <field name="total_receivable_inflows"
+                                   widget="monetary" readonly="1"/>
+                            <field name="legacy_ambiguous_count" readonly="1"
+                                   invisible="legacy_ambiguous_count == 0"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Interest-bearing instruments">
+                            <field name="instrument_ids" readonly="state == 'finalised'">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="principal" widget="monetary"/>
+                                    <field name="annual_rate"/>
+                                    <field name="coupon_frequency"/>
+                                    <field name="floating_rate"/>
+                                    <field name="interest_start_date"/>
+                                    <field name="maturity_date"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Ledger accounts">
+                            <field name="account_ids" widget="many2many_tags" readonly="state == 'finalised'"/>
+                        </page>
+                    </notebook>
+                    <field name="line_ids" readonly="state == 'finalised'">
+                        <list editable="bottom">
+                            <field name="item_class" readonly="origin != 'manual'"/>
+                            <field name="band" readonly="origin != 'manual'"/>
+                            <field name="undiscounted_amount" widget="monetary" readonly="origin != 'manual'"/>
+                            <field name="origin" readonly="1"/>
+                            <field name="legacy_claimed_origin" readonly="1" optional="hide"/>
+                            <field name="legacy_claimed_item_class" readonly="1" optional="hide"/>
+                            <field name="legacy_resolved_by_id" readonly="1" optional="hide"/>
+                            <field name="legacy_resolved_at" readonly="1" optional="hide"/>
+                            <field name="currency_id" column_invisible="1"/>
+                        </list>
+                    </field>
+                    <field name="notes" readonly="state == 'finalised'"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_fin_maturity_run_search" model="ir.ui.view">
+        <field name="name">eh.fin.maturity.run.search</field>
+        <field name="model">eh.fin.maturity.run</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="reporting_date"/>
+                <field name="band_scheme"/>
+                <field name="company_id"/>
+                <filter name="legacy" string="Legacy evidence to resolve" domain="[('legacy_ambiguous_count', '&gt;', 0)]"/>
+                <filter name="finalised" string="Finalised" domain="[('state', '=', 'finalised')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_fin_maturity_run" model="ir.actions.act_window">
+        <field name="name">Maturity Analysis</field>
+        <field name="res_model">eh.fin.maturity.run</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_fin_maturity_run_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Start your first maturity analysis</p>
+            <p>Build an IFRS 7.39 contractual maturity table of undiscounted cash flows by time band. Click New to set a reporting date, then populate the bands from the ledger.</p>
+        </field>
+    </record>
+
+    <!-- IFRS 7.35A-N Credit-Risk Note (ECL-fed) -->
+    <record id="view_eh_fin_credit_note_list" model="ir.ui.view">
+        <field name="name">eh.fin.credit.note.list</field>
+        <field name="model">eh.fin.credit.note</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="reporting_date"/>
+                <field name="ecl_run_name" optional="show"/>
+                <field name="total_gross" widget="monetary" optional="show"/>
+                <field name="total_allowance" widget="monetary" optional="show"/>
+                <field name="total_net" widget="monetary" optional="show"/>
+                <field name="has_discrepancy" optional="show"/>
+                <field name="state"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_fin_credit_note_form" model="ir.ui.view">
+        <field name="name">eh.fin.credit.note.form</field>
+        <field name="model">eh.fin.credit.note</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_populate" type="object"
+                            string="Populate from ECL Engine" class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_finalise" type="object"
+                            string="Finalise" class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_reopen" type="object"
+                            string="Reopen"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'finalised'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,finalised" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="reporting_date" readonly="state == 'finalised'"/>
+                            <field name="ecl_run_name" readonly="1"/>
+                            <field name="ecl_run_approach" readonly="1"/>
+                            <field name="ecl_source_status" readonly="1"/>
+                            <field name="ecl_source_valid" readonly="1"/>
+                            <field name="include_branch_companies" readonly="state == 'finalised'"/>
+                            <field name="company_id"
+                                   readonly="state == 'finalised'"
+                                   groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="total_gross" widget="monetary" readonly="1"/>
+                            <field name="total_allowance" widget="monetary" readonly="1"/>
+                            <field name="total_net" widget="monetary" readonly="1"/>
+                            <field name="has_discrepancy" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Staging Table (IFRS 7.35H)">
+                            <field name="stage_line_ids" readonly="state == 'finalised'">
+                                <list editable="bottom">
+                                    <field name="stage" readonly="origin != 'manual'"/>
+                                    <field name="origin" readonly="1"/>
+                                    <field name="gross_carrying" widget="monetary" readonly="origin != 'manual'"/>
+                                    <field name="allowance" widget="monetary" readonly="origin != 'manual'"/>
+                                    <field name="net_carrying" widget="monetary" readonly="1"/>
+                                    <field name="engine_gross" widget="monetary" readonly="1" optional="show"/>
+                                    <field name="engine_allowance" widget="monetary" readonly="1" optional="show"/>
+                                    <field name="gross_discrepancy" widget="monetary" readonly="1" optional="hide"/>
+                                    <field name="allowance_discrepancy" widget="monetary" readonly="1" optional="show"/>
+                                    <field name="has_discrepancy" readonly="1" optional="show"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Allowance Reconciliation (IFRS 7.35H)">
+                            <field name="recon_line_ids" readonly="1">
+                                <list>
+                                    <field name="stage"/>
+                                    <field name="opening" widget="monetary"/>
+                                    <field name="transfers_in" widget="monetary"/>
+                                    <field name="transfers_out" widget="monetary"/>
+                                    <field name="remeasurement" widget="monetary"/>
+                                    <field name="writeoffs" widget="monetary"/>
+                                    <field name="closing" widget="monetary"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Provision Matrix (IFRS 7.35N)">
+                            <field name="matrix_line_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="days_from"/>
+                                    <field name="days_to"/>
+                                    <field name="loss_rate"/>
+                                    <field name="gross_carrying" widget="monetary"/>
+                                    <field name="ecl" widget="monetary"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" nolabel="1" readonly="state == 'finalised'"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_fin_credit_note_search" model="ir.ui.view">
+        <field name="name">eh.fin.credit.note.search</field>
+        <field name="model">eh.fin.credit.note</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="reporting_date"/>
+                <field name="ecl_run_name"/>
+                <field name="company_id"/>
+                <filter name="discrepancy" string="Manual discrepancy" domain="[('has_discrepancy', '=', True)]"/>
+                <filter name="finalised" string="Finalised" domain="[('state', '=', 'finalised')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_fin_credit_note" model="ir.actions.act_window">
+        <field name="name">Credit-Risk Notes</field>
+        <field name="res_model">eh.fin.credit.note</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_fin_credit_note_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first credit-risk note</p>
+            <p>Present IFRS 7 credit-risk disclosures with ECL staging, allowance reconciliation and provision matrix. Click New to set a reporting date, then populate from the ECL engine.</p>
+        </field>
+    </record>
+
+    <!-- IFRS 7.40 Sensitivity Analysis (computed) -->
+    <record id="view_eh_fin_sensitivity_list" model="ir.ui.view">
+        <field name="name">eh.fin.sensitivity.list</field>
+        <field name="model">eh.fin.sensitivity</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="reporting_date"/>
+                <field name="fx_shock_pct" optional="show"/>
+                <field name="ir_shock_bp" optional="show"/>
+                <field name="ir_source" optional="show"/>
+                <field name="total_pnl_impact" widget="monetary" optional="show"/>
+                <field name="total_oci_impact" widget="monetary" optional="show"/>
+                <field name="state"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_fin_sensitivity_form" model="ir.ui.view">
+        <field name="name">eh.fin.sensitivity.form</field>
+        <field name="model">eh.fin.sensitivity</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_compute" type="object"
+                            string="Compute" class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_finalise" type="object"
+                            string="Finalise" class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_reopen" type="object"
+                            string="Reopen"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'finalised'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,finalised" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="reporting_date" readonly="state == 'finalised'"/>
+                            <field name="fx_shock_pct" readonly="state == 'finalised'"/>
+                            <field name="fx_monetary_account_ids"
+                                   widget="many2many_tags" readonly="state == 'finalised'"/>
+                            <field name="ir_shock_bp" readonly="state == 'finalised'"/>
+                            <field name="ir_source" readonly="state == 'finalised'"/>
+                            <field name="include_branch_companies" readonly="state == 'finalised'"/>
+                            <field name="company_id"
+                                   readonly="state == 'finalised'"
+                                   groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="total_pnl_impact" widget="monetary" readonly="1"/>
+                            <field name="total_oci_impact" widget="monetary" readonly="1"/>
+                        </group>
+                    </group>
+                    <field name="line_ids" readonly="state == 'finalised'">
+                        <list editable="bottom">
+                            <field name="kind" readonly="origin != 'manual'"/>
+                            <field name="name" readonly="origin != 'manual'"/>
+                            <field name="origin" readonly="1"/>
+                            <field name="shock_currency_id" optional="show" readonly="origin != 'manual'"/>
+                            <field name="exposure_foreign" widget="monetary" optional="show" readonly="origin != 'manual'"/>
+                            <field name="exposure" widget="monetary" readonly="origin != 'manual'"/>
+                            <field name="shock" readonly="origin != 'manual'"/>
+                            <field name="pnl_impact" widget="monetary" readonly="origin != 'manual'"/>
+                            <field name="oci_impact" widget="monetary" readonly="origin != 'manual'"/>
+                            <field name="currency_id" column_invisible="1"/>
+                        </list>
+                    </field>
+                    <group string="Methods and Assumptions (IFRS 7.40(b))">
+                        <field name="assumption_note" nolabel="1" readonly="1" colspan="2"/>
+                    </group>
+                    <field name="notes" readonly="state == 'finalised'"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_fin_sensitivity_search" model="ir.ui.view">
+        <field name="name">eh.fin.sensitivity.search</field>
+        <field name="model">eh.fin.sensitivity</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="reporting_date"/>
+                <field name="ir_source"/>
+                <field name="company_id"/>
+                <filter name="finalised" string="Finalised" domain="[('state', '=', 'finalised')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_fin_sensitivity" model="ir.actions.act_window">
+        <field name="name">Sensitivity Analysis</field>
+        <field name="res_model">eh.fin.sensitivity</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_fin_sensitivity_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Run your first sensitivity analysis</p>
+            <p>Model IFRS 7.40 market-risk sensitivity to FX and interest-rate shocks with profit and OCI impacts. Click New to set the shock assumptions, then compute the impacts.</p>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_report_builder_tree" model="ir.ui.view">
+        <field name="name">eh.report.builder.list</field>
+        <field name="model">eh.report.builder</field>
+        <field name="arch" type="xml">
+            <list string="Custom Reports" sample="1">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="is_published" widget="boolean_toggle" readonly="1"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_report_builder_form" model="ir.ui.view">
+        <field name="name">eh.report.builder.form</field>
+        <field name="model">eh.report.builder</field>
+        <field name="arch" type="xml">
+            <form string="Custom Report">
+                <field name="is_published" invisible="1"/>
+                <header>
+                    <button name="action_publish"
+                            type="object"
+                            string="Publish"
+                            class="btn-primary"
+                            invisible="is_published"/>
+                    <button name="action_unpublish"
+                            type="object"
+                            string="Unpublish"
+                            invisible="not is_published"/>
+                    <button name="action_open_viewer"
+                            type="object"
+                            string="Open in Viewer"
+                            class="btn-secondary"
+                            invisible="not is_published"/>
+                    <button name="action_duplicate"
+                            type="object"
+                            string="Duplicate"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon"
+                            title="Published"
+                            bg_color="bg-success"
+                            invisible="not is_published"/>
+                    <h1>
+                        <field name="name" placeholder="My Custom Report"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="code" placeholder="my_custom_report"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="label_column_name"/>
+                            <field name="amount_column_name"/>
+                            <field name="published_report_id" readonly="1"
+                                   invisible="not is_published"/>
+                        </group>
+                    </group>
+                    <field name="description"
+                           placeholder="Optional description shown in the report listing."/>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids">
+                                <list editable="bottom" default_order="sequence">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="line_type"/>
+                                    <field name="level"/>
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="account_scope"
+                                           invisible="line_type != 'account_aggregate'"/>
+                                    <field name="account_codes"
+                                           invisible="line_type != 'account_aggregate' or account_scope != 'codes'"/>
+                                    <field name="account_types"
+                                           invisible="line_type != 'account_aggregate' or account_scope != 'types'"/>
+                                    <field name="sign"
+                                           invisible="line_type != 'account_aggregate'"/>
+                                    <field name="aggregate_basis"
+                                           invisible="line_type != 'account_aggregate'"/>
+                                    <field name="formula"
+                                           invisible="line_type != 'formula'"/>
+                                    <field name="figure_type"
+                                           invisible="line_type != 'formula'"/>
+                                    <field name="is_section_total"
+                                           invisible="line_type != 'formula'"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Help">
+                            <div class="o_form_label">
+                                <h3>Line types</h3>
+                                <ul>
+                                    <li><strong>Section Header</strong>: a non numeric label that opens a section. Level 0, bold.</li>
+                                    <li><strong>Account Aggregate</strong>: SUM of account.move.line balances filtered by account codes (LIKE prefix) or account types, with a sign flip. Choose Period Movement for income/expense activity or Closing Balance for balance-sheet accounts.</li>
+                                    <li><strong>Formula</strong>: arithmetic over previously named lines. Allowed operators: + - * / and parentheses. Identifiers reference other lines' codes. Choose Monetary, Percentage, Number, or Integer output.</li>
+                                </ul>
+                                <h3>Example: simple P&amp;L</h3>
+                                <pre>seq  type                name              code         scope/codes  sign  formula
+10   section_header      Income            -            -            -     -
+20   account_aggregate   Revenue           revenue      types/income  -     -
+30   account_aggregate   Other income      other_inc    types/income_other  -  -
+40   formula             Total Income      total_inc    -            -     revenue + other_inc
+50   section_header      Expenses          -            -            -     -
+60   account_aggregate   Direct costs      direct_cost  types/expense_direct_cost  +  -
+70   account_aggregate   Operating costs   op_cost      types/expense  +  -
+80   formula             Total Expenses    total_exp    -            -     direct_cost + op_cost
+90   formula             Net Profit        net_profit   -            -     total_inc - total_exp</pre>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_report_builder_search" model="ir.ui.view">
+        <field name="name">eh.report.builder.search</field>
+        <field name="model">eh.report.builder</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <filter name="filter_published" string="Published"
+                        domain="[('is_published', '=', True)]"/>
+                <filter name="filter_draft" string="Draft"
+                        domain="[('is_published', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_report_builder" model="ir.actions.act_window">
+        <field name="name">Custom Reports</field>
+        <field name="res_model">eh.report.builder</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_report_builder_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No custom reports yet.</p>
+            <p>Create a builder to compose a report from account aggregates and formulas. Publish to register it as a viewer-ready dynamic report.</p>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,1958 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_approval
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Thai\n"
+"Language: th\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid " (manual)"
+msgstr "(manual)"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid ""
+"%(move)s has approval request %(req)s in state %(state)s. Posting is blocked"
+" until the request is approved."
+msgstr ""
+"%(move)s มีคำขออนุมัติ %(req)s ในสถานะ %(state)s "
+"การลงบัญชีถูกระงับจนกว่าคำขอจะได้รับการอนุมัติ"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid ""
+"%(move)s requires approval per policy %(policy)s before posting. Click "
+"'Request Approval' to start."
+msgstr ""
+"%(move)s ต้องได้รับการอนุมัติตามนโยบาย %(policy)s ก่อนลงบัญชี คลิก "
+"'ขออนุมัติ' เพื่อเริ่ม"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "(no SLA)"
+msgstr "(ไม่มี SLA)"
+
+#. module: eh_account_approval
+#: model:mail.template,body_html:eh_account_approval.email_template_eh_approval_reminder
+msgid ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #C9A372;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;letter-spacing:-0.01em;\">\n"
+"                                Approval awaiting your sign-off\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#6c757d;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;\">\n"
+"                                ERP Heritage Accounting Suite\n"
+"                            </p>\n"
+"                        </div>\n"
+"\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Hello,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            <strong t-out=\"object.name\"/> on\n"
+"                            <strong t-out=\"object.move_id.name\"/> is awaiting\n"
+"                            sign-off from\n"
+"                            <strong t-out=\"object.pending_group_id.name\"/>.\n"
+"                        </p>\n"
+"\n"
+"                        <table style=\"width:100%;border-collapse:collapse;margin:18px 0;background:#fff;border:1px solid #e1e4e8;border-radius:6px;\">\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    Amount\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;font-weight:600;border-bottom:1px solid #e1e4e8;text-align:right;\" t-out=\"'{:,.2f}'.format(object.submitted_amount or 0.0)\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    Requested by\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;border-bottom:1px solid #e1e4e8;text-align:right;\" t-out=\"object.requested_by_id.name\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;\">\n"
+"                                    Due\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;text-align:right;\" t-out=\"object.due_at and object.due_at.strftime('%Y-%m-%d %H:%M') or '(no SLA)'\"/>\n"
+"                            </tr>\n"
+"                        </table>\n"
+"\n"
+"                        <p style=\"margin:0 0 18px 0;font-size:14px;line-height:1.55;\">\n"
+"                            Open the request in Odoo to approve, reject, or comment.\n"
+"                        </p>\n"
+"\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #C9A372;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;letter-spacing:-0.01em;\">\n"
+"                                มีการอนุมัติที่รอการลงนามของคุณ\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#6c757d;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;\">\n"
+"                                ERP Heritage Accounting Suite\n"
+"                            </p>\n"
+"                        </div>\n"
+"\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            สวัสดี\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            <strong t-out=\"object.name\"/> ใน\n"
+"                            <strong t-out=\"object.move_id.name\"/> กำลังรอการลงนาม\n"
+"                            จาก\n"
+"                            <strong t-out=\"object.pending_group_id.name\"/>.\n"
+"                        </p>\n"
+"\n"
+"                        <table style=\"width:100%;border-collapse:collapse;margin:18px 0;background:#fff;border:1px solid #e1e4e8;border-radius:6px;\">\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    จำนวนเงิน\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;font-weight:600;border-bottom:1px solid #e1e4e8;text-align:right;\" t-out=\"'{:,.2f}'.format(object.submitted_amount or 0.0)\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    ร้องขอโดย\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;border-bottom:1px solid #e1e4e8;text-align:right;\" t-out=\"object.requested_by_id.name\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;\">\n"
+"                                    ครบกำหนด\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;text-align:right;\" t-out=\"object.due_at and object.due_at.strftime('%Y-%m-%d %H:%M') or '(no SLA)'\"/>\n"
+"                            </tr>\n"
+"                        </table>\n"
+"\n"
+"                        <p style=\"margin:0 0 18px 0;font-size:14px;line-height:1.55;\">\n"
+"                            เปิดคำขอใน Odoo เพื่ออนุมัติ ปฏิเสธ หรือแสดงความคิดเห็น\n"
+"                        </p>\n"
+"\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_kanban
+msgid "<i class=\"fa fa-clock-o\" title=\"Due date\"/>"
+msgstr "<i class=\"fa fa-clock-o\" title=\"วันครบกำหนด\"/>"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_kanban
+msgid ""
+"<i class=\"fa fa-exclamation-triangle\" title=\"Escalated\"/>\n"
+"                                Escalated"
+msgstr ""
+"<i class=\"fa fa-exclamation-triangle\" title=\"ยกระดับแล้ว\"/>\n"
+"                                ยกระดับแล้ว"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_kanban
+msgid "<i class=\"fa fa-users\" title=\"Approver group\"/>"
+msgstr "<i class=\"fa fa-users\" title=\"กลุ่มผู้อนุมัติ\"/>"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_account_move_form_approval
+msgid "<span class=\"o_stat_text\">Approval</span>"
+msgstr "<span class=\"o_stat_text\">การอนุมัติ</span>"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy__document_type
+msgid "Account.move move_type this policy applies to."
+msgstr "Account.move move_type ที่นโยบายนี้ใช้บังคับ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__action
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+msgid "Action"
+msgstr "การดำเนินการ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_needaction
+msgid "Action Needed"
+msgstr "จำเป็นต้องดำเนินการ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__active
+msgid "Active"
+msgstr "เปิดใช้งาน"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_ids
+msgid "Activities"
+msgstr "กิจกรรม"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "การตกแต่งข้อยกเว้นกิจกรรม"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_state
+msgid "Activity State"
+msgstr "สถานะกิจกรรม"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "ไอคอนประเภทกิจกรรม"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__user_id
+msgid "Actor"
+msgstr "ผู้กระทำ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__inject_manager
+msgid "Add requester's manager"
+msgstr "เพิ่มผู้จัดการของผู้ร้องขอ"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "All steps approved."
+msgstr "อนุมัติทุกขั้นตอนแล้ว"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__allow_self_approval
+msgid "Allow Self Approval"
+msgstr "อนุญาตให้อนุมัติด้วยตนเอง"
+
+#. module: eh_account_approval
+#: model:ir.model.constraint,message:eh_account_approval.constraint_eh_approval_policy_rule_check_amount_band
+msgid ""
+"Amount band invalid: min and max must be non-negative and max >= min when "
+"max is non-zero."
+msgstr ""
+"ช่วงจำนวนเงินไม่ถูกต้อง: min และ max ต้องไม่เป็นค่าลบ และ max >= min เมื่อ "
+"max ไม่เป็นศูนย์"
+
+#. module: eh_account_approval
+#: model:ir.model.constraint,message:eh_account_approval.constraint_eh_approval_vote_unique_vote
+msgid "An approver can vote at most once per step."
+msgstr "ผู้อนุมัติสามารถลงคะแนนได้มากที่สุดหนึ่งครั้งต่อขั้นตอน"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__group_id
+msgid ""
+"Any user in this group can sign off when the request reaches this step. "
+"Optional when named approvers or manager injection are configured instead."
+msgstr ""
+"ผู้ใช้ใด ๆ ในกลุ่มนี้สามารถอนุมัติได้เมื่อคำขอมาถึงขั้นตอนนี้ "
+"เป็นทางเลือกเมื่อมีการกำหนดผู้อนุมัติที่ระบุชื่อหรือการแทรกผู้จัดการแทน"
+
+#. module: eh_account_approval
+#: model:ir.actions.act_window,name:eh_account_approval.action_eh_approval_log
+#: model:ir.ui.menu,name:eh_account_approval.menu_eh_approval_log
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_list
+msgid "Approval Decisions"
+msgstr "การตัดสินใจอนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__approval_minimum
+msgid "Approval Minimum"
+msgstr "จำนวนอนุมัติขั้นต่ำ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__approval_mode
+msgid "Approval Mode"
+msgstr "โหมดการอนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.actions.act_window,name:eh_account_approval.action_eh_approval_policy
+#: model:ir.ui.menu,name:eh_account_approval.menu_eh_approval_policy
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_list
+msgid "Approval Policies"
+msgstr "นโยบายการอนุมัติ"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid "Approval Policy"
+msgstr "นโยบายการอนุมัติ"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Approval Request"
+msgstr "คำร้องขอการอนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.actions.act_window,name:eh_account_approval.action_eh_approval_request
+#: model:ir.ui.menu,name:eh_account_approval.menu_eh_approval_request
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_list
+msgid "Approval Requests"
+msgstr "คำขออนุมัติ"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid "Approval Rule"
+msgstr "กฎการอนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_log
+msgid "Approval log entry"
+msgstr "รายการบันทึกการอนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model.constraint,message:eh_account_approval.constraint_eh_approval_policy_rule_step_check_minimum
+msgid "Approval minimum must be at least 1."
+msgstr "จำนวนอนุมัติขั้นต่ำต้องมีอย่างน้อย 1"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_policy
+msgid "Approval policy"
+msgstr "นโยบายการอนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_policy_rule
+msgid "Approval policy rule"
+msgstr "กฎนโยบายการอนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_policy_rule_step
+msgid "Approval policy rule step"
+msgstr "ขั้นตอนกฎนโยบายการอนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_request
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_account_move_form_approval
+msgid "Approval request"
+msgstr "คำขออนุมัติ"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid "Approval requested for amount %.2f"
+msgstr "ขอการอนุมัติสำหรับจำนวนเงิน %.2f"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_bank_statement_line__eh_approval_request_ids
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__eh_approval_request_ids
+msgid "Approval requests"
+msgstr "คำขออนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_bank_statement_line__eh_approval_state
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__eh_approval_state
+msgid "Approval state"
+msgstr "สถานะการอนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_log__step
+msgid "Approval step at which this action took place."
+msgstr "ขั้นตอนการอนุมัติที่การดำเนินการนี้เกิดขึ้น"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"Approval step has already advanced. Refresh the request and re-evaluate; "
+"another approver may have already signed off."
+msgstr ""
+"ขั้นตอนการอนุมัติได้ดำเนินไปแล้ว โปรดรีเฟรชคำขอและประเมินใหม่ "
+"ผู้อนุมัติรายอื่นอาจอนุมัติไปแล้ว"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__step_ids
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid "Approval steps (in order)"
+msgstr "ขั้นตอนการอนุมัติ (ตามลำดับ)"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_vote
+msgid "Approval vote"
+msgstr "การลงคะแนนอนุมัติ"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Approve"
+msgstr "อนุมัติ"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Approve this step? Any user in the pending group can sign."
+msgstr ""
+"อนุมัติขั้นตอนนี้หรือไม่? ผู้ใช้ใดก็ตามในกลุ่มที่รอดำเนินการสามารถลงนามได้"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Approve: %s"
+msgstr "อนุมัติ: %s"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__approved
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__approved
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_vote__decision__approve
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Approved"
+msgstr "อนุมัติแล้ว"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__approver_count
+msgid "Approver Count"
+msgstr "จำนวนผู้อนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__approver_summary
+msgid "Approver chain"
+msgstr "สายผู้อนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__group_id
+msgid "Approver group"
+msgstr "กลุ่มผู้อนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__request_note
+msgid "Approver note"
+msgstr "หมายเหตุผู้อนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__required_approver_ids
+msgid ""
+"Approvers who MUST sign before this step advances, even if the minimum count"
+" is otherwise met. Must be a subset of the eligible approvers (named "
+"approvers or group members)."
+msgstr ""
+"ผู้อนุมัติที่ต้องลงนามก่อนที่ขั้นตอนนี้จะดำเนินต่อไป "
+"แม้ว่าจะถึงจำนวนขั้นต่ำด้วยวิธีอื่นแล้วก็ตาม "
+"ต้องเป็นส่วนหนึ่งของผู้อนุมัติที่มีสิทธิ์ "
+"(ผู้อนุมัติที่ระบุชื่อหรือสมาชิกกลุ่ม)"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__archived
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Archived"
+msgstr "เก็บถาวรแล้ว"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__sla_state__at_risk
+msgid "At risk"
+msgstr "มีความเสี่ยง"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_attachment_count
+msgid "Attachment Count"
+msgstr "จำนวนสิ่งที่แนบมา"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Audit log"
+msgstr "บันทึกการตรวจสอบ"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Awaiting submission"
+msgstr "รอการส่ง"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__sla_state__breached
+msgid "Breached"
+msgstr "ละเมิดแล้ว"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__request_date
+msgid ""
+"Business date the request concerns (delivery, service period, etc.); "
+"distinct from the submission timestamp."
+msgstr ""
+"วันที่ทางธุรกิจที่คำขอเกี่ยวข้อง (การส่งมอบ ระยะเวลาบริการ ฯลฯ) "
+"ซึ่งแตกต่างจากการประทับเวลาการยื่น"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid ""
+"Bypass the remaining approval chain and approve outright? This is logged."
+msgstr ""
+"ข้ามลำดับการอนุมัติที่เหลือและอนุมัติทันทีหรือไม่? "
+"การดำเนินการนี้จะถูกบันทึกไว้"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Cannot withdraw %s in state %s."
+msgstr "ไม่สามารถถอน %s ในสถานะ %s ได้"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__comment
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__comment
+msgid "Comment"
+msgstr "ความคิดเห็น"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__company_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__company_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__company_id
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Company"
+msgstr "บริษัท"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__completed
+msgid "Completed"
+msgstr "เสร็จสิ้น"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_res_partner
+msgid "Contact"
+msgstr "ติดต่อ"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Created Month"
+msgstr "เดือนที่สร้าง"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__create_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__create_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__create_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__create_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__create_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__create_uid
+msgid "Created by"
+msgstr "สร้างโดย"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__create_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__create_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__create_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__create_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__create_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__create_date
+msgid "Created on"
+msgstr "สร้างเมื่อ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__currency_id
+msgid "Currency"
+msgstr "สกุลเงิน"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__currency_id
+msgid ""
+"Currency of the underlying move; used by views to render submitted_amount "
+"with the correct symbol."
+msgstr ""
+"สกุลเงินของรายการเคลื่อนไหวที่เกี่ยวข้อง ใช้โดยมุมมองเพื่อแสดง "
+"submitted_amount ด้วยสัญลักษณ์ที่ถูกต้อง"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__current_step
+msgid "Current Step"
+msgstr "ขั้นตอนปัจจุบัน"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy__document_type__out_invoice
+msgid "Customer invoice"
+msgstr "ใบแจ้งหนี้ลูกค้า"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Customer invoices"
+msgstr "ใบแจ้งหนี้ลูกค้า"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy__document_type__out_refund
+msgid "Customer refund"
+msgstr "การคืนเงินลูกค้า"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Customer refunds"
+msgstr "การคืนเงินลูกค้า"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__due_at
+msgid ""
+"Deadline derived from rule.sla_hours. Empty when the rule has no SLA target."
+msgstr ""
+"กำหนดเวลาที่ได้มาจาก rule.sla_hours จะว่างเปล่าเมื่อกฎไม่มีเป้าหมาย SLA"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__decision
+msgid "Decision"
+msgstr "การตัดสินใจ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__delegated
+msgid "Delegated"
+msgstr "มอบหมายแล้ว"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_res_partner__display_name
+msgid "Display Name"
+msgstr "แสดงชื่อ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__document_type
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Document Type"
+msgstr "ประเภทเอกสาร"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__due_at
+msgid "Due At"
+msgstr "ถึงกำหนดเมื่อ"
+
+#. module: eh_account_approval
+#: model:mail.template,name:eh_account_approval.email_template_eh_approval_reminder
+msgid "EH Approval Reminder"
+msgstr "การเตือนการอนุมัติ EH"
+
+#. module: eh_account_approval
+#: model:ir.actions.server,name:eh_account_approval.cron_eh_approval_sla_sweep_ir_actions_server
+msgid "EH Approval: SLA reminder & escalation sweep"
+msgstr "การอนุมัติ EH: การเตือน SLA และการกวาดยกระดับ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_bank_statement_line__eh_active_approval_request_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__eh_active_approval_request_id
+msgid "Eh Active Approval Request"
+msgstr "Eh คำขออนุมัติที่ใช้งานอยู่"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_res_partner__eh_pending_approval_count
+#: model:ir.model.fields,field_description:eh_account_approval.field_res_users__eh_pending_approval_count
+msgid "Eh Pending Approval Count"
+msgstr "จำนวนที่รออนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_bank_statement_line__eh_requires_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__eh_requires_approval
+msgid "Eh Requires Approval"
+msgstr "ต้องได้รับการอนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__escalate_after_hours
+msgid "Escalate After Hours"
+msgstr "ยกระดับหลังจาก (ชั่วโมง)"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Escalate Now"
+msgstr "ยกระดับตอนนี้"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__escalate_to_group_id
+msgid "Escalate To Group"
+msgstr "ยกระดับไปยังกลุ่ม"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__escalated
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Escalated"
+msgstr "ยกระดับแล้ว"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Escalated to %s%s"
+msgstr "ยกระดับไปยัง %s%s"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__escalation_level
+msgid "Escalation Level"
+msgstr "ระดับการยกระดับ"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"Escalation: approval %(name)s breached its SLA by %(hours).1f hours. "
+"Forwarding to %(group)s for intervention."
+msgstr ""
+"การยกระดับ: การอนุมัติ %(name)s เกิน SLA ไป %(hours).1f ชั่วโมง "
+"กำลังส่งต่อไปยัง %(group)s เพื่อดำเนินการ"
+
+#. module: eh_account_approval
+#: model_terms:ir.actions.act_window,help:eh_account_approval.action_eh_approval_log
+msgid ""
+"Every approval, rejection, withdrawal, and override appears here. Rows are "
+"append-only; the table refuses write and unlink at the framework level."
+msgstr ""
+"การอนุมัติ การปฏิเสธ การถอน และการแทนที่ทุกครั้งจะปรากฏที่นี่ "
+"แถวสามารถเพิ่มได้เท่านั้น "
+"ตารางปฏิเสธการเขียนและการยกเลิกการเชื่อมโยงที่ระดับเฟรมเวิร์ก"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_follower_ids
+msgid "Followers"
+msgstr "ผู้ติดตาม"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "ผู้ติดตาม (พาร์ทเนอร์)"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "ไอคอนแบบฟอนต์ที่ยอดเยี่ยมเช่น fa-tasks"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Force Approve"
+msgstr "บังคับอนุมัติ"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__force_approved
+msgid "Force approved"
+msgstr "บังคับอนุมัติแล้ว"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Force approved."
+msgstr "บังคับอนุมัติแล้ว"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Forward this request to the configured escalation group?"
+msgstr "ส่งต่อคำขอนี้ไปยังกลุ่มการยกระดับที่กำหนดไว้หรือไม่?"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_log__comment
+msgid ""
+"Free-form note. The only field that stays writable after the row is created."
+msgstr "บันทึกแบบอิสระ ฟิลด์เดียวที่ยังคงเขียนได้หลังจากสร้างแถวแล้ว"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__request_reference
+msgid ""
+"Free-form reference shown to approvers (PO number, contract id, ticket, "
+"etc.)."
+msgstr ""
+"การอ้างอิงแบบอิสระที่แสดงต่อผู้อนุมัติ (หมายเลข PO, id สัญญา, ตั๋วงาน ฯลฯ)"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__escalate_to_group_id
+msgid ""
+"Group the request is escalated to after the breach window expires. Leave "
+"empty to disable escalation; the cron will still post a chatter warning so "
+"the requester sees the miss."
+msgstr ""
+"กลุ่มที่คำขอถูกยกระดับไปหลังจากหน้าต่างการละเมิดหมดอายุ "
+"ปล่อยว่างไว้เพื่อปิดใช้งานการยกระดับ cron "
+"จะยังคงโพสต์คำเตือนในแชทเทอร์เพื่อให้ผู้ร้องขอเห็นการพลาด"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__has_message
+msgid "Has Message"
+msgstr "มีข้อความ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_res_partner__id
+msgid "ID"
+msgstr "ไอดี"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_exception_icon
+msgid "Icon"
+msgstr "ไอคอน"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "ไอคอนเพื่อระบุการยกเว้นกิจกรรม"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "ถ้าเลือก ข้อความใหม่จะต้องการความสนใจจากคุณ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__message_has_error
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "ถ้าเลือก ข้อความบางข้อความมีข้อผิดพลาดในการส่ง"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__in_review
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "In review"
+msgstr "อยู่ระหว่างการตรวจสอบ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_is_follower
+msgid "Is Follower"
+msgstr "เป็นผู้ติดตาม"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__is_overdue
+msgid "Is Overdue"
+msgstr "เกินกำหนดหรือไม่"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_account_move
+msgid "Journal Entry"
+msgstr "รายการสมุดรายวัน"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Journal entries"
+msgstr "รายการสมุดรายวัน"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy__document_type__entry
+msgid "Journal entry"
+msgstr "รายการสมุดรายวัน"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__last_escalated_at
+msgid "Last Escalated At"
+msgstr "ยกระดับล่าสุดเมื่อ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__last_reminded_at
+msgid "Last Reminded At"
+msgstr "เตือนครั้งล่าสุดเมื่อ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__write_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__write_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__write_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__write_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__write_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__write_uid
+msgid "Last Updated by"
+msgstr "อัปเดตครั้งล่าสุดโดย"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__write_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__write_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__write_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__write_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__write_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__write_date
+msgid "Last Updated on"
+msgstr "อัปเดตครั้งล่าสุดเมื่อ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__sla_state
+msgid "Lifecycle bucket used by dashboards and the kanban view."
+msgstr "กลุ่มวงจรชีวิตที่ใช้โดยแดชบอร์ดและมุมมองคัมบัง"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__log_ids
+msgid "Log"
+msgstr "ล็อก"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__min_amount
+msgid "Lower bound of the amount band (inclusive)."
+msgstr "ขอบเขตล่างของช่วงจำนวนเงิน (รวม)"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Material amount change triggered re-approval."
+msgstr "การเปลี่ยนแปลงจำนวนเงินอย่างมีนัยสำคัญทำให้ต้องอนุมัติใหม่"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__max_amount
+msgid "Max Amount"
+msgstr "จำนวนเงินสูงสุด"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__pending_group_user_ids
+msgid "Members of the pending group, surfaced for the kanban inbox."
+msgstr "สมาชิกของกลุ่มที่รอดำเนินการ แสดงในกล่องข้อความเข้าแบบคัมบัง"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_has_error
+msgid "Message Delivery error"
+msgstr "เกิดข้อผิดพลาดในการส่งข้อความ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_ids
+msgid "Messages"
+msgstr "ข้อความ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__min_amount
+msgid "Min Amount"
+msgstr "จำนวนเงินขั้นต่ำ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__approval_minimum
+msgid ""
+"Minimum number of distinct approvals before the step advances (N-of-M). "
+"Default 1 = any single eligible approver. The required approvers always "
+"count toward and must be included in this minimum."
+msgstr ""
+"จำนวนขั้นต่ำของการอนุมัติที่แตกต่างกันก่อนที่ขั้นตอนจะดำเนินต่อ (N-of-M) "
+"ค่าเริ่มต้น 1 = ผู้อนุมัติที่มีสิทธิ์คนใดคนหนึ่ง "
+"ผู้อนุมัติที่จำเป็นจะถูกนับรวมและต้องอยู่ในค่าขั้นต่ำนี้เสมอ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__move_id
+msgid "Move"
+msgstr "ย้าย"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__submitted_amount
+msgid "Move amount at submission. Used for re-approval detection."
+msgstr "จำนวนเงินรายการบัญชีเมื่อส่ง ใช้สำหรับการตรวจจับการอนุมัติซ้ำ"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid ""
+"Move amount changed from %(old).2f to %(new).2f after approval; re-approval "
+"required."
+msgstr ""
+"จำนวนเงินรายการบัญชีเปลี่ยนจาก %(old).2f เป็น %(new).2f หลังการอนุมัติ "
+"ต้องอนุมัติซ้ำ"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid ""
+"Move amount changed materially after approval. The request has been reset; "
+"every step must re-sign before posting."
+msgstr ""
+"จำนวนเงินรายการบัญชีเปลี่ยนแปลงอย่างมีนัยสำคัญหลังการอนุมัติ "
+"คำขอถูกรีเซ็ตแล้ว ทุกขั้นตอนต้องลงนามใหม่ก่อนลงบัญชี"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "วันครบกำหนดกิจกรรมของฉัน"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "My pending step"
+msgstr "ขั้นตอนที่รอดำเนินการของฉัน"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__name
+msgid "Name"
+msgstr "ชื่อ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__approver_ids
+msgid "Named approvers"
+msgstr "ผู้อนุมัติที่ระบุชื่อ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "ปฏิทินอีเวนต์กิจกรรมถัดไป"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "วันครบกำหนดกิจกรรมถัดไป"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_summary
+msgid "Next Activity Summary"
+msgstr "สรุปกิจกรรมถัดไป"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_type_id
+msgid "Next Activity Type"
+msgstr "ประเภทกิจกรรมถัดไป"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__sla_state__na
+msgid "No SLA"
+msgstr "ไม่มี SLA"
+
+#. module: eh_account_approval
+#: model_terms:ir.actions.act_window,help:eh_account_approval.action_eh_approval_log
+msgid "No approval decisions yet."
+msgstr "ยังไม่มีการตัดสินใจอนุมัติ"
+
+#. module: eh_account_approval
+#: model_terms:ir.actions.act_window,help:eh_account_approval.action_eh_approval_policy
+msgid "No approval policies yet."
+msgstr "ยังไม่มีนโยบายการอนุมัติ"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid "No approval policy applies to %s. Configure one or post directly."
+msgstr ""
+"ไม่มีนโยบายการอนุมัติที่ใช้กับ %s โปรดกำหนดค่าหนึ่งรายการหรือลงบัญชีโดยตรง"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"No escalation group is configured on rule %(name)s. Set escalate_to_group_id"
+" on the policy rule first."
+msgstr ""
+"ยังไม่ได้กำหนดค่ากลุ่มการยกระดับในกฎ %(name)s โปรดตั้งค่า "
+"escalate_to_group_id ในกฎนโยบายก่อน"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__notes
+msgid "Notes"
+msgstr "โน้ต"
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid ""
+"Now find the <b>Approval Policies</b> entry under Configuration. A policy "
+"maps a document type (vendor bills, customer invoices, journal entries) to a"
+" set of approver groups."
+msgstr ""
+"ตอนนี้ให้ค้นหารายการ <b>นโยบายการอนุมัติ</b> ภายใต้การกำหนดค่า "
+"นโยบายจะจับคู่ประเภทเอกสาร (ใบเรียกเก็บเงินจากผู้ขาย ใบแจ้งหนี้ลูกค้า "
+"รายการสมุดรายวัน) กับชุดกลุ่มผู้อนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_needaction_counter
+msgid "Number of Actions"
+msgstr "จํานวนการดําเนินการ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_has_error_counter
+msgid "Number of errors"
+msgstr "จํานวนข้อผิดพลาด"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "จำนวนข้อความที่ต้องดำเนินการ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "จํานวนข้อความที่มีข้อผิดพลาดในการส่ง"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__escalation_level
+msgid ""
+"Number of times the SLA has been breached on this request. Each escalation "
+"pass increments by one."
+msgstr ""
+"จำนวนครั้งที่ SLA ถูกละเมิดในคำขอนี้ การยกระดับแต่ละรอบจะเพิ่มค่าขึ้นหนึ่ง"
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid ""
+"On a policy, add at least one <b>rule</b> with an amount band and an ordered"
+" list of approver groups. The first rule whose band matches the move's "
+"amount wins; the request walks the group list one signature at a time."
+msgstr ""
+"ในนโยบาย "
+"ให้เพิ่ม<b>กฎ</b>อย่างน้อยหนึ่งข้อพร้อมช่วงจำนวนเงินและรายการกลุ่มผู้อนุมัติที่เรียงลำดับ"
+" กฎแรกที่ช่วงตรงกับจำนวนเงินของรายการจะมีผล "
+"คำขอจะไล่ตามรายการกลุ่มทีละหนึ่งลายเซ็น"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__sla_state__on_track
+msgid "On track"
+msgstr "เป็นไปตามแผน"
+
+#. module: eh_account_approval
+#: model_terms:ir.actions.act_window,help:eh_account_approval.action_eh_approval_policy
+msgid ""
+"One policy per (company, document type). Rules within a policy carry an "
+"amount band and an ordered list of approver groups. Documents below the "
+"lowest band post without approval."
+msgstr ""
+"หนึ่งนโยบายต่อ (บริษัท, ประเภทเอกสาร) "
+"กฎภายในนโยบายมีช่วงจำนวนเงินและรายการกลุ่มผู้อนุมัติที่จัดลำดับไว้ "
+"เอกสารที่ต่ำกว่าช่วงต่ำสุดจะบันทึกโดยไม่ต้องอนุมัติ"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Only an EH Accounting Manager can force-approve a request."
+msgstr "เฉพาะผู้จัดการบัญชี EH เท่านั้นที่สามารถบังคับอนุมัติคำขอได้"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Only approved requests can be archived."
+msgstr "สามารถจัดเก็บได้เฉพาะคำขอที่ได้รับอนุมัติแล้วเท่านั้น"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Only in-review requests can be force-approved; %s is %s."
+msgstr ""
+"สามารถบังคับอนุมัติได้เฉพาะคำขอที่อยู่ระหว่างการตรวจสอบเท่านั้น %s คือ %s"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Only pending requests can be submitted; %s is %s."
+msgstr "สามารถส่งได้เฉพาะคำขอที่รอดำเนินการเท่านั้น %s คือ %s"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"Only the requester or an EH Accounting Manager can withdraw an approval "
+"request."
+msgstr ""
+"เฉพาะผู้ร้องขอหรือ EH Accounting Manager เท่านั้นที่สามารถถอนคำขออนุมัติได้"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Only withdrawn or rejected requests can be restarted."
+msgstr "สามารถเริ่มใหม่ได้เฉพาะคำขอที่ถูกถอนหรือถูกปฏิเสธเท่านั้น"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_res_partner__eh_pending_approval_count
+#: model:ir.model.fields,help:eh_account_approval.field_res_users__eh_pending_approval_count
+msgid ""
+"Open approval requests on invoices/bills for this partner. Pending and "
+"in_review states count; approved, rejected, withdrawn and archived do not."
+msgstr ""
+"คำขออนุมัติที่เปิดอยู่บนใบแจ้งหนี้/ใบวางบิลสำหรับพาร์ตเนอร์นี้ สถานะ pending"
+" และ in_review จะถูกนับ ส่วน approved, rejected, withdrawn และ archived "
+"จะไม่ถูกนับ"
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid "Open the <b>Accounting</b> menu first."
+msgstr "เปิดเมนู <b>บัญชี</b> ก่อน"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy__re_approval_threshold_abs
+msgid ""
+"Optional absolute floor for re-approval. A change of less than this amount "
+"never triggers re-approval, even if it exceeds the percentage threshold. 0 "
+"disables the floor."
+msgstr ""
+"ขีดจำกัดต่ำสุดแบบสัมบูรณ์ (ไม่บังคับ) สำหรับการอนุมัติซ้ำ "
+"การเปลี่ยนแปลงที่น้อยกว่าจำนวนนี้จะไม่ทำให้เกิดการอนุมัติซ้ำ "
+"แม้ว่าจะเกินเกณฑ์เปอร์เซ็นต์ก็ตาม 0 จะปิดใช้งานขีดจำกัดต่ำสุด"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__name
+msgid "Optional label shown in the policy form rule list."
+msgstr "ป้ายกำกับที่ไม่บังคับซึ่งแสดงในรายการกฎของฟอร์มนโยบาย"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__step_ids
+msgid ""
+"Ordered approval steps. The request walks the steps one at a time, top to "
+"bottom; any user in the step's group can sign off to advance the request. "
+"The step sequence is the single source of truth for order, so creating or "
+"removing unrelated security groups in the system never reorders the steps of"
+" a rule already in use."
+msgstr ""
+"ขั้นตอนการอนุมัติที่จัดลำดับไว้ คำขอจะดำเนินไปทีละขั้นตอนจากบนลงล่าง "
+"ผู้ใช้คนใดในกลุ่มของขั้นตอนนั้นสามารถอนุมัติเพื่อให้คำขอดำเนินต่อไปได้ "
+"ลำดับของขั้นตอนคือแหล่งความจริงเพียงแหล่งเดียวสำหรับการจัดลำดับ "
+"ดังนั้นการสร้างหรือลบกลุ่มความปลอดภัยที่ไม่เกี่ยวข้องในระบบจะไม่มีวันจัดลำดับขั้นตอนของกฎที่ใช้งานอยู่แล้วใหม่"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Overdue (SLA breached)"
+msgstr "เกินกำหนด (ละเมิด SLA)"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy_rule__approval_mode__parallel
+msgid "Parallel"
+msgstr "ขนาน"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__pending
+msgid "Pending"
+msgstr "รอดำเนินการ"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_partner_form_approvals
+msgid "Pending Approvals"
+msgstr "รายการที่รออนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__pending_group_id
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Pending Group"
+msgstr "กลุ่มที่ค้างอยู่"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__pending_group_user_ids
+msgid "Pending Group User"
+msgstr "ผู้ใช้กลุ่มที่ค้างอยู่"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_partner_form_approvals
+msgid "Pending approvals"
+msgstr "รายการที่รออนุมัติ"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Pending approvers"
+msgstr "ผู้อนุมัติที่รออยู่"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__vote_ids
+msgid ""
+"Per-approver decisions, used for N-of-M and required approver tracking."
+msgstr ""
+"การตัดสินใจต่อผู้อนุมัติ ใช้สำหรับการติดตาม N-of-M และผู้อนุมัติที่จำเป็น"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__policy_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__policy_id
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Policy"
+msgstr "นโยบาย"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid ""
+"Policy %(policy)s has no rule covering amount %(amt).2f. Adjust the policy's"
+" amount bands."
+msgstr ""
+"นโยบาย %(policy)s ไม่มีกฎที่ครอบคลุมจำนวนเงิน %(amt).2f "
+"กรุณาปรับช่วงจำนวนเงินของนโยบาย"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_policy.py:0
+msgid ""
+"Policy %s has no rules. Add at least one rule with an amount band and an "
+"approver group."
+msgstr ""
+"นโยบาย %s ไม่มีกฎ "
+"กรุณาเพิ่มกฎอย่างน้อยหนึ่งข้อพร้อมช่วงจำนวนเงินและกลุ่มผู้อนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__sequence
+msgid ""
+"Position of this step in the approval chain. The request advances through "
+"the steps in ascending sequence; ties break on record id. This column is the"
+" only thing that decides step order, so it cannot drift when unrelated "
+"security groups are created or removed elsewhere in the system, even for a "
+"request already in review."
+msgstr ""
+"ตำแหน่งของขั้นตอนนี้ในสายการอนุมัติ "
+"คำขอจะดำเนินไปตามขั้นตอนในลำดับจากน้อยไปมาก หากเสมอกันจะตัดสินด้วย ID "
+"ของระเบียน คอลัมน์นี้เป็นสิ่งเดียวที่กำหนดลำดับของขั้นตอน "
+"จึงไม่สามารถคลาดเคลื่อนได้เมื่อมีการสร้างหรือลบกลุ่มความปลอดภัยที่ไม่เกี่ยวข้องในที่อื่นของระบบ"
+" แม้กระทั่งสำหรับคำขอที่อยู่ระหว่างการตรวจสอบแล้วก็ตาม"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Post a chatter note tagging the current approver group."
+msgstr "โพสต์บันทึกในแชตเตอร์โดยแท็กกลุ่มผู้อนุมัติปัจจุบัน"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__rating_ids
+msgid "Ratings"
+msgstr "การให้คะแนน"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__re_approval_threshold_abs
+msgid "Re Approval Threshold Abs"
+msgstr "เกณฑ์การอนุมัติซ้ำ (ค่าสัมบูรณ์)"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__re_approval_threshold_pct
+msgid "Re Approval Threshold Pct"
+msgstr "เกณฑ์การอนุมัติซ้ำ (เปอร์เซ็นต์)"
+
+#. module: eh_account_approval
+#: model:ir.model.constraint,message:eh_account_approval.constraint_eh_approval_policy_check_thresholds
+msgid "Re-approval thresholds cannot be negative."
+msgstr "เกณฑ์การอนุมัติซ้ำต้องไม่เป็นค่าลบ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__approver_summary
+msgid "Read-only preview of the ordered approver groups."
+msgstr "การแสดงตัวอย่างแบบอ่านอย่างเดียวของกลุ่มผู้อนุมัติที่จัดลำดับไว้"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Reject"
+msgstr "ปฏิเสธ"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid ""
+"Reject the request? This is terminal; the move cannot post until a new "
+"request is created."
+msgstr ""
+"ปฏิเสธคำขอนี้หรือไม่? การดำเนินการนี้เป็นขั้นสุดท้าย "
+"ไม่สามารถผ่านรายการได้จนกว่าจะสร้างคำขอใหม่"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__rejected
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__rejected
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_vote__decision__reject
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+msgid "Rejected"
+msgstr "ปฏิเสธแล้ว"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Rejected / Withdrawn"
+msgstr "ถูกปฏิเสธ / ถอนแล้ว"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Rejected: %s"
+msgstr "ถูกปฏิเสธ: %s"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__rejection_reason
+msgid "Rejection Reason"
+msgstr "เหตุผลการปฏิเสธ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__request_partner_id
+msgid "Related partner"
+msgstr "พาร์ทเนอร์ที่เกี่ยวข้อง"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__reminder_after_hours
+msgid "Reminder After Hours"
+msgstr "การเตือนหลังเวลาทำการ"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"Reminder: approval %(name)s for %(amount).2f is awaiting sign-off by "
+"%(group)s. Due %(due)s."
+msgstr ""
+"การเตือน: การอนุมัติ %(name)s สำหรับ %(amount).2f กำลังรอการลงนามจาก "
+"%(group)s กำหนด %(due)s"
+
+#. module: eh_account_approval
+#: model:mail.template,subject:eh_account_approval.email_template_eh_approval_reminder
+msgid "Reminder: approval awaiting your sign-off — {{ object.name }}"
+msgstr "การเตือน: การอนุมัติกำลังรอการลงนามของคุณ — {{ object.name }}"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__request_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__request_id
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+msgid "Request"
+msgstr "คำร้องขอ"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Request %s has no pending step; nothing to approve."
+msgstr "คำขอ %s ไม่มีขั้นตอนที่รอดำเนินการ ไม่มีสิ่งที่ต้องอนุมัติ"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Request %s is %s; only in-review requests can be approved or rejected."
+msgstr ""
+"คำขอ %s อยู่ในสถานะ %s; "
+"อนุมัติหรือปฏิเสธได้เฉพาะคำขอที่อยู่ระหว่างการตรวจสอบเท่านั้น"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_account_move_form_approval
+msgid "Request Approval"
+msgstr "ขออนุมัติ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__request_date
+msgid "Request Date"
+msgstr "วันที่ขอ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__request_reference
+msgid "Request Reference"
+msgstr "การอ้างอิงคำขอ"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Request details"
+msgstr "รายละเอียดคำขอ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__requested_by_id
+msgid "Requested By"
+msgstr "การร้องขอจาก"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Requester"
+msgstr "ผู้ร้องขอ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__required_approver_ids
+msgid "Required approvers"
+msgstr "ผู้อนุมัติที่จำเป็น"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__reset
+msgid "Reset (re-approval triggered)"
+msgstr "รีเซ็ตแล้ว (เริ่มการอนุมัติใหม่)"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_user_id
+msgid "Responsible User"
+msgstr "ผู้ใช้ที่รับผิดชอบ"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Restart"
+msgstr "เริ่มใหม่"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__restarted
+msgid "Restarted"
+msgstr "เริ่มใหม่แล้ว"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Restarted."
+msgstr "เริ่มใหม่แล้ว"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__rule_ids
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__rule_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__rule_id
+msgid "Rule"
+msgstr "กฎ"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_policy.py:0
+msgid ""
+"Rule %s has no approval steps. Add at least one step; the rule is "
+"meaningless without one."
+msgstr ""
+"กฎ %s ไม่มีขั้นตอนการอนุมัติ โปรดเพิ่มอย่างน้อยหนึ่งขั้นตอน "
+"มิฉะนั้นกฎจะไม่มีความหมาย"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__rule_count
+msgid "Rule Count"
+msgstr "จำนวนกฎ"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid "Rules"
+msgstr "กฏ"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid ""
+"Rules are evaluated in sequence; the first rule whose amount band matches "
+"wins. Use min_amount=0 / max_amount=0 to match any amount. Approver groups "
+"are signed in the listed order; any user in the current group can sign for "
+"that step."
+msgstr ""
+"กฎจะถูกประเมินตามลำดับ กฎแรกที่ช่วงจำนวนเงินตรงกันจะถูกเลือก ใช้ "
+"min_amount=0 / max_amount=0 เพื่อให้ตรงกับจำนวนเงินใดก็ได้ "
+"กลุ่มผู้อนุมัติจะลงนามตามลำดับที่ระบุ "
+"ผู้ใช้คนใดในกลุ่มปัจจุบันก็สามารถลงนามในขั้นตอนนั้นได้"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"SLA breached on %(name)s by %(hours).1f hours. No escalation group is "
+"configured; manual follow-up needed."
+msgstr ""
+"SLA ของ %(name)s เกินกำหนด %(hours).1f ชั่วโมง ยังไม่ได้กำหนดกลุ่มการยกระดับ"
+" จำเป็นต้องติดตามด้วยตนเอง"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid ""
+"SLA hours sets the deadline from submission to final approval. Reminder "
+"hours pings the current approver group at that fraction of the window. "
+"Escalation hours forwards a still-unsigned request to the escalation group "
+"after the breach."
+msgstr ""
+"ชั่วโมง SLA กำหนดเส้นตายตั้งแต่การส่งจนถึงการอนุมัติขั้นสุดท้าย "
+"ชั่วโมงการเตือนจะแจ้งกลุ่มผู้อนุมัติปัจจุบันเมื่อถึงสัดส่วนดังกล่าวของช่วงเวลา"
+" "
+"ชั่วโมงการยกระดับจะส่งต่อคำขอที่ยังไม่ได้ลงนามไปยังกลุ่มการยกระดับหลังจากเกินกำหนด"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "SLA tracking"
+msgstr "การติดตาม SLA"
+
+#. module: eh_account_approval
+#: model:ir.model.constraint,message:eh_account_approval.constraint_eh_approval_policy_rule_check_sla_hours_non_negative
+msgid "SLA, reminder and escalation hours must be zero or positive."
+msgstr "ชั่วโมง SLA การเตือน และการยกระดับต้องเป็นศูนย์หรือค่าบวก"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "ข้อผิดพลาดในการส่ง SMS"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Send Reminder"
+msgstr "ส่งการแจ้งเตือน"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__reminder_after_hours
+msgid ""
+"Send a chatter ping to the current approver group when this many hours of "
+"the SLA have elapsed. Zero disables the pre-deadline reminder. Reminders are"
+" idempotent per step; a subsequent run will not double-post."
+msgstr ""
+"ส่งการแจ้งเตือนใน chatter ไปยังกลุ่มผู้อนุมัติปัจจุบันเมื่อ SLA "
+"ผ่านไปตามจำนวนชั่วโมงนี้ ค่าศูนย์จะปิดการแจ้งเตือนก่อนถึงกำหนด "
+"การแจ้งเตือนเป็นแบบ idempotent ต่อขั้นตอน การรันครั้งถัดไปจะไม่โพสต์ซ้ำ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__sequence
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__sequence
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__sequence
+msgid "Sequence"
+msgstr "ลำดับ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy_rule__approval_mode__sequential
+msgid "Sequential"
+msgstr "ตามลำดับ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__approval_mode
+msgid ""
+"Sequential: steps are signed in order, one after another. Parallel: every "
+"step is open at once and the request is approved when all steps are "
+"satisfied."
+msgstr ""
+"ตามลำดับ: ขั้นตอนต่าง ๆ จะถูกลงนามตามลำดับทีละขั้น แบบขนาน: "
+"ทุกขั้นตอนเปิดพร้อมกัน และคำขอจะได้รับการอนุมัติเมื่อทุกขั้นตอนเสร็จสมบูรณ์"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__sla_hours
+msgid ""
+"Service-level target in hours from request submission to the final approval."
+" Zero disables SLA tracking for this band. The cron uses this value to "
+"compute due_at and to send reminders before the deadline."
+msgstr ""
+"เป้าหมายระดับบริการเป็นชั่วโมงตั้งแต่การส่งคำขอจนถึงการอนุมัติขั้นสุดท้าย "
+"ค่าศูนย์จะปิดใช้งานการติดตาม SLA สำหรับแบนด์นี้ cron ใช้ค่านี้เพื่อคำนวณ "
+"due_at และส่งการเตือนก่อนถึงกำหนดเวลา"
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid ""
+"Set <b>SLA hours</b>, <b>Reminder hours</b>, and an <b>Escalation group</b> "
+"on the rule for the request to track its deadline. The hourly cron sends "
+"reminders inside the SLA window and forwards a breached request to the "
+"escalation group once."
+msgstr ""
+"ตั้งค่า <b>ชั่วโมง SLA</b>, <b>ชั่วโมงการเตือน</b> และ "
+"<b>กลุ่มการยกระดับ</b> บนกฎ เพื่อให้คำขอติดตามกำหนดเวลาของตน cron "
+"รายชั่วโมงจะส่งการเตือนภายในช่วง SLA "
+"และส่งต่อคำขอที่ละเมิดไปยังกลุ่มการยกระดับหนึ่งครั้ง"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid ""
+"Skip the SLA window and escalate immediately. Requires an escalation group "
+"on the rule."
+msgstr "ข้ามช่วงเวลา SLA และยกระดับทันที ต้องมีกลุ่มยกระดับในกฎ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__sla_hours
+msgid "Sla Hours"
+msgstr "ชั่วโมง SLA"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__sla_state
+msgid "Sla State"
+msgstr "สถานะ SLA"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__approver_ids
+msgid ""
+"Specific users who may sign this step, in addition to any group members. Use"
+" for per-person routing rather than a broad security group."
+msgstr ""
+"ผู้ใช้เฉพาะที่สามารถลงนามในขั้นตอนนี้ นอกเหนือจากสมาชิกกลุ่มใด ๆ "
+"ใช้สำหรับการกำหนดเส้นทางรายบุคคลแทนกลุ่มความปลอดภัยแบบกว้าง"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__last_escalated_at
+msgid "Stamped when the cron last escalated the request."
+msgstr "ประทับเวลาเมื่อ cron ยกระดับคำขอครั้งล่าสุด"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__last_reminded_at
+msgid "Stamped when the cron last sent a pre-deadline reminder."
+msgstr "ประทับเวลาเมื่อ cron ส่งการเตือนก่อนกำหนดเส้นตายครั้งล่าสุด"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__submitted_at
+msgid "Stamped when the request first transitions out of pending."
+msgstr "ประทับเวลาเมื่อคำขอเปลี่ยนออกจากสถานะรอดำเนินการเป็นครั้งแรก"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__state
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "State"
+msgstr "รัฐ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"สถานะตามกิจกรรม\n"
+"เกินกำหนด: วันที่ครบกำหนดผ่านไปแล้ว\n"
+"วันนี้: วันที่จัดกิจกรรมคือวันนี้\n"
+"วางแผน: กิจกรรมในอนาคต"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__step
+msgid "Step"
+msgstr "สถานะ"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_policy.py:0
+msgid ""
+"Step %s has no approver source: set a group, name approvers, or enable "
+"manager injection."
+msgstr ""
+"ขั้นตอน %s ไม่มีแหล่งผู้อนุมัติ: ตั้งค่ากลุ่ม ระบุผู้อนุมัติ "
+"หรือเปิดใช้งานการแทรกผู้จัดการ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__step_index
+msgid "Step Index"
+msgstr "ดัชนีขั้นตอน"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Step completed; advanced."
+msgstr "ขั้นตอนเสร็จสมบูรณ์ ดำเนินการต่อแล้ว"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid ""
+"Steps are signed top to bottom. Drag the handle to reorder. Any user in a "
+"step's group can sign for that step."
+msgstr ""
+"ขั้นตอนจะถูกลงนามจากบนลงล่าง ลากที่จับเพื่อจัดลำดับใหม่ "
+"ผู้ใช้ทุกคนในกลุ่มของขั้นตอนสามารถลงนามให้ขั้นตอนนั้นได้"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Submit"
+msgstr "ส่ง"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__submitted
+msgid "Submitted"
+msgstr "ส่งแล้ว"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__submitted_amount
+msgid "Submitted Amount"
+msgstr "จำนวนเงินที่ส่ง"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__submitted_at
+msgid "Submitted At"
+msgstr "ส่งเมื่อ"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Submitted for approval."
+msgstr "ส่งเพื่อขออนุมัติแล้ว"
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid ""
+"That's it. Once a policy + rule cover a document, users see a <b>Request "
+"Approval</b> button on the draft form, and posting is blocked until every "
+"group in the rule has signed off. <br/><br/>The Approvals menu shows the "
+"live pipeline as a kanban grouped by state."
+msgstr ""
+"เท่านี้เอง เมื่อนโยบาย + กฎครอบคลุมเอกสารแล้ว ผู้ใช้จะเห็นปุ่ม "
+"<b>ขออนุมัติ</b> บนแบบฟอร์มร่าง "
+"และการลงบัญชีจะถูกบล็อกจนกว่าทุกกลุ่มในกฎจะอนุมัติเรียบร้อย "
+"<br/><br/>เมนูการอนุมัติจะแสดงกระบวนการแบบเรียลไทม์เป็นคัมบังที่จัดกลุ่มตามสถานะ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_account_bank_statement_line__eh_active_approval_request_id
+#: model:ir.model.fields,help:eh_account_approval.field_account_move__eh_active_approval_request_id
+msgid ""
+"The currently-effective approval request for this move. Empty when no policy"
+" applies, no request exists, or the request was withdrawn / rejected."
+msgstr ""
+"คำขออนุมัติที่มีผลบังคับใช้ในปัจจุบันสำหรับรายการนี้ "
+"ว่างเปล่าเมื่อไม่มีนโยบายใดใช้บังคับ ไม่มีคำขอ หรือคำขอถูกถอน/ปฏิเสธ"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__pending_group_id
+msgid "The group that owns the next signature."
+msgstr "กลุ่มที่เป็นเจ้าของลายเซ็นถัดไป"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__rule_id
+msgid "The rule whose amount band matched at submission time."
+msgstr "กฎที่ช่วงจำนวนเงินตรงกันในเวลาที่ส่ง"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__total_steps
+msgid "Total Steps"
+msgstr "จำนวนขั้นตอนรวม"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_account_bank_statement_line__eh_requires_approval
+#: model:ir.model.fields,help:eh_account_approval.field_account_move__eh_requires_approval
+msgid ""
+"True when a policy applies to this move and the approval is not yet "
+"complete. Used by the form to surface the Submit for approval button."
+msgstr ""
+"True "
+"เมื่อมีนโยบายที่ใช้กับรายการเคลื่อนไหวนี้และการอนุมัติยังไม่เสร็จสมบูรณ์ "
+"ฟอร์มใช้ค่านี้เพื่อแสดงปุ่ม Submit for approval"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__is_overdue
+msgid "True when the request is past its due_at and still open."
+msgstr "True เมื่อคำขอเลย due_at แล้วและยังเปิดอยู่"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "ประเภทกิจกรรมข้อยกเว้นบนบันทึก"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Unsupported search operator on is_overdue."
+msgstr "ตัวดำเนินการค้นหาที่ไม่รองรับบน is_overdue."
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__max_amount
+msgid ""
+"Upper bound of the amount band (inclusive). Use 0 for no upper bound; the "
+"rule then matches any amount at or above min_amount."
+msgstr ""
+"ขอบเขตบนของช่วงจำนวนเงิน (รวม) ใช้ 0 เพื่อไม่มีขอบเขตบน "
+"จากนั้นกฎจะจับคู่กับจำนวนเงินใดก็ตามที่เท่ากับหรือมากกว่า min_amount"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__user_id
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+msgid "User"
+msgstr "ผู้ใช้"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_log__user_id
+msgid "User who performed the action this row records."
+msgstr "ผู้ใช้ที่ดำเนินการซึ่งแถวนี้บันทึกไว้"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy__document_type__in_invoice
+msgid "Vendor bill"
+msgstr "ใบเรียกเก็บเงินจากผู้ขาย"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Vendor bills"
+msgstr "ใบเรียกเก็บเงินจากผู้ขาย"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid "Vendor bills above 1000"
+msgstr "ใบเรียกเก็บเงินจากผู้ขายที่สูงกว่า 1000"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy__document_type__in_refund
+msgid "Vendor refund"
+msgstr "การคืนเงินผู้ขาย"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Vendor refunds"
+msgstr "การคืนเงินผู้ขาย"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__vote_ids
+msgid "Vote"
+msgstr "โหวต"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__voted_at
+msgid "Voted At"
+msgstr "โหวตเมื่อ"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Votes"
+msgstr "โหวต"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__website_message_ids
+msgid "Website Messages"
+msgstr "ข้อความเว็บไซต์"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__website_message_ids
+msgid "Website communication history"
+msgstr "ประวัติการสื่อสารของเว็บไซต์"
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid ""
+"Welcome to the <b>Approval Workflow</b>. This walkthrough shows the two "
+"setup steps you need to do before approvals start gating posts."
+msgstr ""
+"ยินดีต้อนรับสู่ <b>Approval Workflow</b> "
+"คำแนะนำนี้แสดงขั้นตอนการตั้งค่าสองขั้นตอนที่คุณต้องทำก่อนที่การอนุมัติจะเริ่มควบคุมการลงบัญชี"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "When"
+msgstr "จาก"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy__re_approval_threshold_pct
+msgid ""
+"When a partially approved move's amount changes by more than this "
+"percentage, the approval request resets and every step must re-sign. Default"
+" seeded from the company's Heritage settings."
+msgstr ""
+"เมื่อจำนวนเงินของรายการที่อนุมัติบางส่วนเปลี่ยนแปลงเกินเปอร์เซ็นต์นี้ "
+"คำขออนุมัติจะรีเซ็ตและทุกขั้นตอนต้องลงนามใหม่ ค่าเริ่มต้นดึงมาจากการตั้งค่า "
+"Heritage ของบริษัท"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy__allow_self_approval
+msgid ""
+"When off (the default), the user who submitted a request cannot approve or "
+"reject it, even if they belong to a pending approver group. Segregation of "
+"duties: someone else must sign. Turn on only for single-operator companies "
+"that accept self sign-off."
+msgstr ""
+"เมื่อปิด (ค่าเริ่มต้น) ผู้ใช้ที่ส่งคำขอไม่สามารถอนุมัติหรือปฏิเสธคำขอนั้นได้"
+" แม้ว่าจะอยู่ในกลุ่มผู้อนุมัติที่รอดำเนินการ การแบ่งแยกหน้าที่: "
+"ต้องมีผู้อื่นลงนาม "
+"เปิดใช้งานเฉพาะสำหรับบริษัทที่มีผู้ดำเนินการเพียงคนเดียวซึ่งยอมรับการลงนามด้วยตนเอง"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__inject_manager
+msgid ""
+"When set, the HR manager of the user who submitted the request is added as "
+"an eligible approver for this step."
+msgstr ""
+"เมื่อตั้งค่า การผ่านรายการ out_invoice "
+"สำหรับพาร์ทเนอร์นี้จะทริกเกอร์มิเรอร์ระหว่างบริษัทเป็นใบเรียกเก็บเงินจากผู้ขายในบริษัทที่ระบุ"
+" เว้นว่างไว้หากพาร์ทเนอร์เป็นลูกค้าทั่วไป"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__escalate_after_hours
+msgid ""
+"When the SLA breach exceeds this many hours past due_at, the cron promotes "
+"the request to the escalation group. Zero disables auto-escalation; in that "
+"case the breach is logged but the queue stays with the original group."
+msgstr ""
+"เมื่อการละเมิด SLA เกินจำนวนชั่วโมงนี้หลังจาก due_at cron "
+"จะเลื่อนคำขอไปยังกลุ่มการยกระดับ ศูนย์จะปิดการยกระดับอัตโนมัติ "
+"ในกรณีนั้นการละเมิดจะถูกบันทึกแต่คิวยังคงอยู่กับกลุ่มเดิม"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Withdraw"
+msgstr "ถอน"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__withdrawn
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__withdrawn
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+msgid "Withdrawn"
+msgstr "ถอนแล้ว"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"You are not an eligible approver for the pending step(s) of request %s."
+msgstr "คุณไม่ใช่ผู้อนุมัติที่มีสิทธิ์สำหรับขั้นตอนที่รอดำเนินการของคำขอ %s"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"You submitted request %s and cannot approve or reject your own request. "
+"Segregation of duties requires a different approver to sign off."
+msgstr ""
+"คุณส่งคำขอ %s และไม่สามารถอนุมัติหรือปฏิเสธคำขอของคุณเองได้ "
+"การแบ่งแยกหน้าที่กำหนดให้ผู้อนุมัติรายอื่นเป็นผู้ลงนาม"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_vote__step_index
+msgid "Zero-based index of the step this vote applies to."
+msgstr "ดัชนีที่เริ่มจากศูนย์ของขั้นตอนที่การโหวตนี้มีผล"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_kanban
+msgid "x"
+msgstr ""

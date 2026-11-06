@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <!--
+            Sample report execution rows that show what the audit log
+            looks like. In a live install these are produced as a side
+            effect of every report render; the demo entries seed the
+            audit list view so a freshly installed system has something
+            to look at on the Reports > Report Audit Log screen.
+
+            The result_payload is intentionally null on demo rows so
+            the UI shows the row without trying to deserialise a
+            payload that does not exist.
+        -->
+
+        <record id="demo_execution_tb" model="eh.account.report.execution">
+            <field name="report_code">trial_balance</field>
+            <field name="name">Trial Balance</field>
+            <field name="executed_by" ref="base.user_admin"/>
+            <field name="executed_at" eval="(DateTime.today() + relativedelta(days=-1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="options_snapshot">{
+  "date": {
+    "mode": "range",
+    "date_from": "2026-01-01",
+    "date_to": "2026-03-31"
+  },
+  "posted_only": true,
+  "show_zero": false
+}</field>
+            <field name="options_hash">a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2</field>
+            <field name="result_format">xlsx</field>
+            <field name="state">done</field>
+            <field name="duration_ms">142</field>
+            <field name="row_count">36</field>
+            <field name="move_version_at_start">12</field>
+        </record>
+
+        <record id="demo_execution_pl" model="eh.account.report.execution">
+            <field name="report_code">profit_and_loss</field>
+            <field name="name">Profit and Loss</field>
+            <field name="executed_by" ref="base.user_admin"/>
+            <field name="executed_at" eval="(DateTime.today() + relativedelta(hours=-2)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="options_snapshot">{
+  "date": {
+    "mode": "range",
+    "date_from": "2026-04-01",
+    "date_to": "2026-04-30"
+  },
+  "posted_only": true,
+  "comparative": "prior_year"
+}</field>
+            <field name="options_hash">b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3</field>
+            <field name="result_format">pdf</field>
+            <field name="state">done</field>
+            <field name="duration_ms">387</field>
+            <field name="row_count">22</field>
+            <field name="move_version_at_start">15</field>
+        </record>
+
+        <record id="demo_execution_aged_receivable_failed" model="eh.account.report.execution">
+            <field name="report_code">aged_receivable</field>
+            <field name="name">Aged Receivable</field>
+            <field name="executed_by" ref="base.user_admin"/>
+            <field name="executed_at" eval="(DateTime.today() + relativedelta(minutes=-30)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="company_ids" eval="[(6, 0, [ref('base.main_company')])]"/>
+            <field name="options_snapshot">{
+  "date": {"mode": "range", "date_from": null, "date_to": "2026-04-30"},
+  "posted_only": true
+}</field>
+            <field name="options_hash">c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4</field>
+            <field name="result_format">json</field>
+            <field name="state">error</field>
+            <field name="error_message">Aged Receivable requires options['date']['date_to'].</field>
+            <field name="duration_ms">8</field>
+        </record>
+
+    </data>
+</odoo>

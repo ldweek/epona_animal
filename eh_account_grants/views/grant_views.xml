@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_gov_grant_list" model="ir.ui.view">
+        <field name="name">eh.gov.grant.list</field>
+        <field name="model">eh.gov.grant</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="grant_type"/>
+                <field name="grant_kind" optional="show"/>
+                <field name="grantor_id" optional="show"/>
+                <field name="agreement_reference" optional="hide"/>
+                <field name="grant_date"/>
+                <field name="amount" widget="monetary"/>
+                <field name="recognised_amount" widget="monetary" optional="show"/>
+                <field name="remaining" widget="monetary" optional="show"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'received'"
+                       decoration-success="state == 'closed'"
+                       decoration-warning="state in ('repayable', 'repaid')"
+                       decoration-muted="state in ('reversed', 'cancelled')"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_gov_grant_search" model="ir.ui.view">
+        <field name="name">eh.gov.grant.search</field>
+        <field name="model">eh.gov.grant</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="grantor_id"/>
+                <field name="agreement_reference"/>
+                <field name="grant_date"/>
+                <filter name="filter_draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_received" string="Received"
+                        domain="[('state', '=', 'received')]"/>
+                <filter name="filter_repayable" string="Repayable"
+                        domain="[('state', '=', 'repayable')]"/>
+                <filter name="filter_repaid" string="Repaid"
+                        domain="[('state', '=', 'repaid')]"/>
+                <filter name="filter_breached" string="Breached Conditions"
+                        domain="[('condition_ids.state', '=', 'breached')]"/>
+                <filter name="filter_non_monetary" string="Non-monetary"
+                        domain="[('grant_kind', '=', 'non_monetary')]"/>
+                <filter name="filter_asset_related" string="Asset-related"
+                        domain="[('grant_type', '=', 'asset_related')]"/>
+                <separator/>
+                <filter name="filter_grant_date" string="Grant Date"
+                        date="grant_date"/>
+                <group>
+                    <filter name="group_state" string="State"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_grantor" string="Grantor"
+                            context="{'group_by': 'grantor_id'}"/>
+                    <filter name="group_type" string="Grant Type"
+                            context="{'group_by': 'grant_type'}"/>
+                    <filter name="group_kind" string="Grant Kind"
+                            context="{'group_by': 'grant_kind'}"/>
+                    <filter name="group_company" string="Company"
+                            context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_gov_grant_form" model="ir.ui.view">
+        <field name="name">eh.gov.grant.form</field>
+        <field name="model">eh.gov.grant</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_receive" type="object"
+                            string="Receive" class="btn-primary"
+                            invisible="state != 'draft'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_amortise" type="object"
+                            string="Amortise to Income"
+                            invisible="state != 'received'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_repay" type="object"
+                            string="Repay"
+                            invisible="state not in ('received', 'repayable') or (grant_type == 'asset_related' and asset_approach == 'deduct_asset')"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_accrue_clawback" type="object"
+                            string="Accrue Clawback"
+                            invisible="state not in ('received', 'closed') or (grant_type == 'asset_related' and asset_approach == 'deduct_asset') or clawback_accrued != 0 or clawback_settled != 0 or breached_condition_count == 0"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reverse" type="object"
+                            string="Reverse" confirm="Post exact sealed counter-entries for every grant entry? Original evidence remains immutable and this grant cannot reopen."
+                            invisible="state not in ('received', 'closed', 'repayable', 'repaid')"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state != 'draft'"/>
+                    <field name="clawback_accrued" invisible="1"/>
+                    <field name="clawback_settled" invisible="1"/>
+                    <field name="breached_condition_count" invisible="1"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,received,closed,repayable,repaid,reversed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_moves" type="object"
+                                class="oe_stat_button" icon="fa-book">
+                            <field name="move_count" widget="statinfo"
+                                   string="Entries"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="grant_type"
+                                   readonly="state != 'draft'"/>
+                            <field name="asset_approach"
+                                   invisible="grant_type != 'asset_related'"
+                                   readonly="state != 'draft'"/>
+                            <field name="grant_kind"
+                                   readonly="state != 'draft'"/>
+                            <field name="grant_date" readonly="state != 'draft'"/>
+                            <field name="grantor_id"
+                                   readonly="state not in ('draft', 'received', 'closed', 'repayable') or (state != 'draft' and grantor_id)"/>
+                            <field name="agreement_reference"
+                                   readonly="state not in ('draft', 'received', 'closed', 'repayable') or (state != 'draft' and agreement_reference)"/>
+                            <field name="agreement_attachment_ids"
+                                   widget="many2many_binary"
+                                   readonly="state != 'draft'"/>
+                            <field name="amount" widget="monetary"
+                                   invisible="grant_kind == 'non_monetary'"
+                                   readonly="state != 'draft'"/>
+                            <field name="asset_fair_value" widget="monetary"
+                                   invisible="grant_kind != 'non_monetary'"
+                                   readonly="state != 'draft'"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id"
+                                   readonly="state != 'draft'"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="recognised_amount" widget="monetary" readonly="1"/>
+                            <field name="remaining" widget="monetary" readonly="1"/>
+                            <field name="amortise_amount" widget="monetary"
+                                   invisible="state != 'received' or (grant_type == 'asset_related' and asset_approach == 'deduct_asset')"/>
+                            <field name="amortise_date"
+                                   invisible="state != 'received' or (grant_type == 'asset_related' and asset_approach == 'deduct_asset')"/>
+                            <field name="repayment_amount" widget="monetary"
+                                   invisible="state not in ('received', 'repayable') or (grant_type == 'asset_related' and asset_approach == 'deduct_asset')"/>
+                            <field name="repayment_date"
+                                   invisible="state not in ('received', 'repayable') or (grant_type == 'asset_related' and asset_approach == 'deduct_asset')"/>
+                            <field name="reversal_date"
+                                   invisible="state not in ('received', 'closed', 'repayable', 'repaid')"/>
+                            <field name="reversed_by_id"
+                                   invisible="state != 'reversed'"/>
+                            <field name="reversed_at"
+                                   invisible="state != 'reversed'"/>
+                        </group>
+                    </group>
+                    <group string="Accounts">
+                        <group>
+                            <field name="cash_account_id"
+                                   readonly="state not in ('draft', 'received', 'closed') or (state != 'draft' and cash_account_id)"/>
+                            <field name="received_asset_account_id"
+                                   invisible="grant_kind != 'non_monetary'"
+                                   readonly="state != 'draft'"/>
+                            <field name="deferred_income_account_id"
+                                   readonly="state != 'draft'"
+                                   invisible="grant_type == 'asset_related' and asset_approach == 'deduct_asset'"/>
+                            <field name="grant_income_account_id"
+                                   readonly="state not in ('draft', 'received', 'closed') or (state != 'draft' and grant_income_account_id)"
+                                   invisible="grant_type == 'asset_related' and asset_approach == 'deduct_asset'"/>
+                        </group>
+                        <group>
+                            <field name="asset_account_id"
+                                   readonly="state != 'draft'"
+                                   invisible="not (grant_type == 'asset_related' and asset_approach == 'deduct_asset')"/>
+                            <field name="repayment_expense_account_id"
+                                   readonly="state not in ('draft', 'received', 'closed') or (state != 'draft' and repayment_expense_account_id)"
+                                   invisible="grant_type == 'asset_related' and asset_approach == 'deduct_asset'"/>
+                            <field name="journal_id" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <group string="Conditions and Clawback"
+                           invisible="grant_type == 'asset_related' and asset_approach == 'deduct_asset'">
+                        <group>
+                            <field name="defer_until_conditions"
+                                   readonly="state != 'draft'"/>
+                            <field name="clawback_amount" widget="monetary"
+                                   readonly="state not in ('draft', 'received', 'closed') or (state != 'draft' and clawback_amount != 0)"/>
+                            <field name="clawback_date"
+                                   readonly="clawback_accrued != 0 or clawback_settled != 0"/>
+                        </group>
+                        <group>
+                            <field name="clawback_liability_account_id"
+                                   readonly="state not in ('draft', 'received', 'closed') or (state != 'draft' and clawback_liability_account_id)"/>
+                            <field name="clawback_accrued" widget="monetary"
+                                   readonly="1"
+                                   invisible="clawback_accrued == 0"/>
+                            <field name="clawback_settled" widget="monetary"
+                                   readonly="1"
+                                   invisible="clawback_settled == 0"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Conditions" name="conditions">
+                            <field name="condition_ids"
+                                   invisible="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="due_date" optional="show"/>
+                                    <field name="state" widget="badge" readonly="1"
+                                           decoration-info="state == 'open'"
+                                           decoration-success="state == 'fulfilled'"
+                                           decoration-danger="state == 'breached'"/>
+                                    <field name="fulfilled_date" readonly="1"
+                                           optional="show"/>
+                                    <field name="can_breach" column_invisible="1"/>
+                                    <button name="action_fulfil" type="object"
+                                            string="Fulfil" icon="fa-check"
+                                            invisible="state != 'open'"
+                                            groups="eh_account_grants.group_eh_grant_reviewer,eh_account_base.group_eh_manager"/>
+                                    <button name="action_reopen" type="object"
+                                            string="Reopen" icon="fa-undo"
+                                            invisible="state != 'fulfilled'"
+                                            groups="eh_account_grants.group_eh_grant_reviewer,eh_account_base.group_eh_manager"/>
+                                    <button name="action_breach" type="object"
+                                            string="Breach"
+                                            icon="fa-exclamation-triangle"
+                                            invisible="not can_breach"
+                                            groups="eh_account_grants.group_eh_grant_reviewer,eh_account_base.group_eh_manager"/>
+                                </list>
+                            </field>
+                            <field name="condition_ids"
+                                   invisible="state == 'draft'">
+                                <list create="0" edit="0" delete="0">
+                                    <field name="name"/>
+                                    <field name="due_date" optional="show"/>
+                                    <field name="state" widget="badge" readonly="1"
+                                           decoration-info="state == 'open'"
+                                           decoration-success="state == 'fulfilled'"
+                                           decoration-danger="state == 'breached'"/>
+                                    <field name="fulfilled_date" readonly="1"
+                                           optional="show"/>
+                                    <field name="can_breach" column_invisible="1"/>
+                                    <button name="action_fulfil" type="object"
+                                            string="Fulfil" icon="fa-check"
+                                            invisible="state != 'open'"
+                                            groups="eh_account_grants.group_eh_grant_reviewer,eh_account_base.group_eh_manager"/>
+                                    <button name="action_reopen" type="object"
+                                            string="Reopen" icon="fa-undo"
+                                            invisible="state != 'fulfilled'"
+                                            groups="eh_account_grants.group_eh_grant_reviewer,eh_account_base.group_eh_manager"/>
+                                    <button name="action_breach" type="object"
+                                            string="Breach"
+                                            icon="fa-exclamation-triangle"
+                                            invisible="not can_breach"
+                                            groups="eh_account_grants.group_eh_grant_reviewer,eh_account_base.group_eh_manager"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" nolabel="1" colspan="2"
+                                   placeholder="Grant compliance notes..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="eh_account_grants_gov_grant_view_graph" model="ir.ui.view">
+        <field name="name">eh.gov.grant.graph</field>
+        <field name="model">eh.gov.grant</field>
+        <field name="arch" type="xml">
+            <graph string="Government Grants" sample="1">
+                <field name="grant_date" interval="month"/>
+                <field name="grant_type"/>
+                <field name="amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_grants_gov_grant_view_pivot" model="ir.ui.view">
+        <field name="name">eh.gov.grant.pivot</field>
+        <field name="model">eh.gov.grant</field>
+        <field name="arch" type="xml">
+            <pivot string="Government Grants" sample="1">
+                <field name="grant_date" interval="month" type="row"/>
+                <field name="state" type="col"/>
+                <field name="amount" type="measure"/>
+                <field name="recognised_amount" type="measure"/>
+                <field name="remaining" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_gov_grant" model="ir.actions.act_window">
+        <field name="name">Government Grants</field>
+        <field name="res_model">eh.gov.grant</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_gov_grant_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Record your first government grant</p>
+            <p>Track government grants recognised and amortised under IAS 20, from receipt through release to income, conditions and clawback. Click New to register a grant, set its amount and accounts, then use Receive to post it.</p>
+        </field>
+    </record>
+
+</odoo>

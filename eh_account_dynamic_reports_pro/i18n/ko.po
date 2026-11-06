@@ -1,0 +1,1278 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_dynamic_reports_pro
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Korean\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder_line__level
+msgid ""
+"0 for section headers and computed totals (rendered bold), 1 for data rows."
+msgstr "섹션 머리글과 계산된 합계(굵게 표시)는 0, 데이터 행은 1."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_form
+msgid "2026 Optimistic Case"
+msgstr "2026 낙관적 시나리오"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid ""
+"<strong>Account Aggregate</strong>: SUM of account.move.line balances "
+"filtered by account codes (LIKE prefix) or account types, with a sign flip."
+msgstr ""
+"<strong>계정 집계</strong>: 계정 코드(LIKE 접두사) 또는 계정 유형으로 필터링된 account.move.line "
+"잔액의 SUM이며, 부호가 반전됩니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid ""
+"<strong>Formula</strong>: arithmetic over previously named lines. Allowed "
+"operators: + - * / and parentheses. Identifiers reference other lines' "
+"codes."
+msgstr ""
+"<strong>수식</strong>: 이전에 이름을 지정한 라인에 대한 산술 연산입니다. 허용되는 연산자: + - * / 및 괄호. "
+"식별자는 다른 라인의 코드를 참조합니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid ""
+"<strong>Section Header</strong>: a non numeric label that opens a section. "
+"Level 0, bold."
+msgstr "<strong>섹션 헤더</strong>: 섹션을 여는 비숫자 레이블입니다. 레벨 0, 굵게."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.actions.act_window,help:eh_account_dynamic_reports_pro.action_eh_report_forecast
+msgid ""
+"A forecast picks a base report, a baseline period, and a growth method. The "
+"projection runs the base report once and applies the growth model to every "
+"numeric cell over the configured horizon."
+msgstr ""
+"예측은 기본 보고서, 기준 기간 및 증가 방법을 선택합니다. 프로젝션은 기본 보고서를 한 번 실행하고 구성된 기간 동안 모든 숫자 셀에 "
+"증가 모델을 적용합니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_builder_line__line_type__account_aggregate
+msgid "Account Aggregate"
+msgstr "계정 집계"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__account_codes
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_builder_line__account_scope__codes
+msgid "Account Codes"
+msgstr "계정 코드"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__account_scope
+msgid "Account Scope"
+msgstr "계정 범위"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__account_types
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_builder_line__account_scope__types
+msgid "Account Types"
+msgstr "계정 유형"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_needaction
+msgid "Action Needed"
+msgstr "조치 필요"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__active
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__active
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_search
+msgid "Active"
+msgstr "활성화"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__recipient_emails
+msgid "Additional comma separated email addresses."
+msgstr "쉼표로 구분된 추가 이메일 주소입니다."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_schedule.py:0
+msgid "All delivery channels failed for schedule '%(name)s': %(errors)s"
+msgstr "일정 '%(name)s'의 모든 전달 채널이 실패했습니다: %(errors)s"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__amount_column_name
+msgid "Amount Column Name"
+msgstr "금액 열 이름"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_attachment_count
+msgid "Attachment Count"
+msgstr "첨부 파일 수"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__base_date_from
+msgid "Base Date From"
+msgstr "기준 날짜 시작"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__base_date_to
+msgid "Base Date To"
+msgstr "기준 날짜 종료"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_form
+msgid "Base Period"
+msgstr "기준 기간"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__base_report_id
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_search
+msgid "Base Report"
+msgstr "기준 보고서"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__body
+msgid "Body"
+msgstr "본문"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__builder_id
+msgid "Builder"
+msgstr "빌더"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.constraint,message:eh_account_dynamic_reports_pro.constraint_eh_report_builder_unique_code
+msgid "Builder code must be unique."
+msgstr "빌더 코드는 고유해야 합니다."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Builder code must match [a-z][a-z0-9_]* (got %r)."
+msgstr "빌더 코드는 [a-z][a-z0-9_]*와 일치해야 합니다(수신: %r)."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/builder_handler.py:0
+msgid ""
+"Builder handler invoked without a report code in context. Render through the"
+" eh.account.dynamic.report orchestrator."
+msgstr ""
+"컨텍스트에 보고서 코드 없이 빌더 핸들러가 호출되었습니다. eh.account.dynamic.report 오케스트레이터를 통해 "
+"렌더링하세요."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Builder must be published before it can be viewed."
+msgstr "빌더는 조회하기 전에 게시해야 합니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_search
+msgid "Cadence"
+msgstr "주기"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__code
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__code
+msgid "Code"
+msgstr "코드"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder_line__account_types
+msgid ""
+"Comma separated account_type values. Example: income,income_other or "
+"expense,expense_direct_cost"
+msgstr ""
+"쉼표로 구분된 account_type 값입니다. 예: income,income_other 또는 "
+"expense,expense_direct_cost"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder_line__account_codes
+msgid ""
+"Comma separated code prefixes (matches account.code LIKE '<prefix>%'). "
+"Example: 1000,1100,2000"
+msgstr ""
+"쉼표로 구분된 코드 접두사입니다(account.code LIKE '<prefix>%'와 일치). 예: 1000,1100,2000"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__company_id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__company_id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__company_id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__company_id
+msgid "Company"
+msgstr "회사"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_schedule.py:0
+msgid "Could not build any attachment for delivery."
+msgstr "전송을 위한 첨부 파일을 만들 수 없습니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.actions.act_window,help:eh_account_dynamic_reports_pro.action_eh_report_builder
+msgid ""
+"Create a builder to compose a report from account aggregates and formulas. "
+"Publish to register it as a viewer-ready dynamic report."
+msgstr "계정 집계와 수식으로 보고서를 구성하는 빌더를 생성하십시오. 게시하면 조회 가능한 동적 보고서로 등록됩니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.actions.act_window,help:eh_account_dynamic_reports_pro.action_eh_report_schedule
+msgid ""
+"Create a schedule to email a report on a recurring cadence: daily, weekly, "
+"or monthly. Combine multiple recipients (users, partners, raw email "
+"addresses) and pick XLSX, PDF, or both as the delivery format."
+msgstr ""
+"반복 주기(일간, 주간 또는 월간)로 보고서를 이메일로 보내는 일정을 생성하십시오. 여러 수신자(사용자, 협력사, 직접 입력한 이메일 "
+"주소)를 조합하고 전달 형식으로 XLSX, PDF 또는 둘 다를 선택하십시오."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__created_on
+msgid "Created On"
+msgstr "작성일자"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__create_uid
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__create_uid
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__create_uid
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__create_uid
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__create_uid
+msgid "Created by"
+msgstr "작성자"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__create_date
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__create_date
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__create_date
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__create_date
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__create_date
+msgid "Created on"
+msgstr "작성일자"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Custom Report"
+msgstr "사용자 지정 보고서"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.actions.act_window,name:eh_account_dynamic_reports_pro.action_eh_report_builder
+#: model:ir.ui.menu,name:eh_account_dynamic_reports_pro.menu_eh_pro_root
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_tree
+msgid "Custom Reports"
+msgstr "맞춤 보고서"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model,name:eh_account_dynamic_reports_pro.model_eh_report_builder
+msgid "Custom dynamic report builder"
+msgstr "사용자 지정 동적 보고서 작성기"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model,name:eh_account_dynamic_reports_pro.model_eh_report_builder_line
+msgid "Custom report builder line"
+msgstr "사용자 지정 보고서 작성기 행"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__interval_unit__day
+msgid "Day(s)"
+msgstr "일"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__delivery_channel
+msgid "Delivery Channel"
+msgstr "배송 채널"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__delivery_format
+msgid "Delivery Format"
+msgstr "배송 형식"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__description
+msgid "Description"
+msgstr "설명"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_account_dynamic_report_handler_builder__display_name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__display_name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__display_name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__display_name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__display_name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__display_name
+msgid "Display Name"
+msgstr "표시명"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_search
+msgid "Draft"
+msgstr "미결"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Duplicate"
+msgstr "복사"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.actions.server,name:eh_account_dynamic_reports_pro.cron_eh_report_schedule_run_due_ir_actions_server
+msgid "ERP Heritage: Run due scheduled reports"
+msgstr "ERP Heritage: 기한 도래 예약 리포트 실행"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__delivery_channel__email
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Email"
+msgstr "이메일"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__delivery_channel__both
+msgid "Email + Webhook"
+msgstr "이메일 + Webhook"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__delivery_channel
+msgid ""
+"Email sends the report as an attachment via mail.mail. Webhook POSTs a JSON "
+"payload to webhook_url with the report subject, body, and a download link "
+"per attachment. Both fires email and webhook in sequence; an email failure "
+"does not block the webhook and vice versa."
+msgstr ""
+"이메일은 mail.mail을 통해 보고서를 첨부 파일로 전송합니다. Webhook은 보고서 제목, 본문 및 첨부 파일별 다운로드 링크가 "
+"포함된 JSON 페이로드를 webhook_url로 POST합니다. 둘 다는 이메일과 Webhook을 순차적으로 실행하며, 이메일 실패가 "
+"Webhook을 차단하지 않고 그 반대도 마찬가지입니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__last_run_status__error
+msgid "Error"
+msgstr "오류"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Every"
+msgstr "매주"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Example: simple P&amp;L"
+msgstr "예: 간단한 P&amp;L"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_forecast__growth_method__flat
+msgid "Flat (no change)"
+msgstr "변동 없음 (변화 없음)"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_search
+msgid "Flat Growth"
+msgstr "정체 성장"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_follower_ids
+msgid "Followers"
+msgstr "팔로워"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "팔로워 (협력사)"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_form
+msgid "Forecast Scenario"
+msgstr "예측 시나리오"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.actions.act_window,name:eh_account_dynamic_reports_pro.action_eh_report_forecast
+#: model:ir.ui.menu,name:eh_account_dynamic_reports_pro.menu_eh_report_forecast
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_tree
+msgid "Forecast Scenarios"
+msgstr "예측 시나리오"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.constraint,message:eh_account_dynamic_reports_pro.constraint_eh_report_forecast_positive_horizon
+msgid "Forecast horizon must be at least one month."
+msgstr "예측 기간은 최소 한 달 이상이어야 합니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__formula
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_builder_line__line_type__formula
+msgid "Formula"
+msgstr "수식"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Formula does not parse: %s"
+msgstr "수식을 구문 분석할 수 없습니다: %s"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Formula uses a disallowed construct: %s"
+msgstr "수식에 허용되지 않은 구문이 사용되었습니다: %s"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__webhook_format__generic
+msgid "Generic JSON"
+msgstr "일반 JSON"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model,name:eh_account_dynamic_reports_pro.model_eh_account_dynamic_report_handler_builder
+msgid "Generic handler for builder defined custom reports"
+msgstr "빌더에서 정의한 사용자 지정 보고서용 일반 핸들러"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__growth_method
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_search
+msgid "Growth Method"
+msgstr "증가 방식"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__webhook_url
+msgid ""
+"HTTPS endpoint that accepts a JSON POST. Slack incoming webhooks "
+"(https://hooks.slack.com/...) and MS Teams incoming connectors both work "
+"without further config; generic webhooks receive the canonical payload "
+"shape."
+msgstr ""
+"JSON POST를 수락하는 HTTPS 엔드포인트입니다. Slack 수신 웹훅(https://hooks.slack.com/...)과 MS"
+" Teams 수신 커넥터 모두 추가 구성 없이 작동합니다. 일반 웹훅은 표준 페이로드 형식을 수신합니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__has_message
+msgid "Has Message"
+msgstr "메시지가 있습니다"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder__label_column_name
+msgid "Header label for the leftmost column."
+msgstr "가장 왼쪽 열의 헤더 레이블입니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder__amount_column_name
+msgid "Header label for the value column."
+msgstr "값 열의 헤더 레이블입니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Help"
+msgstr "도움말"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__horizon_months
+msgid "Horizon Months"
+msgstr "예측 기간 개월 수"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_account_dynamic_report_handler_builder__id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__id
+msgid "ID"
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "만약 선택하였으면, 신규 메시지에 주의를 기울여야 합니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_has_error
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "이 옵션을 선택하면 일부 정보가 전달 오류를 생성합니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_search
+msgid "Inactive"
+msgstr "비활성"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__interval
+msgid "Interval"
+msgstr "간격"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__interval_unit
+msgid "Interval Unit"
+msgstr "단위 간격"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_is_follower
+msgid "Is Follower"
+msgstr "팔로워임"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__is_published
+msgid "Is Published"
+msgstr "게시 여부"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__is_section_total
+msgid "Is Section Total"
+msgstr "섹션 합계 여부"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__is_shared
+msgid "Is Shared"
+msgstr "공유되었습니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__options_json
+msgid "JSON serialised options dict applied at delivery time."
+msgstr "전달 시 적용되는 JSON 직렬화된 옵션 딕셔너리."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_saved_view__options_json
+msgid "JSON serialised options dict captured at save time."
+msgstr "저장 시점에 캡처된 JSON 직렬화 옵션 딕셔너리입니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__label_column_name
+msgid "Label Column Name"
+msgstr "라벨 열 이름"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__last_attachment_count
+msgid "Last Attachment Count"
+msgstr "마지막 첨부 파일 수"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__last_error
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Last Error"
+msgstr "마지막 오류"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__last_run
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__last_run
+msgid "Last Run"
+msgstr "최근 실행"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_search
+msgid "Last Run Errored"
+msgstr "마지막 실행 오류"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__last_run_status
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_search
+msgid "Last Run Status"
+msgstr "마지막 실행 상태"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_search
+msgid "Last Run Succeeded"
+msgstr "마지막 실행 성공"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__write_uid
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__write_uid
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__write_uid
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__write_uid
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__write_uid
+msgid "Last Updated by"
+msgstr "최근 갱신한 사람"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__write_date
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__write_date
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__write_date
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__write_date
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__write_date
+msgid "Last Updated on"
+msgstr "최근 갱신 일자"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__last_used_at
+msgid "Last Used At"
+msgstr "마지막 사용 시각"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__level
+msgid "Level"
+msgstr "등급"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__line_ids
+msgid "Line"
+msgstr "선"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__line_type
+msgid "Line Type"
+msgstr "라인 유형"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Line code %r is duplicated within builder %s."
+msgstr "라인 코드 %r이(가) 빌더 %s 내에서 중복됩니다."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Line code must match [a-z][a-z0-9_]* (got %r)."
+msgstr "라인 코드는 [a-z][a-z0-9_]*와 일치해야 합니다(%r 수신)."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Line types"
+msgstr "라인 유형"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_search
+msgid "Linear Growth"
+msgstr "선형 성장"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_forecast__growth_method__linear
+msgid "Linear monthly growth %"
+msgstr "선형 월간 성장률 %"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Lines"
+msgstr "명세"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_has_error
+msgid "Message Delivery error"
+msgstr "메시지 전송 오류"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_ids
+msgid "Messages"
+msgstr "메시지"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__webhook_format__teams
+msgid "Microsoft Teams"
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__interval_unit__month
+msgid "Month(s)"
+msgstr "월"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__monthly_growth_pct
+msgid "Monthly Growth Pct"
+msgstr "월간 성장률(%)"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Monthly P&L"
+msgstr "월간 손익(P&L)"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_forecast__monthly_growth_pct
+msgid ""
+"Monthly growth percentage applied compoundingly under the linear growth "
+"method. 5.0 means 5 percent per month."
+msgstr "선형 성장 방법에 따라 복리로 적용되는 월간 성장률입니다. 5.0은 월 5퍼센트를 의미합니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model,name:eh_account_dynamic_reports_pro.model_eh_report_forecast
+msgid "Multi period report forecast scenario"
+msgstr "다기간 보고서 예측 시나리오"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "My Custom Report"
+msgstr "내 사용자 지정 보고서"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__name
+msgid "Name"
+msgstr "이름"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_builder_line__sign__-
+msgid "Negative (-)"
+msgstr "음수 (-)"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__webhook_timeout
+msgid "Network timeout in seconds for the webhook POST."
+msgstr "webhook POST에 대한 네트워크 시간 초과(초)입니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__next_run
+msgid "Next Run"
+msgstr "다음 실행일"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/builder_handler.py:0
+msgid ""
+"No builder record matches code %r. Was the builder deleted while the "
+"published report still references it?"
+msgstr "코드 %r와 일치하는 빌더 레코드가 없습니다. 게시된 보고서가 여전히 참조하는 동안 빌더가 삭제되었습니까?"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.actions.act_window,help:eh_account_dynamic_reports_pro.action_eh_report_builder
+msgid "No custom reports yet."
+msgstr "아직 사용자 지정 보고서가 없습니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.actions.act_window,help:eh_account_dynamic_reports_pro.action_eh_report_forecast
+msgid "No forecast scenarios yet."
+msgstr "아직 예측 시나리오가 없습니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.actions.act_window,help:eh_account_dynamic_reports_pro.action_eh_report_saved_view
+msgid "No saved views yet."
+msgstr "아직 저장된 보기가 없습니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.actions.act_window,help:eh_account_dynamic_reports_pro.action_eh_report_schedule
+msgid "No scheduled reports yet."
+msgstr "아직 예약된 보고서가 없습니다."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Node type not allowed."
+msgstr "허용되지 않는 노드 유형입니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__notes
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_form
+msgid "Notes"
+msgstr "메모"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_needaction_counter
+msgid "Number of Actions"
+msgstr "작업 수"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_has_error_counter
+msgid "Number of errors"
+msgstr "오류 횟수"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_forecast__horizon_months
+msgid "Number of forward periods to project."
+msgstr "예측할 향후 기간 수입니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "조치가 필요한 메시지 수"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "전송 오류가 발생한 메시지 수입니다."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Only numeric constants are allowed."
+msgstr "숫자 상수만 허용됩니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Open in Viewer"
+msgstr "뷰어에서 열기"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Operator not allowed."
+msgstr "허용되지 않는 연산자입니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_form
+msgid "Optional description"
+msgstr "선택적 설명"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Optional description shown in the report listing."
+msgstr "보고서 목록에 표시되는 선택적 설명입니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_saved_view__notes
+msgid "Optional free text describing the view."
+msgstr "보기를 설명하는 선택적 자유 텍스트입니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder_line__code
+msgid ""
+"Optional stable name referenced by formula lines. Must match [a-z][a-z0-9_]*"
+" if set."
+msgstr "수식 라인에서 참조하는 선택적 안정 이름입니다. 설정하는 경우 [a-z][a-z0-9_]*와 일치해야 합니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Optional. Default body explains the attached report."
+msgstr "선택 사항입니다. 기본 본문은 첨부된 보고서를 설명합니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_form
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Options"
+msgstr "옵션"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__options_json
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__options_json
+msgid "Options Json"
+msgstr "옵션 Json"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_search
+msgid "Owner"
+msgstr "소유자"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__delivery_format__pdf
+msgid "PDF"
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__recipient_partner_ids
+msgid "Partner Recipients"
+msgstr "협력사 수신자"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Pause"
+msgstr "일시 정지"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__pinned
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_search
+msgid "Pinned"
+msgstr "핀고정"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_builder_line__sign__+
+msgid "Positive (+)"
+msgstr "양수 (+)"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_form
+msgid "Projection"
+msgstr "예측"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Publish"
+msgstr "발행"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_search
+msgid "Published"
+msgstr "게시 완료"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__published_report_id
+msgid "Published Report"
+msgstr "게시된 보고서"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__rating_ids
+msgid "Ratings"
+msgstr "평가"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__recipient_emails
+msgid "Recipient Emails"
+msgstr "수신자 이메일"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Recipients"
+msgstr "수신인"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__report_id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__report_id
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_search
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_search
+msgid "Report"
+msgstr "보고서"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.ui.menu,name:eh_account_dynamic_reports_pro.menu_eh_report_builder
+msgid "Report Builder"
+msgstr "보고서 빌더"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Resume"
+msgstr "경력 사항"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Run Now"
+msgstr "지금 실행하기"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_form
+msgid "Run Projection"
+msgstr "예측 실행"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS 전송 에러"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.actions.act_window,help:eh_account_dynamic_reports_pro.action_eh_report_saved_view
+msgid ""
+"Save a filter set inside the report viewer to capture date ranges, company "
+"scope, and toggles. Pin frequently used views or share them with your team."
+msgstr ""
+"보고서 뷰어 내에 필터 세트를 저장하여 날짜 범위, 회사 범위 및 토글을 캡처합니다. 자주 사용하는 뷰를 고정하거나 팀과 공유하십시오."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_form
+msgid "Saved View"
+msgstr "저장된 뷰"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.actions.act_window,name:eh_account_dynamic_reports_pro.action_eh_report_saved_view
+#: model:ir.ui.menu,name:eh_account_dynamic_reports_pro.menu_eh_report_saved_view
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_tree
+msgid "Saved Views"
+msgstr "저장된 뷰"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_form
+msgid "Saved view name"
+msgstr "저장된 보기 이름"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_saved_view.py:0
+msgid "Saved view name is required."
+msgstr "저장된 보기 이름은 필수입니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.constraint,message:eh_account_dynamic_reports_pro.constraint_eh_report_saved_view_unique_user_report_name
+msgid "Saved view names must be unique per user and per report."
+msgstr "저장된 보기 이름은 사용자별 및 보고서별로 고유해야 합니다."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_saved_view.py:0
+msgid "Saved view options must be a dict."
+msgstr "저장된 보기 옵션은 dict여야 합니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__scenario_label
+msgid "Scenario Label"
+msgstr "시나리오 레이블"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Schedule"
+msgstr "예약"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_schedule.py:0
+msgid "Schedule '%s' has no recipient emails configured."
+msgstr "일정 '%s'에 수신자 이메일이 구성되어 있지 않습니다."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_schedule.py:0
+msgid ""
+"Schedule '%s' has webhook delivery enabled but no webhook_url configured."
+msgstr "일정 '%s'에 webhook 전송이 활성화되어 있지만 webhook_url이 구성되어 있지 않습니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.constraint,message:eh_account_dynamic_reports_pro.constraint_eh_report_schedule_positive_interval
+msgid "Schedule interval must be a positive integer."
+msgstr "일정 간격은 양의 정수여야 합니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.ui.menu,name:eh_account_dynamic_reports_pro.menu_eh_report_schedule
+msgid "Scheduled Deliveries"
+msgstr "예정 배송"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Scheduled Report"
+msgstr "예약된 보고서"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.actions.act_window,name:eh_account_dynamic_reports_pro.action_eh_report_schedule
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_tree
+msgid "Scheduled Reports"
+msgstr "예약된 보고서"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model,name:eh_account_dynamic_reports_pro.model_eh_report_schedule
+msgid "Scheduled report email delivery"
+msgstr "예약된 보고서 이메일 전송"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_builder_line__line_type__section_header
+msgid "Section Header"
+msgstr "섹션 헤더"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__webhook_format
+msgid ""
+"Selects the JSON shape the payload is wrapped in. Slack uses {text, "
+"attachments[]}; Teams uses MessageCard; Generic uses the raw {subject, body,"
+" attachments} dict."
+msgstr ""
+"페이로드를 감싸는 JSON 구조를 선택합니다. Slack은 {text, attachments[]}를, Teams는 "
+"MessageCard를, Generic은 원시 {subject, body, attachments} 딕셔너리를 사용합니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__sequence
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__sequence
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__sequence
+msgid "Sequence"
+msgstr "순서"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_search
+msgid "Shared"
+msgstr "공유됨"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__sign
+msgid "Sign"
+msgstr "서명"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__webhook_format__slack
+msgid "Slack"
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid ""
+"Slack: paste the channel's incoming-webhook URL. Microsoft Teams: paste the "
+"channel's incoming-connector URL. Generic JSON: any HTTPS endpoint that "
+"accepts a POST with Content-Type application/json."
+msgstr ""
+"Slack: 채널의 incoming-webhook URL을 붙여넣으세요. Microsoft Teams: 채널의 incoming-"
+"connector URL을 붙여넣으세요. 일반 JSON: Content-Type이 application/json인 POST를 허용하는 "
+"모든 HTTPS 엔드포인트."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder__code
+msgid ""
+"Stable identifier used to publish the report. Must be lowercase, start with "
+"a letter, and contain only letters, digits, or underscores. Example: "
+"my_custom_pl"
+msgstr ""
+"보고서를 게시하는 데 사용되는 안정적인 식별자입니다. 소문자여야 하며, 문자로 시작하고, 문자, 숫자 또는 밑줄만 포함해야 합니다. 예:"
+" my_custom_pl"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder_line__is_section_total
+msgid ""
+"Style this formula line as a section total (top border, bold). Otherwise it "
+"renders as a regular computed line."
+msgstr "이 수식 행을 섹션 합계(위쪽 테두리, 굵게)로 스타일을 지정합니다. 그렇지 않으면 일반 계산 행으로 렌더링됩니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__subject
+msgid "Subject"
+msgstr "제목"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__last_run_status__success
+msgid "Success"
+msgstr "성공"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_saved_view__pinned
+msgid ""
+"Surface this view in the dashboard quick access list. Pinned views render "
+"above unpinned ones in the viewer."
+msgstr "이 뷰를 대시보드 빠른 액세스 목록에 표시합니다. 고정된 뷰는 뷰어에서 고정되지 않은 뷰 위에 표시됩니다."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Unary operator not allowed."
+msgstr "단항 연산자는 허용되지 않습니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Unpublish"
+msgstr "게시 취소"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__use_count
+msgid "Use Count"
+msgstr "사용 횟수"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__user_id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__user_id
+msgid "User"
+msgstr "사용자"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__recipient_user_ids
+msgid "User Recipients"
+msgstr "사용자 수신자"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model,name:eh_account_dynamic_reports_pro.model_eh_report_saved_view
+msgid "User saved view for a dynamic report"
+msgstr "동적 보고서에 대한 사용자 저장 보기"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Webhook"
+msgstr "웹훅"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__delivery_channel__webhook
+msgid "Webhook (Slack / Teams / HTTP)"
+msgstr "웹훅 (Slack / Teams / HTTP)"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__webhook_format
+msgid "Webhook Format"
+msgstr "Webhook 형식"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_schedule.py:0
+msgid "Webhook POST failed with HTTP %(status)s: %(body)s"
+msgstr "Webhook POST가 HTTP %(status)s로 실패했습니다: %(body)s"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_schedule.py:0
+msgid "Webhook POST failed: %s"
+msgstr "Webhook POST가 실패했습니다: %s"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__webhook_timeout
+msgid "Webhook Timeout"
+msgstr "Webhook 시간 초과"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__webhook_url
+msgid "Webhook Url"
+msgstr "Webhook URL"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_schedule.py:0
+msgid "Webhook returned HTTP %(status)s: %(body)s"
+msgstr "Webhook이 HTTP %(status)s을(를) 반환했습니다: %(body)s"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__website_message_ids
+msgid "Website Messages"
+msgstr "웹사이트 메시지"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__website_message_ids
+msgid "Website communication history"
+msgstr "웹사이트 대화 이력"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__interval_unit__week
+msgid "Week(s)"
+msgstr "주"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_saved_view__is_shared
+msgid ""
+"When enabled, this view is visible to every user of the same company. Useful"
+" for a team to share a baseline filter set."
+msgstr "활성화하면 이 뷰가 동일한 회사의 모든 사용자에게 표시됩니다. 기본 필터 집합을 공유하는 팀에 유용합니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder_line__formula
+msgid ""
+"Whitelisted arithmetic referencing other line codes. Example: income - "
+"expenses, or revenue * 0.1 for a 10 percent flag. Allowed: + - * / and "
+"parentheses. Identifiers map to other lines' computed values; missing "
+"identifiers resolve to 0."
+msgstr ""
+"다른 라인 코드를 참조하는 화이트리스트 산술. 예: income - expenses 또는 10퍼센트 플래그를 위한 revenue * "
+"0.1. 허용: + - * / 및 괄호. 식별자는 다른 라인의 계산된 값에 매핑되며, 누락된 식별자는 0으로 해석됩니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__delivery_format__xlsx
+msgid "XLSX"
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__delivery_format__both
+msgid "XLSX + PDF"
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_forecast.py:0
+msgid "base_date_from cannot be later than base_date_to."
+msgstr "base_date_from은 base_date_to보다 늦을 수 없습니다."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "extra1@example.com, extra2@example.com"
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "https://hooks.slack.com/services/..."
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "my_custom_report"
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid ""
+"seq  type                name              code         scope/codes  sign  formula\n"
+"10   section_header      Income            -            -            -     -\n"
+"20   account_aggregate   Revenue           revenue      types/income  -     -\n"
+"30   account_aggregate   Other income      other_inc    types/income_other  -  -\n"
+"40   formula             Total Income      total_inc    -            -     revenue + other_inc\n"
+"50   section_header      Expenses          -            -            -     -\n"
+"60   account_aggregate   Direct costs      direct_cost  types/expense_direct_cost  +  -\n"
+"70   account_aggregate   Operating costs   op_cost      types/expense  +  -\n"
+"80   formula             Total Expenses    total_exp    -            -     direct_cost + op_cost\n"
+"90   formula             Net Profit        net_profit   -            -     total_inc - total_exp"
+msgstr ""
+"seq  type                name              code         scope/codes  sign  "
+"formula\\n10   section_header      Income            -            -"
+"            -     -\\n20   account_aggregate   Revenue           revenue"
+"      types/income  -     -\\n30   account_aggregate   Other income      "
+"other_inc    types/income_other  -  -\\n40   formula             Total "
+"Income      total_inc    -            -     revenue + other_inc\\n50   "
+"section_header      Expenses          -            -            -     -\\n60"
+"   account_aggregate   Direct costs      direct_cost  "
+"types/expense_direct_cost  +  -\\n70   account_aggregate   Operating costs"
+"   op_cost      types/expense  +  -\\n80   formula             Total "
+"Expenses    total_exp    -            -     direct_cost + op_cost\\n90   "
+"formula             Net Profit        net_profit   -            -     "
+"total_inc - total_exp"

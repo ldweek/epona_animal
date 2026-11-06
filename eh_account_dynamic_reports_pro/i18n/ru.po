@@ -1,0 +1,1328 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_dynamic_reports_pro
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder_line__level
+msgid ""
+"0 for section headers and computed totals (rendered bold), 1 for data rows."
+msgstr ""
+"0 для заголовков разделов и вычисленных итогов (отображаются полужирным), 1 "
+"для строк данных."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_form
+msgid "2026 Optimistic Case"
+msgstr "Оптимистичный сценарий на 2026"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid ""
+"<strong>Account Aggregate</strong>: SUM of account.move.line balances "
+"filtered by account codes (LIKE prefix) or account types, with a sign flip."
+msgstr ""
+"<strong>Агрегат счета</strong>: SUM сальдо account.move.line, "
+"отфильтрованных по кодам счетов (префикс LIKE) или типам счетов, с "
+"изменением знака."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid ""
+"<strong>Formula</strong>: arithmetic over previously named lines. Allowed "
+"operators: + - * / and parentheses. Identifiers reference other lines' "
+"codes."
+msgstr ""
+"<strong>Формула</strong>: арифметика над ранее названными строками. "
+"Допустимые операторы: + - * / и скобки. Идентификаторы ссылаются на коды "
+"других строк."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid ""
+"<strong>Section Header</strong>: a non numeric label that opens a section. "
+"Level 0, bold."
+msgstr ""
+"<strong>Заголовок раздела</strong>: нечисловая метка, открывающая раздел. "
+"Уровень 0, полужирный."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.actions.act_window,help:eh_account_dynamic_reports_pro.action_eh_report_forecast
+msgid ""
+"A forecast picks a base report, a baseline period, and a growth method. The "
+"projection runs the base report once and applies the growth model to every "
+"numeric cell over the configured horizon."
+msgstr ""
+"Прогноз выбирает базовый отчёт, базовый период и метод роста. Проекция один "
+"раз запускает базовый отчёт и применяет модель роста к каждой числовой "
+"ячейке в пределах настроенного горизонта."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_builder_line__line_type__account_aggregate
+msgid "Account Aggregate"
+msgstr "Агрегат счёта"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__account_codes
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_builder_line__account_scope__codes
+msgid "Account Codes"
+msgstr "Коды счетов"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__account_scope
+msgid "Account Scope"
+msgstr "Область счёта"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__account_types
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_builder_line__account_scope__types
+msgid "Account Types"
+msgstr "Типы счетов"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_needaction
+msgid "Action Needed"
+msgstr "Требуются действия"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__active
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__active
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_search
+msgid "Active"
+msgstr "Активный"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__recipient_emails
+msgid "Additional comma separated email addresses."
+msgstr "Дополнительные адреса электронной почты через запятую."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_schedule.py:0
+msgid "All delivery channels failed for schedule '%(name)s': %(errors)s"
+msgstr ""
+"Все каналы доставки для расписания '%(name)s' завершились сбоем: %(errors)s"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__amount_column_name
+msgid "Amount Column Name"
+msgstr "Имя столбца суммы"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_attachment_count
+msgid "Attachment Count"
+msgstr "Количество вложений"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__base_date_from
+msgid "Base Date From"
+msgstr "Базовая дата с"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__base_date_to
+msgid "Base Date To"
+msgstr "Базовая дата по"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_form
+msgid "Base Period"
+msgstr "Базовый период"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__base_report_id
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_search
+msgid "Base Report"
+msgstr "Базовый отчёт"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__body
+msgid "Body"
+msgstr "Тело"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__builder_id
+msgid "Builder"
+msgstr "Конструктор"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.constraint,message:eh_account_dynamic_reports_pro.constraint_eh_report_builder_unique_code
+msgid "Builder code must be unique."
+msgstr "Код конструктора должен быть уникальным."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Builder code must match [a-z][a-z0-9_]* (got %r)."
+msgstr ""
+"Код конструктора должен соответствовать [a-z][a-z0-9_]* (получено %r)."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/builder_handler.py:0
+msgid ""
+"Builder handler invoked without a report code in context. Render through the"
+" eh.account.dynamic.report orchestrator."
+msgstr ""
+"Обработчик конструктора вызван без кода отчёта в контексте. Выполните "
+"рендеринг через оркестратор eh.account.dynamic.report."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Builder must be published before it can be viewed."
+msgstr "Конструктор должен быть опубликован перед просмотром."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_search
+msgid "Cadence"
+msgstr "Периодичность"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__code
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__code
+msgid "Code"
+msgstr "Код"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder_line__account_types
+msgid ""
+"Comma separated account_type values. Example: income,income_other or "
+"expense,expense_direct_cost"
+msgstr ""
+"Значения account_type, разделённые запятыми. Пример: income,income_other или"
+" expense,expense_direct_cost"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder_line__account_codes
+msgid ""
+"Comma separated code prefixes (matches account.code LIKE '<prefix>%'). "
+"Example: 1000,1100,2000"
+msgstr ""
+"Префиксы кодов, разделённые запятыми (соответствуют account.code LIKE "
+"'<prefix>%'). Пример: 1000,1100,2000"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__company_id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__company_id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__company_id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__company_id
+msgid "Company"
+msgstr "Компания"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_schedule.py:0
+msgid "Could not build any attachment for delivery."
+msgstr "Не удалось создать вложение для доставки."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.actions.act_window,help:eh_account_dynamic_reports_pro.action_eh_report_builder
+msgid ""
+"Create a builder to compose a report from account aggregates and formulas. "
+"Publish to register it as a viewer-ready dynamic report."
+msgstr ""
+"Создайте конструктор для составления отчёта из агрегатов счетов и формул. "
+"Опубликуйте, чтобы зарегистрировать его как готовый к просмотру динамический"
+" отчёт."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.actions.act_window,help:eh_account_dynamic_reports_pro.action_eh_report_schedule
+msgid ""
+"Create a schedule to email a report on a recurring cadence: daily, weekly, "
+"or monthly. Combine multiple recipients (users, partners, raw email "
+"addresses) and pick XLSX, PDF, or both as the delivery format."
+msgstr ""
+"Создайте расписание для отправки отчёта по электронной почте с повторяющейся"
+" периодичностью: ежедневно, еженедельно или ежемесячно. Объедините несколько"
+" получателей (пользователей, партнёров, произвольные адреса электронной "
+"почты) и выберите XLSX, PDF или оба формата доставки."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__created_on
+msgid "Created On"
+msgstr "Дата создания:"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__create_uid
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__create_uid
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__create_uid
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__create_uid
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__create_uid
+msgid "Created by"
+msgstr "Создано:"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__create_date
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__create_date
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__create_date
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__create_date
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__create_date
+msgid "Created on"
+msgstr "Дата создания:"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Custom Report"
+msgstr "Пользовательский отчёт"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.actions.act_window,name:eh_account_dynamic_reports_pro.action_eh_report_builder
+#: model:ir.ui.menu,name:eh_account_dynamic_reports_pro.menu_eh_pro_root
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_tree
+msgid "Custom Reports"
+msgstr "Пользовательские отчеты"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model,name:eh_account_dynamic_reports_pro.model_eh_report_builder
+msgid "Custom dynamic report builder"
+msgstr "Конструктор пользовательских динамических отчётов"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model,name:eh_account_dynamic_reports_pro.model_eh_report_builder_line
+msgid "Custom report builder line"
+msgstr "Строка конструктора пользовательских отчётов"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__interval_unit__day
+msgid "Day(s)"
+msgstr "День (дни)"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__delivery_channel
+msgid "Delivery Channel"
+msgstr "Канал доставки"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__delivery_format
+msgid "Delivery Format"
+msgstr "Формат доставки"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__description
+msgid "Description"
+msgstr "Описание"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_account_dynamic_report_handler_builder__display_name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__display_name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__display_name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__display_name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__display_name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__display_name
+msgid "Display Name"
+msgstr "Отображаемое имя"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_search
+msgid "Draft"
+msgstr "Черновик"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Duplicate"
+msgstr "Дублировать"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.actions.server,name:eh_account_dynamic_reports_pro.cron_eh_report_schedule_run_due_ir_actions_server
+msgid "ERP Heritage: Run due scheduled reports"
+msgstr "ERP Heritage: Запуск причитающихся запланированных отчётов"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__delivery_channel__email
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Email"
+msgstr "E-mail"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__delivery_channel__both
+msgid "Email + Webhook"
+msgstr "Электронная почта + Webhook"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__delivery_channel
+msgid ""
+"Email sends the report as an attachment via mail.mail. Webhook POSTs a JSON "
+"payload to webhook_url with the report subject, body, and a download link "
+"per attachment. Both fires email and webhook in sequence; an email failure "
+"does not block the webhook and vice versa."
+msgstr ""
+"«Электронная почта» отправляет отчёт вложением через mail.mail. «Webhook» "
+"отправляет (POST) полезную нагрузку JSON на webhook_url с темой отчёта, "
+"текстом и ссылкой на скачивание для каждого вложения. «Оба» запускает "
+"электронную почту и webhook последовательно; сбой электронной почты не "
+"блокирует webhook и наоборот."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__last_run_status__error
+msgid "Error"
+msgstr "Ошибка"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Every"
+msgstr "Каждый"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Example: simple P&amp;L"
+msgstr "Пример: простой P&amp;L"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_forecast__growth_method__flat
+msgid "Flat (no change)"
+msgstr "Без изменений (нет изменений)"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_search
+msgid "Flat Growth"
+msgstr "Нулевой рост"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_follower_ids
+msgid "Followers"
+msgstr "Подписчики"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Подписчики"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_form
+msgid "Forecast Scenario"
+msgstr "Сценарий прогноза"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.actions.act_window,name:eh_account_dynamic_reports_pro.action_eh_report_forecast
+#: model:ir.ui.menu,name:eh_account_dynamic_reports_pro.menu_eh_report_forecast
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_tree
+msgid "Forecast Scenarios"
+msgstr "Сценарии прогноза"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.constraint,message:eh_account_dynamic_reports_pro.constraint_eh_report_forecast_positive_horizon
+msgid "Forecast horizon must be at least one month."
+msgstr "Горизонт прогноза должен составлять не менее одного месяца."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__formula
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_builder_line__line_type__formula
+msgid "Formula"
+msgstr "Формула"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Formula does not parse: %s"
+msgstr "Не удалось разобрать формулу: %s"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Formula uses a disallowed construct: %s"
+msgstr "В формуле используется недопустимая конструкция: %s"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__webhook_format__generic
+msgid "Generic JSON"
+msgstr "Универсальный JSON"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model,name:eh_account_dynamic_reports_pro.model_eh_account_dynamic_report_handler_builder
+msgid "Generic handler for builder defined custom reports"
+msgstr ""
+"Универсальный обработчик для пользовательских отчётов, определённых в "
+"конструкторе"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__growth_method
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_search
+msgid "Growth Method"
+msgstr "Метод роста"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__webhook_url
+msgid ""
+"HTTPS endpoint that accepts a JSON POST. Slack incoming webhooks "
+"(https://hooks.slack.com/...) and MS Teams incoming connectors both work "
+"without further config; generic webhooks receive the canonical payload "
+"shape."
+msgstr ""
+"Конечная точка HTTPS, принимающая POST в формате JSON. Входящие веб-хуки "
+"Slack (https://hooks.slack.com/...) и входящие коннекторы MS Teams работают "
+"без дополнительной настройки; универсальные веб-хуки получают каноническую "
+"форму полезной нагрузки."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__has_message
+msgid "Has Message"
+msgstr "Есть сообщение"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder__label_column_name
+msgid "Header label for the leftmost column."
+msgstr "Метка заголовка для крайнего левого столбца."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder__amount_column_name
+msgid "Header label for the value column."
+msgstr "Метка заголовка для столбца значений."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Help"
+msgstr "Помощь"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__horizon_months
+msgid "Horizon Months"
+msgstr "Месяцы горизонта"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_account_dynamic_report_handler_builder__id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__id
+msgid "ID"
+msgstr "Номер"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+"Если флажок установлен, значит, новые сообщения требуют вашего внимания."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_has_error
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Если отмечено, некоторые сообщения имеют ошибку доставки."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_search
+msgid "Inactive"
+msgstr "Неактивный"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__interval
+msgid "Interval"
+msgstr "Интервал"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__interval_unit
+msgid "Interval Unit"
+msgstr "Единица интервала"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_is_follower
+msgid "Is Follower"
+msgstr "Является подписчиком"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__is_published
+msgid "Is Published"
+msgstr "Опубликовано"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__is_section_total
+msgid "Is Section Total"
+msgstr "Является итогом раздела"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__is_shared
+msgid "Is Shared"
+msgstr "Разделяется"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__options_json
+msgid "JSON serialised options dict applied at delivery time."
+msgstr ""
+"Сериализованный в JSON словарь параметров, применяемый во время доставки."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_saved_view__options_json
+msgid "JSON serialised options dict captured at save time."
+msgstr ""
+"Сериализованный в JSON словарь параметров, зафиксированный в момент "
+"сохранения."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__label_column_name
+msgid "Label Column Name"
+msgstr "Имя столбца метки"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__last_attachment_count
+msgid "Last Attachment Count"
+msgstr "Последнее количество вложений"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__last_error
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Last Error"
+msgstr "Последняя ошибка"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__last_run
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__last_run
+msgid "Last Run"
+msgstr "Последний запуск"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_search
+msgid "Last Run Errored"
+msgstr "Последний запуск с ошибкой"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__last_run_status
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_search
+msgid "Last Run Status"
+msgstr "Статус последнего запуска"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_search
+msgid "Last Run Succeeded"
+msgstr "Последний запуск успешен"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__write_uid
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__write_uid
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__write_uid
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__write_uid
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__write_uid
+msgid "Last Updated by"
+msgstr "Последнее обновление:"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__write_date
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__write_date
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__write_date
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__write_date
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__write_date
+msgid "Last Updated on"
+msgstr "Дата последнего обновления:"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__last_used_at
+msgid "Last Used At"
+msgstr "Последнее использование"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__level
+msgid "Level"
+msgstr "Уровень"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__line_ids
+msgid "Line"
+msgstr "Линия"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__line_type
+msgid "Line Type"
+msgstr "Тип строки"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Line code %r is duplicated within builder %s."
+msgstr "Код строки %r дублируется в построителе %s."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Line code must match [a-z][a-z0-9_]* (got %r)."
+msgstr "Код строки должен соответствовать [a-z][a-z0-9_]* (получено %r)."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Line types"
+msgstr "Типы строк"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_search
+msgid "Linear Growth"
+msgstr "Линейный рост"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_forecast__growth_method__linear
+msgid "Linear monthly growth %"
+msgstr "Линейный месячный рост %"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Lines"
+msgstr "Линии"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_has_error
+msgid "Message Delivery error"
+msgstr "Ошибка доставки сообщения"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_ids
+msgid "Messages"
+msgstr "Сообщения"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__webhook_format__teams
+msgid "Microsoft Teams"
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__interval_unit__month
+msgid "Month(s)"
+msgstr "Месяц(ы)"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__monthly_growth_pct
+msgid "Monthly Growth Pct"
+msgstr "Процент месячного роста"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Monthly P&L"
+msgstr "Ежемесячный отчёт о прибылях и убытках (P&L)"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_forecast__monthly_growth_pct
+msgid ""
+"Monthly growth percentage applied compoundingly under the linear growth "
+"method. 5.0 means 5 percent per month."
+msgstr ""
+"Ежемесячный процент роста, применяемый по методу сложных процентов согласно "
+"методу линейного роста. 5.0 означает 5 процентов в месяц."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model,name:eh_account_dynamic_reports_pro.model_eh_report_forecast
+msgid "Multi period report forecast scenario"
+msgstr "Сценарий прогноза для многопериодного отчёта"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "My Custom Report"
+msgstr "Мой пользовательский отчет"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__name
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__name
+msgid "Name"
+msgstr "Имя"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_builder_line__sign__-
+msgid "Negative (-)"
+msgstr "Отрицательное (-)"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__webhook_timeout
+msgid "Network timeout in seconds for the webhook POST."
+msgstr "Тайм-аут сети в секундах для POST-запроса webhook."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__next_run
+msgid "Next Run"
+msgstr "Следующий запуск"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/builder_handler.py:0
+msgid ""
+"No builder record matches code %r. Was the builder deleted while the "
+"published report still references it?"
+msgstr ""
+"Ни одна запись построителя не соответствует коду %r. Был ли построитель "
+"удалён, пока опубликованный отчёт всё ещё ссылается на него?"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.actions.act_window,help:eh_account_dynamic_reports_pro.action_eh_report_builder
+msgid "No custom reports yet."
+msgstr "Пользовательских отчётов пока нет."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.actions.act_window,help:eh_account_dynamic_reports_pro.action_eh_report_forecast
+msgid "No forecast scenarios yet."
+msgstr "Сценариев прогноза пока нет."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.actions.act_window,help:eh_account_dynamic_reports_pro.action_eh_report_saved_view
+msgid "No saved views yet."
+msgstr "Сохранённых представлений пока нет."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.actions.act_window,help:eh_account_dynamic_reports_pro.action_eh_report_schedule
+msgid "No scheduled reports yet."
+msgstr "Запланированных отчётов пока нет."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Node type not allowed."
+msgstr "Тип узла не разрешён."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__notes
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_form
+msgid "Notes"
+msgstr "Заметки"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Число действий"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_has_error_counter
+msgid "Number of errors"
+msgstr "Число ошибок"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_forecast__horizon_months
+msgid "Number of forward periods to project."
+msgstr "Количество будущих периодов для прогнозирования."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Количество сообщений, требующих принятия мер"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Количество недоставленных сообщений"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Only numeric constants are allowed."
+msgstr "Разрешены только числовые константы."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Open in Viewer"
+msgstr "Открыть в средстве просмотра"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Operator not allowed."
+msgstr "Оператор не разрешён."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_form
+msgid "Optional description"
+msgstr "Необязательное описание"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Optional description shown in the report listing."
+msgstr "Необязательное описание, отображаемое в списке отчётов."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_saved_view__notes
+msgid "Optional free text describing the view."
+msgstr "Необязательный произвольный текст, описывающий представление."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder_line__code
+msgid ""
+"Optional stable name referenced by formula lines. Must match [a-z][a-z0-9_]*"
+" if set."
+msgstr ""
+"Необязательное стабильное имя, на которое ссылаются строки формул. При "
+"установке должно соответствовать [a-z][a-z0-9_]*."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Optional. Default body explains the attached report."
+msgstr ""
+"Необязательно. Основной текст по умолчанию поясняет прикреплённый отчёт."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_form
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Options"
+msgstr "Опции"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__options_json
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__options_json
+msgid "Options Json"
+msgstr "Json параметров"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_search
+msgid "Owner"
+msgstr "Владелец"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__delivery_format__pdf
+msgid "PDF"
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__recipient_partner_ids
+msgid "Partner Recipients"
+msgstr "Получатели-партнёры"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Pause"
+msgstr "Пауза"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__pinned
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_search
+msgid "Pinned"
+msgstr "Закреплено"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_builder_line__sign__+
+msgid "Positive (+)"
+msgstr "Положительное (+)"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_form
+msgid "Projection"
+msgstr "Прогноз"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Publish"
+msgstr "Опубликовать"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_search
+msgid "Published"
+msgstr "Опубликовано"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__published_report_id
+msgid "Published Report"
+msgstr "Опубликованный отчёт"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__rating_ids
+msgid "Ratings"
+msgstr "Рейтинги"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__recipient_emails
+msgid "Recipient Emails"
+msgstr "Электронная почта получателей"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Recipients"
+msgstr "Получатели"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__report_id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__report_id
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_search
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_search
+msgid "Report"
+msgstr "Отчет"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.ui.menu,name:eh_account_dynamic_reports_pro.menu_eh_report_builder
+msgid "Report Builder"
+msgstr "Конструктор отчётов"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Resume"
+msgstr "Резюме"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Run Now"
+msgstr "Запустить сейчас"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_forecast_form
+msgid "Run Projection"
+msgstr "Запустить прогноз"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Ошибка доставки SMS"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.actions.act_window,help:eh_account_dynamic_reports_pro.action_eh_report_saved_view
+msgid ""
+"Save a filter set inside the report viewer to capture date ranges, company "
+"scope, and toggles. Pin frequently used views or share them with your team."
+msgstr ""
+"Сохраните набор фильтров в средстве просмотра отчетов, чтобы зафиксировать "
+"диапазоны дат, область компании и переключатели. Закрепите часто "
+"используемые представления или поделитесь ими с вашей командой."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_form
+msgid "Saved View"
+msgstr "Сохраненное представление"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.actions.act_window,name:eh_account_dynamic_reports_pro.action_eh_report_saved_view
+#: model:ir.ui.menu,name:eh_account_dynamic_reports_pro.menu_eh_report_saved_view
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_tree
+msgid "Saved Views"
+msgstr "Сохраненные представления"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_form
+msgid "Saved view name"
+msgstr "Имя сохранённого представления"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_saved_view.py:0
+msgid "Saved view name is required."
+msgstr "Имя сохранённого представления обязательно."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.constraint,message:eh_account_dynamic_reports_pro.constraint_eh_report_saved_view_unique_user_report_name
+msgid "Saved view names must be unique per user and per report."
+msgstr ""
+"Имена сохранённых представлений должны быть уникальными для каждого "
+"пользователя и каждого отчёта."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_saved_view.py:0
+msgid "Saved view options must be a dict."
+msgstr "Параметры сохранённого представления должны быть типа dict."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_forecast__scenario_label
+msgid "Scenario Label"
+msgstr "Метка сценария"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Schedule"
+msgstr "Запланировать встречу"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_schedule.py:0
+msgid "Schedule '%s' has no recipient emails configured."
+msgstr ""
+"Для расписания '%s' не настроены адреса электронной почты получателей."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_schedule.py:0
+msgid ""
+"Schedule '%s' has webhook delivery enabled but no webhook_url configured."
+msgstr ""
+"Для расписания '%s' включена доставка через webhook, но webhook_url не "
+"настроен."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.constraint,message:eh_account_dynamic_reports_pro.constraint_eh_report_schedule_positive_interval
+msgid "Schedule interval must be a positive integer."
+msgstr "Интервал расписания должен быть положительным целым числом."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.ui.menu,name:eh_account_dynamic_reports_pro.menu_eh_report_schedule
+msgid "Scheduled Deliveries"
+msgstr "Плановые поставки"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Scheduled Report"
+msgstr "Плановый отчёт"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.actions.act_window,name:eh_account_dynamic_reports_pro.action_eh_report_schedule
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_tree
+msgid "Scheduled Reports"
+msgstr "Плановые отчёты"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model,name:eh_account_dynamic_reports_pro.model_eh_report_schedule
+msgid "Scheduled report email delivery"
+msgstr "Плановая отправка отчёта по электронной почте"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_builder_line__line_type__section_header
+msgid "Section Header"
+msgstr "Заголовок раздела"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__webhook_format
+msgid ""
+"Selects the JSON shape the payload is wrapped in. Slack uses {text, "
+"attachments[]}; Teams uses MessageCard; Generic uses the raw {subject, body,"
+" attachments} dict."
+msgstr ""
+"Выбирает структуру JSON, в которую упаковывается полезная нагрузка. Slack "
+"использует {text, attachments[]}; Teams использует MessageCard; Generic "
+"использует необработанный словарь {subject, body, attachments}."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder__sequence
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__sequence
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__sequence
+msgid "Sequence"
+msgstr "Последовательность"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_saved_view_search
+msgid "Shared"
+msgstr "Общий"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_builder_line__sign
+msgid "Sign"
+msgstr "Подпись"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__webhook_format__slack
+msgid "Slack"
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid ""
+"Slack: paste the channel's incoming-webhook URL. Microsoft Teams: paste the "
+"channel's incoming-connector URL. Generic JSON: any HTTPS endpoint that "
+"accepts a POST with Content-Type application/json."
+msgstr ""
+"Slack: вставьте URL входящего webhook канала. Microsoft Teams: вставьте URL "
+"входящего коннектора канала. Универсальный JSON: любая конечная точка HTTPS,"
+" принимающая POST с Content-Type application/json."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder__code
+msgid ""
+"Stable identifier used to publish the report. Must be lowercase, start with "
+"a letter, and contain only letters, digits, or underscores. Example: "
+"my_custom_pl"
+msgstr ""
+"Стабильный идентификатор, используемый для публикации отчёта. Должен быть в "
+"нижнем регистре, начинаться с буквы и содержать только буквы, цифры или "
+"подчёркивания. Пример: my_custom_pl"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder_line__is_section_total
+msgid ""
+"Style this formula line as a section total (top border, bold). Otherwise it "
+"renders as a regular computed line."
+msgstr ""
+"Оформите эту строку формулы как итог раздела (верхняя граница, полужирный). "
+"В противном случае она отображается как обычная вычисляемая строка."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__subject
+msgid "Subject"
+msgstr "Тема"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__last_run_status__success
+msgid "Success"
+msgstr "Успех"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_saved_view__pinned
+msgid ""
+"Surface this view in the dashboard quick access list. Pinned views render "
+"above unpinned ones in the viewer."
+msgstr ""
+"Показать это представление в списке быстрого доступа панели мониторинга. "
+"Закреплённые представления отображаются в средстве просмотра выше "
+"незакреплённых."
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_builder.py:0
+msgid "Unary operator not allowed."
+msgstr "Унарный оператор не разрешён."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "Unpublish"
+msgstr "Отменить публикацию"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__use_count
+msgid "Use Count"
+msgstr "Использован раз"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_saved_view__user_id
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__user_id
+msgid "User"
+msgstr "Пользователь"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__recipient_user_ids
+msgid "User Recipients"
+msgstr "Получатели-пользователи"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model,name:eh_account_dynamic_reports_pro.model_eh_report_saved_view
+msgid "User saved view for a dynamic report"
+msgstr "Сохраненное пользователем представление для динамического отчета"
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "Webhook"
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__delivery_channel__webhook
+msgid "Webhook (Slack / Teams / HTTP)"
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__webhook_format
+msgid "Webhook Format"
+msgstr "Формат Webhook"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_schedule.py:0
+msgid "Webhook POST failed with HTTP %(status)s: %(body)s"
+msgstr "POST-запрос Webhook завершился с ошибкой HTTP %(status)s: %(body)s"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_schedule.py:0
+msgid "Webhook POST failed: %s"
+msgstr "POST-запрос Webhook завершился с ошибкой: %s"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__webhook_timeout
+msgid "Webhook Timeout"
+msgstr "Тайм-аут Webhook"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__webhook_url
+msgid "Webhook Url"
+msgstr "URL веб-хука"
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_schedule.py:0
+msgid "Webhook returned HTTP %(status)s: %(body)s"
+msgstr "Веб-хук вернул HTTP %(status)s: %(body)s"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,field_description:eh_account_dynamic_reports_pro.field_eh_report_schedule__website_message_ids
+msgid "Website Messages"
+msgstr "Веб-сайт сообщения"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_schedule__website_message_ids
+msgid "Website communication history"
+msgstr "История общений с сайта"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__interval_unit__week
+msgid "Week(s)"
+msgstr "Неделя(и)"
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_saved_view__is_shared
+msgid ""
+"When enabled, this view is visible to every user of the same company. Useful"
+" for a team to share a baseline filter set."
+msgstr ""
+"При включении это представление видно каждому пользователю той же компании. "
+"Полезно для команды, использующей общий базовый набор фильтров."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields,help:eh_account_dynamic_reports_pro.field_eh_report_builder_line__formula
+msgid ""
+"Whitelisted arithmetic referencing other line codes. Example: income - "
+"expenses, or revenue * 0.1 for a 10 percent flag. Allowed: + - * / and "
+"parentheses. Identifiers map to other lines' computed values; missing "
+"identifiers resolve to 0."
+msgstr ""
+"Разрешённая арифметика со ссылками на другие коды строк. Пример: income - "
+"expenses или revenue * 0.1 для флага 10 процентов. Разрешено: + - * / и "
+"скобки. Идентификаторы сопоставляются с вычисленными значениями других "
+"строк; отсутствующие идентификаторы разрешаются в 0."
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__delivery_format__xlsx
+msgid "XLSX"
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#: model:ir.model.fields.selection,name:eh_account_dynamic_reports_pro.selection__eh_report_schedule__delivery_format__both
+msgid "XLSX + PDF"
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#. odoo-python
+#: code:addons/eh_account_dynamic_reports_pro/models/report_forecast.py:0
+msgid "base_date_from cannot be later than base_date_to."
+msgstr "base_date_from не может быть позже base_date_to."
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "extra1@example.com, extra2@example.com"
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_schedule_form
+msgid "https://hooks.slack.com/services/..."
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid "my_custom_report"
+msgstr ""
+
+#. module: eh_account_dynamic_reports_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_dynamic_reports_pro.view_eh_report_builder_form
+msgid ""
+"seq  type                name              code         scope/codes  sign  formula\n"
+"10   section_header      Income            -            -            -     -\n"
+"20   account_aggregate   Revenue           revenue      types/income  -     -\n"
+"30   account_aggregate   Other income      other_inc    types/income_other  -  -\n"
+"40   formula             Total Income      total_inc    -            -     revenue + other_inc\n"
+"50   section_header      Expenses          -            -            -     -\n"
+"60   account_aggregate   Direct costs      direct_cost  types/expense_direct_cost  +  -\n"
+"70   account_aggregate   Operating costs   op_cost      types/expense  +  -\n"
+"80   formula             Total Expenses    total_exp    -            -     direct_cost + op_cost\n"
+"90   formula             Net Profit        net_profit   -            -     total_inc - total_exp"
+msgstr ""
+"seq  type                name              code         scope/codes  sign  "
+"formula\\n10   section_header      Income            -            -"
+"            -     -\\n20   account_aggregate   Revenue           revenue"
+"      types/income  -     -\\n30   account_aggregate   Other income      "
+"other_inc    types/income_other  -  -\\n40   formula             Total "
+"Income      total_inc    -            -     revenue + other_inc\\n50   "
+"section_header      Expenses          -            -            -     -\\n60"
+"   account_aggregate   Direct costs      direct_cost  "
+"types/expense_direct_cost  +  -\\n70   account_aggregate   Operating costs"
+"   op_cost      types/expense  +  -\\n80   formula             Total "
+"Expenses    total_exp    -            -     direct_cost + op_cost\\n90   "
+"formula             Net Profit        net_profit   -            -     "
+"total_inc - total_exp"

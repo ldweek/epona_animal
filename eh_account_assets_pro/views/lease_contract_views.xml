@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_lease_contract_tree" model="ir.ui.view">
+        <field name="name">eh.lease.contract.list</field>
+        <field name="model">eh.lease.contract</field>
+        <field name="arch" type="xml">
+            <list string="Lease Contracts" sample="1"
+                  default_order="commencement_date desc"
+                  decoration-success="state in ('active', 'modified')"
+                  decoration-info="state == 'ended'"
+                  decoration-muted="state == 'terminated'">
+                <field name="name"/>
+                <field name="reference"/>
+                <field name="lessor_id"/>
+                <field name="commencement_date"/>
+                <field name="term_months"/>
+                <field name="cadence"/>
+                <field name="exemption" optional="hide"/>
+                <field name="lessor_mode" optional="hide"/>
+                <field name="payment_amount" sum="Total Payment"/>
+                <field name="liability_balance" sum="Liability"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'active'"
+                       decoration-warning="state == 'modified'"
+                       decoration-muted="state in ('terminated', 'ended')"/>
+                <field name="currency_id" optional="hide"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_lease_contract_form" model="ir.ui.view">
+        <field name="name">eh.lease.contract.form</field>
+        <field name="model">eh.lease.contract</field>
+        <field name="arch" type="xml">
+            <form string="Lease Contract">
+                <header>
+                    <button name="action_compute_schedule"
+                            type="object"
+                            string="Compute Schedule"
+                            class="btn-secondary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_activate"
+                            type="object"
+                            string="Activate"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_post_due_lines"
+                            type="object"
+                            string="Post Due"
+                            class="btn-secondary"
+                            invisible="state not in ('active', 'modified')"/>
+                    <button name="action_open_modify_wizard"
+                            type="object"
+                            string="Modify"
+                            invisible="state not in ('active', 'modified')"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_open_terminate_wizard"
+                            type="object"
+                            string="Terminate"
+                            class="btn-warning"
+                            invisible="state not in ('active', 'modified')"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,active,ended"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                        <h3>
+                            <field name="reference"
+                                   placeholder="External lease reference"/>
+                        </h3>
+                    </div>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not currency_mismatch_quarantined">
+                        <strong>Currency integrity quarantine:</strong>
+                        this legacy lease has ledger evidence recorded as
+                        company currency although its source currency differs.
+                        Its history was not rewritten; reverse the linked
+                        entries and recreate it in company currency.
+                        <field name="currency_mismatch_note" readonly="1"
+                               nolabel="1"/>
+                    </div>
+                    <field name="currency_mismatch_quarantined" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="lessor_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="commencement_date"
+                                   readonly="state != 'draft'"/>
+                            <field name="lessor_mode"
+                                   readonly="state != 'draft'"/>
+                            <field name="term_months" readonly="state != 'draft'"/>
+                            <field name="effective_term_months" readonly="1"/>
+                            <field name="current_measurement_term_months"
+                                   readonly="1" invisible="state == 'draft'"/>
+                            <field name="cadence"
+                                   readonly="state != 'draft'"/>
+                            <field name="payment_timing"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="payment_amount" readonly="state != 'draft'"/>
+                            <field name="incremental_borrowing_rate"
+                                   readonly="state != 'draft'"/>
+                            <field name="initial_direct_costs"
+                                   readonly="state != 'draft'"
+                                   invisible="exemption != 'none' or lessor_mode != 'none'"/>
+                            <field name="prepaid_lease_payments"
+                                   readonly="state != 'draft'"
+                                   invisible="exemption != 'none' or lessor_mode != 'none'"/>
+                            <field name="currency_id" readonly="state != 'draft'"/>
+                            <field name="company_id"
+                                   readonly="state != 'draft'"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Manufacturer / Dealer Lessor (IFRS 16.71-74)"
+                           invisible="lessor_mode != 'finance'">
+                        <group>
+                            <field name="lessor_dealer"
+                                   readonly="state != 'draft'"/>
+                            <field name="fair_value_of_asset"
+                                   readonly="state != 'draft'"
+                                   invisible="not lessor_dealer"
+                                   required="lessor_dealer"/>
+                        </group>
+                        <group>
+                            <field name="carrying_amount_of_asset"
+                                   readonly="state != 'draft'"
+                                   invisible="not lessor_dealer"
+                                   required="lessor_dealer"/>
+                            <field name="unguaranteed_residual_value"
+                                   readonly="state != 'draft'"
+                                   invisible="not lessor_dealer"/>
+                        </group>
+                        <p class="text-muted" colspan="2"
+                           invisible="not lessor_dealer">
+                            Selling profit at commencement: net investment = PV of the lease payments plus the PV of the unguaranteed residual; selling revenue = lower of fair value and PV of the lease payments; cost of sale = carrying amount less PV of the unguaranteed residual; the difference posts to P&amp;L (IFRS 16.71-74). Interest income then accrues on the net investment.
+                        </p>
+                    </group>
+                    <group string="Recognition Exemption and Components"
+                           invisible="lessor_mode != 'none'">
+                        <group>
+                            <field name="exemption"
+                                   readonly="state != 'draft'"/>
+                            <field name="underlying_asset_value"
+                                   readonly="state != 'draft'"
+                                   invisible="exemption != 'low_value'"/>
+                        </group>
+                        <group>
+                            <field name="payment_service_pct"
+                                   readonly="state != 'draft'"
+                                   invisible="exemption != 'none'"/>
+                            <field name="underlying_useful_life_months"
+                                   readonly="state != 'draft'"
+                                   invisible="exemption != 'none'"/>
+                        </group>
+                        <field name="exemption_election_note"
+                               readonly="state != 'draft'"
+                               invisible="exemption == 'none'"
+                               placeholder="Class of underlying asset and the election covering it (IFRS 16.8)..."
+                               colspan="2"/>
+                        <field name="component_allocation_note"
+                               readonly="state != 'draft'"
+                               invisible="not payment_service_pct"
+                               placeholder="Stand-alone price evidence for the service share (IFRS 16.14)..."
+                               colspan="2"/>
+                    </group>
+                    <group>
+                        <group invisible="exemption != 'none' or lessor_mode != 'none'">
+                            <field name="rou_asset_account_id" readonly="state != 'draft'"/>
+                            <field name="lease_liability_account_id" readonly="state != 'draft'"/>
+                            <field name="interest_expense_account_id" readonly="state != 'draft'"/>
+                        </group>
+                        <group invisible="exemption != 'none' or lessor_mode != 'none'">
+                            <field name="rou_depreciation_account_id" readonly="state != 'draft'"/>
+                            <field name="rou_accumulated_depreciation_account_id" readonly="state != 'draft'"/>
+                        </group>
+                        <group invisible="lessor_mode != 'operating'">
+                            <field name="lessor_income_account_id" readonly="state != 'draft'"/>
+                        </group>
+                        <group invisible="lessor_mode != 'finance'">
+                            <field name="net_investment_account_id" readonly="state != 'draft'"/>
+                            <field name="lessor_interest_income_account_id" readonly="state != 'draft'"/>
+                            <field name="lessor_counterpart_account_id" readonly="state != 'draft'"/>
+                            <field name="dealer_revenue_account_id"
+                                   readonly="state != 'draft'"
+                                   invisible="not lessor_dealer"
+                                   required="lessor_dealer"/>
+                            <field name="dealer_cost_of_sale_account_id"
+                                   readonly="state != 'draft'"
+                                   invisible="not lessor_dealer"
+                                   required="lessor_dealer"/>
+                        </group>
+                        <group>
+                            <field name="lease_expense_account_id"
+                                   readonly="state != 'draft'"
+                                   invisible="lessor_mode != 'none' or (exemption == 'none' and not payment_service_pct)"/>
+                            <field name="cash_account_id" readonly="state != 'draft'"/>
+                            <field name="journal_id" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="rou_initial_value"/>
+                            <field name="liability_initial_value"/>
+                            <field name="opening_move_id"/>
+                        </group>
+                        <group>
+                            <field name="total_paid"/>
+                            <field name="total_interest"/>
+                            <field name="total_principal"/>
+                            <field name="liability_balance"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Schedule">
+                            <field name="schedule_line_ids" readonly="1">
+                                <list>
+                                    <field name="sequence"/>
+                                    <field name="period_date"/>
+                                    <field name="liability_open"/>
+                                    <field name="payment_amount" sum="Payments"/>
+                                    <field name="service_amount" sum="Service"
+                                           optional="hide"/>
+                                    <field name="interest" sum="Interest"/>
+                                    <field name="principal" sum="Principal"/>
+                                    <field name="liability_close"/>
+                                    <field name="rou_amount" sum="ROU Dep"/>
+                                    <field name="is_posted"/>
+                                    <field name="is_event_accrual" optional="hide"/>
+                                    <field name="move_id" optional="hide"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Term Options"
+                              name="term_options"
+                              invisible="lessor_mode != 'none'">
+                            <p class="text-muted">
+                                IFRS 16.18: only options flagged reasonably certain enter the lease term and liability. Extension months extend the schedule; a reasonably-certain termination penalty or purchase price is included in the liability and settles with the final payment; a reasonably-certain purchase option depreciates the ROU over the underlying asset's useful life (IFRS 16.32). Options freeze once the lease is active.
+                            </p>
+                            <field name="option_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="option_type"/>
+                                    <field name="extension_months"
+                                           optional="show"/>
+                                    <field name="termination_penalty"
+                                           widget="monetary" optional="show"/>
+                                    <field name="purchase_price"
+                                           widget="monetary" optional="show"/>
+                                    <field name="reasonably_certain"/>
+                                    <field name="note" optional="show"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Modifications">
+                            <group>
+                                <field name="modification_count"/>
+                                <field name="last_modified_at"/>
+                                <field name="modification_move_ids"
+                                       widget="many2many_tags"
+                                       options="{'no_create': True}"
+                                       readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Termination" invisible="state != 'terminated'">
+                            <group>
+                                <field name="termination_date"/>
+                                <field name="terminated_at"/>
+                                <field name="terminated_by_id"/>
+                                <field name="termination_move_id"/>
+                            </group>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_lease_contract_search" model="ir.ui.view">
+        <field name="name">eh.lease.contract.search</field>
+        <field name="model">eh.lease.contract</field>
+        <field name="arch" type="xml">
+            <search string="Lease Contracts">
+                <field name="name"/>
+                <field name="reference"/>
+                <field name="lessor_id"/>
+                <filter string="Draft" name="state_draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="Active" name="state_active"
+                        domain="[('state', 'in', ['active', 'modified'])]"/>
+                <filter string="Ended" name="state_ended"
+                        domain="[('state', '=', 'ended')]"/>
+                <filter string="Terminated" name="state_terminated"
+                        domain="[('state', '=', 'terminated')]"/>
+                <separator/>
+                <filter string="Exempt (Short-Term / Low-Value)" name="exempt"
+                        domain="[('exemption', '!=', 'none')]"/>
+                <filter string="Lessor Contracts" name="lessor_contracts"
+                        domain="[('lessor_mode', '!=', 'none')]"/>
+                <group>
+                    <filter string="Exemption" name="group_exemption"
+                            context="{'group_by': 'exemption'}"/>
+                    <filter string="Accounting Mode" name="group_lessor_mode"
+                            context="{'group_by': 'lessor_mode'}"/>
+                    <filter string="Lessor" name="group_lessor"
+                            context="{'group_by': 'lessor_id'}"/>
+                    <filter string="Cadence" name="group_cadence"
+                            context="{'group_by': 'cadence'}"/>
+                    <filter string="State" name="group_state"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_lease_contract" model="ir.actions.act_window">
+        <field name="name">Lease Contracts</field>
+        <field name="res_model">eh.lease.contract</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first lease contract</p>
+            <p>Model an IFRS 16 lessee lease with its term, payment cadence and borrowing rate. Use New to enter the terms, then activate it to build the ROU asset, lease liability and amortisation schedule.</p>
+        </field>
+        <field name="search_view_id" ref="view_eh_lease_contract_search"/>
+    </record>
+
+</odoo>

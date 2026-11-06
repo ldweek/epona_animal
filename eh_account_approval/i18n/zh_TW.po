@@ -1,0 +1,1838 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_approval
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Chinese (Traditional)\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid " (manual)"
+msgstr "(manual)"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid ""
+"%(move)s has approval request %(req)s in state %(state)s. Posting is blocked"
+" until the request is approved."
+msgstr "%(move)s 有一個處於 %(state)s 狀態的核准請求 %(req)s。在請求獲批之前，過帳將被封鎖。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid ""
+"%(move)s requires approval per policy %(policy)s before posting. Click "
+"'Request Approval' to start."
+msgstr "根據政策 %(policy)s，%(move)s 在過帳前需要核准。點擊「請求核准」開始。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "(no SLA)"
+msgstr "(無 SLA)"
+
+#. module: eh_account_approval
+#: model:mail.template,body_html:eh_account_approval.email_template_eh_approval_reminder
+msgid ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #C9A372;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;letter-spacing:-0.01em;\">\n"
+"                                Approval awaiting your sign-off\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#6c757d;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;\">\n"
+"                                ERP Heritage Accounting Suite\n"
+"                            </p>\n"
+"                        </div>\n"
+"\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Hello,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            <strong t-out=\"object.name\"/> on\n"
+"                            <strong t-out=\"object.move_id.name\"/> is awaiting\n"
+"                            sign-off from\n"
+"                            <strong t-out=\"object.pending_group_id.name\"/>.\n"
+"                        </p>\n"
+"\n"
+"                        <table style=\"width:100%;border-collapse:collapse;margin:18px 0;background:#fff;border:1px solid #e1e4e8;border-radius:6px;\">\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    Amount\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;font-weight:600;border-bottom:1px solid #e1e4e8;text-align:right;\" t-out=\"'{:,.2f}'.format(object.submitted_amount or 0.0)\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    Requested by\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;border-bottom:1px solid #e1e4e8;text-align:right;\" t-out=\"object.requested_by_id.name\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;\">\n"
+"                                    Due\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;text-align:right;\" t-out=\"object.due_at and object.due_at.strftime('%Y-%m-%d %H:%M') or '(no SLA)'\"/>\n"
+"                            </tr>\n"
+"                        </table>\n"
+"\n"
+"                        <p style=\"margin:0 0 18px 0;font-size:14px;line-height:1.55;\">\n"
+"                            Open the request in Odoo to approve, reject, or comment.\n"
+"                        </p>\n"
+"\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #C9A372;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;letter-spacing:-0.01em;\">\n"
+"                                有一項審批待您簽核\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#6c757d;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;\">\n"
+"                                ERP Heritage Accounting Suite\n"
+"                            </p>\n"
+"                        </div>\n"
+"\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            您好，\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            <strong t-out=\"object.name\"/>（位於\n"
+"                            <strong t-out=\"object.move_id.name\"/>）正在等待\n"
+"                            簽核方：\n"
+"                            <strong t-out=\"object.pending_group_id.name\"/>.\n"
+"                        </p>\n"
+"\n"
+"                        <table style=\"width:100%;border-collapse:collapse;margin:18px 0;background:#fff;border:1px solid #e1e4e8;border-radius:6px;\">\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    金額\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;font-weight:600;border-bottom:1px solid #e1e4e8;text-align:right;\" t-out=\"'{:,.2f}'.format(object.submitted_amount or 0.0)\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    申請人\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;border-bottom:1px solid #e1e4e8;text-align:right;\" t-out=\"object.requested_by_id.name\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;\">\n"
+"                                    截止\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;text-align:right;\" t-out=\"object.due_at and object.due_at.strftime('%Y-%m-%d %H:%M') or '(no SLA)'\"/>\n"
+"                            </tr>\n"
+"                        </table>\n"
+"\n"
+"                        <p style=\"margin:0 0 18px 0;font-size:14px;line-height:1.55;\">\n"
+"                            在 Odoo 中開啟該請求以核准、拒絕或評論。\n"
+"                        </p>\n"
+"\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_kanban
+msgid "<i class=\"fa fa-clock-o\" title=\"Due date\"/>"
+msgstr "<i class=\"fa fa-clock-o\" title=\"到期日\"/>"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_kanban
+msgid ""
+"<i class=\"fa fa-exclamation-triangle\" title=\"Escalated\"/>\n"
+"                                Escalated"
+msgstr ""
+"<i class=\"fa fa-exclamation-triangle\" title=\"已升級\"/>\n"
+"                                已升級"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_kanban
+msgid "<i class=\"fa fa-users\" title=\"Approver group\"/>"
+msgstr "<i class=\"fa fa-users\" title=\"核准人群組\"/>"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_account_move_form_approval
+msgid "<span class=\"o_stat_text\">Approval</span>"
+msgstr "<span class=\"o_stat_text\">核准</span>"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy__document_type
+msgid "Account.move move_type this policy applies to."
+msgstr "此原則適用的 Account.move move_type。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__action
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+msgid "Action"
+msgstr "動作"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_needaction
+msgid "Action Needed"
+msgstr "需要採取行動"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__active
+msgid "Active"
+msgstr "啟用"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_ids
+msgid "Activities"
+msgstr "活動"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "活動異常圖示"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_state
+msgid "Activity State"
+msgstr "活動狀態"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "活動類型圖示"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__user_id
+msgid "Actor"
+msgstr "參與者"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__inject_manager
+msgid "Add requester's manager"
+msgstr "新增申請人的主管"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "All steps approved."
+msgstr "所有步驟均已核准。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__allow_self_approval
+msgid "Allow Self Approval"
+msgstr "允許自我核准"
+
+#. module: eh_account_approval
+#: model:ir.model.constraint,message:eh_account_approval.constraint_eh_approval_policy_rule_check_amount_band
+msgid ""
+"Amount band invalid: min and max must be non-negative and max >= min when "
+"max is non-zero."
+msgstr "金額區間無效：最小值和最大值必須為非負數，且當最大值非零時 max >= min。"
+
+#. module: eh_account_approval
+#: model:ir.model.constraint,message:eh_account_approval.constraint_eh_approval_vote_unique_vote
+msgid "An approver can vote at most once per step."
+msgstr "每位核准人在每個步驟中最多只能投票一次。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__group_id
+msgid ""
+"Any user in this group can sign off when the request reaches this step. "
+"Optional when named approvers or manager injection are configured instead."
+msgstr "當請求到達此步驟時，此群組中的任何使用者均可簽核。當改為配置指定審批人或注入經理時，此項為選填。"
+
+#. module: eh_account_approval
+#: model:ir.actions.act_window,name:eh_account_approval.action_eh_approval_log
+#: model:ir.ui.menu,name:eh_account_approval.menu_eh_approval_log
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_list
+msgid "Approval Decisions"
+msgstr "審批決定"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__approval_minimum
+msgid "Approval Minimum"
+msgstr "審批最低數量"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__approval_mode
+msgid "Approval Mode"
+msgstr "審批模式"
+
+#. module: eh_account_approval
+#: model:ir.actions.act_window,name:eh_account_approval.action_eh_approval_policy
+#: model:ir.ui.menu,name:eh_account_approval.menu_eh_approval_policy
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_list
+msgid "Approval Policies"
+msgstr "審批政策"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid "Approval Policy"
+msgstr "審批政策"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Approval Request"
+msgstr "申請批准"
+
+#. module: eh_account_approval
+#: model:ir.actions.act_window,name:eh_account_approval.action_eh_approval_request
+#: model:ir.ui.menu,name:eh_account_approval.menu_eh_approval_request
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_list
+msgid "Approval Requests"
+msgstr "審批請求"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid "Approval Rule"
+msgstr "批核規則"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_log
+msgid "Approval log entry"
+msgstr "審批日誌項目"
+
+#. module: eh_account_approval
+#: model:ir.model.constraint,message:eh_account_approval.constraint_eh_approval_policy_rule_step_check_minimum
+msgid "Approval minimum must be at least 1."
+msgstr "審批最低數量必須至少為 1。"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_policy
+msgid "Approval policy"
+msgstr "審批政策"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_policy_rule
+msgid "Approval policy rule"
+msgstr "審批政策規則"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_policy_rule_step
+msgid "Approval policy rule step"
+msgstr "審批政策規則步驟"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_request
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_account_move_form_approval
+msgid "Approval request"
+msgstr "審批請求"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid "Approval requested for amount %.2f"
+msgstr "已請求審批金額 %.2f"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_bank_statement_line__eh_approval_request_ids
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__eh_approval_request_ids
+msgid "Approval requests"
+msgstr "審批請求"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_bank_statement_line__eh_approval_state
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__eh_approval_state
+msgid "Approval state"
+msgstr "審批狀態"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_log__step
+msgid "Approval step at which this action took place."
+msgstr "此操作發生的審批步驟。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"Approval step has already advanced. Refresh the request and re-evaluate; "
+"another approver may have already signed off."
+msgstr "審批步驟已經推進。請重新整理請求並重新評估；可能已有另一位審批人簽署。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__step_ids
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid "Approval steps (in order)"
+msgstr "審批步驟（按順序）"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_eh_approval_vote
+msgid "Approval vote"
+msgstr "審批投票"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Approve"
+msgstr "審批"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Approve this step? Any user in the pending group can sign."
+msgstr "核准此步驟？待處理群組中的任何使用者都可以簽署。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Approve: %s"
+msgstr "核准：%s"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__approved
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__approved
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_vote__decision__approve
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Approved"
+msgstr "已審批"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__approver_count
+msgid "Approver Count"
+msgstr "審批人數量"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__approver_summary
+msgid "Approver chain"
+msgstr "審批鏈"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__group_id
+msgid "Approver group"
+msgstr "審批群組"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__request_note
+msgid "Approver note"
+msgstr "審批人備註"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__required_approver_ids
+msgid ""
+"Approvers who MUST sign before this step advances, even if the minimum count"
+" is otherwise met. Must be a subset of the eligible approvers (named "
+"approvers or group members)."
+msgstr "在此步驟推進之前必須簽字的審批人，即使已透過其他方式滿足最低數量要求。必須是符合條件審批人（指定審批人或群組成員）的子集。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__archived
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Archived"
+msgstr "已封存"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__sla_state__at_risk
+msgid "At risk"
+msgstr "有風險"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_attachment_count
+msgid "Attachment Count"
+msgstr "附件數目"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Audit log"
+msgstr "稽核日誌"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Awaiting submission"
+msgstr "等待提交"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__sla_state__breached
+msgid "Breached"
+msgstr "已違反"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__request_date
+msgid ""
+"Business date the request concerns (delivery, service period, etc.); "
+"distinct from the submission timestamp."
+msgstr "此請求所涉及的業務日期（交付、服務期間等）；不同於提交時間戳記。"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid ""
+"Bypass the remaining approval chain and approve outright? This is logged."
+msgstr "略過剩餘的審批鏈並直接核准？此操作將被記錄。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Cannot withdraw %s in state %s."
+msgstr "無法撤回處於 %s 狀態的 %s。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__comment
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__comment
+msgid "Comment"
+msgstr "評論"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__company_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__company_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__company_id
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Company"
+msgstr "公司"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__completed
+msgid "Completed"
+msgstr "已完成"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_res_partner
+msgid "Contact"
+msgstr "聯絡人"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Created Month"
+msgstr "建立月份"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__create_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__create_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__create_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__create_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__create_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__create_uid
+msgid "Created by"
+msgstr "建立人員"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__create_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__create_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__create_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__create_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__create_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__create_date
+msgid "Created on"
+msgstr "建立於"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__currency_id
+msgid "Currency"
+msgstr "貨幣"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__currency_id
+msgid ""
+"Currency of the underlying move; used by views to render submitted_amount "
+"with the correct symbol."
+msgstr "基礎分錄的貨幣；供視圖使用正確的符號呈現 submitted_amount。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__current_step
+msgid "Current Step"
+msgstr "目前步驟"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy__document_type__out_invoice
+msgid "Customer invoice"
+msgstr "客戶發票"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Customer invoices"
+msgstr "客戶發票"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy__document_type__out_refund
+msgid "Customer refund"
+msgstr "客戶退款"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Customer refunds"
+msgstr "客戶退款"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__due_at
+msgid ""
+"Deadline derived from rule.sla_hours. Empty when the rule has no SLA target."
+msgstr "從 rule.sla_hours 衍生的截止日期。當規則沒有 SLA 目標時為空。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__decision
+msgid "Decision"
+msgstr "決定"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__delegated
+msgid "Delegated"
+msgstr "已委派"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__display_name
+#: model:ir.model.fields,field_description:eh_account_approval.field_res_partner__display_name
+msgid "Display Name"
+msgstr "顯示名稱"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__document_type
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Document Type"
+msgstr "文件類型"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__due_at
+msgid "Due At"
+msgstr "到期時間"
+
+#. module: eh_account_approval
+#: model:mail.template,name:eh_account_approval.email_template_eh_approval_reminder
+msgid "EH Approval Reminder"
+msgstr "EH 核准提醒"
+
+#. module: eh_account_approval
+#: model:ir.actions.server,name:eh_account_approval.cron_eh_approval_sla_sweep_ir_actions_server
+msgid "EH Approval: SLA reminder & escalation sweep"
+msgstr "EH 核准：SLA 提醒與升級掃描"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_bank_statement_line__eh_active_approval_request_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__eh_active_approval_request_id
+msgid "Eh Active Approval Request"
+msgstr "Eh 活動核准請求"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_res_partner__eh_pending_approval_count
+#: model:ir.model.fields,field_description:eh_account_approval.field_res_users__eh_pending_approval_count
+msgid "Eh Pending Approval Count"
+msgstr "待審批數量"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_bank_statement_line__eh_requires_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__eh_requires_approval
+msgid "Eh Requires Approval"
+msgstr "需要審批"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__escalate_after_hours
+msgid "Escalate After Hours"
+msgstr "超時後升級（小時）"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Escalate Now"
+msgstr "立即升級"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__escalate_to_group_id
+msgid "Escalate To Group"
+msgstr "升級至群組"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__escalated
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Escalated"
+msgstr "曾升級"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Escalated to %s%s"
+msgstr "已升級至 %s%s"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__escalation_level
+msgid "Escalation Level"
+msgstr "升級層級"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"Escalation: approval %(name)s breached its SLA by %(hours).1f hours. "
+"Forwarding to %(group)s for intervention."
+msgstr "升級：審批 %(name)s 超出其 SLA 達 %(hours).1f 小時。正在轉發至 %(group)s 進行介入。"
+
+#. module: eh_account_approval
+#: model_terms:ir.actions.act_window,help:eh_account_approval.action_eh_approval_log
+msgid ""
+"Every approval, rejection, withdrawal, and override appears here. Rows are "
+"append-only; the table refuses write and unlink at the framework level."
+msgstr "每一次核准、拒絕、撤回和覆寫都會顯示在此處。列僅允許附加；表格在框架層級拒絕寫入和取消關聯。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_follower_ids
+msgid "Followers"
+msgstr "關注人"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "關注人（業務夥伴）"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font awesome 圖示，例如，fa-task"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Force Approve"
+msgstr "強制核准"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__force_approved
+msgid "Force approved"
+msgstr "已強制核准"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Force approved."
+msgstr "已強制核准。"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Forward this request to the configured escalation group?"
+msgstr "將此請求轉發至已設定的升級群組？"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_log__comment
+msgid ""
+"Free-form note. The only field that stays writable after the row is created."
+msgstr "自由格式備註。列建立後唯一保持可寫入的欄位。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__request_reference
+msgid ""
+"Free-form reference shown to approvers (PO number, contract id, ticket, "
+"etc.)."
+msgstr "向核准人顯示的自由格式參照（PO 編號、合約 id、工單等）。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__escalate_to_group_id
+msgid ""
+"Group the request is escalated to after the breach window expires. Leave "
+"empty to disable escalation; the cron will still post a chatter warning so "
+"the requester sees the miss."
+msgstr "在違約視窗到期後請求升級到的群組。留空以停用升級；cron 仍會發佈聊天警告，讓請求者看到未達標情況。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__has_message
+msgid "Has Message"
+msgstr "有訊息"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_account_move__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__id
+#: model:ir.model.fields,field_description:eh_account_approval.field_res_partner__id
+msgid "ID"
+msgstr "識別號"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_exception_icon
+msgid "Icon"
+msgstr "圖示"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "用於指示異常活動的圖示。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "勾選代表有新訊息需要您留意。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__message_has_error
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "勾選代表有訊息發生傳送錯誤。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__in_review
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "In review"
+msgstr "審核中"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_is_follower
+msgid "Is Follower"
+msgstr "是關注人"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__is_overdue
+msgid "Is Overdue"
+msgstr "是否已逾期"
+
+#. module: eh_account_approval
+#: model:ir.model,name:eh_account_approval.model_account_move
+msgid "Journal Entry"
+msgstr "日記賬記項"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Journal entries"
+msgstr "日記帳分錄"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy__document_type__entry
+msgid "Journal entry"
+msgstr "日記帳分錄"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__last_escalated_at
+msgid "Last Escalated At"
+msgstr "上次升級時間"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__last_reminded_at
+msgid "Last Reminded At"
+msgstr "最後提醒時間"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__write_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__write_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__write_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__write_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__write_uid
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__write_uid
+msgid "Last Updated by"
+msgstr "最後更新者"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__write_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__write_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__write_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__write_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__write_date
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__write_date
+msgid "Last Updated on"
+msgstr "最後更新於"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__sla_state
+msgid "Lifecycle bucket used by dashboards and the kanban view."
+msgstr "儀表板和看板檢視所使用的生命週期分組。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__log_ids
+msgid "Log"
+msgstr "日誌"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__min_amount
+msgid "Lower bound of the amount band (inclusive)."
+msgstr "金額級距的下限（含）。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Material amount change triggered re-approval."
+msgstr "金額發生重大變更，已觸發重新核准。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__max_amount
+msgid "Max Amount"
+msgstr "最大金額"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__pending_group_user_ids
+msgid "Members of the pending group, surfaced for the kanban inbox."
+msgstr "待處理群組的成員，顯示於看板收件匣中。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_has_error
+msgid "Message Delivery error"
+msgstr "訊息遞送錯誤"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_ids
+msgid "Messages"
+msgstr "訊息"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__min_amount
+msgid "Min Amount"
+msgstr "最小金額"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__approval_minimum
+msgid ""
+"Minimum number of distinct approvals before the step advances (N-of-M). "
+"Default 1 = any single eligible approver. The required approvers always "
+"count toward and must be included in this minimum."
+msgstr "步驟推進前所需的不同核准的最少數量 (N-of-M)。預設值 1 = 任一符合條件的核准人。必要核准人始終計入此最小值並且必須包含在其中。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__move_id
+msgid "Move"
+msgstr "分錄"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__submitted_amount
+msgid "Move amount at submission. Used for re-approval detection."
+msgstr "提交時的分錄金額。用於重新核准偵測。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid ""
+"Move amount changed from %(old).2f to %(new).2f after approval; re-approval "
+"required."
+msgstr "核准後分錄金額從 %(old).2f 變更為 %(new).2f；需要重新核准。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid ""
+"Move amount changed materially after approval. The request has been reset; "
+"every step must re-sign before posting."
+msgstr "核准後分錄金額發生實質性變更。請求已重設；過帳前每個步驟必須重新簽署。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "我的活動截止時間"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "My pending step"
+msgstr "我的待處理步驟"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__name
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__name
+msgid "Name"
+msgstr "名稱"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__approver_ids
+msgid "Named approvers"
+msgstr "指定核准人"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "下一個活動日曆事件"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "下一活動截止日期"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_summary
+msgid "Next Activity Summary"
+msgstr "下一活動摘要"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_type_id
+msgid "Next Activity Type"
+msgstr "下一活動類型"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__sla_state__na
+msgid "No SLA"
+msgstr "無 SLA"
+
+#. module: eh_account_approval
+#: model_terms:ir.actions.act_window,help:eh_account_approval.action_eh_approval_log
+msgid "No approval decisions yet."
+msgstr "尚無審批決定。"
+
+#. module: eh_account_approval
+#: model_terms:ir.actions.act_window,help:eh_account_approval.action_eh_approval_policy
+msgid "No approval policies yet."
+msgstr "尚無審批政策。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid "No approval policy applies to %s. Configure one or post directly."
+msgstr "沒有審批政策適用於 %s。請設定一個或直接過帳。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"No escalation group is configured on rule %(name)s. Set escalate_to_group_id"
+" on the policy rule first."
+msgstr "規則 %(name)s 上未設定升級群組。請先在原則規則上設定 escalate_to_group_id。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__notes
+msgid "Notes"
+msgstr "備註"
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid ""
+"Now find the <b>Approval Policies</b> entry under Configuration. A policy "
+"maps a document type (vendor bills, customer invoices, journal entries) to a"
+" set of approver groups."
+msgstr "現在在配置下找到<b>審批政策</b>項目。政策將文件類型（供應商帳單、客戶發票、日記帳分錄）對應到一組審批人群組。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_needaction_counter
+msgid "Number of Actions"
+msgstr "動作數量"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_has_error_counter
+msgid "Number of errors"
+msgstr "錯誤數量"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "需要採取行動的訊息數目"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "有發送錯誤的郵件數量"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__escalation_level
+msgid ""
+"Number of times the SLA has been breached on this request. Each escalation "
+"pass increments by one."
+msgstr "此請求中 SLA 被違反的次數。每次升級處理都會加一。"
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid ""
+"On a policy, add at least one <b>rule</b> with an amount band and an ordered"
+" list of approver groups. The first rule whose band matches the move's "
+"amount wins; the request walks the group list one signature at a time."
+msgstr ""
+"在原則中，至少新增一條包含金額區間和已排序核准群組清單的<b>規則</b>。區間與分錄金額相符的第一條規則生效；請求會沿著群組清單逐一簽核。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__sla_state__on_track
+msgid "On track"
+msgstr "進展正常"
+
+#. module: eh_account_approval
+#: model_terms:ir.actions.act_window,help:eh_account_approval.action_eh_approval_policy
+msgid ""
+"One policy per (company, document type). Rules within a policy carry an "
+"amount band and an ordered list of approver groups. Documents below the "
+"lowest band post without approval."
+msgstr "每個（公司、單據類型）對應一項政策。政策內的規則帶有金額區間和有序的審批人群組清單。低於最低區間的單據無需審批即可過帳。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Only an EH Accounting Manager can force-approve a request."
+msgstr "只有 EH 會計經理才能強制核准請求。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Only approved requests can be archived."
+msgstr "只有已核准的請求才能封存。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Only in-review requests can be force-approved; %s is %s."
+msgstr "只有審核中的請求才能強制核准；%s 為 %s。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Only pending requests can be submitted; %s is %s."
+msgstr "只有待處理的請求才能提交；%s 為 %s。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"Only the requester or an EH Accounting Manager can withdraw an approval "
+"request."
+msgstr "只有請求者或 EH 會計經理才能撤回審批請求。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Only withdrawn or rejected requests can be restarted."
+msgstr "只有已撤回或已拒絕的請求才能重新啟動。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_res_partner__eh_pending_approval_count
+#: model:ir.model.fields,help:eh_account_approval.field_res_users__eh_pending_approval_count
+msgid ""
+"Open approval requests on invoices/bills for this partner. Pending and "
+"in_review states count; approved, rejected, withdrawn and archived do not."
+msgstr ""
+"此合作夥伴的發票/帳單上的待處理審批請求。pending 和 in_review 狀態計入；approved、rejected、withdrawn 和 "
+"archived 不計入。"
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid "Open the <b>Accounting</b> menu first."
+msgstr "請先開啟<b>會計</b>選單。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy__re_approval_threshold_abs
+msgid ""
+"Optional absolute floor for re-approval. A change of less than this amount "
+"never triggers re-approval, even if it exceeds the percentage threshold. 0 "
+"disables the floor."
+msgstr "重新核准的選用絕對下限。低於此金額的變更絕不會觸發重新核准，即使超過百分比閾值也是如此。0 表示停用該下限。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__name
+msgid "Optional label shown in the policy form rule list."
+msgstr "在原則表單規則清單中顯示的選填標籤。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__step_ids
+msgid ""
+"Ordered approval steps. The request walks the steps one at a time, top to "
+"bottom; any user in the step's group can sign off to advance the request. "
+"The step sequence is the single source of truth for order, so creating or "
+"removing unrelated security groups in the system never reorders the steps of"
+" a rule already in use."
+msgstr ""
+"有序的核准步驟。請求逐一從上到下經過各步驟；步驟所屬群組中的任何使用者都可簽核以推進請求。步驟順序是排序的唯一可信來源，因此在系統中建立或移除無關的安全性群組永遠不會重新排列已在使用中規則的步驟。"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Overdue (SLA breached)"
+msgstr "逾期（違反 SLA）"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy_rule__approval_mode__parallel
+msgid "Parallel"
+msgstr "並行"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__pending
+msgid "Pending"
+msgstr "暫停"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_partner_form_approvals
+msgid "Pending Approvals"
+msgstr "待核准項目"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__pending_group_id
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Pending Group"
+msgstr "待處理群組"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__pending_group_user_ids
+msgid "Pending Group User"
+msgstr "待處理群組使用者"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_partner_form_approvals
+msgid "Pending approvals"
+msgstr "待核准項目"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Pending approvers"
+msgstr "待處理核准人"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__vote_ids
+msgid ""
+"Per-approver decisions, used for N-of-M and required approver tracking."
+msgstr "按核准人列示的決策，用於 N-of-M 及必要核准人追蹤。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__policy_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__policy_id
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Policy"
+msgstr "政策"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/account_move.py:0
+msgid ""
+"Policy %(policy)s has no rule covering amount %(amt).2f. Adjust the policy's"
+" amount bands."
+msgstr "政策 %(policy)s 沒有涵蓋金額 %(amt).2f 的規則。請調整該政策的金額區間。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_policy.py:0
+msgid ""
+"Policy %s has no rules. Add at least one rule with an amount band and an "
+"approver group."
+msgstr "政策 %s 沒有規則。請至少新增一條包含金額區間和核准人群組的規則。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__sequence
+msgid ""
+"Position of this step in the approval chain. The request advances through "
+"the steps in ascending sequence; ties break on record id. This column is the"
+" only thing that decides step order, so it cannot drift when unrelated "
+"security groups are created or removed elsewhere in the system, even for a "
+"request already in review."
+msgstr ""
+"此步驟在審批鏈中的位置。請求按升序依次通過各步驟；出現並列時按記錄 ID "
+"決定順序。此欄是決定步驟順序的唯一依據，因此當系統中其他地方建立或刪除無關的安全群組時，它不會發生偏移，即使對於已在審核中的請求也是如此。"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Post a chatter note tagging the current approver group."
+msgstr "在訊息記錄中張貼一則備註並標記目前的核准人群組。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__rating_ids
+msgid "Ratings"
+msgstr "評分"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__re_approval_threshold_abs
+msgid "Re Approval Threshold Abs"
+msgstr "重新核准門檻（絕對值）"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__re_approval_threshold_pct
+msgid "Re Approval Threshold Pct"
+msgstr "重新核准門檻（百分比）"
+
+#. module: eh_account_approval
+#: model:ir.model.constraint,message:eh_account_approval.constraint_eh_approval_policy_check_thresholds
+msgid "Re-approval thresholds cannot be negative."
+msgstr "重新核准門檻不能為負數。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__approver_summary
+msgid "Read-only preview of the ordered approver groups."
+msgstr "已排序核准人群組的唯讀預覽。"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Reject"
+msgstr "拒絕"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid ""
+"Reject the request? This is terminal; the move cannot post until a new "
+"request is created."
+msgstr "拒絕該請求？此操作為最終操作；在建立新請求之前無法過帳該分錄。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__rejected
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__rejected
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_vote__decision__reject
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+msgid "Rejected"
+msgstr "已拒絕"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Rejected / Withdrawn"
+msgstr "已拒絕 / 已撤回"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Rejected: %s"
+msgstr "已拒絕：%s"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__rejection_reason
+msgid "Rejection Reason"
+msgstr "拒絕原因"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__request_partner_id
+msgid "Related partner"
+msgstr "關聯業務夥伴"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__reminder_after_hours
+msgid "Reminder After Hours"
+msgstr "非工作時間後提醒"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"Reminder: approval %(name)s for %(amount).2f is awaiting sign-off by "
+"%(group)s. Due %(due)s."
+msgstr "提醒：金額為 %(amount).2f 的審批 %(name)s 正在等待 %(group)s 簽核。截止日期 %(due)s。"
+
+#. module: eh_account_approval
+#: model:mail.template,subject:eh_account_approval.email_template_eh_approval_reminder
+msgid "Reminder: approval awaiting your sign-off — {{ object.name }}"
+msgstr "提醒：審批正在等待您的簽核 — {{ object.name }}"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__request_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__request_id
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+msgid "Request"
+msgstr "請求"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Request %s has no pending step; nothing to approve."
+msgstr "請求 %s 沒有待處理步驟；無需核准。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Request %s is %s; only in-review requests can be approved or rejected."
+msgstr "請求 %s 為 %s；只有審核中的請求才能核准或拒絕。"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_account_move_form_approval
+msgid "Request Approval"
+msgstr "請求批准"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__request_date
+msgid "Request Date"
+msgstr "請求日期"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__request_reference
+msgid "Request Reference"
+msgstr "請求參照"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Request details"
+msgstr "請求詳情"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__requested_by_id
+msgid "Requested By"
+msgstr "請求人"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "Requester"
+msgstr "請求者"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__required_approver_ids
+msgid "Required approvers"
+msgstr "所需核准人"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__reset
+msgid "Reset (re-approval triggered)"
+msgstr "重設（已觸發重新核准）"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__activity_user_id
+msgid "Responsible User"
+msgstr "責任使用者"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Restart"
+msgstr "重新開始"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__restarted
+msgid "Restarted"
+msgstr "已重新啟動"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Restarted."
+msgstr "已重新啟動。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__rule_ids
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__rule_id
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__rule_id
+msgid "Rule"
+msgstr "規則"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_policy.py:0
+msgid ""
+"Rule %s has no approval steps. Add at least one step; the rule is "
+"meaningless without one."
+msgstr "規則 %s 沒有核准步驟。請至少新增一個步驟；否則該規則毫無意義。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__rule_count
+msgid "Rule Count"
+msgstr "規則數"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid "Rules"
+msgstr "規則"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid ""
+"Rules are evaluated in sequence; the first rule whose amount band matches "
+"wins. Use min_amount=0 / max_amount=0 to match any amount. Approver groups "
+"are signed in the listed order; any user in the current group can sign for "
+"that step."
+msgstr ""
+"規則按順序評估；金額區間首先符合的規則勝出。使用 min_amount=0 / max_amount=0 "
+"可符合任意金額。核准群組按所列順序簽署；目前群組中的任何使用者均可為該步驟簽署。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"SLA breached on %(name)s by %(hours).1f hours. No escalation group is "
+"configured; manual follow-up needed."
+msgstr "%(name)s 的 SLA 已逾時 %(hours).1f 小時。未設定升級群組；需要手動跟進。"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid ""
+"SLA hours sets the deadline from submission to final approval. Reminder "
+"hours pings the current approver group at that fraction of the window. "
+"Escalation hours forwards a still-unsigned request to the escalation group "
+"after the breach."
+msgstr ""
+"SLA "
+"小時數設定從提交到最終核准的截止時間。提醒小時數會在時間窗口達到該比例時通知目前的核准人群組。升級小時數會在逾時後將仍未簽署的申請轉發給升級群組。"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "SLA tracking"
+msgstr "SLA 追蹤"
+
+#. module: eh_account_approval
+#: model:ir.model.constraint,message:eh_account_approval.constraint_eh_approval_policy_rule_check_sla_hours_non_negative
+msgid "SLA, reminder and escalation hours must be zero or positive."
+msgstr "SLA、提醒和升級小時數必須為零或正數。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "簡訊發送錯誤"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Send Reminder"
+msgstr "發送提醒"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__reminder_after_hours
+msgid ""
+"Send a chatter ping to the current approver group when this many hours of "
+"the SLA have elapsed. Zero disables the pre-deadline reminder. Reminders are"
+" idempotent per step; a subsequent run will not double-post."
+msgstr "當 SLA 已過去這麼多小時時，向目前的核准群組傳送一則討論串提醒。設為零將停用截止前提醒。每個步驟的提醒是冪等的；後續執行不會重複張貼。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy__sequence
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__sequence
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule_step__sequence
+msgid "Sequence"
+msgstr "序列號"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy_rule__approval_mode__sequential
+msgid "Sequential"
+msgstr "順序"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__approval_mode
+msgid ""
+"Sequential: steps are signed in order, one after another. Parallel: every "
+"step is open at once and the request is approved when all steps are "
+"satisfied."
+msgstr "順序：各步驟按順序逐一簽署。並行：所有步驟同時開放，當所有步驟都滿足時請求即獲核准。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__sla_hours
+msgid ""
+"Service-level target in hours from request submission to the final approval."
+" Zero disables SLA tracking for this band. The cron uses this value to "
+"compute due_at and to send reminders before the deadline."
+msgstr ""
+"從提交請求到最終核准的服務級別目標（小時）。設為零將停用此級別的 SLA 追蹤。cron 使用此值計算 due_at 並在截止日期前傳送提醒。"
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid ""
+"Set <b>SLA hours</b>, <b>Reminder hours</b>, and an <b>Escalation group</b> "
+"on the rule for the request to track its deadline. The hourly cron sends "
+"reminders inside the SLA window and forwards a breached request to the "
+"escalation group once."
+msgstr ""
+"在規則上設定 <b>SLA 小時數</b>、<b>提醒小時數</b> 和 <b>升級群組</b>，以便請求追蹤其截止日期。每小時的 cron 會在 "
+"SLA 視窗內傳送提醒，並在請求違約時將其轉發給升級群組一次。"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid ""
+"Skip the SLA window and escalate immediately. Requires an escalation group "
+"on the rule."
+msgstr "略過 SLA 時間窗並立即升級。需要在規則上設定升級群組。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_policy_rule__sla_hours
+msgid "Sla Hours"
+msgstr "SLA 小時數"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__sla_state
+msgid "Sla State"
+msgstr "SLA 狀態"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__approver_ids
+msgid ""
+"Specific users who may sign this step, in addition to any group members. Use"
+" for per-person routing rather than a broad security group."
+msgstr "除任何群組成員外，可以簽署此步驟的特定使用者。用於按個人路由，而非使用寬泛的安全群組。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__last_escalated_at
+msgid "Stamped when the cron last escalated the request."
+msgstr "排程任務上次升級該請求時標記的時間。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__last_reminded_at
+msgid "Stamped when the cron last sent a pre-deadline reminder."
+msgstr "排程任務上次傳送截止日期前提醒時標記的時間。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__submitted_at
+msgid "Stamped when the request first transitions out of pending."
+msgstr "請求首次從待處理狀態轉出時標記的時間。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__state
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_search
+msgid "State"
+msgstr "狀態"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"根據活動的狀態 \n"
+" 逾期：已經超過截止日期 \n"
+" 現今：活動日期是當天 \n"
+" 計劃：未來活動。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_log__step
+msgid "Step"
+msgstr "跳號"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_policy.py:0
+msgid ""
+"Step %s has no approver source: set a group, name approvers, or enable "
+"manager injection."
+msgstr "步驟 %s 沒有核准人來源：請設定群組、指定核准人或啟用經理注入。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__step_index
+msgid "Step Index"
+msgstr "步驟索引"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Step completed; advanced."
+msgstr "步驟已完成；已推進。"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid ""
+"Steps are signed top to bottom. Drag the handle to reorder. Any user in a "
+"step's group can sign for that step."
+msgstr "步驟由上而下簽署。拖曳控點可重新排序。步驟所屬群組中的任何使用者都可以為該步驟簽署。"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Submit"
+msgstr "提交"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__submitted
+msgid "Submitted"
+msgstr "發送"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__submitted_amount
+msgid "Submitted Amount"
+msgstr "已提交金額"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__submitted_at
+msgid "Submitted At"
+msgstr "提交時間"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Submitted for approval."
+msgstr "已提交待審批。"
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid ""
+"That's it. Once a policy + rule cover a document, users see a <b>Request "
+"Approval</b> button on the draft form, and posting is blocked until every "
+"group in the rule has signed off. <br/><br/>The Approvals menu shows the "
+"live pipeline as a kanban grouped by state."
+msgstr ""
+"就這樣。一旦策略 + 規則涵蓋某個文件，使用者就會在草稿表單上看到 <b>請求核准</b> "
+"按鈕，並且在規則中的每個群組都核准之前，過帳將被封鎖。<br/><br/>核准選單以依狀態分組的看板形式顯示即時流程。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_account_bank_statement_line__eh_active_approval_request_id
+#: model:ir.model.fields,help:eh_account_approval.field_account_move__eh_active_approval_request_id
+msgid ""
+"The currently-effective approval request for this move. Empty when no policy"
+" applies, no request exists, or the request was withdrawn / rejected."
+msgstr "此傳票當前生效的核准請求。當沒有適用的政策、不存在請求或請求已撤回/被拒絕時為空。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__pending_group_id
+msgid "The group that owns the next signature."
+msgstr "擁有下一個簽名的群組。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__rule_id
+msgid "The rule whose amount band matched at submission time."
+msgstr "在提交時其金額區間相符的規則。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__total_steps
+msgid "Total Steps"
+msgstr "步驟總數"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_account_bank_statement_line__eh_requires_approval
+#: model:ir.model.fields,help:eh_account_approval.field_account_move__eh_requires_approval
+msgid ""
+"True when a policy applies to this move and the approval is not yet "
+"complete. Used by the form to surface the Submit for approval button."
+msgstr "當某項政策適用於此分錄且核准尚未完成時為 True。表單據此顯示 Submit for approval 按鈕。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__is_overdue
+msgid "True when the request is past its due_at and still open."
+msgstr "當申請已超過其 due_at 且仍處於開啟狀態時為 True。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "記錄的異常活動的類型。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid "Unsupported search operator on is_overdue."
+msgstr "is_overdue 上的搜尋運算子不受支援。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__max_amount
+msgid ""
+"Upper bound of the amount band (inclusive). Use 0 for no upper bound; the "
+"rule then matches any amount at or above min_amount."
+msgstr "金額區間的上限（含）。使用 0 表示沒有上限；此時該規則匹配任何等於或大於 min_amount 的金額。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__user_id
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+msgid "User"
+msgstr "使用者"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_log__user_id
+msgid "User who performed the action this row records."
+msgstr "執行本列所記錄動作的使用者。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy__document_type__in_invoice
+msgid "Vendor bill"
+msgstr "供應商帳單"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Vendor bills"
+msgstr "供應商帳單"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_form
+msgid "Vendor bills above 1000"
+msgstr "金額超過 1000 的供應商帳單"
+
+#. module: eh_account_approval
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_policy__document_type__in_refund
+msgid "Vendor refund"
+msgstr "供應商退款"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_policy_search
+msgid "Vendor refunds"
+msgstr "供應商退款"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__vote_ids
+msgid "Vote"
+msgstr "投票"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_vote__voted_at
+msgid "Voted At"
+msgstr "投票時間"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Votes"
+msgstr "投票"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,field_description:eh_account_approval.field_eh_approval_request__website_message_ids
+msgid "Website Messages"
+msgstr "網站資訊"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_request__website_message_ids
+msgid "Website communication history"
+msgstr "網站溝通記錄"
+
+#. module: eh_account_approval
+#. odoo-javascript
+#: code:addons/eh_account_approval/static/src/js/tours/approval_tour.js:0
+msgid ""
+"Welcome to the <b>Approval Workflow</b>. This walkthrough shows the two "
+"setup steps you need to do before approvals start gating posts."
+msgstr "歡迎使用 <b>Approval Workflow</b>。本導覽展示在核准開始把關過帳之前需要完成的兩個設定步驟。"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "When"
+msgstr "何時"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy__re_approval_threshold_pct
+msgid ""
+"When a partially approved move's amount changes by more than this "
+"percentage, the approval request resets and every step must re-sign. Default"
+" seeded from the company's Heritage settings."
+msgstr "當部分核准的分錄金額變動超過此百分比時，審批請求將重設，每個步驟都必須重新簽署。預設值取自公司的 Heritage 設定。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy__allow_self_approval
+msgid ""
+"When off (the default), the user who submitted a request cannot approve or "
+"reject it, even if they belong to a pending approver group. Segregation of "
+"duties: someone else must sign. Turn on only for single-operator companies "
+"that accept self sign-off."
+msgstr ""
+"關閉時（預設），提交請求的使用者不能核准或拒絕該請求，即使其屬於待審批人群組。職責分離：必須由他人簽署。僅對接受自行簽署的單人營運公司啟用。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule_step__inject_manager
+msgid ""
+"When set, the HR manager of the user who submitted the request is added as "
+"an eligible approver for this step."
+msgstr "設定後，為此合作夥伴過帳 out_invoice 將在指定公司中觸發一份公司間鏡像，作為供應商帳單。如果該合作夥伴是普通客戶，請留空。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_policy_rule__escalate_after_hours
+msgid ""
+"When the SLA breach exceeds this many hours past due_at, the cron promotes "
+"the request to the escalation group. Zero disables auto-escalation; in that "
+"case the breach is logged but the queue stays with the original group."
+msgstr ""
+"當 SLA 違約超過 due_at 之後的這麼多小時時，cron "
+"會將該請求提升至升級群組。為零時停用自動升級；在這種情況下會記錄違約，但佇列仍保留在原始群組中。"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_form
+msgid "Withdraw"
+msgstr "撤回"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_log__action__withdrawn
+#: model:ir.model.fields.selection,name:eh_account_approval.selection__eh_approval_request__state__withdrawn
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_log_search
+msgid "Withdrawn"
+msgstr "已撤回"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"You are not an eligible approver for the pending step(s) of request %s."
+msgstr "您不是請求 %s 待處理步驟的合格核准人。"
+
+#. module: eh_account_approval
+#. odoo-python
+#: code:addons/eh_account_approval/models/approval_request.py:0
+msgid ""
+"You submitted request %s and cannot approve or reject your own request. "
+"Segregation of duties requires a different approver to sign off."
+msgstr "您提交了請求 %s，無法核准或拒絕自己的請求。職責分離要求由其他核准人簽署。"
+
+#. module: eh_account_approval
+#: model:ir.model.fields,help:eh_account_approval.field_eh_approval_vote__step_index
+msgid "Zero-based index of the step this vote applies to."
+msgstr "此投票所適用步驟的從零開始索引。"
+
+#. module: eh_account_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_approval.view_eh_approval_request_kanban
+msgid "x"
+msgstr ""

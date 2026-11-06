@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <!--
+            Demo recurring invoice template. Searches for the first sale
+            journal in the current company at install time so the demo
+            installs cleanly across charts of accounts. The template is
+            left in draft state; an admin can move it to active when
+            they want the cron to start generating from it.
+        -->
+
+        <record id="demo_recurring_monthly" model="eh.recurring.invoice.template">
+            <field name="name">Demo monthly subscription</field>
+            <field name="code">demo_monthly_subscription</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="partner_id" ref="base.res_partner_2"/>
+            <field name="journal_id"
+                   search="[('type', '=', 'sale'), ('company_id', '=', ref('base.main_company'))]"/>
+            <field name="interval">1</field>
+            <field name="interval_unit">month</field>
+            <field name="start_date" eval="(DateTime.today() + relativedelta(months=1, day=1)).strftime('%Y-%m-%d')"/>
+            <field name="next_run_date" eval="(DateTime.today() + relativedelta(months=1, day=1)).strftime('%Y-%m-%d')"/>
+            <field name="auto_post" eval="False"/>
+            <field name="ref">DEMO-SUB-001</field>
+            <field name="state">draft</field>
+        </record>
+
+        <record id="demo_recurring_line_subscription" model="eh.recurring.invoice.line">
+            <field name="template_id" ref="demo_recurring_monthly"/>
+            <field name="sequence">10</field>
+            <field name="name">Monthly accounting suite subscription</field>
+            <field name="quantity">1</field>
+            <field name="price_unit">99.00</field>
+        </record>
+
+        <record id="demo_recurring_line_storage" model="eh.recurring.invoice.line">
+            <field name="template_id" ref="demo_recurring_monthly"/>
+            <field name="sequence">20</field>
+            <field name="name">Additional storage (per 10 GB)</field>
+            <field name="quantity">3</field>
+            <field name="price_unit">15.00</field>
+        </record>
+
+    </data>
+</odoo>

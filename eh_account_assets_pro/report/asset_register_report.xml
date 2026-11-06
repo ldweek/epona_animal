@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        Asset register: tabular PDF showing the entire selected asset
+        recordset with cost, accumulated depreciation, and net book
+        value. Triggered as a list-action so the operator picks the
+        scope (filter by category, state, in-service date, etc.) and
+        gets a print-ready register for an external auditor or board
+        pack.
+
+        A second report (asset_card) is registered against a single
+        asset and renders the depreciation schedule as a year-by-year
+        table. Both share the suite paperformat and styles.
+    -->
+
+    <record id="action_report_asset_register" model="ir.actions.report">
+        <field name="name">Asset Register</field>
+        <field name="model">eh.asset</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">eh_account_assets_pro.report_asset_register</field>
+        <field name="report_file">eh_account_assets_pro.report_asset_register</field>
+        <field name="binding_model_id" ref="model_eh_asset"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id"
+               ref="eh_account_base.paperformat_eh_landscape"/>
+    </record>
+
+    <record id="action_report_asset_card" model="ir.actions.report">
+        <field name="name">Asset Card &amp; Schedule</field>
+        <field name="model">eh.asset</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">eh_account_assets_pro.report_asset_card</field>
+        <field name="report_file">eh_account_assets_pro.report_asset_card</field>
+        <field name="binding_model_id" ref="model_eh_asset"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id"
+               ref="eh_account_base.paperformat_eh_portrait"/>
+    </record>
+
+    <template id="report_asset_register">
+        <t t-call="web.html_container">
+            <t t-call="eh_account_base.eh_report_styles"/>
+            <t t-call="web.external_layout">
+                <div class="page eh_pdf_page">
+                    <h1 class="eh_pdf_title">Asset Register</h1>
+                    <div class="eh_pdf_meta">
+                        <span>
+                            <strong>Assets:</strong>
+                            <t t-out="len(docs)"/>
+                        </span>
+                        <span>
+                            <strong>Generated:</strong>
+                            <t t-out="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                        </span>
+                        <span t-if="docs and len(docs.mapped('company_id')) == 1">
+                            <strong>Company:</strong>
+                            <t t-out="docs[0].company_id.display_name"/>
+                        </span>
+                    </div>
+
+                    <t t-set="total_cost" t-value="sum(docs.mapped('acquisition_cost'))"/>
+                    <t t-set="total_revaluation" t-value="sum(docs.mapped('revaluation_adjustment'))"/>
+                    <t t-set="total_depr" t-value="sum(docs.mapped('total_depreciated'))"/>
+                    <t t-set="total_impairment" t-value="sum(docs.mapped('accumulated_impairment'))"/>
+                    <t t-set="total_nbv" t-value="sum(docs.mapped('net_book_value'))"/>
+
+                    <table class="eh_pdf_table">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Method</th>
+                                <th>Acquired</th>
+                                <th>In Service</th>
+                                <th class="text-end">Cost</th>
+                                <th class="text-end">Revaluation</th>
+                                <th class="text-end">Accum. Depr.</th>
+                                <th class="text-end">Accum. Impairment</th>
+                                <th class="text-end">Net Book Value</th>
+                                <th class="text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs.sorted(lambda a: (a.category_id.name or '', a.code or ''))"
+                               t-as="asset">
+                                <tr>
+                                    <td>
+                                        <t t-out="asset.code or ''"/>
+                                    </td>
+                                    <td>
+                                        <t t-out="asset.name or ''"/>
+                                    </td>
+                                    <td>
+                                        <t t-out="asset.category_id.name or ''"/>
+                                    </td>
+                                    <td>
+                                        <t t-out="dict(asset._fields['method'].selection).get(asset.method, asset.method)"/>
+                                    </td>
+                                    <td>
+                                        <t t-out="asset.acquisition_date and asset.acquisition_date.strftime('%Y-%m-%d') or ''"/>
+                                    </td>
+                                    <td>
+                                        <t t-out="asset.in_service_date and asset.in_service_date.strftime('%Y-%m-%d') or ''"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-out="asset.acquisition_cost"
+                                              t-options="{'widget': 'monetary', 'display_currency': asset.currency_id}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-out="asset.revaluation_adjustment"
+                                              t-options="{'widget': 'monetary', 'display_currency': asset.currency_id}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-out="asset.total_depreciated"
+                                              t-options="{'widget': 'monetary', 'display_currency': asset.currency_id}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-out="asset.accumulated_impairment"
+                                              t-options="{'widget': 'monetary', 'display_currency': asset.currency_id}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-out="asset.net_book_value"
+                                              t-options="{'widget': 'monetary', 'display_currency': asset.currency_id}"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-set="badge_class"
+                                           t-value="{
+                                               'draft':    'eh_pdf_status_neutral',
+                                               'running':  'eh_pdf_status_ok',
+                                               'paused':   'eh_pdf_status_warn',
+                                               'disposed': 'eh_pdf_status_neutral',
+                                           }.get(asset.state, 'eh_pdf_status_neutral')"/>
+                                        <span t-att-class="'eh_pdf_status_badge ' + badge_class">
+                                            <t t-out="dict(asset._fields['state'].selection).get(asset.state, asset.state)"/>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="not docs">
+                                <tr>
+                                    <td colspan="12" class="text-center text-muted"
+                                        style="padding: 16pt;">
+                                        No assets selected.
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr t-if="docs" class="eh_pdf_grand_total">
+                                <td colspan="6">Total</td>
+                                <td class="text-end">
+                                    <span t-out="total_cost"
+                                          t-options="{'widget': 'monetary', 'display_currency': docs[0].currency_id}"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-out="total_revaluation"
+                                          t-options="{'widget': 'monetary', 'display_currency': docs[0].currency_id}"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-out="total_depr"
+                                          t-options="{'widget': 'monetary', 'display_currency': docs[0].currency_id}"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-out="total_impairment"
+                                          t-options="{'widget': 'monetary', 'display_currency': docs[0].currency_id}"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-out="total_nbv"
+                                          t-options="{'widget': 'monetary', 'display_currency': docs[0].currency_id}"/>
+                                </td>
+                                <td/>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <t t-call="eh_account_base.eh_report_footer"/>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_asset_card">
+        <t t-call="web.html_container">
+            <t t-call="eh_account_base.eh_report_styles"/>
+            <t t-foreach="docs" t-as="asset">
+                <t t-call="web.external_layout">
+                    <div class="page eh_pdf_page">
+                        <h1 class="eh_pdf_title">
+                            Asset Card: <t t-out="asset.code or asset.name or ''"/>
+                        </h1>
+                        <h2 class="eh_pdf_subtitle">
+                            <t t-out="asset.name or ''"/>
+                        </h2>
+                        <div class="eh_pdf_meta">
+                            <span>
+                                <strong>Category:</strong>
+                                <t t-out="asset.category_id.name or ''"/>
+                            </span>
+                            <span>
+                                <strong>State:</strong>
+                                <t t-out="dict(asset._fields['state'].selection).get(asset.state, asset.state)"/>
+                            </span>
+                            <span>
+                                <strong>Company:</strong>
+                                <t t-out="asset.company_id.display_name"/>
+                            </span>
+                        </div>
+
+                        <div class="eh_pdf_summary_box">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 25%;">
+                                        <div class="label">Acquisition cost</div>
+                                        <div class="value">
+                                            <span t-out="asset.acquisition_cost"
+                                                  t-options="{'widget': 'monetary', 'display_currency': asset.currency_id}"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 25%;">
+                                        <div class="label">Accumulated depreciation</div>
+                                        <div class="value">
+                                            <span t-out="asset.total_depreciated"
+                                                  t-options="{'widget': 'monetary', 'display_currency': asset.currency_id}"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 25%;">
+                                        <div class="label">Net book value</div>
+                                        <div class="value">
+                                            <span t-out="asset.net_book_value"
+                                                  t-options="{'widget': 'monetary', 'display_currency': asset.currency_id}"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 25%;">
+                                        <div class="label">Salvage value</div>
+                                        <div class="value">
+                                            <span t-out="asset.salvage_value"
+                                                  t-options="{'widget': 'monetary', 'display_currency': asset.currency_id}"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <h2 class="eh_pdf_subtitle">Depreciation schedule</h2>
+                        <table class="eh_pdf_table">
+                            <thead>
+                                <tr>
+                                    <th>Sequence</th>
+                                    <th>Date</th>
+                                    <th class="text-end">Depreciation</th>
+                                    <th class="text-end">Accumulated</th>
+                                    <th class="text-end">Net Book Value</th>
+                                    <th class="text-center">Posted</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="schedule" t-value="asset.depreciation_line_ids.sorted(lambda l: (l.depreciation_date or fields.Date.today(), l.id))"/>
+                                <t t-foreach="schedule" t-as="line">
+                                    <tr>
+                                        <td>
+                                            <t t-out="line.sequence or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-out="line.depreciation_date and line.depreciation_date.strftime('%Y-%m-%d') or ''"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-out="line.amount"
+                                                  t-options="{'widget': 'monetary', 'display_currency': asset.currency_id}"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-out="line.accumulated"
+                                                  t-options="{'widget': 'monetary', 'display_currency': asset.currency_id}"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-out="line.remaining_value"
+                                                  t-options="{'widget': 'monetary', 'display_currency': asset.currency_id}"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-if="line.is_posted">
+                                                <span class="eh_pdf_status_badge eh_pdf_status_ok">Posted</span>
+                                            </t>
+                                            <t t-else="">
+                                                <span class="eh_pdf_status_badge eh_pdf_status_neutral">Pending</span>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-if="not schedule">
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted"
+                                            style="padding: 16pt;">
+                                            No depreciation lines computed yet.
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <div class="eh_pdf_signature_block">
+                            <div class="eh_pdf_signature_line">
+                                Authorised signatory
+                            </div>
+                        </div>
+
+                        <t t-call="eh_account_base.eh_report_footer"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

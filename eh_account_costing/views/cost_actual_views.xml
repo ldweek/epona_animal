@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_cost_actual_search" model="ir.ui.view">
+        <field name="name">eh.cost.actual.search</field>
+        <field name="model">eh.cost.actual</field>
+        <field name="arch" type="xml">
+            <search string="Period Actuals">
+                <field name="name"/>
+                <field name="card_id"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <separator/>
+                <filter name="group_period" string="Period"
+                        context="{'group_by': 'period_start:month'}"/>
+                <filter name="group_card" string="Cost Card"
+                        context="{'group_by': 'card_id'}"/>
+                <filter name="group_company" string="Company"
+                        context="{'group_by': 'company_id'}"
+                        groups="base.group_multi_company"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_cost_actual_list" model="ir.ui.view">
+        <field name="name">eh.cost.actual.list</field>
+        <field name="model">eh.cost.actual</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="card_id"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="units_produced"/>
+                <field name="total_actual_cost" widget="monetary"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_cost_actual_form" model="ir.ui.view">
+        <field name="name">eh.cost.actual.form</field>
+        <field name="model">eh.cost.actual</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="card_id"/>
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="units_produced"/>
+                            <field name="total_actual_cost"
+                                   widget="monetary" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Actual Cost Elements (period totals)">
+                        <field name="line_ids" nolabel="1" colspan="2">
+                            <list editable="bottom">
+                                <field name="element"/>
+                                <field name="actual_qty_total"/>
+                                <field name="actual_cost_total" widget="monetary"/>
+                                <field name="actual_price_unit" readonly="1"/>
+                                <field name="currency_id" column_invisible="1"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group>
+                        <field name="notes" nolabel="1" colspan="2"
+                               placeholder="Source of the actuals (timesheets, consumption report, GL extract). Stock-move integration is a later wave; entry here is manual or CSV-imported..."/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_cost_actual" model="ir.actions.act_window">
+        <field name="name">Period Actuals</field>
+        <field name="res_model">eh.cost.actual</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_cost_actual_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Capture your first period actuals</p>
+            <p>Record the actual quantities and costs produced against a cost card for a period, so a variance run can compare them to standard.</p>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_report_schedule_tree" model="ir.ui.view">
+        <field name="name">eh.report.schedule.list</field>
+        <field name="model">eh.report.schedule</field>
+        <field name="arch" type="xml">
+            <list string="Scheduled Reports"
+                  default_order="active desc, next_run asc"
+                  sample="1">
+                <field name="active" widget="boolean_toggle"/>
+                <field name="name"/>
+                <field name="report_id"/>
+                <field name="user_id"/>
+                <field name="interval"/>
+                <field name="interval_unit"/>
+                <field name="next_run"/>
+                <field name="last_run"/>
+                <field name="last_run_status" widget="badge"
+                       decoration-success="last_run_status == 'success'"
+                       decoration-danger="last_run_status == 'error'"/>
+                <field name="delivery_format"/>
+                <field name="last_attachment_count" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_report_schedule_form" model="ir.ui.view">
+        <field name="name">eh.report.schedule.form</field>
+        <field name="model">eh.report.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Scheduled Report">
+                <header>
+                    <button name="action_run_now"
+                            type="object"
+                            string="Run Now"
+                            class="btn-primary"/>
+                    <button name="action_pause"
+                            type="object"
+                            string="Pause"
+                            invisible="not active"/>
+                    <button name="action_resume"
+                            type="object"
+                            string="Resume"
+                            invisible="active"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon"
+                            title="Inactive"
+                            bg_color="bg-warning"
+                            invisible="active"/>
+                    <h1>
+                        <field name="name" placeholder="Monthly P&amp;L"/>
+                    </h1>
+                    <group string="Schedule">
+                        <group>
+                            <field name="report_id"/>
+                            <field name="delivery_format"/>
+                            <field name="delivery_channel"/>
+                            <field name="user_id"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group>
+                            <label for="interval"/>
+                            <div>
+                                Every <field name="interval" class="oe_inline"/>
+                                <field name="interval_unit" class="oe_inline"/>
+                            </div>
+                            <field name="next_run"/>
+                            <field name="last_run" readonly="1"/>
+                            <field name="last_run_status" readonly="1"/>
+                            <field name="last_attachment_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Recipients">
+                        <field name="recipient_user_ids"
+                               widget="many2many_tags"/>
+                        <field name="recipient_partner_ids"
+                               widget="many2many_tags"/>
+                        <field name="recipient_emails"
+                               placeholder="extra1@example.com, extra2@example.com"/>
+                    </group>
+                    <notebook>
+                        <page string="Period">
+                            <group>
+                                <field name="period_preset"/>
+                                <field name="period_date_from"
+                                       invisible="period_preset != 'custom'"
+                                       required="period_preset == 'custom'"/>
+                                <field name="period_date_to"
+                                       invisible="period_preset != 'custom'"
+                                       required="period_preset == 'custom'"/>
+                            </group>
+                            <p class="text-muted">
+                                Relative periods are evaluated in the schedule owner's timezone on every delivery.
+                            </p>
+                        </page>
+                        <page string="Email"
+                              invisible="delivery_channel == 'webhook'">
+                            <group>
+                                <field name="subject"/>
+                            </group>
+                            <field name="body"
+                                   placeholder="Optional. Default body explains the attached report."/>
+                        </page>
+                        <page string="Webhook"
+                              invisible="delivery_channel == 'email'">
+                            <group>
+                                <group>
+                                    <field name="webhook_format"/>
+                                    <field name="webhook_timeout"/>
+                                </group>
+                                <group>
+                                    <field name="webhook_url"
+                                           placeholder="https://hooks.slack.com/services/..."
+                                           required="delivery_channel in ('webhook', 'both')"/>
+                                </group>
+                            </group>
+                            <p class="text-muted">
+                                Slack: paste the channel's incoming-webhook URL. Microsoft Teams: paste the channel's incoming-connector URL. Generic JSON: any HTTPS endpoint that accepts a POST with Content-Type application/json.
+                            </p>
+                        </page>
+                        <page string="Advanced Options">
+                            <field name="options_json" widget="text"/>
+                            <p class="text-muted">
+                                JSON remains available for advanced dimensions and filters. It is validated when saved. Period fields above override only the JSON date block.
+                            </p>
+                        </page>
+                        <page string="Last Error" invisible="last_run_status != 'error'">
+                            <field name="last_error" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_report_schedule_search" model="ir.ui.view">
+        <field name="name">eh.report.schedule.search</field>
+        <field name="model">eh.report.schedule</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="report_id"/>
+                <field name="user_id"/>
+                <filter name="filter_active" string="Active"
+                        domain="[('active', '=', True)]"/>
+                <filter name="filter_inactive" string="Inactive"
+                        domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter name="filter_status_success" string="Last Run Succeeded"
+                        domain="[('last_run_status', '=', 'success')]"/>
+                <filter name="filter_status_error" string="Last Run Errored"
+                        domain="[('last_run_status', '=', 'error')]"/>
+                <group>
+                    <filter name="group_report" string="Report"
+                            context="{'group_by': 'report_id'}"/>
+                    <filter name="group_interval_unit" string="Cadence"
+                            context="{'group_by': 'interval_unit'}"/>
+                    <filter name="group_status" string="Last Run Status"
+                            context="{'group_by': 'last_run_status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_report_schedule" model="ir.actions.act_window">
+        <field name="name">Scheduled Reports</field>
+        <field name="res_model">eh.report.schedule</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_report_schedule_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No scheduled reports yet.</p>
+            <p>Create a schedule to email a report on a recurring cadence: daily, weekly, or monthly. Combine multiple recipients (users, partners, raw email addresses) and pick XLSX, PDF, or both as the delivery format.</p>
+        </field>
+    </record>
+
+</odoo>

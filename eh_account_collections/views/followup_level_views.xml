@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_followup_level_list" model="ir.ui.view">
+        <field name="name">eh.collections.followup.level.list</field>
+        <field name="model">eh.collections.followup.level</field>
+        <field name="arch" type="xml">
+            <list string="Follow-up Levels" default_order="sequence, days_overdue">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="days_overdue"/>
+                <field name="action_type"/>
+                <field name="mail_template_id" optional="show"/>
+                <field name="also_send_sms" optional="show"/>
+                <field name="sms_template_id" optional="hide"/>
+                <field name="responsible_type" optional="show"/>
+                <field name="delay_days"/>
+                <field name="is_terminal" optional="hide"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_followup_level_form" model="ir.ui.view">
+        <field name="name">eh.collections.followup.level.form</field>
+        <field name="model">eh.collections.followup.level</field>
+        <field name="arch" type="xml">
+            <form string="Follow-up Level">
+                <sheet>
+                    <h1>
+                        <field name="name" placeholder="Reminder 1"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="days_overdue"/>
+                            <field name="delay_days"/>
+                            <field name="is_terminal"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="action_type"/>
+                            <field name="escalate_to_stage_id"
+                                   invisible="action_type != 'escalate'"
+                                   required="action_type == 'escalate'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Email"
+                              invisible="action_type not in ('email', 'email_and_activity')">
+                            <group>
+                                <field name="mail_template_id"
+                                       options="{'no_create': True}"/>
+                            </group>
+                            <p class="text-muted">The mail template must target eh.collections.case so {{ object.* }} expressions resolve to the case record. Create or edit templates from Settings > Technical > Email Templates.</p>
+                        </page>
+                        <page string="Activity"
+                              invisible="action_type not in ('email_and_activity', 'activity')">
+                            <group>
+                                <field name="activity_type_id"
+                                       options="{'no_create': True}"/>
+                                <field name="responsible_type"/>
+                                <field name="activity_summary"/>
+                                <field name="activity_offset_days"/>
+                            </group>
+                        </page>
+                        <page string="SMS">
+                            <group>
+                                <field name="also_send_sms"/>
+                                <field name="sms_template_id"
+                                       invisible="not also_send_sms"
+                                       required="also_send_sms"
+                                       options="{'no_create': True}"/>
+                            </group>
+                            <p class="text-muted">SMS is queued to the commercial partner's mobile or phone number alongside this level's primary action.</p>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_followup_level" model="ir.actions.act_window">
+        <field name="name">Follow-up Levels</field>
+        <field name="res_model">eh.collections.followup.level</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No follow-up levels yet.</p>
+            <p>Define an escalation ladder once. The cron picks the highest applicable level for each overdue case and applies it (send email, schedule call, escalate stage). Common shape: Reminder 1 at 7 days, Reminder 2 at 30, Final Notice at 60, Legal at 90.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_eh_followup_level"
+              name="Follow-up Levels"
+              parent="eh_account_base.menu_eh_config_operations"
+              action="action_eh_followup_level"
+              sequence="65"
+              groups="eh_account_base.group_eh_manager"/>
+
+</odoo>

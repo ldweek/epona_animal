@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <menuitem id="menu_eh_costing"
+                  name="Costing"
+                  parent="eh_account_base.menu_eh_period_work"
+                  sequence="60"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <menuitem id="menu_eh_cost_card"
+                  name="Standard Cost Cards"
+                  parent="menu_eh_costing"
+                  action="action_eh_cost_card"
+                  sequence="10"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <menuitem id="menu_eh_cost_actual"
+                  name="Period Actuals"
+                  parent="menu_eh_costing"
+                  action="action_eh_cost_actual"
+                  sequence="20"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <menuitem id="menu_eh_cost_variance_run"
+                  name="Variance Runs"
+                  parent="menu_eh_costing"
+                  action="action_eh_cost_variance_run"
+                  sequence="30"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <menuitem id="menu_eh_contribution_report"
+                  name="Contribution &amp; CVP"
+                  parent="menu_eh_costing"
+                  action="action_eh_contribution_report"
+                  sequence="40"
+                  groups="eh_account_base.group_eh_user"/>
+
+    </data>
+</odoo>

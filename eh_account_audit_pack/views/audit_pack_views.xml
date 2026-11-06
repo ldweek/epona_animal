@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_audit_pack_list" model="ir.ui.view">
+        <field name="name">eh.audit.pack.list</field>
+        <field name="model">eh.audit.pack</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="period_to"/>
+                <field name="revision" optional="show"/>
+                <field name="currency_id" optional="hide"/>
+                <field name="hash_chain_enabled" optional="show"/>
+                <field name="has_blocking_failure" optional="show"/>
+                <field name="lock_intact" optional="show"/>
+                <field name="signed_by_id" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'checks_run'"
+                       decoration-success="state == 'signed_off'"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_audit_pack_form" model="ir.ui.view">
+        <field name="name">eh.audit.pack.form</field>
+        <field name="model">eh.audit.pack</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_enable_hash_chain" type="object"
+                            string="Enable Hash Chain"
+                            invisible="hash_chain_enabled or state == 'signed_off'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_run_checks" type="object"
+                            string="Run Checks" class="btn-primary"
+                            invisible="state == 'signed_off'"/>
+                    <button name="action_sign_off" type="object"
+                            string="Sign Off" class="btn-primary"
+                            invisible="state != 'checks_run'"
+                            groups="eh_account_base.group_eh_manager"
+                            confirm="Sign off this period? This advances the fiscal-year lock and irreversible hard lock dates."/>
+                    <button name="action_open_amendment_wizard" type="object"
+                            string="Create Amendment"
+                            invisible="state != 'signed_off' or superseded_by_id"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,checks_run,signed_off"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"
+                                   readonly="state != 'draft'"/>
+                            <field name="currency_id" readonly="1"/>
+                            <field name="period_from"
+                                   readonly="state != 'draft'"/>
+                            <field name="period_to"
+                                   readonly="state != 'draft'"/>
+                            <field name="advance_lock" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="revision" readonly="1"/>
+                            <field name="hash_chain_enabled" readonly="1"/>
+                            <field name="has_blocking_failure" readonly="1"/>
+                            <field name="close_run_ref"
+                                   readonly="state != 'draft'"/>
+                            <field name="year_end_run_ref"
+                                   readonly="state != 'draft'"/>
+                            <field name="chain_status" readonly="1"/>
+                            <field name="lock_intact" readonly="1"
+                                   invisible="state != 'signed_off'"/>
+                            <field name="prepared_by_id" readonly="1"/>
+                            <field name="prepared_at" readonly="1"/>
+                            <field name="signed_by_id" readonly="1"/>
+                            <field name="signed_at" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Amendment Chain"
+                           invisible="not supersedes_id and not superseded_by_id">
+                        <field name="supersedes_id" readonly="1"/>
+                        <field name="superseded_by_id" readonly="1"/>
+                        <field name="amendment_reason" readonly="1"
+                               invisible="not supersedes_id"/>
+                    </group>
+                    <field name="check_ids" readonly="1">
+                        <list decoration-danger="status == 'fail'"
+                              decoration-warning="status == 'warn'"
+                              decoration-success="status == 'pass'">
+                            <field name="name"/>
+                            <field name="status" widget="badge"/>
+                            <field name="count"/>
+                            <field name="is_blocking"/>
+                            <field name="detail"/>
+                        </list>
+                    </field>
+                    <field name="notes"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_audit_pack_search" model="ir.ui.view">
+        <field name="name">eh.audit.pack.search</field>
+        <field name="model">eh.audit.pack</field>
+        <field name="arch" type="xml">
+            <search string="Search Audit Packs">
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="period_from"/>
+                <field name="period_to"/>
+                <filter name="draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="checks_run" string="Checks Run"
+                        domain="[('state', '=', 'checks_run')]"/>
+                <filter name="signed_off" string="Signed Off"
+                        domain="[('state', '=', 'signed_off')]"/>
+                <separator/>
+                <filter name="current_revision" string="Current Revision"
+                        domain="[('superseded_by_id', '=', False)]"/>
+                <filter name="blocking" string="Blocking Failure"
+                        domain="[('has_blocking_failure', '=', True)]"/>
+                <group>
+                    <filter name="group_company" string="Company"
+                            context="{'group_by': 'company_id'}"/>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_period" string="Period End"
+                            context="{'group_by': 'period_to:year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_audit_pack_amendment_wizard_form" model="ir.ui.view">
+        <field name="name">eh.audit.pack.amendment.wizard.form</field>
+        <field name="model">eh.audit.pack.amendment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create Audit-Pack Amendment">
+                <group>
+                    <field name="pack_id"/>
+                    <field name="reason"
+                           placeholder="Explain why a new signed evidence revision is required..."/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object"
+                            string="Create Amendment" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_audit_pack" model="ir.actions.act_window">
+        <field name="name">Audit Pack</field>
+        <field name="res_model">eh.audit.pack</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_audit_pack_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first audit pack</p>
+            <p>Run an audit-grade period close here, scanning the period for draft, unbalanced, unhashed, and open-suspense entries before a manager signs off and advances the lock date. Use New to set the period dates, then Run Checks.</p>
+        </field>
+    </record>
+
+</odoo>

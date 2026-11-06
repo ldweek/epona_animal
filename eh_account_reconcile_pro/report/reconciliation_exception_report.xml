@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        Reconciliation exception report. Driven by the wizard at
+        eh.reconciliation.exception.wizard.compute_exception_data().
+
+        One PDF per wizard record (typically just the active one).
+        Layout: header summary box (totals across journals), per-journal
+        table with status badge driven by the reconciled percentage.
+    -->
+
+    <record id="action_report_reconciliation_exception" model="ir.actions.report">
+        <field name="name">Reconciliation Exception Report</field>
+        <field name="model">eh.reconciliation.exception.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">eh_account_reconcile_pro.report_reconciliation_exception</field>
+        <field name="report_file">eh_account_reconcile_pro.report_reconciliation_exception</field>
+        <field name="paperformat_id"
+               ref="eh_account_base.paperformat_eh_landscape"/>
+    </record>
+
+    <template id="report_reconciliation_exception">
+        <t t-call="web.html_container">
+            <t t-call="eh_account_base.eh_report_styles"/>
+            <t t-foreach="docs" t-as="wiz">
+                <t t-set="payload" t-value="data.get(wiz.id, {})"/>
+                <t t-set="rows" t-value="payload.get('journals') or []"/>
+                <t t-set="totals" t-value="payload.get('totals') or {}"/>
+                <t t-call="web.external_layout">
+                    <div class="page eh_pdf_page">
+                        <h1 class="eh_pdf_title">Reconciliation Exception Report</h1>
+                        <div class="eh_pdf_meta">
+                            <span>
+                                <strong>Period:</strong>
+                                <t t-out="payload.get('date_from') or ''"/>
+                                to
+                                <t t-out="payload.get('date_to') or ''"/>
+                            </span>
+                            <span>
+                                <strong>Company:</strong>
+                                <t t-out="payload.get('company') or ''"/>
+                            </span>
+                            <span>
+                                <strong>Journals:</strong>
+                                <t t-out="len(rows)"/>
+                            </span>
+                        </div>
+
+                        <div class="eh_pdf_summary_box">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 20%;">
+                                        <div class="label">Total lines</div>
+                                        <div class="value">
+                                            <t t-out="totals.get('total_lines', 0)"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 20%;">
+                                        <div class="label">Reconciled</div>
+                                        <div class="value">
+                                            <t t-out="totals.get('reconciled_lines', 0)"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 20%;">
+                                        <div class="label">Unmatched</div>
+                                        <div class="value">
+                                            <t t-out="totals.get('unmatched_lines', 0)"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 20%;">
+                                        <div class="label">Write-offs</div>
+                                        <div class="value">
+                                            <t t-out="totals.get('write_off_count', 0)"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 20%;">
+                                        <div class="label">Reconciled %</div>
+                                        <div class="value">
+                                            <t t-out="'{:.1%}'.format(totals.get('reconciled_pct', 0.0))"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="eh_pdf_meta"
+                             t-if="totals.get('unmatched_amount_by_currency')">
+                            <span><strong>Gross unmatched by currency:</strong></span>
+                            <t t-foreach="totals.get('unmatched_amount_by_currency')" t-as="bucket">
+                                <span>
+                                    <t t-out="bucket.get('currency')"/>
+                                    <t t-out="'{:,.2f}'.format(bucket.get('unmatched_amount', 0.0))"/>
+                                    (net <t t-out="'{:,.2f}'.format(bucket.get('unmatched_net', 0.0))"/>)
+                                </span>
+                            </t>
+                        </div>
+
+                        <table class="eh_pdf_table">
+                            <thead>
+                                <tr>
+                                    <th>Journal</th>
+                                    <th>Code</th>
+                                    <th>Currency</th>
+                                    <th class="text-end">Total</th>
+                                    <th class="text-end">Reconciled</th>
+                                    <th class="text-end">Unmatched</th>
+                                    <th class="text-end">Gross Unmatched</th>
+                                    <th class="text-end">Net Unmatched</th>
+                                    <th class="text-end">Oldest Unmatched</th>
+                                    <th class="text-end">Days Old</th>
+                                    <th class="text-end">Write-offs</th>
+                                    <th class="text-end">Skips</th>
+                                    <th class="text-center">Health</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="rows" t-as="row">
+                                    <tr>
+                                        <td>
+                                            <t t-out="row.get('name')"/>
+                                        </td>
+                                        <td>
+                                            <t t-out="row.get('code')"/>
+                                        </td>
+                                        <td>
+                                            <t t-out="row.get('currency')"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <t t-out="row.get('total_lines', 0)"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <t t-out="row.get('reconciled_lines', 0)"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <t t-out="row.get('unmatched_lines', 0)"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <t t-out="'{:,.2f}'.format(row.get('unmatched_amount', 0.0) or 0.0)"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <t t-out="'{:,.2f}'.format(row.get('unmatched_net', 0.0) or 0.0)"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <t t-out="row.get('oldest_unmatched_date') or '-'"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <t t-out="row.get('oldest_unmatched_days', 0)"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <t t-out="row.get('write_off_count', 0)"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <t t-out="row.get('skip_count', 0)"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-set="pct" t-value="row.get('reconciled_pct', 0.0)"/>
+                                            <t t-set="badge_class"
+                                               t-value="'eh_pdf_status_ok' if pct &gt;= 0.9 else ('eh_pdf_status_warn' if pct &gt;= 0.7 else 'eh_pdf_status_danger')"/>
+                                            <span t-att-class="'eh_pdf_status_badge ' + badge_class">
+                                                <t t-out="'{:.0%}'.format(pct)"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-if="not rows">
+                                    <tr>
+                                        <td colspan="13" class="text-center text-muted"
+                                            style="padding: 16pt;">
+                                            No statement lines in the selected period.
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <t t-call="eh_account_base.eh_report_footer"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

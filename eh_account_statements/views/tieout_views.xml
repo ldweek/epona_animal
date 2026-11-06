@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- Cross-statement tie-out control -->
+    <record id="view_eh_statement_tieout_list" model="ir.ui.view">
+        <field name="name">eh.statement.tieout.list</field>
+        <field name="model">eh.statement.tieout</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="date_from" optional="show"/>
+                <field name="date_to"/>
+                <field name="pl_net_profit" widget="monetary" optional="show"/>
+                <field name="all_tied" optional="show"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'checked'"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_statement_tieout_form" model="ir.ui.view">
+        <field name="name">eh.statement.tieout.form</field>
+        <field name="model">eh.statement.tieout</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_check" type="object"
+                            string="Run Tie-Out Check" class="btn-primary"
+                            invisible="state == 'checked'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reset" type="object"
+                            string="Reset to Draft"
+                            invisible="state != 'checked'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="date_from" readonly="state == 'checked'"/>
+                            <field name="date_to" readonly="state == 'checked'"/>
+                        </group>
+                        <group>
+                            <field name="all_tied"/>
+                        </group>
+                    </group>
+                    <group string="Figures">
+                        <group>
+                            <field name="pl_net_profit" widget="monetary"/>
+                            <field name="soci_profit" widget="monetary"/>
+                            <field name="soce_profit_movement" widget="monetary"/>
+                            <field name="bs_current_year_earnings_delta" widget="monetary"/>
+                        </group>
+                        <group>
+                            <field name="soci_residual" widget="monetary"/>
+                            <field name="soci_tied"/>
+                            <field name="soce_residual" widget="monetary"/>
+                            <field name="soce_tied"/>
+                            <field name="bs_residual" widget="monetary"/>
+                            <field name="bs_tied"/>
+                        </group>
+                    </group>
+                    <group string="Sources">
+                        <group>
+                            <field name="soci_id"/>
+                            <field name="soci_applicable"/>
+                        </group>
+                        <group>
+                            <field name="soce_id"/>
+                            <field name="soce_applicable"/>
+                        </group>
+                    </group>
+                    <group string="Source note" col="1">
+                        <field name="source_note" nolabel="1"/>
+                    </group>
+                    <group col="1">
+                        <field name="notes" nolabel="1" placeholder="Notes..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_statement_tieout" model="ir.actions.act_window">
+        <field name="name">Statement Tie-Out</field>
+        <field name="res_model">eh.statement.tieout</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first statement tie-out</p>
+            <p>This screen checks that ledger net profit, the comprehensive income profit, the changes in equity profit movement and the balance sheet current-year-earnings movement all agree for one company and period. Use New to run a tie-out over a date range.</p>
+        </field>
+    </record>
+
+</odoo>

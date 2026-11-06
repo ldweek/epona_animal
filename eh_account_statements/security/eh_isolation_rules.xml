@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="0">
+    <data>
+
+        <record id="rule_eh_soce_company" model="ir.rule">
+            <field name="name">eh.soce: company isolation</field>
+            <field name="model_id" ref="model_eh_soce"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_soce_line_company" model="ir.rule">
+            <field name="name">eh.soce.line: company isolation</field>
+            <field name="model_id" ref="model_eh_soce_line"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_soci_company" model="ir.rule">
+            <field name="name">eh.soci: company isolation</field>
+            <field name="model_id" ref="model_eh_soci"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_statement_tieout_company" model="ir.rule">
+            <field name="name">eh.statement.tieout: company isolation</field>
+            <field name="model_id" ref="model_eh_statement_tieout"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_soci_line_company" model="ir.rule">
+            <field name="name">eh.soci.line: company isolation</field>
+            <field name="model_id" ref="model_eh_soci_line"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,2298 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_fx_revaluation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Turkish\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "%(count)s rates updated."
+msgstr "%(count)s kur güncellendi."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "%(count)s rates written for %(date)s"
+msgstr "%(date)s için %(count)s kur yazıldı"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "%s manual override(s)"
+msgstr "%s manuel geçersiz kılma"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_kanban
+msgid "<i class=\"fa fa-calendar\" title=\"Revaluation date\"/>"
+msgstr "<i class=\"fa fa-calendar\" title=\"Yeniden Değerleme Tarihi\"/>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "<strong>Auto reverse:</strong>"
+msgstr "<strong>Otomatik ters kayıt:</strong>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "<strong>Company:</strong>"
+msgstr "<strong>Şirket:</strong>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "<strong>Journal:</strong>"
+msgstr "<strong>Yevmiye:</strong>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "<strong>Revaluation date:</strong>"
+msgstr "<strong>Yeniden değerleme tarihi:</strong>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "<strong>State:</strong>"
+msgstr "<strong>Durum:</strong>"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_form
+msgid ""
+"A manual override always wins over the fetched rate. Use it to pin a "
+"currency that has no clean feed (or whose terms restrict redistribution) "
+"while every other currency keeps auto-updating. This is finer grained than "
+"the all-or-nothing Manual provider."
+msgstr ""
+"Manuel geçersiz kılma her zaman alınan kur üzerinde üstünlük sağlar. Diğer "
+"tüm para birimleri otomatik olarak güncellenmeye devam ederken, temiz bir "
+"beslemesi olmayan (veya koşulları yeniden dağıtımı kısıtlayan) bir para "
+"birimini sabitlemek için kullanın. Bu, ya hep ya hiç yaklaşımlı Manuel "
+"sağlayıcıdan daha ayrıntılıdır."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__api_key
+msgid ""
+"API key for sources that require one (aggregator services). Central-bank "
+"sources ignore this field."
+msgstr ""
+"Bir tane gerektiren kaynaklar (toplayıcı hizmetler) için API anahtarı. "
+"Merkez bankası kaynakları bu alanı yok sayar."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "AUD/USD forward 2026-09-30 notional 1M, USD-denominated loan, ..."
+msgstr "AUD/USD vadeli 2026-09-30 nominal 1M, USD cinsinden kredi, ..."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__offset_ratio
+msgid ""
+"Absolute ratio of |instrument change| to |hedged change|. Must fall within "
+"0.80-1.25 to pass the dollar-offset test."
+msgstr ""
+"|Araç değişimi| ile |riskten korunan değişim| arasındaki mutlak oran. Dolar "
+"mahsup testini geçmek için 0,80-1,25 aralığında olmalıdır."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_account_account
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__account_id
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+msgid "Account"
+msgstr "Hesap"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/account_account.py:0
+msgid ""
+"Account %(code)s is non monetary (%(type)s) and cannot be flagged for FX "
+"revaluation. IAS 21 restricts period end retranslation to monetary items "
+"(cash, receivables, payables, loans); non monetary items such as fixed "
+"assets, prepayments and equity are carried at historical rate."
+msgstr ""
+"%(code)s hesabı parasal olmayan (%(type)s) niteliktedir ve FX yeniden "
+"değerlemesi için işaretlenemez. IAS 21, dönem sonu yeniden çevrimi parasal "
+"kalemlerle (nakit, alacaklar, borçlar, krediler) sınırlar; maddi duran "
+"varlıklar, peşin ödenmiş giderler ve özkaynak gibi parasal olmayan kalemler "
+"tarihi kurdan taşınır."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Accounts"
+msgstr "Hesaplar"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_needaction
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_needaction
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_needaction
+msgid "Action Needed"
+msgstr "Aksiyon Gerekiyor"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__active
+msgid "Active"
+msgstr "Etkin"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_ids
+msgid "Activities"
+msgstr "Aktiviteler"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_exception_decoration
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_exception_decoration
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Etkinlik İstisna Dekorasyonu"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_state
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_state
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_state
+msgid "Activity State"
+msgstr "Aktivite Durumu"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_type_icon
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_type_icon
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Aktivite Türü İmgesi"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.actions.act_window,help:eh_account_fx_revaluation.action_eh_fx_rate_config
+msgid ""
+"Add one config per company that revalues foreign-currency\n"
+"                balances. The daily cron fetches rates and writes them\n"
+"                into Odoo's standard res.currency.rate so every revaluation\n"
+"                run has the data it needs."
+msgstr ""
+"Add one config per company that revalues foreign-currency\\n                "
+"balances. The daily cron fetches rates and writes them\\n                "
+"into Odoo's standard res.currency.rate so every revaluation\\n"
+"                run has the data it needs."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__adjustment
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Adjustment"
+msgstr "Düzeltme"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__aggregate_by_partner
+msgid "Aggregate By Partner"
+msgstr "İş Ortağına Göre Topla"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid "Amounts"
+msgstr "Tutarlar"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__api_key
+msgid "Api Key"
+msgstr "API Anahtarı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_attachment_count
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_attachment_count
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_attachment_count
+msgid "Attachment Count"
+msgstr "Ek Sayısı"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Audit Trail"
+msgstr "Denetim İzi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__auto_reverse
+msgid "Auto Reverse"
+msgstr "Otomatik Ters Kayıt"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__balance_company
+msgid "Balance Company"
+msgstr "Şirket Bakiyesi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__balance_foreign
+msgid "Balance Foreign"
+msgstr "Yabancı Para Bakiyesi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__instrument_account_id
+msgid ""
+"Balance-sheet account that carries the hedging instrument's fair value (e.g."
+" derivative asset / liability for a forward, FX-loan account)."
+msgstr ""
+"Riskten korunma aracının gerçeğe uygun değerini taşıyan bilanço hesabı (ör. "
+"vadeli işlem için türev varlık / yükümlülük, FX kredi hesabı)."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Cancel"
+msgstr "İptal"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_run__state__cancelled
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "Cancelled"
+msgstr "İptal Edildi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__cancelled_at
+msgid "Cancelled At"
+msgstr "İptal Tarihi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__cancelled_by_id
+msgid "Cancelled By"
+msgstr "İptal Eden"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Cannot cancel a posted or reversed run."
+msgstr "Kaydedilmiş veya ters kaydı yapılmış bir çalıştırma iptal edilemez."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Cannot reverse: original revaluation move is missing."
+msgstr "Ters kayıt yapılamıyor: orijinal yeniden değerleme kaydı eksik."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Carrying"
+msgstr "Defter Değeri"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__balance_company
+msgid "Carrying amount in company currency before revaluation."
+msgstr "Yeniden değerleme öncesi şirket para birimindeki defter değeri."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__new_balance_company
+msgid "Carrying amount restated at the closing rate."
+msgstr "Kapanış kuruyla yeniden ifade edilen defter değeri."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Cash flow (CFH)"
+msgstr "Nakit akışı (CFH)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__hedge_type__cash_flow
+msgid "Cash flow hedge (CFH)"
+msgstr "Nakit akışı riskinden korunma (CFH)"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_form
+msgid ""
+"Central-bank sources (ECB, Bank of Canada, National Bank of Poland, Bank of "
+"Russia, Central Bank of Turkey, Reserve Bank of Australia, Central Bank of "
+"Brazil, HMRC) publish against their own base currency and need no API key; "
+"cross-rates into the company currency are derived automatically. Aggregator "
+"sources serve broad coverage and some require an API key in the field above."
+" The Manual provider disables automatic fetch so finance enters rates by "
+"hand into Currencies &gt; Rates."
+msgstr ""
+"Merkez bankası kaynakları (ECB, Bank of Canada, National Bank of Poland, "
+"Bank of Russia, Central Bank of Turkey, Reserve Bank of Australia, Central "
+"Bank of Brazil, HMRC) kendi baz para birimlerine göre yayınlar ve API "
+"anahtarı gerektirmez; şirket para birimine çapraz kurlar otomatik olarak "
+"türetilir. Toplayıcı kaynaklar geniş kapsam sunar ve bazıları yukarıdaki "
+"alanda bir API anahtarı gerektirir. Manual sağlayıcısı otomatik getirmeyi "
+"devre dışı bırakır, böylece finans kurları Currencies &gt; Rates alanına "
+"elle girer."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__closing_rate
+msgid "Closing Rate"
+msgstr "Kapanış Kuru"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__revaluation_date
+msgid "Closing date for which rates are fetched and balances translated."
+msgstr "Kurların alındığı ve bakiyelerin çevrildiği kapanış tarihi."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__company_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__company_id
+msgid "Company"
+msgstr "Firma"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid ""
+"Company %s has no enabled FX rate config. Open Configuration > Heritage > FX"
+" Rate Config to select a provider."
+msgstr ""
+"%s şirketinin etkin bir FX kur yapılandırması yok. Bir sağlayıcı seçmek için"
+" Configuration > Heritage > FX Rate Config bölümünü açın."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Compute Lines"
+msgstr "Satırları Hesapla"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Compute is only available in draft or computed state."
+msgstr "Hesaplama yalnızca taslak veya hesaplanmış durumda kullanılabilir."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_run__state__computed
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "Computed"
+msgstr "Hesaplanmış"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__computed_at
+msgid "Computed At"
+msgstr "Hesaplanma Zamanı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__computed_by_id
+msgid "Computed By"
+msgstr "Hesaplayan"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__config_id
+msgid "Config"
+msgstr "Yapılandır"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__create_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__create_uid
+msgid "Created by"
+msgstr "Tarafından oluşturuldu"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__create_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__create_date
+msgid "Created on"
+msgstr "Oluşturuldu"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__cumulative_hedged_change
+msgid "Cumulative Hedged Change"
+msgstr "Riskten korunan kalemin kümülatif değişimi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__cumulative_instrument_change
+msgid "Cumulative Instrument Change"
+msgstr "Aracın kümülatif değişimi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__cumulative_hedged_change
+msgid ""
+"Cumulative fair-value change of the hedged item since designation. Positive "
+"= gain on hedged item. For CFH this is the variability in expected future "
+"cash flows."
+msgstr ""
+"Riskten korunan kalemin belirlemeden bu yana kümülatif gerçeğe uygun değer "
+"değişimi. Pozitif = riskten korunan kalemde kazanç. CFH için bu, beklenen "
+"gelecekteki nakit akışlarındaki değişkenliktir."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__cumulative_instrument_change
+msgid ""
+"Cumulative fair-value change of the hedging instrument since designation. "
+"Positive = gain on instrument."
+msgstr ""
+"Riskten korunma aracının belirlemeden bu yana kümülatif gerçeğe uygun değer "
+"değişimi. Pozitif = araçta kazanç."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__currency_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__currency_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__currency_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__currency_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__currency_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__currency_id
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+msgid "Currency"
+msgstr "Kur"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__hedged_currency_id
+msgid ""
+"Currency of the hedged exposure. For CFH on a USD forecast sale this is USD;"
+" for NIH on a EUR subsidiary this is EUR."
+msgstr ""
+"Riskten korunan pozisyonun para birimi. USD tahmini satış üzerindeki bir CFH"
+" için bu USD'dir; EUR bir bağlı ortaklık üzerindeki bir NIH için bu EUR'dur."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_rate_config__fetch_frequency__daily
+msgid "Daily"
+msgstr "Günlük"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "Date (month)"
+msgstr "Tarih (ay)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__last_test_date
+msgid "Date of the most recent effectiveness test."
+msgstr "En son etkinlik testinin tarihi."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__termination_date
+msgid "Date the hedge relationship ended."
+msgstr "Riskten korunma ilişkisinin sona erdiği tarih."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "De-designate"
+msgstr "Atamayı Kaldır"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid ""
+"De-designate this hedge? Subsequent gains/losses on the instrument go "
+"straight to P&L; the OCI reserve stays."
+msgstr ""
+"Bu riskten korunma atamasını kaldır? Enstrümandaki sonraki "
+"kazançlar/kayıplar doğrudan kar/zarara gider; OCI yedeği kalır."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__state__dedesignated
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "De-designated"
+msgstr "Atama Kaldırıldı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__description
+msgid "Description"
+msgstr "Açıklama"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Designate"
+msgstr "Ata"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid ""
+"Designate this hedge? IFRS 9 requires risk management objective and strategy"
+" in the Notes field before designation."
+msgstr ""
+"Bu riskten korunma işlemi atansın mı? IFRS 9, atamadan önce Notlar alanında "
+"risk yönetimi hedefi ve stratejisini gerektirir."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__state__designated
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Designated"
+msgstr "Atandı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__designation_date
+msgid "Designation Date"
+msgstr "Atama Tarihi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_account_account__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__display_name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__display_name
+msgid "Display Name"
+msgstr "İsim Göster"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__name
+msgid ""
+"Display name for the hedge relationship. Convention: '<Type>: <Hedged item> "
+"via <Instrument>'."
+msgstr ""
+"Riskten korunma ilişkisi için görüntü adı. Kural: '<Type>: <Hedged item> via"
+" <Instrument>'."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__test_method__dollar_offset
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge_test__method__dollar_offset
+msgid "Dollar-offset (80-125%)"
+msgstr "Dolar mahsubu (80-125%)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__state__draft
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge_movement__state__draft
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_run__state__draft
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "Draft"
+msgstr "Taslak"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.server,name:eh_account_fx_revaluation.cron_eh_fx_rate_fetch_daily_ir_actions_server
+msgid "EH FX: daily rate fetch"
+msgstr "EH FX: günlük kur çekme"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__state__effective
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Effective"
+msgstr "Etkili"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__effective_portion
+msgid "Effective Portion"
+msgstr "Etkin Kısım"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Effective portion %.2f cannot exceed total change %.2f in absolute value."
+msgstr "Etkin kısım %.2f mutlak değerde toplam değişim %.2f değerini aşamaz."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Effectiveness Tests"
+msgstr "Etkinlik Testleri"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__enabled
+msgid "Enabled"
+msgstr "Etkin"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__provider
+msgid ""
+"External source for daily rates. Central-bank sources (ECB, Bank of Canada, "
+"National Bank of Poland, Bank of Russia, Central Bank of Turkey, Reserve "
+"Bank of Australia, Central Bank of Brazil, HMRC) need no API key; cross-"
+"rates are derived into the company currency. Aggregator sources serve broad "
+"coverage; some need an API key. Manual disables automatic fetch so finance "
+"enters rates by hand."
+msgstr ""
+"Günlük kurlar için harici kaynak. Merkez bankası kaynakları (ECB, Bank of "
+"Canada, National Bank of Poland, Bank of Russia, Central Bank of Turkey, "
+"Reserve Bank of Australia, Central Bank of Brazil, HMRC) API anahtarı "
+"gerektirmez; çapraz kurlar şirket para birimine dönüştürülür. Toplayıcı "
+"kaynaklar geniş kapsam sunar; bazıları API anahtarı gerektirir. Manuel, "
+"otomatik getirmeyi devre dışı bırakır, böylece finans kurları elle girer."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_form
+msgid "FX Rate Provider"
+msgstr "FX Kur Sağlayıcısı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.act_window,name:eh_account_fx_revaluation.action_eh_fx_rate_config
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_list
+msgid "FX Rate Providers"
+msgstr "FX Kur Sağlayıcıları"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.report,name:eh_account_fx_revaluation.action_report_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_account_account__eh_fx_revalue
+#: model:ir.ui.menu,name:eh_account_fx_revaluation.menu_eh_fx_revaluation_root
+msgid "FX Revaluation"
+msgstr "FX Yeniden Değerleme"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "FX Revaluation %s"
+msgstr "FX Yeniden Değerleme %s"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_revaluation_line
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_form
+msgid "FX Revaluation Line"
+msgstr "FX Yeniden Değerleme Satırı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.act_window,name:eh_account_fx_revaluation.action_eh_fx_revaluation_line
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_tree
+msgid "FX Revaluation Lines"
+msgstr "FX Yeniden Değerleme Satırları"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "FX Revaluation Reversal %s"
+msgstr "FX Yeniden Değerleme İptali %s"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_revaluation_run
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "FX Revaluation Run"
+msgstr "FX Yeniden Değerleme Çalıştırması"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.act_window,name:eh_account_fx_revaluation.action_eh_fx_revaluation_run
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_tree
+msgid "FX Revaluation Runs"
+msgstr "FX Yeniden Değerleme Çalıştırmaları"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "FX Revaluation —"
+msgstr "FX Yeniden Değerleme —"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_rate_override
+msgid "FX manual rate override"
+msgstr "FX manuel kur geçersiz kılma"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_rate_config
+msgid "FX rate provider configuration"
+msgstr "FX kur sağlayıcısı yapılandırması"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "FX rate update"
+msgstr "FX kur güncellemesi"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "FX revaluation %s"
+msgstr "FX yeniden değerleme %s"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Fair value (FVH)"
+msgstr "Gerçeğe uygun değer (FVH)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__hedge_type__fair_value
+msgid "Fair value hedge (FVH)"
+msgstr "Gerçeğe uygun değer riskinden korunma (FVH)"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Fair-value hedge movements never post to OCI; no reclassification needed."
+msgstr ""
+"Gerçeğe uygun değer riskinden korunma hareketleri hiçbir zaman OCI'ye "
+"kaydedilmez; yeniden sınıflandırma gerekmez."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__fallback_provider
+msgid "Fallback Provider"
+msgstr "Yedek sağlayıcı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__fetch_frequency
+msgid "Fetch Frequency"
+msgstr "Alma sıklığı"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Fetch Rates"
+msgstr "Oranları al"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Fetched %(count)s rate(s) from %(provider)s for %(date)s."
+msgstr "%(provider)s kaynağından %(date)s için %(count)s oran alındı."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_follower_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_follower_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_follower_ids
+msgid "Followers"
+msgstr "Takipçiler"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_partner_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_partner_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Takipçiler (İş ortakları)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__activity_type_icon
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_type_icon
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Yazı tipi harika simgesi ör. fa-görevler"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Foreign Balance"
+msgstr "Yabancı Para Bakiyesi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__foreign_currency_id
+msgid "Foreign Currency"
+msgstr "Yabancı Para Birimi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__designation_date
+msgid ""
+"Formal designation date. IFRS 9 hedge accounting starts from this date "
+"forward; gains and losses before this date go to P&L unconditionally."
+msgstr ""
+"Resmi belirleme tarihi. IFRS 9 riskten korunma muhasebesi bu tarihten "
+"itibaren başlar; bu tarihten önceki kazanç ve kayıplar koşulsuz olarak "
+"kâr/zarara aktarılır."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__hedged_item_description
+msgid ""
+"Free-form description of the hedged item: forecast USD revenue Q3 2026, EUR-"
+"denominated trade receivable from Acme GmbH, net investment in DE "
+"subsidiary, etc. IFRS 9 requires the hedged item to be reliably measurable; "
+"document the measurement basis here."
+msgstr ""
+"Riskten korunan kalemin serbest biçimli açıklaması: 2026 3. çeyrek öngörülen"
+" USD geliri, Acme GmbH'den EUR cinsinden ticari alacak, DE bağlı "
+"ortaklığındaki net yatırım vb. IFRS 9, riskten korunan kalemin güvenilir "
+"biçimde ölçülebilir olmasını gerektirir; ölçüm esasını burada belgeleyin."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__hedging_instrument_description
+msgid ""
+"Free-form description of the hedging instrument: AUD/USD forward 2026-09-30 "
+"notional 1M, USD-denominated loan, etc."
+msgstr ""
+"Riskten korunma aracının serbest biçimli açıklaması: AUD/USD forward "
+"2026-09-30 nominal 1M, USD cinsinden kredi vb."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_line__nature__gain
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_tree
+msgid "Gain"
+msgstr "Kazanç"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+msgid "Gains"
+msgstr "Kazançlar"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__has_message
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__has_message
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__has_message
+msgid "Has Message"
+msgstr "Mesaj Var"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__hedge_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__hedge_id
+msgid "Hedge"
+msgstr "Riskten Korunma"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Hedge %s needs documented risk management objective and strategy in the "
+"Notes field before designation. IFRS 9 paragraph 6.4.1(b) requires this at "
+"inception."
+msgstr ""
+"Riskten korunma %s, tayin öncesinde Notlar alanında belgelenmiş bir risk "
+"yönetimi amacı ve stratejisi gerektirir. IFRS 9 paragraf 6.4.1(b) bunu "
+"başlangıçta zorunlu kılar."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Hedge %s needs journal and instrument account configured before posting "
+"movements."
+msgstr ""
+"Riskten korunma %s, hareketler kaydedilmeden önce yevmiye ve enstrüman "
+"hesabının yapılandırılmasını gerektirir."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Hedge %s requires a P&L account for the ineffective portion (and for the "
+"full FVH movement when applicable)."
+msgstr ""
+"Riskten korunma %s, etkin olmayan kısım için bir kar/zarar hesabı gerektirir"
+" (ve uygun olduğunda tüm FVH hareketi için)."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Hedge %s requires an OCI / equity account to receive the effective portion "
+"of movements (CFH and NIH route the effective portion through OCI per IFRS "
+"9)."
+msgstr ""
+"Riskten korunma %s, hareketlerin etkin kısmını almak için bir OCI / özkaynak"
+" hesabı gerektirir (IFRS 9 uyarınca CFH ve NIH etkin kısmı OCI üzerinden "
+"yönlendirir)."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__hedge_type
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__hedge_type
+msgid "Hedge Type"
+msgstr "Riskten Korunma Türü"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid ""
+"Hedge de-designated. Subsequent movements on the hedging instrument go "
+"straight to P&L; the OCI reserve stays until the original hedged transaction"
+" occurs (CFH) or the foreign operation is disposed (NIH)."
+msgstr ""
+"Riskten korunma tayini kaldırıldı. Riskten korunma aracındaki sonraki "
+"hareketler doğrudan kar/zarara aktarılır; OCI rezervi, orijinal korunan "
+"işlem gerçekleşene (CFH) veya yurt dışı faaliyet elden çıkarılana (NIH) "
+"kadar korunur."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Hedge designated on %s."
+msgstr "Riskten korunma %s tarihinde tayin edildi."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_hedge
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Hedge designation"
+msgstr "Riskten korunma tayini"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__notes
+msgid ""
+"Hedge documentation: risk management objective, strategy, method of "
+"measuring effectiveness, sources of ineffectiveness. IFRS 9 requires this to"
+" be in place at designation."
+msgstr ""
+"Riskten korunma belgeleri: risk yönetimi amacı, strateji, etkinliğin ölçüm "
+"yöntemi, etkinsizlik kaynakları. IFRS 9 bunun tayin sırasında hazır olmasını"
+" gerektirir."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_hedge_test
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_form
+msgid "Hedge effectiveness test"
+msgstr "Riskten korunma etkinlik testi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__state
+msgid ""
+"Hedge lifecycle. draft: parameters being entered. designated: formal IFRS 9 "
+"designation in place but no test performed yet. effective: most recent test "
+"passed. de-designated: management voluntarily ended the hedge. terminated: "
+"the underlying instrument expired or was sold."
+msgstr ""
+"Riskten korunma yaşam döngüsü. draft: parametreler giriliyor. designated: "
+"resmi IFRS 9 tayini mevcut ancak henüz test yapılmadı. effective: en son "
+"test geçildi. de-designated: yönetim riskten korunmayı gönüllü olarak "
+"sonlandırdı. terminated: dayanak enstrümanın vadesi doldu veya satıldı."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid "Hedge movement"
+msgstr "Riskten korunma hareketi"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Hedge movement %s on %s"
+msgstr "Riskten korunma hareketi %s, %s tarihinde"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model,name:eh_account_fx_revaluation.model_eh_fx_hedge_movement
+msgid "Hedge movement (period gain/loss recognition)"
+msgstr "Riskten korunma hareketi (dönem kar/zarar tanınması)"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_tree
+msgid "Hedge movements"
+msgstr "Riskten korunma hareketleri"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_tree
+msgid "Hedge tests"
+msgstr "Riskten korunma testleri"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Hedge type"
+msgstr "Riskten korunma türü"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__hedged_currency_id
+msgid "Hedged Currency"
+msgstr "Korunan Para Birimi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__hedged_item_description
+msgid "Hedged Item Description"
+msgstr "Korunan Kalem Açıklaması"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Hedged item"
+msgstr "Korunan kalem"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.actions.act_window,name:eh_account_fx_revaluation.action_eh_fx_hedge
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_tree
+msgid "Hedges"
+msgstr "Riskten Korunma"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__instrument_account_id
+msgid "Hedging Instrument Account"
+msgstr "Riskten Korunma Aracı Hesabı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__hedging_instrument_description
+msgid "Hedging Instrument Description"
+msgstr "Riskten Korunma Aracı Açıklaması"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Hedging instrument"
+msgstr "Riskten korunma aracı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__fetch_frequency
+msgid ""
+"How often the scheduled job refreshes rates for this company. 'Manual only' "
+"never auto-fetches (finance pulls on demand); the others gate the daily cron"
+" on the elapsed time since the last successful fetch."
+msgstr ""
+"Zamanlanmış işin bu şirket için kurları ne sıklıkla yenileyeceği. 'Yalnızca "
+"manuel' hiçbir zaman otomatik almaz (finans, talep üzerine çeker); diğerleri"
+" günlük cron'u son başarılı almadan bu yana geçen süreye göre denetler."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_account_account__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__id
+msgid "ID"
+msgstr "İD"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__hedge_type
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__hedge_type
+msgid ""
+"IFRS 9 hedge type. Determines whether the effective portion goes to OCI "
+"(CFH, NIH) or P&L (FVH)."
+msgstr ""
+"IFRS 9 riskten korunma türü. Etkin kısmın OCI'ye (CFH, NIH) mi yoksa P&L'ye "
+"(FVH) mi gideceğini belirler."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_exception_icon
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_exception_icon
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_exception_icon
+msgid "Icon"
+msgstr "Simge"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__activity_exception_icon
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_exception_icon
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "İstisnai bir etkinliği belirtmek için kullanılan simge."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__message_needaction
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_needaction
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "İşaretliyse, yeni mesajlar dikkatinize sunulacak."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_error
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_sms_error
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_error
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_sms_error
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_error
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "İşaretliyse, bazı mesajlar gönderi hatası içermektedir."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__aggregate_by_partner
+msgid ""
+"If set, lines are aggregated per (account, partner, currency). Otherwise "
+"lines are aggregated per (account, currency) only."
+msgstr ""
+"Ayarlanırsa, satırlar (hesap, iş ortağı, para birimi) bazında toplanır. Aksi"
+" takdirde satırlar yalnızca (hesap, para birimi) bazında toplanır."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_account_account__eh_fx_revalue
+msgid ""
+"If set, open foreign currency balances on this account are translated at the"
+" closing rate during a period end FX revaluation run."
+msgstr ""
+"Ayarlanırsa, bu hesaptaki açık yabancı para bakiyeleri, dönem sonu FX "
+"yeniden değerleme çalıştırması sırasında kapanış kuruyla çevrilir."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__auto_reverse
+msgid ""
+"If set, posting the run also creates and posts a reversal entry dated the "
+"day after the revaluation date."
+msgstr ""
+"Ayarlanırsa, çalıştırmayı kaydetmek, yeniden değerleme tarihinden bir gün "
+"sonraya tarihli bir ters kayıt da oluşturur ve kaydeder."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__ineffective_portion
+msgid "Ineffective Portion"
+msgstr "Etkin olmayan kısım"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_form
+msgid "Inputs (dollar-offset)"
+msgstr "Girdiler (dolar dengelemesi)"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_form
+msgid "Inputs (regression)"
+msgstr "Girdiler (regresyon)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__is_effective
+msgid "Is Effective"
+msgstr "Yürürlükte mi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_is_follower
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_is_follower
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_is_follower
+msgid "Is Follower"
+msgstr "Takipçi mi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__move_id
+msgid "JE posted for the period gain/loss."
+msgstr "Dönem kazancı/kaybı için kaydedilen yevmiye kaydı."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__reclassification_move_id
+msgid ""
+"JE that reclassifies the OCI portion to P&L when the hedged transaction "
+"occurs (CFH) or the foreign operation is disposed (NIH)."
+msgstr ""
+"Riskten korunan işlem gerçekleştiğinde (CFH) veya yurt dışı işletme elden "
+"çıkarıldığında (NIH) OCI kısmını P&L'ye yeniden sınıflandıran yevmiye kaydı."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__journal_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__journal_id
+msgid "Journal"
+msgstr "Yevmiye"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Journal Entries"
+msgstr "Yevmiye Kayıtları"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Journal entry:"
+msgstr "Yevmiye kaydı:"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__journal_id
+msgid "Journal used to post hedge movements."
+msgstr "Riskten korunma hareketlerini işlemek için kullanılan yevmiye."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__last_error
+msgid "Last Error"
+msgstr "Son Hata"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__last_fetch_summary
+msgid "Last Fetch Summary"
+msgstr "Son Getirme Özeti"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__last_fetched_at
+msgid "Last Fetched At"
+msgstr "Son Getirme Zamanı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__last_test_date
+msgid "Last Test Date"
+msgstr "Son Test Tarihi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__last_test_effective
+msgid "Last Test Effective"
+msgstr "Son Test Geçerli"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__write_uid
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__write_uid
+msgid "Last Updated by"
+msgstr "Son Güncelleyen"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__write_date
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__write_date
+msgid "Last Updated on"
+msgstr "Son Güncelleme"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__line_ids
+msgid "Line"
+msgstr "Satır"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__line_count
+msgid "Line Count"
+msgstr "Satır Sayısı"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Lines"
+msgstr "Satırlar"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_line__nature__loss
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_tree
+msgid "Loss"
+msgstr "Zarar"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+msgid "Losses"
+msgstr "Zararlar"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_rate_config__fetch_frequency__manual
+msgid "Manual only"
+msgstr "Yalnızca manuel"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_form
+msgid "Manual overrides"
+msgstr "Manuel geçersiz kılmalar"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__override_line_ids
+msgid ""
+"Manual per-currency rates. An override always wins over the fetched value, "
+"so finance can pin a currency that has no clean feed while every other "
+"currency keeps auto-updating."
+msgstr ""
+"Para birimi başına manuel kurlar. Bir geçersiz kılma her zaman alınan değere"
+" üstün gelir, böylece finans temiz bir beslemesi olmayan bir para birimini "
+"sabitleyebilirken diğer tüm para birimleri otomatik olarak güncellenmeye "
+"devam eder."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Mark hedge as terminated?"
+msgstr "Riskten korunma sonlandırıldı olarak işaretlensin mi?"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__enabled
+msgid "Master toggle. Disable to suspend the cron without losing config."
+msgstr ""
+"Ana geçiş. Yapılandırmayı kaybetmeden cron'u askıya almak için devre dışı "
+"bırakın."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_error
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_error
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_error
+msgid "Message Delivery error"
+msgstr "Mesaj Teslim hatası"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_ids
+msgid "Messages"
+msgstr "Mesajlar"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__method
+msgid "Method"
+msgstr "Yöntem"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__rsquared_threshold
+msgid ""
+"Minimum R-squared for the regression test. Standard industry threshold is "
+"0.80; some entities tighten to 0.90 for material hedges."
+msgstr ""
+"Regresyon testi için minimum R-squared. Standart sektör eşiği 0,80'dir; bazı"
+" kuruluşlar önemli riskten korunmalar için bunu 0,90'a sıkılaştırır."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_rate_config__fetch_frequency__monthly
+msgid "Monthly"
+msgstr "Aylık"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__move_id
+msgid "Move"
+msgstr "Hareket"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__movement_ids
+msgid "Movement"
+msgstr "Hareket"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Movement %s has zero effective portion; nothing to reclassify."
+msgstr ""
+"%s hareketinin etkin kısmı sıfır; yeniden sınıflandırılacak bir şey yok."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__movement_count
+msgid "Movement Count"
+msgstr "Hareket Sayısı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__movement_date
+msgid "Movement Date"
+msgstr "Hareket Tarihi"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Movements"
+msgstr "Hareketler"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__my_activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__my_activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Aktivite Son Tarihim"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__name
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__name
+msgid "Name"
+msgstr "Adı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__nature
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Nature"
+msgstr "Nitelik"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_tree
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_tree
+msgid "Net"
+msgstr ""
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__net_adjustment
+msgid "Net Adjustment"
+msgstr "Net Düzeltme"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Net adjustment"
+msgstr "Net düzeltme"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Net investment (NIH)"
+msgstr "Net yatırım (NIH)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__hedge_type__net_investment
+msgid "Net investment hedge (NIH)"
+msgstr "Net yatırım riskinden korunma (NIH)"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_kanban
+msgid "Net:"
+msgstr ""
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__timeout_seconds
+msgid "Network timeout in seconds for the provider HTTP call."
+msgstr "Sağlayıcı HTTP çağrısı için saniye cinsinden ağ zaman aşımı."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__new_balance_company
+msgid "New Balance Company"
+msgstr "Yeni bakiye şirketi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__regression_pairs
+msgid ""
+"Newline-delimited 'instrument_change,hedged_change' pairs across testing "
+"periods. Used by the regression method to compute R-squared."
+msgstr ""
+"Test dönemleri boyunca satır sonuyla ayrılmış "
+"'instrument_change,hedged_change' çiftleri. R-squared'ı hesaplamak için "
+"regresyon yöntemi tarafından kullanılır."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_calendar_event_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_calendar_event_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Sonraki Aktivite Takvimi Etkinliği"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Sonraki Aktivite Son Tarihi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_summary
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_summary
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_summary
+msgid "Next Activity Summary"
+msgstr "Sonraki Aktivite Özeti"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_type_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_type_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_type_id
+msgid "Next Activity Type"
+msgstr "Sonraki Aktivitie Türü"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.actions.act_window,help:eh_account_fx_revaluation.action_eh_fx_rate_config
+msgid "No FX rate provider configured."
+msgstr "Yapılandırılmış FX kur sağlayıcısı yok."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_line__nature__flat
+msgid "No change"
+msgstr "Değişiklik yok"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "No closing rate available for currency %(name)s on %(date)s."
+msgstr ""
+"%(date)s tarihinde %(name)s para birimi için kapanış kuru mevcut değil."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "No rates could be fetched for %(date)s: %(err)s"
+msgstr "%(date)s için hiçbir kur alınamadı: %(err)s"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "No rates returned"
+msgstr "Kur döndürülmedi"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "No rates returned."
+msgstr "Kur döndürülmedi."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "No revaluation lines computed yet."
+msgstr "Henüz hesaplanmış yeniden değerleme satırı yok."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "No revaluation lines to post."
+msgstr "Kaydedilecek yeniden değerleme satırı yok."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__note
+msgid "Note"
+msgstr "Not"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__notes
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__notes
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__notes
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__notes
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Notes"
+msgstr "Notlar"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__notional_amount
+msgid "Notional Amount"
+msgstr "İtibari Tutar"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__notional_amount
+msgid ""
+"Notional amount of the hedging instrument in the hedged item's currency. "
+"Drives the dollar-offset and regression calculations."
+msgstr ""
+"Korunan kalemin para biriminde korunma aracının itibari tutarı. Dollar-"
+"offset ve regresyon hesaplamalarının temelini oluşturur."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_needaction_counter
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_needaction_counter
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Aksiyon Sayısı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_error_counter
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_error_counter
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_error_counter
+msgid "Number of errors"
+msgstr "Hata adedi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__source_line_count
+msgid "Number of journal items aggregated into this line."
+msgstr "Bu satırda toplanan yevmiye kalemi sayısı."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__message_needaction_counter
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_needaction_counter
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "İşlem gerektiren mesaj sayısı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_error_counter
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_error_counter
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Teslimat hatası olan mesaj adedi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__oci_account_id
+msgid "OCI / Equity Account"
+msgstr "OCI / Özkaynak Hesabı"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "OCI reclassification %s on %s"
+msgstr "%s tarihinde OCI yeniden sınıflandırması %s"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__oci_account_id
+msgid ""
+"OCI reserve where the effective portion of CFH and NIH gains/losses "
+"accumulates. Typically an equity-class account named 'Cash Flow Hedge "
+"Reserve' or 'Foreign Currency Translation Reserve'. Required for CFH and "
+"NIH; ignored for FVH."
+msgstr ""
+"CFH ve NIH kazanç/kayıplarının etkin kısmının biriktiği OCI yedeği. "
+"Genellikle 'Cash Flow Hedge Reserve' veya 'Foreign Currency Translation "
+"Reserve' adlı bir özkaynak sınıfı hesabı. CFH ve NIH için gereklidir; FVH "
+"için yok sayılır."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__offset_ratio
+msgid "Offset Ratio"
+msgstr "Mahsup oranı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.constraint,message:eh_account_fx_revaluation.constraint_eh_fx_rate_config_unique_per_company
+msgid "One FX rate config per company."
+msgstr "Şirket başına bir FX kur yapılandırması."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.constraint,message:eh_account_fx_revaluation.constraint_eh_fx_rate_override_unique_currency
+msgid "One manual override per currency on a configuration."
+msgstr "Bir yapılandırmada para birimi başına bir manuel geçersiz kılma."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_form
+msgid ""
+"One pair per line: instrument_change,hedged_change\n"
+"e.g.\n"
+"1000,-980\n"
+"-450,460\n"
+"700,-720"
+msgstr ""
+"Satır başına bir çift: instrument_change,hedged_change\n"
+"ör.\n"
+"1000,-980\n"
+"-450,460\n"
+"700,-720"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Only accounting managers can post FX revaluation runs."
+msgstr ""
+"FX yeniden değerleme çalıştırmalarını yalnızca muhasebe yöneticileri "
+"kaydedebilir."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Only accounting managers can reverse FX revaluation runs."
+msgstr ""
+"FX yeniden değerleme çalıştırmalarını yalnızca muhasebe yöneticileri ters "
+"çevirebilir."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Only active hedges can be de-designated."
+msgstr "Yalnızca etkin riskten korunma işlemlerinin ataması kaldırılabilir."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Only cancelled runs can return to draft."
+msgstr "Yalnızca iptal edilmiş işlemler taslağa geri dönebilir."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Only draft hedges can be designated."
+msgstr "Yalnızca taslak riskten korunma işlemleri atanabilir."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Only draft movements can be posted."
+msgstr "Yalnızca taslak hareketler kaydedilebilir."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.constraint,message:eh_account_fx_revaluation.constraint_eh_fx_revaluation_run_uniq_date_company
+msgid "Only one revaluation run per date per company."
+msgstr ""
+"Şirket başına tarih başına yalnızca bir yeniden değerleme çalıştırması."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_hedge.py:0
+msgid "Only posted movements can be reclassified."
+msgstr "Yalnızca kaydedilmiş hareketler yeniden sınıflandırılabilir."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Only posted runs can be reversed."
+msgstr "Yalnızca kaydedilmiş çalıştırmalar tersine çevrilebilir."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__balance_foreign
+msgid "Open balance in the foreign currency."
+msgstr "Yabancı para birimindeki açık bakiye."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__description
+msgid "Optional label, e.g. 'March 2026 month end'."
+msgstr "İsteğe bağlı etiket, örneğin 'March 2026 month end'."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__fallback_provider
+msgid ""
+"Optional second source used to fill any currency the primary provider does "
+"not return, or to cover the run when the primary is temporarily unreachable."
+" Leave on Manual to disable the fallback. A broad aggregator is a good "
+"choice here so a national feed that omits an exotic currency still resolves."
+msgstr ""
+"Birincil sağlayıcının döndürmediği herhangi bir para birimini doldurmak veya"
+" birincil geçici olarak erişilemez olduğunda çalıştırmayı karşılamak için "
+"kullanılan isteğe bağlı ikinci kaynak. Yedeği devre dışı bırakmak için "
+"Manual olarak bırakın. Egzotik bir para birimini atlayan ulusal bir "
+"beslemenin yine de çözümlenmesi için burada geniş kapsamlı bir toplayıcı iyi"
+" bir seçimdir."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__override_line_ids
+msgid "Override Line"
+msgstr "Geçersiz kılma satırı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__pl_account_id
+msgid "P&L Account"
+msgstr "Kâr/zarar hesabı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__pl_account_id
+msgid ""
+"P&L account where the ineffective portion (and the entire FVH movement) is "
+"recognised. Typically the FX gain/loss account."
+msgstr ""
+"Etkin olmayan kısmın (ve tüm FVH hareketinin) muhasebeleştirildiği kâr/zarar"
+" hesabı. Genellikle FX kâr/zarar hesabı."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__partner_id
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Partner"
+msgstr "İş Ortağı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__test_ids
+msgid "Periodic effectiveness test results."
+msgstr "Periyodik etkinlik testi sonuçları."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__movement_ids
+msgid "Periodic gain/loss recognition records."
+msgstr "Periyodik kâr/zarar tanıma kayıtları."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__effective_portion
+msgid ""
+"Portion considered effective per the most recent effectiveness test. Goes to"
+" OCI for CFH and NIH; to P&L for FVH (under the FVH model the effective "
+"portion is the offsetting change in the hedged item, which still ends up in "
+"P&L)."
+msgstr ""
+"En son etkinlik testine göre etkin sayılan kısım. CFH ve NIH için OCI'ya; "
+"FVH için P&L'ye gider (FVH modelinde etkin kısım, korunan kalemdeki "
+"dengeleyici değişimdir ve bu da yine P&L'de son bulur)."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_form
+msgid "Position"
+msgstr "Pozisyon"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid "Post"
+msgstr "Onayla"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Post Entry"
+msgstr "Kaydı İşle"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Post Reversal"
+msgstr "Ters Kaydı İşle"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Post the revaluation entry? This is irreversible."
+msgstr "Yeniden değerleme kaydı işlensin mi? Bu işlem geri alınamaz."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge_movement__state__posted
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_run__state__posted
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "Posted"
+msgstr "Onaylanmış"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__posted_at
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__posted_at
+msgid "Posted At"
+msgstr "İşlenme Zamanı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__posted_by_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__posted_by_id
+msgid "Posted By"
+msgstr "İşleyen"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Posted Entries"
+msgstr "Onaylanan Kayıtlar"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Posted by"
+msgstr "İşleyen"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid "Posting / Audit"
+msgstr "Kayıt / Denetim"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__provider
+msgid "Provider"
+msgstr "Sağlayıcı"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid ""
+"Provider %(provider)s returned no rates for %(date)s. If %(date)s is a non-"
+"business day, try a prior date or wait for the next publication."
+msgstr ""
+"Sağlayıcı %(provider)s, %(date)s için hiçbir kur döndürmedi. %(date)s bir iş"
+" günü değilse, önceki bir tarihi deneyin veya bir sonraki yayını bekleyin."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "Provider %s is not registered."
+msgstr "Sağlayıcı %s kayıtlı değil."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__provider_needs_key
+msgid "Provider Needs Key"
+msgstr "Sağlayıcı Anahtar Gerektiriyor"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid ""
+"Pull closing rates from the configured provider for the revaluation date and"
+" write them into the currency table."
+msgstr ""
+"Yeniden değerleme tarihi için yapılandırılmış sağlayıcıdan kapanış kurlarını"
+" çekin ve para birimi tablosuna yazın."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__test_method
+msgid ""
+"Quantitative effectiveness test. Dollar-offset checks the ratio of "
+"cumulative gain on the instrument to cumulative loss on the hedged item "
+"falls within 80-125%. Regression performs a linear fit of period changes and"
+" requires R-squared above the threshold."
+msgstr ""
+"Niceliksel etkinlik testi. Dollar-offset yöntemi, araç üzerindeki kümülatif "
+"kazancın korunan kalem üzerindeki kümülatif zarara oranının 80-125% "
+"aralığında olup olmadığını denetler. Regression yöntemi, dönem "
+"değişikliklerine doğrusal bir uyum uygular ve R-squared değerinin eşiğin "
+"üzerinde olmasını gerektirir."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__rsquared
+msgid "R-squared of the linear regression on regression_pairs."
+msgstr "regression_pairs üzerindeki doğrusal regresyonun R-squared değeri."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Rate"
+msgstr "Oran"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.ui.menu,name:eh_account_fx_revaluation.menu_eh_fx_rate_config
+msgid "Rate Providers"
+msgstr "Tarife Sağlayıcıları"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__rating_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__rating_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__rating_ids
+msgid "Ratings"
+msgstr "Değerlendirmeler"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__reclassification_move_id
+msgid "Reclassification Move"
+msgstr "Yeniden sınıflandırma yevmiyesi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge_movement__state__reclassified
+msgid "Reclassified to P&L"
+msgstr "P&L'ye yeniden sınıflandırıldı"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid "Reclassify OCI to P&L"
+msgstr "OCI'yi P&L'ye yeniden sınıflandır"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_movement_form
+msgid ""
+"Reclassify the effective portion from OCI to the P&L account? Used when the "
+"hedged forecast transaction occurs (CFH) or the foreign operation is "
+"disposed (NIH)."
+msgstr ""
+"Etkin kısım OCI'den P&L hesabına yeniden sınıflandırılsın mı? Riskten "
+"korunan tahmini işlem gerçekleştiğinde (CFH) veya yurt dışı faaliyet elden "
+"çıkarıldığında (NIH) kullanılır."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__test_method__regression
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge_test__method__regression
+msgid "Regression (R-squared threshold)"
+msgstr "Regresyon (R-squared eşiği)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__regression_pairs
+msgid "Regression Pairs"
+msgstr "Regresyon çiftleri"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__activity_user_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_user_id
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_user_id
+msgid "Responsible User"
+msgstr "Sorumlu Kullanıcı"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Restated"
+msgstr "Yeniden Düzenlendi"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_form
+msgid "Revaluation"
+msgstr "Yeniden Değerleme"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__revaluation_date
+msgid "Revaluation Date"
+msgstr "Yeniden Değerleme Tarihi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__move_id
+msgid "Revaluation Entry"
+msgstr "Yeniden Değerleme Kaydı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.ui.menu,name:eh_account_fx_revaluation.menu_eh_fx_revaluation_line
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Revaluation Lines"
+msgstr "Yeniden Değerleme Satırları"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.ui.menu,name:eh_account_fx_revaluation.menu_eh_fx_revaluation_run
+msgid "Revaluation Runs"
+msgstr "Yeniden Değerleme Çalıştırmaları"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Revaluation lines"
+msgstr "Yeniden değerleme satırları"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Revaluation produced no adjustments to post."
+msgstr "Yeniden değerleme, kaydedilecek herhangi bir düzeltme oluşturmadı."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__reversal_move_id
+msgid "Reversal Entry"
+msgstr "Ters Kayıt"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_revaluation_run__state__reversed
+msgid "Reversed"
+msgstr "Ters"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__reversed_at
+msgid "Reversed At"
+msgstr "Ters Çevrilme Tarihi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__reversed_by_id
+msgid "Reversed By"
+msgstr "Ters Çeviren"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Risk management documentation (IFRS 9 6.4.1)"
+msgstr "Risk yönetimi dokümantasyonu (IFRS 9 6.4.1)"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid ""
+"Risk management objective and strategy. Method of measuring effectiveness. "
+"Sources of ineffectiveness. Required at inception per IFRS 9."
+msgstr ""
+"Risk yönetimi amacı ve stratejisi. Etkinliği ölçme yöntemi. Etkinsizlik "
+"kaynakları. IFRS 9 uyarınca ilk muhasebeleştirmede gereklidir."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__rsquared
+msgid "Rsquared"
+msgstr ""
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__rsquared_threshold
+msgid "Rsquared Threshold"
+msgstr "Rsquared eşiği"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__run_id
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_line_search
+msgid "Run"
+msgstr "Çalıştır"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Run %s has no foreign-currency exposure to fetch rates for."
+msgstr "%s çalıştırmasının kur çekilecek yabancı para riski yok."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Run already has a reversal move."
+msgstr "Çalıştırmada zaten bir ters kayıt mevcut."
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Run must be in computed state before posting."
+msgstr "Muhasebeleştirmeden önce çalıştırma hesaplanmış durumda olmalıdır."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__message_has_sms_error
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__message_has_sms_error
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS İleti hatası"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Set to Draft"
+msgstr "Taslak olarak ayarla"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__slope
+msgid "Slope"
+msgstr "Eğim"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__slope
+msgid ""
+"Slope of the regression of hedged-item change on hedging-instrument change. "
+"An effective hedge offsets the hedged item, so the slope must be negative "
+"and close to -1 (its absolute value within 0.80 to 1.25). R-squared alone is"
+" sign-blind, so the slope guards against a positively correlated, non-"
+"hedging relationship."
+msgstr ""
+"Riskten korunma aracının değişimine karşı korunan kalemin değişiminin "
+"regresyonunun eğimi. Etkili bir riskten korunma, korunan kalemi dengeler; bu"
+" nedenle eğim negatif ve -1'e yakın olmalıdır (mutlak değeri 0,80 ile 1,25 "
+"arasında). R-squared tek başına işarete kördür; bu nedenle eğim, pozitif "
+"korelasyonlu, korunma sağlamayan bir ilişkiye karşı koruma sağlar."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_line__source_line_count
+msgid "Source Line Count"
+msgstr "Kaynak Satır Sayısı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__state
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__state
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__state
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_search
+msgid "State"
+msgstr "İl/Eyalet"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__activity_state
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_state
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Aktivitelere göre durum \n"
+"Gecikmiş\\: Son tarih geçmiş\n"
+"Bugün\\: Aktivite tarihi bugün\n"
+"Planlanmış\\: Gelecek Aktiviteler."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Terminate"
+msgstr "Sonlandır"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_hedge__state__terminated
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_search
+msgid "Terminated"
+msgstr "Sonlandırıldı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__termination_date
+msgid "Termination Date"
+msgstr "Sonlandırma Tarihi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__test_ids
+msgid "Test"
+msgstr ""
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__test_count
+msgid "Test Count"
+msgstr "Test Sayısı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_test__test_date
+msgid "Test Date"
+msgstr "Test Tarihi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__test_method
+msgid "Test Method"
+msgstr "Test Yöntemi"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_test_form
+msgid "Test methodology notes..."
+msgstr "Test metodolojisi notları..."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid "Tests"
+msgstr "Testler"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_override__currency_id
+msgid "The currency this manual rate applies to."
+msgstr "Bu manuel kurun uygulandığı para birimi."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_config__timeout_seconds
+msgid "Timeout Seconds"
+msgstr "Zaman Aşımı Saniyesi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__total_change
+msgid "Total Change"
+msgstr "Toplam Değişim"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__total_gain
+msgid "Total Gain"
+msgstr "Toplam Kazanç"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__total_loss
+msgid "Total Loss"
+msgstr "Toplam Zarar"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__total_change
+msgid ""
+"Total fair-value change of the hedging instrument for this period (positive "
+"= gain on instrument)."
+msgstr ""
+"Bu dönem için riskten korunma aracının toplam gerçeğe uygun değer değişimi "
+"(pozitif = araçta kazanç)."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Total gain"
+msgstr "Toplam kazanç"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "Total loss"
+msgstr "Toplam zarar"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "Totals"
+msgstr "Toplamlar"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__last_test_effective
+msgid ""
+"True when the most recent test passed. The state auto-flips to effective on "
+"a passing test and stays in designated otherwise."
+msgstr ""
+"En son test geçtiğinde True olur. Durum, geçen bir testte otomatik olarak "
+"effective değerine geçer, aksi halde designated olarak kalır."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_config__provider_needs_key
+msgid "True when the selected provider requires an API key."
+msgstr "Seçilen sağlayıcı bir API anahtarı gerektirdiğinde True olur."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_test__is_effective
+msgid ""
+"True when the test passes. Dollar-offset: ratio in [0.80, 1.25]. Regression:"
+" R-squared >= threshold on the parent hedge."
+msgstr ""
+"Test geçtiğinde True olur. Dollar-offset: oran [0.80, 1.25] aralığında. "
+"Regression: üst hedge'de R-squared >= eşik."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__activity_exception_decoration
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__activity_exception_decoration
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Kayıtlardaki istisna etkinliğinin türü."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_hedge_form
+msgid ""
+"USD revenue forecast Q3 2026, EUR receivable from Acme GmbH, net investment "
+"in DE subsidiary, ..."
+msgstr ""
+"2026 3. çeyrek USD gelir tahmini, Acme GmbH'den EUR alacağı, DE bağlı "
+"ortaklığındaki net yatırım, ..."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__closing_rate
+msgid ""
+"Units of company currency per 1 unit of foreign currency at the revaluation "
+"date."
+msgstr ""
+"Yeniden değerleme tarihinde yabancı para biriminin 1 birimi başına şirket "
+"para birimi birimleri."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_rate_override__inverse_company_rate
+msgid ""
+"Units of this currency for one unit of the company currency (Odoo inverse "
+"rate). For example, with an AUD company and a USD override, 0.65 means 1 AUD"
+" = 0.65 USD."
+msgstr ""
+"Şirket para biriminin bir birimi başına bu para biriminin birimleri (Odoo "
+"ters kuru). Örneğin, AUD şirketi ve USD geçersiz kılma ile 0.65 değeri, 1 "
+"AUD = 0.65 USD anlamına gelir."
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_rate_override__inverse_company_rate
+msgid "Units per company currency"
+msgstr "Şirket para birimi başına birim"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__gain_account_id
+msgid "Unrealised FX Gain Account"
+msgstr "Gerçekleşmemiş FX Kazanç Hesabı"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__loss_account_id
+msgid "Unrealised FX Loss Account"
+msgstr "Gerçekleşmemiş FX Zarar Hesabı"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Unrealised FX gain"
+msgstr "Gerçekleşmemiş FX kazancı"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_revaluation_run.py:0
+msgid "Unrealised FX loss"
+msgstr "Gerçekleşmemiş FX zararı"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_rate_config_form
+msgid "Update now"
+msgstr "Şimdi güncelle"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge__website_message_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_hedge_movement__website_message_ids
+#: model:ir.model.fields,field_description:eh_account_fx_revaluation.field_eh_fx_revaluation_run__website_message_ids
+msgid "Website Messages"
+msgstr "Websitesi Mesajları"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge__website_message_ids
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__website_message_ids
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_run__website_message_ids
+msgid "Website communication history"
+msgstr "Websitesi iletişim geçmişi"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields.selection,name:eh_account_fx_revaluation.selection__eh_fx_rate_config__fetch_frequency__weekly
+msgid "Weekly"
+msgstr "Haftalık"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_form
+msgid "e.g. March 2026 month end"
+msgstr "örn. Mart 2026 ay sonu"
+
+#. module: eh_account_fx_revaluation
+#. odoo-python
+#: code:addons/eh_account_fx_revaluation/models/fx_rate_config.py:0
+msgid "fallback %s"
+msgstr "yedek %s"
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.view_eh_fx_revaluation_run_kanban
+msgid "line(s)"
+msgstr "Satır(lar)"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_revaluation_line__adjustment
+msgid ""
+"new_balance_company minus balance_company. Positive moves the account up; "
+"sign is interpreted in light of the account nature to assign the gain or "
+"loss leg."
+msgstr ""
+"new_balance_company eksi balance_company. Pozitif değer hesabı yukarı taşır;"
+" işaret, kazanç veya kayıp bacağını atamak için hesabın niteliğine göre "
+"yorumlanır."
+
+#. module: eh_account_fx_revaluation
+#: model_terms:ir.ui.view,arch_db:eh_account_fx_revaluation.report_fx_revaluation
+msgid "on"
+msgstr ":"
+
+#. module: eh_account_fx_revaluation
+#: model:ir.model.fields,help:eh_account_fx_revaluation.field_eh_fx_hedge_movement__ineffective_portion
+msgid "total_change minus effective_portion. Always to P&L."
+msgstr "total_change eksi effective_portion. Her zaman P&L'ye."

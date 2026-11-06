@@ -1,0 +1,932 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_credit_limit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__excess
+msgid ""
+"(exposure + move_amount) - limit. The amount by which the override exceeds "
+"the limit."
+msgstr ""
+"(exposure + move_amount) - limit. Сумма, на которую переопределение "
+"превышает лимит."
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_partner_form_eh_credit_button
+msgid "<span class=\"o_stat_text\">Credit</span>"
+msgstr "<span class=\"o_stat_text\">Кредит</span>"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_needaction
+msgid "Action Needed"
+msgstr "Требуются действия"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__active
+msgid "Active"
+msgstr "Активный"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_ids
+msgid "Activities"
+msgstr "Активность"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Оформление задачи-исключения"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_state
+msgid "Activity State"
+msgstr "Состояние активности"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Значок типа активности"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__user_id
+msgid "Actor"
+msgstr "Субъект"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__move_amount
+msgid "Amount of the move that triggered the override."
+msgstr "Сумма проводки, вызвавшей переопределение."
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Archived"
+msgstr "Архивировано"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_attachment_count
+msgid "Attachment Count"
+msgstr "Количество вложений"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_override_log_id
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_move__eh_credit_override_log_id
+msgid ""
+"Audit row recorded when this move's post bypassed the credit gate. Empty "
+"when no override was needed."
+msgstr ""
+"Строка аудита, записываемая, когда проведение этой проводки обошло кредитный"
+" контроль. Пусто, когда переопределение не требовалось."
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_form
+msgid ""
+"Block mode raises a UserError on customer invoice post when exposure exceeds"
+" the limit. The override field on the invoice plus a comment from a manager "
+"records the bypass to the immutable audit log. Warn-only logs the breach to "
+"chatter and lets the post proceed."
+msgstr ""
+"Режим блокировки вызывает UserError при проведении счета клиента, когда риск"
+" превышает лимит. Поле переопределения в счете вместе с комментарием "
+"менеджера фиксирует обход в неизменяемом журнале аудита. Режим только "
+"предупреждения регистрирует нарушение в чате и позволяет провести документ."
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Block on Post"
+msgstr "Блокировать при проведении"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__eh_credit_policy__enforcement_mode__block
+msgid "Block on post (override allowed)"
+msgstr "Блокировать при проведении (переопределение разрешено)"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__comment
+msgid "Comment"
+msgstr "Комментарий"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__company_id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__company_id
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Company"
+msgstr "Компания"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/credit_policy.py:0
+msgid ""
+"Company %(company)s already has a default credit policy (%(name)s). Unset "
+"that one first."
+msgstr ""
+"У компании %(company)s уже есть кредитная политика по умолчанию (%(name)s). "
+"Сначала снимите её."
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/credit_policy.py:0
+msgid ""
+"Company %(company)s already has a default policy (%(name)s). Saving this "
+"record will fail unless you clear the existing default first."
+msgstr ""
+"У компании %(company)s уже есть политика по умолчанию (%(name)s). Сохранение"
+" этой записи не удастся, пока вы сначала не снимите существующее значение по"
+" умолчанию."
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Company Default"
+msgstr "По умолчанию для компании"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_credit_exposure_currency_id
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_credit_exposure_currency_id
+msgid "Company currency exposure and limit are expressed in."
+msgstr "Валюта, в которой выражаются позиция и лимит компании."
+
+#. module: eh_account_credit_limit
+#: model:ir.model,name:eh_account_credit_limit.model_res_partner
+msgid "Contact"
+msgstr "Контакты"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.actions.act_window,help:eh_account_credit_limit.action_eh_credit_policy
+msgid ""
+"Create one default policy per company. Mark it 'Company default' so partners"
+" without an override use this limit. Set per-partner overrides on the "
+"partner form when a specific customer needs different terms."
+msgstr ""
+"Создайте одну политику по умолчанию для каждой компании. Отметьте её как «По"
+" умолчанию для компании», чтобы партнёры без переопределения использовали "
+"этот лимит. Задайте переопределения по партнёрам в форме партнёра, когда "
+"конкретному клиенту нужны другие условия."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__create_uid
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__create_uid
+msgid "Created by"
+msgstr "Создано:"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__create_date
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__create_date
+msgid "Created on"
+msgstr "Дата создания:"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_form
+msgid "Credit Override"
+msgstr "Переопределение кредита"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_list
+msgid "Credit Override Audit Log"
+msgstr "Журнал аудита переопределений кредита"
+
+#. module: eh_account_credit_limit
+#: model:ir.actions.act_window,name:eh_account_credit_limit.action_eh_credit_override_log
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Credit Override Log"
+msgstr "Журнал переопределений кредита"
+
+#. module: eh_account_credit_limit
+#: model:ir.ui.menu,name:eh_account_credit_limit.menu_eh_credit_override_log
+msgid "Credit Overrides"
+msgstr "Переопределения кредита"
+
+#. module: eh_account_credit_limit
+#: model:ir.actions.act_window,name:eh_account_credit_limit.action_eh_credit_policy
+#: model:ir.ui.menu,name:eh_account_credit_limit.menu_eh_credit_policy
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_list
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Credit Policies"
+msgstr "Кредитные политики"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_form
+msgid "Credit Policy"
+msgstr "Кредитная политика"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid ""
+"Credit limit exceeded for %(partner)s. Posting this invoice would bring "
+"exposure to %(new).2f against a limit of %(limit).2f (excess %(excess).2f). "
+"To proceed, a manager must record the override reason on this invoice before"
+" posting again."
+msgstr ""
+"Кредитный лимит для %(partner)s превышен. Проведение этого счета доведет "
+"подверженность до %(new).2f при лимите %(limit).2f (превышение "
+"%(excess).2f). Чтобы продолжить, руководитель должен указать причину "
+"переопределения в этом счете перед повторным проведением."
+
+#. module: eh_account_credit_limit
+#: model:ir.model,name:eh_account_credit_limit.model_eh_credit_override_log
+msgid "Credit override audit log"
+msgstr "Журнал аудита переопределений кредита"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_move_form_eh_credit
+msgid "Credit override audit row"
+msgstr "Строка аудита переопределения кредита"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_move_form_eh_credit
+msgid "Credit override reason"
+msgstr "Причина переопределения кредита"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid ""
+"Credit override recorded. Exposure %(exp).2f, limit %(lim).2f, excess "
+"%(exc).2f. Reason: %(reason)s."
+msgstr ""
+"Переопределение кредита зарегистрировано. Подверженность %(exp).2f, лимит "
+"%(lim).2f, превышение %(exc).2f. Причина: %(reason)s."
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_partner_form_eh_credit
+msgid "Credit policy"
+msgstr "Кредитная политика"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_partner_form_eh_credit_button
+msgid "Credit status and override history"
+msgstr "Кредитный статус и история переопределений"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid ""
+"Credit warning: posting this invoice brings %(partner)s to %(new).2f, "
+"exceeding the %(limit).2f limit by %(excess).2f. Posting allowed (warn-only "
+"policy)."
+msgstr ""
+"Кредитное предупреждение: проведение этого счета доводит %(partner)s до "
+"%(new).2f, превышая лимит %(limit).2f на %(excess).2f. Проведение разрешено "
+"(политика только с предупреждением)."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__currency_id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__currency_id
+msgid "Currency"
+msgstr "Валюта"
+
+#. module: eh_account_credit_limit
+#: model:ir.model,name:eh_account_credit_limit.model_eh_credit_policy
+msgid "Customer credit policy"
+msgstr "Кредитная политика клиента"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__default_credit_limit
+msgid "Default Credit Limit"
+msgstr "Кредитный лимит по умолчанию"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__default_credit_limit
+msgid ""
+"Default credit limit applied when a partner has no override. Zero means no "
+"enforcement; the gate skips."
+msgstr ""
+"Стандартный кредитный лимит, применяемый, когда у партнёра нет "
+"переопределения. Ноль означает отсутствие принудительного применения; "
+"проверка пропускается."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.constraint,message:eh_account_credit_limit.constraint_eh_credit_policy_check_default_limit_non_negative
+msgid "Default credit limit cannot be negative."
+msgstr "Стандартный кредитный лимит не может быть отрицательным."
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_form
+msgid "Default policy"
+msgstr "Стандартная политика"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_move__display_name
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__display_name
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__display_name
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Отображаемое имя"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__limit_at_override
+msgid "Effective credit limit applied to the partner at override time."
+msgstr ""
+"Действующий кредитный лимит, примененный к партнеру в момент "
+"переопределения."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_credit_exposure
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_credit_exposure
+msgid "Eh Credit Exposure"
+msgstr "Кредитный риск"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_credit_exposure_currency_id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_credit_exposure_currency_id
+msgid "Eh Credit Exposure Currency"
+msgstr "Валюта кредитного риска"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_credit_limit
+msgid "Eh Credit Limit"
+msgstr "Кредитный лимит"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_override_log_id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_move__eh_credit_override_log_id
+msgid "Eh Credit Override Log"
+msgstr "Журнал переопределения кредита"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_override_reason
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_move__eh_credit_override_reason
+msgid "Eh Credit Override Reason"
+msgstr "Причина переопределения кредита"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_credit_policy_id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_credit_policy_id
+msgid "Eh Credit Policy"
+msgstr "Кредитная политика"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_credit_status
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_credit_status
+msgid "Eh Credit Status"
+msgstr "Кредитный статус"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_warning
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_move__eh_credit_warning
+msgid "Eh Credit Warning"
+msgstr "Кредитное предупреждение"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_effective_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_effective_credit_limit
+msgid "Eh Effective Credit Limit"
+msgstr "Эффективный кредитный лимит"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_form
+msgid "Enforcement"
+msgstr "Принудительное применение"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__enforcement_mode
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Enforcement Mode"
+msgstr "Режим принудительного применения"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__excess
+msgid "Excess"
+msgstr "Превышение"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/credit_policy.py:0
+msgid "Existing default"
+msgstr "Существующее значение по умолчанию"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__exposure_at_override
+msgid "Exposure At Override"
+msgstr "Экспозиция на момент переопределения"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_follower_ids
+msgid "Followers"
+msgstr "Подписчики"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Подписчики"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Шрифт, отличный значок, например. к.-а.-задачи"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__comment
+msgid ""
+"Free-form note. The only field that stays writable after the row is created."
+msgstr ""
+"Произвольная заметка. Единственное поле, которое остаётся доступным для "
+"записи после создания строки."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__override_group_id
+msgid ""
+"Group whose members can record an override on a move. Defaults to the EH "
+"Accounting Manager group; deployments that need a separate Credit Officer "
+"cohort point this at their own group."
+msgstr ""
+"Группа, участники которой могут зарегистрировать переопределение по "
+"проводке. По умолчанию используется группа EH Accounting Manager; "
+"развёртывания, которым нужна отдельная группа кредитных специалистов, "
+"указывают здесь собственную группу."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__has_message
+msgid "Has Message"
+msgstr "Есть сообщение"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_move__id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__id
+msgid "ID"
+msgstr "Номер"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_exception_icon
+msgid "Icon"
+msgstr "Иконка"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Иконка, указывающая на задачу-исключение."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+"Если флажок установлен, значит, новые сообщения требуют вашего внимания."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__message_has_error
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Если отмечено, некоторые сообщения имеют ошибку доставки."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__include_drafts
+msgid "Include Drafts"
+msgstr "Включить черновики"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__include_sale_orders
+msgid "Include Sale Orders"
+msgstr "Включить заказы на продажу"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__is_company_default
+msgid "Is Company Default"
+msgstr "Является значением по умолчанию для компании"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_is_follower
+msgid "Is Follower"
+msgstr "Является подписчиком"
+
+#. module: eh_account_credit_limit
+#: model:ir.model,name:eh_account_credit_limit.model_account_move
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Journal Entry"
+msgstr "Запись в журнале"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Last 30 Days"
+msgstr "Последние 30 дней"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__write_uid
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__write_uid
+msgid "Last Updated by"
+msgstr "Последнее обновление:"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__write_date
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__write_date
+msgid "Last Updated on"
+msgstr "Дата последнего обновления:"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__limit_at_override
+msgid "Limit At Override"
+msgstr "Лимит при переопределении"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_warning
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_move__eh_credit_warning
+msgid ""
+"Live, non-blocking warning shown on a draft customer invoice when posting it"
+" would take the partner over its credit limit. The hard gate still runs at "
+"post time."
+msgstr ""
+"Активное неблокирующее предупреждение, отображаемое в черновике счёта "
+"клиента, когда его проведение приведёт к превышению партнёром кредитного "
+"лимита. Жёсткая блокировка по-прежнему срабатывает при проведении."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_has_error
+msgid "Message Delivery error"
+msgstr "Ошибка доставки сообщения"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_ids
+msgid "Messages"
+msgstr "Сообщения"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__move_id
+msgid "Move"
+msgstr "Переместить"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__move_amount
+msgid "Move Amount"
+msgstr "Сумма проводки"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Крайний срок моей активности"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__name
+msgid "Name"
+msgstr "Имя"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Следующее событие календаря активности"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Следующий срок мероприятия"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_summary
+msgid "Next Activity Summary"
+msgstr "Резюме следующего действия"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_type_id
+msgid "Next Activity Type"
+msgstr "Следующий Тип Мероприятия"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.actions.act_window,help:eh_account_credit_limit.action_eh_credit_policy
+msgid "No credit policies yet."
+msgstr "Кредитных политик пока нет."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__res_partner__eh_credit_status__disabled
+msgid "No policy"
+msgstr "Нет политики"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__notes
+msgid "Notes"
+msgstr "Заметки"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Число действий"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_has_error_counter
+msgid "Number of errors"
+msgstr "Число ошибок"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Количество сообщений, требующих принятия мер"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Количество недоставленных сообщений"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__res_partner__eh_credit_status__ok
+msgid "OK"
+msgstr "ОК"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_credit_status
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_credit_status
+msgid ""
+"OK: exposure under 80 percent of limit. Warning: between 80 and 100 percent."
+" Over: above the limit. Disabled: no company policy in place."
+msgstr ""
+"OK: подверженность риску ниже 80 процентов лимита. Предупреждение: от 80 до "
+"100 процентов. Превышение: выше лимита. Отключено: политика компании не "
+"установлена."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__res_partner__eh_credit_status__over
+msgid "Over limit"
+msgstr "Свыше лимита"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Override Date"
+msgstr "Дата переопределения"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__override_group_id
+msgid "Override Group"
+msgstr "Группа переопределения"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__partner_id
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Partner"
+msgstr "Партнер"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__exposure_at_override
+msgid ""
+"Partner exposure (open AR plus drafts when policy says so) at the moment of "
+"override."
+msgstr ""
+"Экспозиция партнёра (открытая AR плюс черновики, если этого требует "
+"политика) на момент переопределения."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_credit_limit
+msgid ""
+"Per-partner credit limit override. Zero means use the company default "
+"policy. Negative values are not allowed."
+msgstr ""
+"Переопределение кредитного лимита по каждому партнёру. Ноль означает "
+"использование политики компании по умолчанию. Отрицательные значения не "
+"допускаются."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_effective_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_effective_credit_limit
+msgid ""
+"Per-partner override if set, else the company default policy's "
+"default_credit_limit. Zero means no enforcement. Expressed in the company "
+"currency to match exposure."
+msgstr ""
+"Переопределение по партнёру, если задано, иначе default_credit_limit "
+"политики компании по умолчанию. Ноль означает отсутствие применения. "
+"Выражается в валюте компании для соответствия величине риска."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_credit_policy_id
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_credit_policy_id
+msgid ""
+"Per-partner policy override. When set, takes precedence over the company "
+"default. Useful for known-risk customers that need stricter enforcement than"
+" the default policy applies."
+msgstr ""
+"Переопределение политики по партнёру. Если задано, имеет приоритет над "
+"значением компании по умолчанию. Полезно для клиентов с известным риском, "
+"которым нужно более строгое применение, чем предусмотрено политикой по "
+"умолчанию."
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid ""
+"Posting %(partner)s over its credit limit requires an override by a member "
+"of %(group)s. Configure the override group on the credit policy, or have an "
+"authorised user post this invoice."
+msgstr ""
+"Проведение %(partner)s сверх кредитного лимита требует переопределения "
+"участником группы %(group)s. Настройте группу переопределения в кредитной "
+"политике или поручите проведение этого счёта авторизованному пользователю."
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid ""
+"Posting brings %(partner)s to %(new).2f, over the %(limit).2f credit limit "
+"(excess %(excess).2f)."
+msgstr ""
+"Проведение доводит %(partner)s до %(new).2f, что превышает кредитный лимит "
+"%(limit).2f (превышение %(excess).2f)."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__rating_ids
+msgid "Ratings"
+msgstr "Рейтинги"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__reason
+msgid "Reason"
+msgstr "Причина"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_override_reason
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_move__eh_credit_override_reason
+msgid ""
+"Reason for overriding the customer credit limit on this specific invoice. "
+"Setting this field is a positive act: the gate sees it as 'manager has "
+"explicitly accepted this excess' and records the override before posting."
+msgstr ""
+"Причина превышения кредитного лимита клиента по этому конкретному счёту. "
+"Заполнение этого поля является осознанным действием: шлюз расценивает это "
+"как «менеджер явно принял это превышение» и фиксирует переопределение перед "
+"проведением."
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_move_form_eh_credit
+msgid "Required only when posting would exceed the customer's credit limit"
+msgstr ""
+"Требуется только тогда, когда проведение превысит кредитный лимит клиента"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_user_id
+msgid "Responsible User"
+msgstr "Ответственный пользователь"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Ошибка доставки SMS"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_form
+msgid "Scope"
+msgstr "Область действия"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__sequence
+msgid "Sequence"
+msgstr "Последовательность"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_partner_form_eh_credit
+msgid ""
+"Set the limit per partner only when a specific customer needs different "
+"terms. Otherwise the company default policy's limit applies. Status flips to"
+" Warning above 80 percent of the limit and Over above 100 percent. Posting a"
+" customer invoice in Over state requires a manager override unless the "
+"policy is in warn-only mode."
+msgstr ""
+"Задавайте лимит для партнёра только тогда, когда конкретному клиенту нужны "
+"другие условия. В противном случае применяется лимит политики компании по "
+"умолчанию. Статус меняется на Warning при превышении 80 процентов лимита и "
+"на Over при превышении 100 процентов. Проведение счёта клиента в состоянии "
+"Over требует подтверждения руководителя, если только политика не находится в"
+" режиме только предупреждения."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Статус, основанный на мероприятии\n"
+"Просроченная: Дата, уже прошла\n"
+"Сегодня: Дата мероприятия сегодня\n"
+"Запланировано: будущая деятельность."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_credit_exposure
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_credit_exposure
+msgid ""
+"Sum of unpaid open AR plus, when the effective policy says so, draft "
+"customer invoices and not-yet-invoiced sale orders. Multi-currency lines are"
+" converted to the company currency at the rate captured on each document. "
+"Live; recomputes on every form load."
+msgstr ""
+"Сумма неоплаченной открытой дебиторской задолженности (AR) плюс, если это "
+"предусмотрено действующей политикой, черновые счета клиентов и заказы на "
+"продажу, по которым ещё не выставлены счета. Строки в разных валютах "
+"конвертируются в валюту компании по курсу, зафиксированному в каждом "
+"документе. В реальном времени; пересчитывается при каждой загрузке формы."
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Today"
+msgstr "Сегодня"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Тип задачи-исключения в записи."
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "User"
+msgstr "Пользователь"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__user_id
+msgid "User who performed the action this row records."
+msgstr "Пользователь, выполнивший действие, которое фиксирует эта строка."
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Warn Only"
+msgstr "Только предупреждение"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__eh_credit_policy__enforcement_mode__warn
+msgid "Warn only"
+msgstr "Только предупреждение"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__enforcement_mode
+msgid ""
+"Warn-only logs the breach to the move's chatter but does not block the post."
+" Block raises a UserError unless an override has been recorded on the move."
+msgstr ""
+"Режим «Только предупреждение» записывает нарушение в чат проводки, но не "
+"блокирует проведение. Блокировка вызывает UserError, если для проводки не "
+"зарегистрировано переопределение."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__res_partner__eh_credit_status__warn
+msgid "Warning"
+msgstr "Предупреждение"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__website_message_ids
+msgid "Website Messages"
+msgstr "Веб-сайт сообщения"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__website_message_ids
+msgid "Website communication history"
+msgstr "История общений с сайта"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__include_drafts
+msgid ""
+"When set, draft customer invoices count toward a partner's exposure "
+"alongside posted-and-unpaid invoices. Useful in shops where sales and "
+"accounting are different cohorts and drafts are a real commitment. Default "
+"off so the gate only considers what is posted."
+msgstr ""
+"Когда задано, черновики счетов клиентов учитываются в подверженности "
+"контрагента наряду с проведенными и неоплаченными счетами. Полезно в "
+"магазинах, где продажи и бухгалтерия — разные группы, а черновики являются "
+"реальным обязательством. По умолчанию отключено, чтобы контроль учитывал "
+"только проведенное."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__include_sale_orders
+msgid ""
+"When set, the not-yet-invoiced portion of confirmed sales orders counts "
+"toward a partner's exposure. Catches credit risk earlier than waiting for "
+"the invoice: a customer with a 100k confirmed order but only 20k invoiced "
+"has 80k of real future receivables, and a strict gate should refuse a fresh "
+"order that pushes total commitments past the limit. Has no effect when the "
+"sale module is not installed."
+msgstr ""
+"Когда задано, еще не выставленная в счет часть подтвержденных заказов на "
+"продажу учитывается в подверженности контрагента. Улавливает кредитный риск "
+"раньше, чем ожидание счета: у клиента с подтвержденным заказом на 100k, но "
+"выставленным счетом лишь на 20k, есть 80k реальной будущей дебиторской "
+"задолженности, и строгий контроль должен отклонить новый заказ, который "
+"выводит общие обязательства за лимит. Не действует, когда модуль продаж не "
+"установлен."
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__is_company_default
+msgid ""
+"When set, this policy is the company-level default for partners that do not "
+"define their own override. Only one company-default policy may exist per "
+"company; the constraint enforces this."
+msgstr ""
+"Когда задано, эта политика является умолчанием на уровне компании для "
+"контрагентов, не задающих собственное переопределение. На компанию может "
+"существовать только одна политика по умолчанию компании; ограничение "
+"обеспечивает это."
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid "the credit-override group"
+msgstr "группа переопределения кредита"

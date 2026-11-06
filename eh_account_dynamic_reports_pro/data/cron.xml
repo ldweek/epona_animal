@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <!--
+            Hourly cron that dispatches every active schedule whose
+            next_run is past. Each schedule's failure is isolated so one
+            bad schedule never freezes the queue.
+        -->
+        <record id="cron_eh_report_schedule_run_due" model="ir.cron">
+            <field name="name">ERP Heritage: Run due scheduled reports</field>
+            <field name="model_id" ref="model_eh_report_schedule"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_run_due()</field>
+            <field name="active" eval="True"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="user_id" ref="base.user_root"/>
+        </record>
+
+    </data>
+</odoo>

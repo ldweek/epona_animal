@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    ERP Heritage Suite: canonical Heritage menu skeleton.
+
+    All EH accounting modules anchor their menus to the parent menus
+    defined here. Submodules use parent="eh_account_base.menu_eh_..."
+    instead of inventing their own root menus, so the navigation
+    experience is consistent regardless of which subset of the suite a
+    deployment installs.
+
+    Hierarchy:
+
+    Accounting (upstream account.menu_finance)
+    +- Customers (upstream)              [collections, recurring, cheques in]
+    +- Vendors (upstream)                [AP automation, cheques out]
+    +- Accounting (upstream)
+    |  +- Heritage Operations            [batch payments, SEPA, cheques, recon, bank import, approvals, anomalies]
+    |  +- Heritage Period Work           [close, FX, year-end, assets, budgets, costing, BAS, audit pack]
+    |  +- IFRS Standards                 [IAS/IFRS standard engines, ordered by standard reference]
+    +- Reporting (upstream)              [statements, ledgers, aging, deferred, consolidation; audit log last]
+    |  +- Heritage Advanced              [builder, saved views, schedules, forecasts, statements, disclosures]
+    +- Configuration (upstream)
+       +- Heritage                       [audit logs, policies, banking, payments, l10n]
+          +- General
+          +- Reports                     [dynamic reports registry]
+          +- Operations
+          +- Assets
+          +- Banking
+          +- Payments
+          +- Cheques (PDC)
+          +- Localization
+          +- Audit Logs
+
+    Group conventions:
+
+    * eh_account_base.group_eh_user      day-to-day operator
+    * eh_account_base.group_eh_manager   configuration and overrides
+    * eh_account_base.group_eh_auditor   read-only on every audit log
+
+    Sequence convention:
+
+    * Accounting section roots: Operations 30, Period Work 32, IFRS 34
+    * Reporting: statements 10..40, ledgers 50..70, aging 80..85,
+      deferred 90..95, specialised 100..130, advanced 140, audit log 150
+    * Every sibling under a shared parent takes a UNIQUE sequence so the
+      render order is deterministic across series (no tie-break by id).
+-->
+<odoo>
+    <data>
+
+        <!-- ===== Heritage subtrees under Accounting > Accounting ===== -->
+
+        <menuitem id="menu_eh_operations"
+                  name="Heritage Operations"
+                  parent="account.menu_finance_entries"
+                  sequence="30"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <menuitem id="menu_eh_period_work"
+                  name="Heritage Period Work"
+                  parent="account.menu_finance_entries"
+                  sequence="32"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <!-- IFRS / IAS standard engines (ECL, fair value, deferred tax,
+             provisions, revenue, grants, borrowing costs, inventory NRV,
+             investment property, held for sale, business combinations,
+             share-based payment, employee benefits, EPS, events). Each
+             standard module anchors here instead of scattering across
+             Operations / Period Work; children are ordered by standard
+             reference (IAS then IFRS, ascending). -->
+        <menuitem id="menu_eh_ifrs"
+                  name="IFRS Standards"
+                  parent="account.menu_finance_entries"
+                  sequence="34"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <!-- ===== Heritage advanced reports under Reporting ===== -->
+
+        <menuitem id="menu_eh_reports_advanced"
+                  name="Heritage Advanced"
+                  parent="account.menu_finance_reports"
+                  sequence="140"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <!-- ===== Heritage Configuration root and sub-sections ===== -->
+
+        <menuitem id="menu_eh_config_root"
+                  name="Heritage"
+                  parent="account.menu_finance_configuration"
+                  sequence="60"
+                  groups="eh_account_base.group_eh_manager"/>
+
+        <menuitem id="menu_eh_config_general"
+                  name="General"
+                  parent="menu_eh_config_root"
+                  sequence="10"
+                  groups="eh_account_base.group_eh_manager"/>
+
+        <menuitem id="menu_eh_config_reports"
+                  name="Reports"
+                  parent="menu_eh_config_root"
+                  sequence="20"
+                  groups="eh_account_base.group_eh_manager"/>
+
+        <menuitem id="menu_eh_config_operations"
+                  name="Operations"
+                  parent="menu_eh_config_root"
+                  sequence="30"
+                  groups="eh_account_base.group_eh_manager"/>
+
+        <menuitem id="menu_eh_config_assets"
+                  name="Assets and Leases"
+                  parent="menu_eh_config_root"
+                  sequence="40"
+                  groups="eh_account_base.group_eh_manager"/>
+
+        <menuitem id="menu_eh_config_banking"
+                  name="Banking"
+                  parent="menu_eh_config_root"
+                  sequence="50"
+                  groups="eh_account_base.group_eh_manager"/>
+
+        <menuitem id="menu_eh_config_payments"
+                  name="Payments and SEPA"
+                  parent="menu_eh_config_root"
+                  sequence="60"
+                  groups="eh_account_base.group_eh_manager"/>
+
+        <menuitem id="menu_eh_config_pdc"
+                  name="Cheques (PDC)"
+                  parent="menu_eh_config_root"
+                  sequence="70"
+                  groups="eh_account_base.group_eh_manager"/>
+
+        <menuitem id="menu_eh_config_localization"
+                  name="Localization"
+                  parent="menu_eh_config_root"
+                  sequence="80"
+                  groups="eh_account_base.group_eh_manager"/>
+
+        <menuitem id="menu_eh_config_audit"
+                  name="Audit Logs"
+                  parent="menu_eh_config_root"
+                  sequence="90"
+                  groups="eh_account_base.group_eh_manager,eh_account_base.group_eh_auditor"/>
+
+        <!-- ===== Always-on Heritage entries owned by base ===== -->
+
+        <!-- Report execution audit log lives under Audit Logs. The
+             action is declared in views/report_execution_views.xml
+             alongside the form / list / search views. -->
+        <menuitem id="menu_eh_audit_report_execution"
+                  name="Report Execution Audit"
+                  parent="menu_eh_config_audit"
+                  action="action_eh_account_report_execution"
+                  sequence="10"
+                  groups="eh_account_base.group_eh_manager,eh_account_base.group_eh_auditor"/>
+
+        <!-- Registry of dynamic report definitions, under Heritage > Reports.
+             Action is declared in views/dynamic_report_views.xml (loaded
+             earlier); the parent container is defined above in this file. -->
+        <menuitem id="menu_eh_account_dynamic_report"
+                  name="Dynamic Reports Registry"
+                  parent="menu_eh_config_reports"
+                  action="action_eh_account_dynamic_report"
+                  sequence="10"
+                  groups="account.group_account_manager"/>
+
+    </data>
+</odoo>

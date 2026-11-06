@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="eh_account_base.EhListStatisticsField">
+        <div class="o_eh_list_statistics d-flex flex-wrap gap-1">
+            <t t-foreach="statistics" t-as="statistic" t-key="statistic_index">
+                <button
+                    t-if="statistic.actionMethod"
+                    type="button"
+                    t-attf-class="o_eh_list_statistics_badge o_eh_list_statistics_action badge bg-secondary rounded-pill smaller #{statistic.tagClass ? 'o_tag ' + statistic.tagClass : ''}"
+                    t-att-aria-label="statistic.label + ': ' + statistic.value"
+                    t-att-title="statistic.label"
+                    t-on-click.stop="() => this.openStatistic(statistic)"
+                    t-on-auxclick.stop=""
+                >
+                    <i t-attf-class="fa me-1 #{statistic.iconClass}" aria-hidden="true"/>
+                    <t t-out="statistic.value"/>
+                </button>
+                <span
+                    t-else=""
+                    t-attf-class="o_eh_list_statistics_badge badge bg-secondary rounded-pill smaller #{statistic.tagClass ? 'o_tag ' + statistic.tagClass : ''}"
+                    t-att-title="statistic.label"
+                >
+                    <span class="visually-hidden">
+                        <t t-out="statistic.label"/>:
+                    </span>
+                    <i t-attf-class="fa me-1 #{statistic.iconClass}" aria-hidden="true"/>
+                    <t t-out="statistic.value"/>
+                </span>
+            </t>
+        </div>
+    </t>
+
+</templates>

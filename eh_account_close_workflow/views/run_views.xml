@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_close_run_tree" model="ir.ui.view">
+        <field name="name">eh.close.run.list</field>
+        <field name="model">eh.close.run</field>
+        <field name="arch" type="xml">
+            <list string="Close Runs"
+                  default_order="state, period_to desc"
+                  sample="1">
+                <field name="name"/>
+                <field name="checklist_id"/>
+                <field name="period_from"/>
+                <field name="period_to"/>
+                <field name="task_done_count"/>
+                <field name="task_count"/>
+                <field name="progress_pct" string="Progress %" widget="progressbar"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'open'"
+                       decoration-warning="state in ('in_progress', 'reopened')"
+                       decoration-primary="state == 'pending_approval'"
+                       decoration-success="state == 'closed'"/>
+                <field name="prepared_by_id" optional="show"/>
+                <field name="approved_by_id" optional="show"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_close_run_form" model="ir.ui.view">
+        <field name="name">eh.close.run.form</field>
+        <field name="model">eh.close.run</field>
+        <field name="arch" type="xml">
+            <form string="Close Run">
+                <header>
+                    <button name="action_start"
+                            type="object"
+                            string="Start"
+                            class="btn-primary"
+                            invisible="state not in ('open', 'reopened')"/>
+                    <button name="action_run_checks"
+                            type="object"
+                            string="Run Checks"
+                            invisible="state not in ('in_progress', 'reopened')"/>
+                    <button name="action_request_approval"
+                            type="object"
+                            string="Request Approval"
+                            class="btn-primary"
+                            invisible="state != 'in_progress'"/>
+                    <button name="action_approve"
+                            type="object"
+                            string="Approve and Close"
+                            class="btn-success"
+                            invisible="state != 'pending_approval'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_return_to_work"
+                            type="object"
+                            string="Return to Work"
+                            invisible="state != 'pending_approval'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reopen"
+                            type="object"
+                            string="Reopen"
+                            invisible="state != 'closed'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="open,in_progress,pending_approval,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_tasks"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-tasks">
+                            <field name="task_done_count"
+                                   widget="statinfo"
+                                   string="Done"/>
+                        </button>
+                    </div>
+                    <h1>
+                        <field name="name"
+                               readonly="state in ('pending_approval', 'closed')"
+                               placeholder="March 2026 Close"/>
+                    </h1>
+                    <group>
+                        <group string="Period">
+                            <field name="company_id"
+                                   readonly="state != 'open'"/>
+                            <field name="checklist_id"
+                                   domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]"
+                                   readonly="state != 'open'"/>
+                            <field name="period_from" readonly="state != 'open'"/>
+                            <field name="period_to" readonly="state != 'open'"/>
+                            <field name="ledger_lock_policy" readonly="1"/>
+                            <field name="ledger_lock_applied_date" readonly="1"
+                                   invisible="not ledger_lock_applied_date"/>
+                        </group>
+                        <group string="Original Sign-off Anchors">
+                            <field name="prepared_by_id" readonly="1"/>
+                            <field name="prepared_at" readonly="1"/>
+                            <field name="reviewed_by_id" readonly="1"/>
+                            <field name="reviewed_at" readonly="1"/>
+                            <field name="approved_by_id" readonly="1"/>
+                            <field name="approved_at" readonly="1"/>
+                            <field name="reopened_by_id" readonly="1"
+                                   invisible="not reopened_by_id"/>
+                            <field name="reopened_at" readonly="1"
+                                   invisible="not reopened_at"/>
+                        </group>
+                    </group>
+                    <group string="Return for Rework"
+                           invisible="state != 'pending_approval'"
+                           groups="eh_account_base.group_eh_manager">
+                        <field name="return_reason"
+                               placeholder="Explain the rejected evidence and required correction."/>
+                    </group>
+                    <group string="Progress">
+                        <field name="progress_pct"
+                               string="Progress"
+                               widget="progressbar"/>
+                        <field name="task_done_count"/>
+                        <field name="task_pending_count"/>
+                        <field name="task_blocked_count"/>
+                        <field name="task_count"/>
+                    </group>
+                    <notebook>
+                        <page string="Tasks">
+                            <field name="task_ids"
+                                   readonly="state in ('pending_approval', 'closed')">
+                                <list editable="bottom">
+                                    <field name="sequence"
+                                           widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="responsible_role"/>
+                                    <field name="assigned_user_id"
+                                           widget="many2one_avatar_user"/>
+                                    <field name="is_required"
+                                           widget="boolean_toggle"
+                                           groups="eh_account_base.group_eh_manager"/>
+                                    <field name="state" widget="badge"
+                                           decoration-success="state in ('done', 'not_applicable')"
+                                           decoration-warning="state == 'in_progress'"
+                                           decoration-danger="state == 'blocked'"/>
+                                    <field name="completed_by_id"
+                                           widget="many2one_avatar_user"/>
+                                    <field name="completed_at"/>
+                                    <button name="action_start"
+                                            type="object"
+                                            icon="fa-play" title="Start"
+                                            invisible="state != 'pending'"/>
+                                    <button name="action_mark_done"
+                                            type="object"
+                                            icon="fa-check" title="Mark done"
+                                            invisible="state in ('done', 'not_applicable')"/>
+                                    <button name="action_mark_not_applicable"
+                                            type="object"
+                                            icon="fa-ban" title="Mark not applicable"
+                                            invisible="state in ('done', 'not_applicable')"/>
+                                    <button name="action_open_block_wizard"
+                                            type="object"
+                                            icon="fa-exclamation-triangle" title="Block"
+                                            invisible="state in ('blocked', 'done', 'not_applicable')"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Checks">
+                            <button name="action_run_checks"
+                                    type="object"
+                                    string="Run Checks"
+                                    class="btn-secondary mb-2"
+                                    invisible="state in ('pending_approval', 'closed')"/>
+                            <field name="check_ids" readonly="1">
+                                <list>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="status" widget="badge"
+                                           decoration-success="status == 'pass'"
+                                           decoration-warning="status == 'warn'"
+                                           decoration-danger="status == 'fail'"/>
+                                    <field name="count"/>
+                                    <field name="is_blocking"/>
+                                    <field name="detail"/>
+                                    <field name="checked_at"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Sign-off History">
+                            <field name="signoff_event_ids" readonly="1">
+                                <list create="false" edit="false" delete="false">
+                                    <field name="event_at"/>
+                                    <field name="event_type" widget="badge"/>
+                                    <field name="user_id"
+                                           widget="many2one_avatar_user"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"
+                                   readonly="state in ('pending_approval', 'closed')"/>
+                        </page>
+                    </notebook>
+                    <chatter/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_close_run_search" model="ir.ui.view">
+        <field name="name">eh.close.run.search</field>
+        <field name="model">eh.close.run</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="checklist_id"/>
+                <filter name="filter_open" string="Open"
+                        domain="[('state', 'in', ['open', 'in_progress', 'reopened'])]"/>
+                <filter name="filter_pending" string="Pending Approval"
+                        domain="[('state', '=', 'pending_approval')]"/>
+                <filter name="filter_closed" string="Closed"
+                        domain="[('state', '=', 'closed')]"/>
+                <group>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_year" string="Year"
+                            context="{'group_by': 'period_to:year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_close_run_kanban" model="ir.ui.view">
+        <field name="name">eh.close.run.kanban</field>
+        <field name="model">eh.close.run</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state"
+                    records_draggable="false"
+                    quick_create="false"
+                    class="o_kanban_small_column"
+                    sample="1">
+                <field name="name"/>
+                <field name="period_from"/>
+                <field name="period_to"/>
+                <field name="state"/>
+                <field name="task_count"/>
+                <field name="task_done_count"/>
+                <field name="task_blocked_count"/>
+                <field name="progress_pct"/>
+                <field name="company_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click row g-0">
+                          <main class="col-12">
+                            <field name="name" class="fs-5 fw-bold"/>
+                            <div class="text-muted">
+                                <field name="period_from"/> - <field name="period_to"/>
+                            </div>
+                            <div class="progress mt-2" style="height: 6px;">
+                                <div class="progress-bar bg-success"
+                                     t-attf-style="width: #{record.progress_pct.raw_value}%"/>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <span class="badge text-bg-success">
+                                    <field name="task_done_count"/> done
+                                </span>
+                                <span class="badge text-bg-danger"
+                                      t-if="record.task_blocked_count.raw_value">
+                                    <field name="task_blocked_count"/> blocked
+                                </span>
+                                <span class="badge text-bg-secondary">
+                                    <field name="task_count"/> tasks
+                                </span>
+                            </div>
+                            <footer class="d-flex justify-content-end mt-2">
+                                <field name="company_id"
+                                       groups="base.group_multi_company"/>
+                            </footer>
+                          </main>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_eh_close_run" model="ir.actions.act_window">
+        <field name="name">Close Runs</field>
+        <field name="res_model">eh.close.run</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="view_eh_close_run_search"/>
+        <field name="context">{'search_default_filter_open': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Start your first close run</p>
+            <p>A close run tracks one period-close from open to closed with a prepared, reviewed, approved sign-off chain. Click New, pick a checklist and period, then work the tasks it copies in.</p>
+        </field>
+    </record>
+
+    <record id="view_eh_close_task_tree" model="ir.ui.view">
+        <field name="name">eh.close.task.list</field>
+        <field name="model">eh.close.task</field>
+        <field name="arch" type="xml">
+            <list string="Close Tasks" default_order="run_id, sequence" sample="1">
+                <field name="run_id"/>
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="responsible_role"/>
+                <field name="assigned_user_id"
+                       widget="many2one_avatar_user"/>
+                <field name="state" widget="badge"
+                       decoration-success="state in ('done', 'not_applicable')"
+                       decoration-warning="state == 'in_progress'"
+                       decoration-danger="state == 'blocked'"/>
+                <field name="completed_at"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_close_task_form" model="ir.ui.view">
+        <field name="name">eh.close.task.form</field>
+        <field name="model">eh.close.task</field>
+        <field name="arch" type="xml">
+            <form string="Close Task">
+                <header>
+                    <button name="action_start"
+                            type="object"
+                            string="Start"
+                            class="btn-primary"
+                            invisible="state != 'pending'"/>
+                    <button name="action_mark_done"
+                            type="object"
+                            string="Mark Done"
+                            class="btn-success"
+                            invisible="state in ('done', 'not_applicable')"/>
+                    <button name="action_mark_not_applicable"
+                            type="object"
+                            string="Not Applicable"
+                            invisible="state in ('done', 'not_applicable')"/>
+                    <button name="action_open_block_wizard"
+                            type="object"
+                            string="Block"
+                            invisible="state in ('blocked', 'done', 'not_applicable')"/>
+                    <button name="action_unblock"
+                            type="object"
+                            string="Unblock"
+                            class="btn-primary"
+                            invisible="state != 'blocked'"/>
+                    <button name="action_reset_to_pending"
+                            type="object"
+                            string="Reset to Pending"
+                            invisible="state == 'pending'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="pending,in_progress,done"/>
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="name"
+                               placeholder="Reconcile bank accounts"/>
+                    </h1>
+                    <group>
+                        <group string="Task">
+                            <field name="run_id"/>
+                            <field name="sequence"/>
+                            <field name="responsible_role"/>
+                            <field name="is_required"/>
+                            <field name="assigned_user_id"
+                                   widget="many2one_avatar_user"/>
+                        </group>
+                        <group string="Completion">
+                            <field name="completed_by_id" readonly="1"/>
+                            <field name="completed_at" readonly="1"/>
+                            <field name="blocked_reason"
+                                   invisible="state != 'blocked'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                    <chatter/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_close_task_search" model="ir.ui.view">
+        <field name="name">eh.close.task.search</field>
+        <field name="model">eh.close.task</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="run_id"/>
+                <field name="assigned_user_id"/>
+                <filter name="filter_open" string="Open"
+                        domain="[('state', 'in', ['pending', 'in_progress'])]"/>
+                <filter name="filter_blocked" string="Blocked"
+                        domain="[('state', '=', 'blocked')]"/>
+                <filter name="filter_done" string="Done"
+                        domain="[('state', 'in', ['done', 'not_applicable'])]"/>
+                <separator/>
+                <filter name="filter_required" string="Required"
+                        domain="[('is_required', '=', True)]"/>
+                <separator/>
+                <filter name="filter_my_tasks" string="My Tasks"
+                        domain="[('assigned_user_id', '=', uid)]"/>
+                <group>
+                    <filter name="group_run" string="Close Run"
+                            context="{'group_by': 'run_id'}"/>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_assigned" string="Assigned To"
+                            context="{'group_by': 'assigned_user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_close_task" model="ir.actions.act_window">
+        <field name="name">Close Tasks</field>
+        <field name="res_model">eh.close.task</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_close_task_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No close tasks yet</p>
+            <p>Close tasks are the individual steps of a period close, each with an owner and a status. They are created automatically when you start a close run from a checklist, so open Close Runs to begin.</p>
+        </field>
+    </record>
+
+</odoo>

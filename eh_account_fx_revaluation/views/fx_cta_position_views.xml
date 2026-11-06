@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- CTA position list -->
+    <record id="view_eh_fx_cta_position_tree" model="ir.ui.view">
+        <field name="name">eh.fx.cta.position.list</field>
+        <field name="model">eh.fx.cta.position</field>
+        <field name="arch" type="xml">
+            <list string="CTA Positions" sample="1"
+                  decoration-success="state == 'open'"
+                  decoration-muted="state == 'disposed'">
+                <field name="name"/>
+                <field name="foreign_operation_partner_id" optional="show"/>
+                <field name="foreign_operation_company_id" optional="hide"/>
+                <field name="operation_currency_id" optional="show"/>
+                <field name="operation_type" optional="show"/>
+                <field name="cta_account_id"/>
+                <field name="balance" widget="monetary"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'open'"
+                       decoration-muted="state == 'disposed'"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- CTA position form -->
+    <record id="view_eh_fx_cta_position_form" model="ir.ui.view">
+        <field name="name">eh.fx.cta.position.form</field>
+        <field name="model">eh.fx.cta.position</field>
+        <field name="arch" type="xml">
+            <form string="CTA Position">
+                <header>
+                    <button name="action_dispose"
+                            type="object"
+                            string="Record Disposal"
+                            class="btn-primary"
+                            invisible="state != 'open'"
+                            groups="eh_account_base.group_eh_manager"
+                            confirm="Post the selected CTA disposal treatment? Full disposals or loss of subsidiary control recycle the full reserve to profit or loss. A subsidiary partial disposal retaining control reallocates the proportionate reserve to NCI within equity; an associate or joint-venture partial disposal recycles its proportionate reserve to profit or loss."/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="open,disposed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_moves"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-book">
+                            <field name="move_count" widget="statinfo"
+                                   string="Entries"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"
+                                   placeholder="e.g. Net investment in DE subsidiary"
+                                   readonly="state == 'disposed'"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Foreign operation">
+                            <field name="foreign_operation_partner_id"
+                                   readonly="state == 'disposed'"/>
+                            <field name="foreign_operation_company_id"
+                                   readonly="state == 'disposed'"/>
+                            <field name="operation_currency_id"
+                                   readonly="state == 'disposed'"/>
+                            <field name="operation_type"
+                                   readonly="state == 'disposed'"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"
+                                   readonly="state == 'disposed'"/>
+                        </group>
+                        <group string="Reserve">
+                            <field name="cta_account_id"
+                                   readonly="state == 'disposed'"/>
+                            <field name="nci_account_id"
+                                   invisible="operation_type != 'subsidiary'"
+                                   readonly="state == 'disposed'"/>
+                            <field name="balance" widget="monetary"/>
+                            <field name="disposal_pct"
+                                   invisible="state == 'disposed'"/>
+                            <field name="disposal_loses_control"
+                                   invisible="state == 'disposed' or operation_type != 'subsidiary' or disposal_pct == 100"/>
+                            <field name="disposal_date"
+                                   invisible="state == 'disposed'"/>
+                        </group>
+                    </group>
+                    <group string="Disposal posting">
+                        <group>
+                            <field name="journal_id"
+                                   readonly="state == 'disposed'"/>
+                        </group>
+                        <group>
+                            <field name="gain_account_id"
+                                   readonly="state == 'disposed'"/>
+                            <field name="loss_account_id"
+                                   readonly="state == 'disposed'"/>
+                        </group>
+                    </group>
+                    <group string="Disposal audit"
+                           invisible="not disposed_at and not disposal_move_id">
+                        <group>
+                            <field name="disposal_move_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="disposed_at" readonly="1"/>
+                            <field name="disposed_by_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <field name="notes"
+                           placeholder="Documentation: acquisition date, ownership share, disposal history..."/>
+                    <field name="currency_id" invisible="1"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- CTA position search -->
+    <record id="view_eh_fx_cta_position_search" model="ir.ui.view">
+        <field name="name">eh.fx.cta.position.search</field>
+        <field name="model">eh.fx.cta.position</field>
+        <field name="arch" type="xml">
+            <search string="CTA Positions">
+                <field name="name"/>
+                <field name="foreign_operation_partner_id"/>
+                <field name="cta_account_id"/>
+                <filter string="Open" name="state_open"
+                        domain="[('state', '=', 'open')]"/>
+                <filter string="Disposed" name="state_disposed"
+                        domain="[('state', '=', 'disposed')]"/>
+                <group>
+                    <filter string="State" name="group_state"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="CTA Account" name="group_account"
+                            context="{'group_by': 'cta_account_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_fx_cta_position" model="ir.actions.act_window">
+        <field name="name">CTA Positions</field>
+        <field name="res_model">eh.fx.cta.position</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_fx_cta_position_search"/>
+        <field name="context">{'search_default_state_open': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register a CTA reserve position
+            </p>
+            <p>
+                One position per foreign operation. Net investment
+                hedges park their effective portion here, and on
+                disposal the accumulated reserve is reclassified to
+                profit or loss per IAS 21.48.
+            </p>
+        </field>
+    </record>
+
+</odoo>

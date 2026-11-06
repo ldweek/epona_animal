@@ -1,0 +1,1412 @@
+// ============================================================================
+// ERP Heritage
+// Copyright (C) 2026 (https://www.erpheritage.com.au/)
+// ============================================================================
+//
+// Dynamic report viewer - report-scoped light/dark design system.
+//
+// The viewer now wears the same myawqat-dark design language as the
+// financial dashboard while owning two complete, WCAG-conscious palettes.
+// Scope stays on .eh_dr: choosing a report theme never repaints Odoo, another
+// tab, or the dashboard. Spacing/type still come from the shared token bridge.
+//
+// Sticky header: thead th is position:sticky against .eh_dr_body (the
+// existing overflow:auto scroll container), so the column headers stay
+// pinned while the windowed body scrolls. The header background must be
+// opaque (var(--eh-surface-2)) or scrolled rows bleed through.
+
+.eh_dr[data-eh-theme="light"] {
+    color-scheme: light;
+    --eh-bg: #F4F7F5;
+    --eh-bg-grad: radial-gradient(1200px 600px at 78% -8%, rgba(19, 122, 70, 0.07), transparent 60%);
+    --eh-surface: #FFFFFF;
+    --eh-surface-2: #EEF3F0;
+    --eh-surface-hover: #E5EDE9;
+    --eh-surface-selected: #D7EAE1;
+    --eh-border: #CBD5D0;
+    --eh-border-strong: #788B82;
+    --eh-text: #17211C;
+    --eh-text-dim: #46584F;
+    --eh-text-muted: #5D6D65;
+    --eh-accent: #176B53;
+    --eh-accent-contrast: #FFFFFF;
+    --eh-accent-soft: #DDEFE6;
+    --eh-accent-glow: rgba(23, 107, 83, 0.20);
+    --eh-up: #176B53;
+    --eh-up-soft: #DDEFE6;
+    --eh-down: #B42318;
+    --eh-down-soft: #FBE7E5;
+    --eh-warn: #795000;
+    --eh-warn-soft: #F8EDCF;
+    --eh-info: #175F8C;
+    --eh-info-soft: #E2EFF7;
+    --eh-flat-soft: rgba(70, 88, 79, 0.10);
+    --eh-focus: #0B6F55;
+    --eh-focus-ring: rgba(11, 111, 85, 0.28);
+    --eh-shadow: 0 12px 32px rgba(23, 33, 28, 0.14);
+}
+
+.eh_dr[data-eh-theme="dark"] {
+    color-scheme: dark;
+    --eh-bg: #0B1110;
+    --eh-bg-grad: radial-gradient(1200px 600px at 78% -8%, rgba(123, 224, 170, 0.08), transparent 60%);
+    --eh-surface: #121A17;
+    --eh-surface-2: #1A2521;
+    --eh-surface-hover: #22322C;
+    --eh-surface-selected: #1F4034;
+    --eh-border: #35453F;
+    --eh-border-strong: #71847B;
+    --eh-text: #EDF4F0;
+    --eh-text-dim: #BAC8C1;
+    --eh-text-muted: #96A89F;
+    --eh-accent: #7CD3A8;
+    --eh-accent-contrast: #0B1110;
+    --eh-accent-soft: #19382C;
+    --eh-accent-glow: rgba(124, 211, 168, 0.20);
+    --eh-up: #7CD3A8;
+    --eh-up-soft: #19382C;
+    --eh-down: #FF9B8F;
+    --eh-down-soft: #442520;
+    --eh-warn: #F2CD7D;
+    --eh-warn-soft: #3C331F;
+    --eh-info: #8CC9F0;
+    --eh-info-soft: #1B3443;
+    --eh-flat-soft: rgba(150, 168, 159, 0.14);
+    --eh-focus: #7CD3A8;
+    --eh-focus-ring: rgba(124, 211, 168, 0.30);
+    --eh-shadow: 0 14px 36px rgba(0, 0, 0, 0.48);
+}
+
+.eh_dr {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--eh-bg, #080C0A);
+    background-image: var(--eh-bg-grad, none);
+    color: var(--eh-text, #E8EDE9);
+    font-family: var(--eh-font, system-ui, -apple-system, sans-serif);
+
+    ::selection {
+        background: var(--eh-accent, #7BCEA0);
+        color: var(--eh-accent-contrast, #07100B);
+    }
+
+    .eh_dr_topbar {
+        background: var(--eh-surface, #0F1512);
+        padding: var(--eh-4, 16px) var(--eh-5, 20px);
+        border-bottom: 1px solid var(--eh-border, #1E2A24);
+    }
+
+    .eh_dr_titlebar {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: var(--eh-4, 16px);
+        margin-bottom: var(--eh-3, 12px);
+        flex-wrap: wrap;
+    }
+
+    .eh_dr_title_block {
+        display: flex;
+        flex-direction: column;
+        gap: var(--eh-1, 4px);
+    }
+
+    .eh_dr_title {
+        margin: 0;
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--eh-text, #E8EDE9);
+    }
+
+    .eh_dr_subtitle {
+        display: flex;
+        gap: var(--eh-3, 12px);
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .eh_dr_currency_badge,
+    .eh_dr_period_badge {
+        font-size: 0.75rem;
+        font-weight: 500;
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: var(--eh-accent-soft, rgba(123, 206, 160, 0.10));
+        color: var(--eh-accent, #7BCEA0);
+        border: 1px solid var(--eh-border-strong, #2A3B32);
+        letter-spacing: 0.02em;
+    }
+
+    .eh_dr_currency_badge--multi {
+        background: var(--eh-warn-soft, rgba(224, 194, 123, 0.12));
+        border-color: var(--eh-warn, #E0C27B);
+        color: var(--eh-warn, #E0C27B);
+    }
+
+    .eh_dr_period_badge {
+        background: var(--eh-surface-2, #151D19);
+        color: var(--eh-text-dim, #6B7E72);
+        border-color: var(--eh-border, #1E2A24);
+    }
+
+    .eh_dr_actions {
+        display: flex;
+        gap: var(--eh-1, 6px);
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+    }
+
+    .eh_dr_theme_switch {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px;
+        border: 1px solid var(--eh-border-strong, #2A3B32);
+        border-radius: 999px;
+        background: var(--eh-surface-2, #151D19);
+    }
+
+    .eh_dr_theme_choice {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        min-height: 28px;
+        padding: 3px 9px;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        color: var(--eh-text-dim, #A6BAAF);
+        font-size: 0.78rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.14s ease, color 0.14s ease,
+                    box-shadow 0.14s ease;
+
+        &:hover {
+            color: var(--eh-text, #E8EDE9);
+        }
+
+        &.is-active {
+            background: var(--eh-accent, #7BCEA0);
+            color: var(--eh-accent-contrast, #07100B);
+            box-shadow: 0 1px 3px var(--eh-accent-glow, rgba(123, 206, 160, 0.16));
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--eh-focus, var(--eh-accent, #7BCEA0));
+            outline-offset: 2px;
+        }
+    }
+
+    // Own action chrome inside the report. This prevents a dark Odoo shell
+    // from supplying dark Bootstrap buttons to a light report (and vice versa).
+    .btn.btn-secondary {
+        --btn-bg: var(--eh-surface-2, #151D19);
+        --btn-border-color: var(--eh-border-strong, #2A3B32);
+        --btn-color: var(--eh-text, #E8EDE9);
+        --bs-btn-bg: var(--eh-surface-2, #151D19);
+        --bs-btn-border-color: var(--eh-border-strong, #2A3B32);
+        --bs-btn-color: var(--eh-text, #E8EDE9);
+        background-color: var(--eh-surface-2, #151D19) !important;
+        border-color: var(--eh-border-strong, #2A3B32) !important;
+        color: var(--eh-text, #E8EDE9) !important;
+
+        &:hover,
+        &:focus {
+            background-color: var(--eh-surface-hover, #18221C) !important;
+            border-color: var(--eh-accent, #7BCEA0) !important;
+            color: var(--eh-text, #E8EDE9) !important;
+        }
+    }
+
+    .btn.btn-primary {
+        --btn-bg: var(--eh-accent, #7BCEA0);
+        --btn-border-color: var(--eh-accent, #7BCEA0);
+        --btn-color: var(--eh-accent-contrast, #07100B);
+        --bs-btn-bg: var(--eh-accent, #7BCEA0);
+        --bs-btn-border-color: var(--eh-accent, #7BCEA0);
+        --bs-btn-color: var(--eh-accent-contrast, #07100B);
+        background-color: var(--eh-accent, #7BCEA0) !important;
+        border-color: var(--eh-accent, #7BCEA0) !important;
+        color: var(--eh-accent-contrast, #07100B) !important;
+
+        &:hover,
+        &:focus {
+            background-color: var(--eh-accent, #7BCEA0) !important;
+            border-color: var(--eh-text, #E8EDE9) !important;
+            color: var(--eh-accent-contrast, #07100B) !important;
+            filter: brightness(0.94);
+        }
+    }
+
+    .btn.btn-link {
+        color: var(--eh-accent, #7BCEA0) !important;
+        text-decoration-color: transparent;
+
+        &:hover,
+        &:focus {
+            color: var(--eh-text, #E8EDE9) !important;
+            text-decoration-color: currentColor;
+        }
+
+        &.text-danger {
+            color: var(--eh-down, #E08C7B) !important;
+        }
+    }
+
+    // Bootstrap marks this utility !important and otherwise inherits shell
+    // colors. Keep report-local empty/loading copy legible in either mode.
+    .text-muted {
+        color: var(--eh-text-muted, #96A89F) !important;
+    }
+
+    .alert.alert-danger {
+        border-color: var(--eh-down, #E08C7B);
+        background: var(--eh-down-soft, rgba(224, 140, 123, 0.12));
+        color: var(--eh-down, #E08C7B);
+    }
+
+    .btn:focus-visible,
+    select:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    button:focus-visible {
+        outline: 2px solid var(--eh-focus, var(--eh-accent, #7BCEA0));
+        outline-offset: 2px;
+        box-shadow: 0 0 0 4px var(--eh-focus-ring, rgba(123, 206, 160, 0.28));
+    }
+
+    .eh_dr_saved_view_select {
+        padding: 4px 8px;
+        border: 1px solid var(--eh-border-strong, #2A3B32);
+        border-radius: var(--eh-radius-sm, 10px);
+        background: var(--eh-surface-2, #151D19);
+        color: var(--eh-text, #E8EDE9);
+        font-size: 0.85rem;
+        max-width: 160px;
+        cursor: pointer;
+
+        &:hover {
+            border-color: var(--eh-accent, #7BCEA0);
+        }
+    }
+
+    .eh_dr_collapse_toggle {
+        font-size: 0.85rem;
+        text-decoration: none;
+        color: var(--eh-text-dim, #6B7E72);
+
+        &:hover {
+            color: var(--eh-accent, #7BCEA0);
+        }
+    }
+
+    .eh_dr_filter_count {
+        background: var(--eh-accent, #7BCEA0);
+        color: var(--eh-bg, #080C0A);
+        padding: 0 6px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.7rem;
+    }
+
+    .eh_dr_filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--eh-3, 14px);
+        align-items: flex-end;
+    }
+
+    .eh_dr_filters_advanced {
+        margin-top: var(--eh-3, 12px);
+        padding-top: var(--eh-3, 12px);
+        border-top: 1px dashed var(--eh-border, #1E2A24);
+        display: flex;
+        flex-direction: column;
+        gap: var(--eh-3, 12px);
+    }
+
+    .eh_dr_filter_group {
+        display: flex;
+        gap: var(--eh-3, 14px);
+        flex-wrap: wrap;
+    }
+
+    .eh_dr_axis_filters {
+        padding: var(--eh-3, 12px);
+        border: 1px solid var(--eh-border, #1E2A24);
+        border-radius: var(--eh-radius-sm, 10px);
+        background: var(--eh-surface-2, #151D19);
+    }
+
+    .eh_dr_axis_heading {
+        flex: 1 0 100%;
+        display: flex;
+        align-items: baseline;
+        gap: var(--eh-2, 8px);
+        color: var(--eh-text, #E8EDE9);
+        font-size: 0.8rem;
+
+        > span {
+            color: var(--eh-text-dim, #6B7E72);
+            font-size: 0.72rem;
+        }
+    }
+
+    .eh_dr_filter_actions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        font-size: 0.85rem;
+    }
+
+    .eh_dr_filter {
+        display: flex;
+        flex-direction: column;
+        gap: var(--eh-1, 4px);
+        margin: 0;
+
+        > span {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--eh-text-dim, #6B7E72);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        > input[type="date"],
+        > input[type="search"],
+        > input[type="text"],
+        > input[type="number"],
+        > select {
+            padding: 4px 8px;
+            border: 1px solid var(--eh-border-strong, #2A3B32);
+            border-radius: var(--eh-radius-sm, 10px);
+            font-size: 0.9rem;
+            background: var(--eh-surface-2, #151D19);
+            color: var(--eh-text, #E8EDE9);
+            color-scheme: inherit;
+            min-width: 160px;
+
+            &:focus {
+                outline: none;
+                border-color: var(--eh-accent, #7BCEA0);
+            }
+
+            // Native <option> rows in the multiselect pickers (companies,
+            // journals, accounts, account types) inherit the browser default
+            // otherwise, which is dark-on-light. Force the house surface so
+            // they are readable, with the mint tint on the chosen rows.
+            option {
+                background: var(--eh-surface-2, #151D19);
+                color: var(--eh-text, #E8EDE9);
+            }
+
+            option:checked,
+            option:hover {
+                background: var(--eh-accent-soft, rgba(123, 206, 160, 0.18));
+                color: var(--eh-accent, #7BCEA0);
+            }
+        }
+
+        &.eh_dr_filter_wide {
+            flex: 1 1 220px;
+            min-width: 220px;
+
+            > select[multiple] {
+                min-height: 80px;
+            }
+        }
+
+        &.eh_dr_check {
+            flex-direction: row;
+            align-items: center;
+            gap: 6px;
+
+            > input[type="checkbox"] {
+                margin: 0;
+            }
+
+            > span {
+                font-size: 0.9rem;
+                font-weight: 400;
+                color: var(--eh-text, #E8EDE9);
+                text-transform: none;
+                letter-spacing: 0;
+            }
+        }
+    }
+
+    .eh_dr_more_btn {
+        font-size: 0.78rem;
+        text-align: left;
+        text-decoration: none;
+        color: var(--eh-accent, #7BCEA0);
+
+        &:hover {
+            color: var(--eh-text, #E8EDE9);
+        }
+    }
+
+    .eh_dr_chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--eh-border, #1E2A24);
+    }
+
+    .eh_dr_chips_label {
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: var(--eh-text-dim, #6B7E72);
+        letter-spacing: 0.05em;
+        margin-right: 4px;
+    }
+
+    .eh_dr_chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 2px 4px 2px 10px;
+        border-radius: 999px;
+        font-size: 0.78rem;
+        background: var(--eh-accent-soft, rgba(123, 206, 160, 0.10));
+        color: var(--eh-accent, #7BCEA0);
+        border: 1px solid var(--eh-border-strong, #2A3B32);
+    }
+
+    .eh_dr_chip_x {
+        background: var(--eh-flat-soft, rgba(133, 151, 142, 0.14));
+        border: 0;
+        border-radius: 50%;
+        color: var(--eh-text, #E8EDE9);
+        cursor: pointer;
+        font-size: 0.95rem;
+        line-height: 1;
+        height: 18px;
+        width: 18px;
+        padding: 0;
+
+        &:hover {
+            background: var(--eh-accent, #7BCEA0);
+            color: var(--eh-bg, #080C0A);
+        }
+    }
+
+    .eh_dr_body {
+        flex: 1;
+        // min-height:0 lets this flex child shrink so its own overflow:auto
+        // scrolls internally (without it the column can push past the viewport
+        // and the wheel scrolls an outer container instead).
+        min-height: 0;
+        overflow: auto;
+        // NO top padding: a sticky <thead> with top:0 pins to the scroll
+        // container's PADDING edge, so any top padding becomes a band above the
+        // header where scrolled rows bleed through. Top spacing lives on the
+        // meta bar instead. Sides + bottom padding are fine.
+        padding: 0 var(--eh-5, 20px) var(--eh-4, 16px);
+        position: relative;
+    }
+
+    .eh_dr_brand_footer {
+        font-size: 0.72rem;
+        text-align: center;
+        padding: var(--eh-2, 8px) var(--eh-3, 12px);
+        background: var(--eh-surface, #0F1512);
+        color: var(--eh-accent, #7BCEA0);
+        letter-spacing: 0.06em;
+        border-top: 1px solid var(--eh-border, #1E2A24);
+
+        > strong {
+            color: var(--eh-text, #E8EDE9);
+        }
+
+        .eh_dr_heart {
+            color: var(--eh-text, #E8EDE9);
+            display: inline-block;
+            transform: translateY(1px);
+            margin: 0 2px;
+        }
+    }
+
+    .eh_dr_loading {
+        text-align: center;
+        padding: 60px 20px;
+        color: var(--eh-text-dim, #6B7E72);
+        font-size: 0.95rem;
+    }
+
+    .eh_dr_meta_bar {
+        display: flex;
+        align-items: center;
+        gap: var(--eh-3, 12px);
+        // Top spacing moved here from .eh_dr_body so the scroll container has no
+        // top padding (which would let rows bleed above the sticky header).
+        padding-top: var(--eh-4, 16px);
+        margin-bottom: var(--eh-2, 8px);
+        font-size: 0.78rem;
+        color: var(--eh-text-dim, #6B7E72);
+    }
+
+    .eh_dr_meta {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    // In-table search: matches the dashboard select chrome. Pure client-side
+    // filter feeding step 1 of windowedLines().
+    .eh_dr_search {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 2px 10px;
+        margin: 0;
+        border: 1px solid var(--eh-border-strong, #2A3B32);
+        border-radius: 999px;
+        background: var(--eh-surface-2, #151D19);
+        color: var(--eh-text-dim, #6B7E72);
+
+        > input[type="search"] {
+            border: 0;
+            background: transparent;
+            color: var(--eh-text, #E8EDE9);
+            font-size: 0.8rem;
+            outline: none;
+            min-width: 160px;
+
+            &::placeholder {
+                color: var(--eh-text-muted, #3A4D42);
+            }
+        }
+
+        &:focus-within {
+            border-color: var(--eh-accent, #7BCEA0);
+        }
+    }
+
+    .eh_dr_search_empty {
+        color: var(--eh-text-dim, #6B7E72);
+    }
+
+    .eh_dr_table {
+        // Every grouped-header row is physically constrained to this height;
+        // the template derives sticky offsets from the same variable.  This
+        // prevents a 1px overlap/gap when font metrics, theme, or zoom change.
+        --eh-dr-header-row-height: 34px;
+        // Bootstrap table variables follow the host Odoo bundle. Neutralise
+        // cell paint so report tokens remain authoritative when shell/report
+        // themes are opposite; transparent cells preserve row hover/sections.
+        --bs-table-bg: transparent;
+        --bs-table-color: var(--eh-text, #E8EDE9);
+        --bs-table-border-color: var(--eh-border, #1E2A24);
+        --bs-table-hover-bg: transparent;
+        --table-bg: transparent;
+        --table-color: var(--eh-text, #E8EDE9);
+        --table-border-color: var(--eh-border, #1E2A24);
+        background: var(--eh-surface, #0F1512);
+        border: 1px solid var(--eh-border, #1E2A24);
+        border-radius: var(--eh-radius-sm, 10px);
+        margin: 0;
+        // Wide period x analytic matrices stay inside .eh_dr_body. Natural
+        // content width prevents crushed headings; parent owns bounded
+        // horizontal scrolling and action chrome never leaves viewport.
+        width: max-content;
+        min-width: 100%;
+        color: var(--eh-text, #E8EDE9);
+        // Bootstrap's .table defaults to border-collapse: collapse, under
+        // which a position:sticky <th> is unreliable: the collapsed top
+        // border of a scrolled data row resolves against the sticky cell and
+        // the header visually detaches into the middle of the body during a
+        // virtual scroll. Separate borders (with zero spacing) pin the sticky
+        // header rock-solid at the top while the windowed rows scroll under
+        // it. Each cell paints its own 1px border (see tbody td below) so the
+        // grid looks identical.
+        border-collapse: separate;
+        border-spacing: 0;
+
+        // STICKY HEADER: resolves against .eh_dr_body (the scroll container),
+        // so the header floats above the windowed body. Stick the whole
+        // <thead> AND its cells so the row never drops into the body; opaque
+        // background is mandatory or scrolled rows bleed through; z-index
+        // sits above row content (annotation popovers use a higher layer).
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 3;
+        }
+
+        thead tr {
+            height: var(--eh-dr-header-row-height);
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            z-index: 3;
+            box-sizing: border-box;
+            height: var(--eh-dr-header-row-height);
+            min-height: var(--eh-dr-header-row-height);
+            max-height: var(--eh-dr-header-row-height);
+            background: var(--eh-surface-2, #151D19);
+            color: var(--eh-text-dim, #6B7E72);
+            border-bottom: 1px solid var(--eh-border-strong, #2A3B32);
+            font-weight: 600;
+            font-size: 0.72rem;
+            font-family: var(--eh-mono, ui-monospace, monospace);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+            line-height: 1.1;
+            padding: 0 var(--eh-3, 12px);
+            vertical-align: middle;
+        }
+
+        thead tr:not(:last-child) th {
+            background: var(--eh-accent-soft, #19382C);
+            border-right: 1px solid var(--eh-border, #1E2A24);
+            text-align: center;
+        }
+
+        .eh_dr_axis_label {
+            text-align: left !important;
+            vertical-align: middle;
+        }
+
+        .eh_dr_axis_group {
+            text-align: center !important;
+        }
+
+        .eh_dr_col_unit {
+            font-size: 0.7rem;
+            color: var(--eh-accent, #7BCEA0);
+            margin-left: 4px;
+            text-transform: none;
+            letter-spacing: 0;
+            font-weight: 500;
+        }
+
+        tbody tr {
+            transition: background-color 0.1s ease;
+
+            &:hover {
+                background-color: var(--eh-surface-hover, #18221C);
+            }
+        }
+
+        // Fixed row height keeps the virtual-scroll math (floor(scrollTop /
+        // ROW_HEIGHT)) exact. Every row is exactly ROW_HEIGHT (28px) tall;
+        // overflowing cell content is clipped/ellipsised rather than wrapping.
+        tbody tr:not(.eh_dr_spacer_row) {
+            height: 28px;
+        }
+
+        tbody td {
+            font-size: 0.85rem;
+            padding: 4px var(--eh-3, 12px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border-top: 1px solid var(--eh-border, #1E2A24);
+            color: var(--eh-text, #E8EDE9);
+            background-color: transparent;
+        }
+
+        // Spacer rows reproduce the height of the windowed-out rows so the
+        // scrollbar matches the full list. Zero chrome, not hoverable.
+        .eh_dr_spacer_row {
+            &:hover { background: transparent; }
+            > td { padding: 0; border: 0; }
+        }
+
+        // Numeric cells: mono + tabular figures so columns align digit for
+        // digit like the dashboard KPI tiles.
+        .eh_dr_num {
+            font-family: var(--eh-mono, ui-monospace, monospace);
+            font-variant-numeric: tabular-nums;
+        }
+
+        // WS1 gesture split: only the amount cells open the full-page
+        // drilldown, so only they get the pointer affordance.
+        .eh_dr_amount_cell {
+            cursor: pointer;
+        }
+
+        // ---- WS5 semantic good/bad coloring ----
+        // Favourable change = mint, unfavourable = warm-red, neutral = muted.
+        // .eh_dr_negative is kept as an alias of .eh_dr_bad for any
+        // non-comparison report that still emits it directly.
+        .eh_dr_good {
+            color: var(--eh-up, #7BCEA0);
+        }
+
+        .eh_dr_bad,
+        .eh_dr_negative {
+            color: var(--eh-down, #E08C7B);
+        }
+
+        .eh_dr_muted {
+            color: var(--eh-text-muted, #3A4D42);
+        }
+
+        .eh_dr_unfold_caret {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 22px;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: var(--eh-accent, #7BCEA0);
+            cursor: pointer;
+        }
+
+        .eh_dr_section_row {
+            background-color: var(--eh-surface-2, #151D19);
+
+            > td {
+                font-weight: 600;
+                border-top: 1px solid var(--eh-border-strong, #2A3B32);
+            }
+        }
+
+        .eh_dr_section_row.eh_dr_total > td {
+            border-top: 2px solid var(--eh-accent, #7BCEA0);
+            background-color: var(--eh-surface-2, #151D19);
+        }
+
+        .eh_dr_section_row.eh_dr_header > td {
+            background-color: var(--eh-surface-hover, #18221C);
+            font-size: 0.92rem;
+            color: var(--eh-text, #E8EDE9);
+        }
+
+        .eh_dr_computed > td {
+            font-weight: 700;
+            background-color: var(--eh-accent-soft, rgba(123, 206, 160, 0.10));
+            border-top: 2px solid var(--eh-border-strong, #2A3B32);
+        }
+
+        .eh_dr_check > td {
+            font-style: italic;
+            color: var(--eh-text-dim, #6B7E72);
+            background-color: var(--eh-surface-2, #151D19);
+        }
+
+        // ---- WS5 ellipsis reveal ----
+        .eh_dr_ellipsis {
+            display: inline;
+        }
+
+        .eh_dr_ellipsis_btn {
+            border: 0;
+            background: transparent;
+            color: var(--eh-accent, #7BCEA0);
+            cursor: pointer;
+            padding: 0 2px;
+            font-weight: 700;
+            line-height: 1;
+
+            &:hover {
+                color: var(--eh-text, #E8EDE9);
+            }
+        }
+
+        // ---- WS3 annotations ----
+        // The note popover is absolute-positioned relative to its host cell
+        // so it travels with the row even while the body scrolls.
+        .eh_dr_name_cell,
+        .eh_dr_value_cell {
+            position: relative;
+            overflow: visible;
+        }
+
+        // The value text keeps the drilldown affordance; the cell-level
+        // note button sits beside it without underlining.
+        .eh_dr_value_text {
+            &--drillable {
+                cursor: pointer;
+            }
+
+            &--drillable:hover {
+                text-decoration: underline;
+                text-decoration-color: var(--eh-accent, #7BCEA0);
+                text-underline-offset: 2px;
+            }
+        }
+
+        // Quiet by default, revealed on row hover; solid + accented when a
+        // note exists so a figure that carries context is visible at a glance.
+        .eh_dr_note_btn {
+            border: none;
+            background: transparent;
+            color: var(--eh-text-muted, #3A4D42);
+            cursor: pointer;
+            padding: 0 4px;
+            margin-left: 6px;
+            font-size: 0.8rem;
+            line-height: 1;
+            opacity: 0;
+            transition: opacity 0.12s ease, color 0.12s ease;
+            position: relative;
+
+            &:hover {
+                color: var(--eh-accent, #7BCEA0);
+            }
+        }
+
+        .eh_dr_note_btn--has {
+            opacity: 1;
+            color: var(--eh-accent, #7BCEA0);
+        }
+
+        tr:hover .eh_dr_note_btn,
+        tr:focus-within .eh_dr_note_btn {
+            opacity: 1;
+        }
+
+        .eh_dr_note_badge {
+            display: inline-block;
+            min-width: 14px;
+            padding: 0 3px;
+            margin-left: 2px;
+            font-size: 0.62rem;
+            font-weight: 700;
+            line-height: 14px;
+            text-align: center;
+            color: var(--eh-bg, #080C0A);
+            background: var(--eh-accent, #7BCEA0);
+            border-radius: 999px;
+            vertical-align: top;
+        }
+
+        .eh_dr_note_backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 1040;
+        }
+
+        .eh_dr_note_popover {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1050;
+            width: 280px;
+            margin-top: 4px;
+            background: var(--eh-surface, #0F1512);
+            border: 1px solid var(--eh-border-strong, #2A3B32);
+            border-radius: var(--eh-radius-sm, 10px);
+            box-shadow: var(--eh-shadow, 0 8px 24px rgba(0, 0, 0, 0.45));
+            padding: 10px;
+            text-align: left;
+            white-space: normal;
+            cursor: default;
+        }
+
+        .eh_dr_note_pop_head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .eh_dr_note_pop_title {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--eh-text-dim, #6B7E72);
+        }
+
+        .eh_dr_note_pop_close {
+            border: none;
+            background: transparent;
+            font-size: 1.1rem;
+            line-height: 1;
+            color: var(--eh-text-dim, #6B7E72);
+            cursor: pointer;
+        }
+
+        .eh_dr_note_list {
+            max-height: 180px;
+            overflow-y: auto;
+            margin-bottom: 8px;
+        }
+
+        .eh_dr_note_item {
+            padding: 6px 0;
+            border-bottom: 1px solid var(--eh-border, #1E2A24);
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .eh_dr_note_text {
+            font-size: 0.82rem;
+            color: var(--eh-text, #E8EDE9);
+            white-space: pre-wrap;
+        }
+
+        .eh_dr_note_meta {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 2px;
+            font-size: 0.7rem;
+            color: var(--eh-text-dim, #6B7E72);
+        }
+
+        .eh_dr_note_del {
+            border: none;
+            background: transparent;
+            color: var(--eh-down, #E08C7B);
+            cursor: pointer;
+            font-size: 0.9rem;
+            line-height: 1;
+            margin-left: auto;
+            padding: 0 2px;
+        }
+
+        .eh_dr_note_empty {
+            font-size: 0.78rem;
+            color: var(--eh-text-dim, #6B7E72);
+            font-style: italic;
+            padding: 4px 0;
+        }
+
+        .eh_dr_note_add {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .eh_dr_note_textarea {
+            width: 100%;
+            font-size: 0.82rem;
+            border: 1px solid var(--eh-border-strong, #2A3B32);
+            border-radius: 6px;
+            padding: 6px 8px;
+            resize: vertical;
+            background: var(--eh-surface-2, #151D19);
+            color: var(--eh-text, #E8EDE9);
+
+            &:focus {
+                outline: none;
+                border-color: var(--eh-accent, #7BCEA0);
+            }
+        }
+
+        .eh_dr_note_add_btn {
+            align-self: flex-end;
+        }
+    }
+}
+
+// Odoo portals this content outside .eh_dr. Repeat only palette values needed
+// by the popover so its current report theme survives that boundary.
+.eh_dr_ellipsis_popover {
+    --popover-bg: transparent;
+    --popover-border-color: transparent;
+    --bs-popover-bg: transparent;
+    --bs-popover-border-color: transparent;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+
+    .popover-arrow,
+    > .popover-arrow {
+        display: none !important;
+    }
+
+    .popover-body {
+        padding: 0;
+    }
+}
+
+.eh_dr_ellipsis_pop {
+    max-width: 340px;
+    padding: 10px;
+    border: 1px solid var(--eh-border-strong);
+    border-radius: 10px;
+    background: var(--eh-surface);
+    color: var(--eh-text);
+    box-shadow: var(--eh-shadow);
+
+    &--light {
+        color-scheme: light;
+        --eh-surface: #FFFFFF;
+        --eh-surface-2: #EEF3F0;
+        --eh-border-strong: #788B82;
+        --eh-text: #17211C;
+        --eh-accent: #176B53;
+        --eh-shadow: 0 12px 32px rgba(23, 33, 28, 0.14);
+    }
+
+    &--dark {
+        color-scheme: dark;
+        --eh-surface: #121A17;
+        --eh-surface-2: #1A2521;
+        --eh-border-strong: #71847B;
+        --eh-text: #EDF4F0;
+        --eh-accent: #7CD3A8;
+        --eh-shadow: 0 14px 36px rgba(0, 0, 0, 0.48);
+    }
+}
+
+.eh_dr_ellipsis_pop_text {
+    white-space: normal;
+    word-break: break-word;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.eh_dr_ellipsis_pop_actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+.eh_dr_ellipsis_copy {
+    padding: 2px 10px;
+    border: 1px solid var(--eh-border-strong);
+    border-radius: 6px;
+    background: var(--eh-surface-2);
+    color: var(--eh-accent);
+    font-size: 0.78rem;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        border-color: var(--eh-accent);
+        background: var(--eh-surface-2);
+        color: var(--eh-accent);
+    }
+}
+
+// Filter-bar numeric inputs live outside the table. Keeping this selector at
+// report scope (rather than nested under .eh_dr_table) makes it actually
+// match the aging and comparison controls.
+.eh_dr .eh_dr_aging_num {
+    width: 5rem;
+}
+
+.eh_dr .eh_dr_period_nav {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 2px;
+    padding-bottom: 2px;
+}
+
+.eh_dr_dialog_backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1090;
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.eh_dr_dialog {
+    position: fixed;
+    z-index: 1091;
+    top: 50%;
+    left: 50%;
+    width: calc(100vw - 32px);
+    max-width: 440px;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border: 1px solid var(--eh-border-strong, #2A3B32);
+    border-radius: 12px;
+    background: var(--eh-surface-2, #151D19);
+    color: var(--eh-text, #E8EDE9);
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.4);
+}
+
+.eh_dr_dialog_title {
+    margin: 0 0 16px;
+    font-size: 1.1rem;
+}
+
+.eh_dr_dialog_field,
+.eh_dr_dialog_check {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.eh_dr_dialog_field {
+    flex-direction: column;
+
+    input {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid var(--eh-border-strong, #2A3B32);
+        border-radius: 6px;
+        background: var(--eh-surface, #0F1512);
+        color: var(--eh-text, #E8EDE9);
+    }
+}
+
+.eh_dr_dialog_actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.eh_dr_allocated_backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1092;
+    background: rgba(0, 0, 0, 0.62);
+}
+
+.eh_dr_allocated_dialog {
+    position: fixed;
+    z-index: 1093;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    width: calc(100vw - 48px);
+    max-width: 1100px;
+    max-height: calc(100vh - 48px);
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    border: 1px solid var(--eh-border-strong, #2A3B32);
+    border-radius: 14px;
+    background: var(--eh-surface, #0F1512);
+    color: var(--eh-text, #E8EDE9);
+    box-shadow: 0 22px 70px rgba(0, 0, 0, 0.52);
+}
+
+.eh_dr_allocated_header,
+.eh_dr_allocated_footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 18px;
+    background: var(--eh-surface-2, #151D19);
+}
+
+.eh_dr_allocated_header {
+    border-bottom: 1px solid var(--eh-border, #1E2A24);
+
+    h3 {
+        margin: 0;
+        font-size: 1.05rem;
+        color: var(--eh-text, #E8EDE9);
+    }
+
+    span {
+        display: block;
+        margin-top: 3px;
+        color: var(--eh-text-dim, #6B7E72);
+        font-size: 0.78rem;
+    }
+}
+
+.eh_dr_allocated_close {
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 1px solid var(--eh-border-strong, #2A3B32);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--eh-text, #E8EDE9);
+    font-size: 1.25rem;
+    line-height: 1;
+
+    &:hover,
+    &:focus-visible {
+        border-color: var(--eh-accent, #7BCEA0);
+        color: var(--eh-accent, #7BCEA0);
+        outline: none;
+    }
+}
+
+.eh_dr_allocated_body {
+    min-height: 180px;
+    overflow: auto;
+    padding: 14px 18px;
+}
+
+.eh_dr_allocated_loading {
+    display: flex;
+    min-height: 180px;
+    align-items: center;
+    justify-content: center;
+    color: var(--eh-text-dim, #6B7E72);
+}
+
+.eh_dr_allocated_table_wrap {
+    max-width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--eh-border, #1E2A24);
+    border-radius: 10px;
+}
+
+.eh_dr_allocated_table {
+    width: 100%;
+    min-width: 820px;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    th,
+    td {
+        padding: 7px 10px;
+        border-bottom: 1px solid var(--eh-border, #1E2A24);
+        color: var(--eh-text, #E8EDE9);
+        font-size: 0.82rem;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    thead th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background: var(--eh-surface-2, #151D19);
+        color: var(--eh-text-dim, #6B7E72);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+    }
+
+    tbody tr:hover td {
+        background: var(--eh-surface-hover, #18221C);
+    }
+
+    tfoot th {
+        position: sticky;
+        bottom: 0;
+        background: var(--eh-surface-2, #151D19);
+        border-bottom: 0;
+        border-top: 1px solid var(--eh-border-strong, #2A3B32);
+    }
+}
+
+.eh_dr_allocated_move {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--eh-accent, #7BCEA0);
+    text-align: left;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover,
+    &:focus-visible {
+        color: var(--eh-text, #E8EDE9);
+        outline: none;
+    }
+}
+
+.eh_dr_allocated_footer {
+    border-top: 1px solid var(--eh-border, #1E2A24);
+    color: var(--eh-text-dim, #6B7E72);
+    font-size: 0.78rem;
+}
+
+@media (max-width: 1100px) {
+    .eh_dr .eh_dr_titlebar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .eh_dr .eh_dr_actions {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .eh_dr .eh_dr_filters,
+    .eh_dr .eh_dr_filter_group {
+        flex-wrap: wrap;
+    }
+
+    .eh_dr .eh_dr_meta_bar {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 760px) {
+    .eh_dr .eh_dr_topbar,
+    .eh_dr .eh_dr_body {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .eh_dr .eh_dr_actions > .btn,
+    .eh_dr .eh_dr_saved_view_select,
+    .eh_dr .eh_dr_collapse_toggle {
+        flex: 1 1 145px;
+    }
+
+    .eh_dr .eh_dr_filter,
+    .eh_dr .eh_dr_filter_wide {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+
+    .eh_dr .eh_dr_filter select,
+    .eh_dr .eh_dr_filter input:not([type="checkbox"]) {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .eh_dr .eh_dr_search {
+        flex: 1 1 100%;
+    }
+
+    .eh_dr .eh_dr_search > input[type="search"] {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .eh_dr .eh_dr_body {
+        overflow-x: auto;
+    }
+
+    .eh_dr .eh_dr_table {
+        min-width: 720px;
+    }
+
+    .eh_dr_allocated_dialog {
+        width: calc(100vw - 16px);
+        max-height: calc(100vh - 16px);
+    }
+
+    .eh_dr_allocated_header,
+    .eh_dr_allocated_footer {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        padding: 12px;
+    }
+
+    .eh_dr_allocated_body {
+        padding: 10px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .eh_dr .eh_dr_theme_choice,
+    .eh_dr .eh_dr_table tbody tr,
+    .eh_dr .eh_dr_note_btn {
+        transition: none;
+    }
+}
+
+// Server messages keep their own line breaks (access and validation
+// errors list one item per line).
+.eh_dr_error_text {
+    white-space: pre-wrap;
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        Surface the batch on the standard payment form so accountants
+        can see at a glance which batch each payment belongs to and
+        click through. Inheriting account.view_account_payment_form
+        keeps the change minimal and nondisruptive to other modules
+        that also extend the form.
+    -->
+    <record id="view_account_payment_form_batch" model="ir.ui.view">
+        <field name="name">account.payment.form.eh_batch</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="after">
+                <group string="Batch">
+                    <field name="eh_batch_state" invisible="1"/>
+                    <field name="eh_batch_payment_id"
+                           readonly="state != 'draft' or eh_batch_state not in (False, 'draft')"
+                           domain="[('state', '=', 'draft'), ('company_id', '=', company_id), ('journal_id', '=', journal_id), ('batch_type', '=', payment_type)]"
+                           options="{'no_create': True}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_payment_tree_batch" model="ir.ui.view">
+        <field name="name">account.payment.list.eh_batch</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <field name="eh_batch_payment_id" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_eh_bsi_duplicate_line_list" model="ir.ui.view">
+        <field name="name">account.bank.statement.line.eh.duplicate.list</field>
+        <field name="model">account.bank.statement.line</field>
+        <field name="arch" type="xml">
+            <list string="Probable Duplicate Bank Transactions"
+                  create="0" edit="0" delete="0"
+                  default_order="date desc, id desc">
+                <field name="date"/>
+                <field name="journal_id"/>
+                <field name="payment_ref"/>
+                <field name="partner_name" optional="show"/>
+                <field name="currency_id" column_invisible="True"/>
+                <field name="amount" widget="monetary"
+                       options="{'currency_field': 'currency_id'}"/>
+                <field name="statement_id" optional="show"/>
+                <field name="eh_duplicate_of_id" string="Probable Duplicate Of"/>
+                <field name="state" widget="badge" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_bsi_duplicate_line_form" model="ir.ui.view">
+        <field name="name">account.bank.statement.line.eh.duplicate.form</field>
+        <field name="model">account.bank.statement.line</field>
+        <field name="arch" type="xml">
+            <form string="Probable Duplicate Bank Transaction"
+                  create="0" edit="0" delete="0">
+                <sheet>
+                    <field name="suitable_journal_ids" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                            <field name="journal_id"/>
+                            <field name="statement_id"/>
+                            <field name="move_id"/>
+                        </group>
+                        <group>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="amount" widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"/>
+                            <field name="payment_ref"/>
+                            <field name="partner_name"/>
+                            <field name="partner_id"/>
+                        </group>
+                    </group>
+                    <group string="Duplicate Review">
+                        <field name="eh_duplicate_of_id"
+                               string="Probable Duplicate Of"/>
+                        <field name="narration"/>
+                        <field name="unique_import_ref"/>
+                        <field name="eh_provider_reference"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_bsi_duplicate_line_search" model="ir.ui.view">
+        <field name="name">account.bank.statement.line.eh.duplicate.search</field>
+        <field name="model">account.bank.statement.line</field>
+        <field name="arch" type="xml">
+            <search string="Probable Duplicate Bank Transactions">
+                <field name="payment_ref"/>
+                <field name="partner_id"/>
+                <field name="journal_id"/>
+                <field name="eh_duplicate_of_id"/>
+                <filter name="probable_duplicates" string="Probable Duplicates"
+                        domain="[('eh_duplicate_of_id', '!=', False)]"/>
+                <group>
+                    <filter name="group_journal" string="Journal"
+                            context="{'group_by': 'journal_id'}"/>
+                    <filter name="group_statement" string="Statement"
+                            context="{'group_by': 'statement_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_bsi_duplicate_lines" model="ir.actions.act_window">
+        <field name="name">Probable Duplicate Bank Transactions</field>
+        <field name="res_model">account.bank.statement.line</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_eh_bsi_duplicate_line_list"/>
+        <field name="search_view_id" ref="view_eh_bsi_duplicate_line_search"/>
+        <field name="domain">[('eh_duplicate_of_id', '!=', False)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No probable duplicates</p>
+            <p>Fuzzy matches stay visible here until reviewed. No line is deleted automatically.</p>
+        </field>
+    </record>
+
+</odoo>

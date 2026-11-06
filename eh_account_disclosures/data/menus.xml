@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="eh_account_base.menu_eh_reports_advanced"
+                model="ir.ui.menu">
+            <field name="group_ids"
+                   eval="[(4, ref('eh_account_base.group_eh_auditor'))]"/>
+        </record>
+
+        <menuitem id="menu_eh_disclosures_root"
+                  name="Disclosures"
+                  parent="eh_account_base.menu_eh_reports_advanced"
+                  sequence="90"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_related_party"
+                  name="Related Parties"
+                  parent="menu_eh_disclosures_root"
+                  action="action_eh_related_party"
+                  sequence="10"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_segment_report"
+                  name="Operating Segments"
+                  parent="menu_eh_disclosures_root"
+                  action="action_eh_segment_report"
+                  sequence="20"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_fin_risk"
+                  name="Financial Risk"
+                  parent="menu_eh_disclosures_root"
+                  action="action_eh_fin_risk"
+                  sequence="30"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_entity_interest"
+                  name="Interests in Other Entities"
+                  parent="menu_eh_disclosures_root"
+                  action="action_eh_entity_interest"
+                  sequence="40"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_fin_maturity_run"
+                  name="Maturity Analysis"
+                  parent="menu_eh_disclosures_root"
+                  action="action_eh_fin_maturity_run"
+                  sequence="35"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_fin_credit_note"
+                  name="Credit-Risk Notes"
+                  parent="menu_eh_disclosures_root"
+                  action="action_eh_fin_credit_note"
+                  sequence="32"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_fin_sensitivity"
+                  name="Sensitivity Analysis"
+                  parent="menu_eh_disclosures_root"
+                  action="action_eh_fin_sensitivity"
+                  sequence="37"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+    </data>
+</odoo>

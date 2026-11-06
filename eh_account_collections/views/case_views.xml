@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_collections_case_kanban" model="ir.ui.view">
+        <field name="name">eh.collections.case.kanban</field>
+        <field name="model">eh.collections.case</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="stage_id"
+                    class="o_kanban_small_column"
+                    sample="1">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="stage_id"/>
+                <field name="collector_id"/>
+                <field name="total_overdue_amount"/>
+                <field name="days_overdue_max"/>
+                <field name="oldest_overdue_date"/>
+                <field name="promised_amount"/>
+                <field name="promised_date"/>
+                <field name="has_active_promise"/>
+                <field name="priority"/>
+                <field name="action_count"/>
+                <field name="next_action_date"/>
+                <field name="currency_id"/>
+                <field name="color"/>
+                <templates>
+                    <t t-name="card">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="partner_id"/>
+                                    </strong>
+                                </div>
+                                <field name="priority" widget="priority"/>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <div>
+                                    <strong>
+                                        <field name="total_overdue_amount" widget="monetary"/>
+                                    </strong>
+                                    <span class="text-muted ms-2">
+                                        <field name="days_overdue_max"/> days overdue
+                                    </span>
+                                </div>
+                                <div t-if="record.has_active_promise.raw_value" class="mt-1">
+                                    <span class="badge text-bg-success">
+                                        Promise:
+                                        <field name="promised_amount" widget="monetary"/>
+                                        by
+                                        <field name="promised_date"/>
+                                    </span>
+                                </div>
+                                <div t-if="record.next_action_date.raw_value" class="mt-1 text-muted small">
+                                    Next action: <field name="next_action_date"/>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <span t-if="record.action_count.raw_value">
+                                        <i class="fa fa-comment-o" title="Actions logged" aria-label="Actions logged"/>
+                                        <field name="action_count"/>
+                                    </span>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="collector_id"
+                                           widget="many2one_avatar_user"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_eh_collections_case_tree" model="ir.ui.view">
+        <field name="name">eh.collections.case.list</field>
+        <field name="model">eh.collections.case</field>
+        <field name="arch" type="xml">
+            <list string="Collections Cases"
+                  default_order="priority desc, days_overdue_max desc"
+                  sample="1"
+                  decoration-danger="days_overdue_max &gt; 90 or broken_promise"
+                  decoration-warning="days_overdue_max &gt; 30 and days_overdue_max &lt;= 90">
+                <field name="priority" widget="priority"/>
+                <field name="partner_id"/>
+                <field name="stage_id" widget="badge"/>
+                <field name="collector_id"
+                       widget="many2one_avatar_user"
+                       optional="show"/>
+                <field name="total_overdue_amount" widget="monetary" sum="Total"/>
+                <field name="days_overdue_max"/>
+                <field name="oldest_overdue_date"/>
+                <field name="has_active_promise" widget="boolean_toggle"/>
+                <field name="broken_promise" widget="boolean_toggle" optional="show"/>
+                <field name="promised_amount" widget="monetary" optional="show"/>
+                <field name="promised_date" optional="show"/>
+                <field name="next_action_date" optional="show"/>
+                <field name="action_count" optional="hide"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_collections_case_form" model="ir.ui.view">
+        <field name="name">eh.collections.case.form</field>
+        <field name="model">eh.collections.case</field>
+        <field name="arch" type="xml">
+            <form string="Collections Case">
+                <field name="broken_promise" invisible="1"/>
+                <header>
+                    <button name="action_log_call"
+                            type="object"
+                            string="Log Call"
+                            class="btn-primary"/>
+                    <button name="action_log_email"
+                            type="object"
+                            string="Log Email"/>
+                    <button name="action_log_sms"
+                            type="object"
+                            string="Log SMS"/>
+                    <button name="action_refresh_overdue"
+                            type="object"
+                            string="Refresh Overdue"/>
+                    <button name="action_escalate"
+                            type="object"
+                            string="Escalate"
+                            invisible="is_resolved"/>
+                    <button name="action_resolve"
+                            type="object"
+                            string="Resolve"
+                            class="btn-success"
+                            invisible="is_resolved"/>
+                    <button name="action_send_followup_now"
+                            type="object"
+                            string="Send Follow-up"
+                            invisible="is_resolved or followup_paused"
+                            confirm="Send the next follow-up email and advance the level. Continue?"/>
+                    <button name="action_open_reminder_wizard"
+                            type="object"
+                            string="Send Reminder"
+                            invisible="is_resolved"/>
+                    <button name="action_open_late_fee_wizard"
+                            type="object"
+                            string="Issue Late Fee"
+                            invisible="is_resolved"/>
+                    <button name="action_handle_broken_promise"
+                            type="object"
+                            string="Handle Broken Promise"
+                            class="btn-warning"
+                            invisible="not broken_promise"
+                            confirm="Bump priority, escalate the stage, and fire the next follow-up. Continue?"/>
+                    <button name="action_pause_followups"
+                            type="object"
+                            string="Pause Follow-ups"
+                            invisible="is_resolved or followup_paused"/>
+                    <button name="action_resume_followups"
+                            type="object"
+                            string="Resume Follow-ups"
+                            invisible="is_resolved or not followup_paused"/>
+                    <field name="stage_id"
+                           widget="statusbar"
+                           options="{'clickable': '1'}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_actions"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-comments-o">
+                            <field name="action_count"
+                                   widget="statinfo"
+                                   string="Actions"/>
+                        </button>
+                        <button name="action_view_open_invoices"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-file-text-o">
+                            <span class="o_stat_text">Invoices</span>
+                        </button>
+                    </div>
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                    <group>
+                        <group string="Customer">
+                            <field name="partner_id"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="collector_id"
+                                   widget="many2one_avatar_user"/>
+                            <field name="priority" widget="priority"/>
+                        </group>
+                        <group string="Overdue position">
+                            <field name="total_overdue_amount" widget="monetary"/>
+                            <field name="oldest_overdue_date"/>
+                            <field name="days_overdue_max"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="is_resolved" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Promise to pay">
+                            <field name="promised_amount" widget="monetary"/>
+                            <field name="promised_date"/>
+                            <field name="has_active_promise"/>
+                        </group>
+                        <group string="Next action">
+                            <field name="next_action_date"/>
+                            <field name="last_action_at"/>
+                        </group>
+                    </group>
+                    <group string="Follow-up engine">
+                        <group>
+                            <field name="current_followup_level_id"
+                                   options="{'no_create': True}"/>
+                            <field name="next_followup_date"/>
+                            <field name="followup_paused"/>
+                        </group>
+                        <group>
+                            <field name="last_followup_sent_at" readonly="1"/>
+                            <field name="followup_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Action Log">
+                            <field name="action_ids">
+                                <list create="0" delete="0">
+                                    <field name="action_date" readonly="1"/>
+                                    <field name="action_type" readonly="1"/>
+                                    <field name="user_id" readonly="1"/>
+                                    <field name="summary" readonly="1"/>
+                                    <field name="contact_made" readonly="1"/>
+                                    <field name="promise_amount"
+                                           widget="monetary" readonly="1"/>
+                                    <field name="promise_date" readonly="1"/>
+                                    <field name="late_fee_move_id"
+                                           optional="hide" readonly="1"/>
+                                    <field name="currency_id"
+                                           column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                    <chatter/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_collections_case_search" model="ir.ui.view">
+        <field name="name">eh.collections.case.search</field>
+        <field name="model">eh.collections.case</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id"/>
+                <field name="collector_id"/>
+                <field name="stage_id"/>
+                <filter name="filter_my_cases" string="My Cases"
+                        domain="[('collector_id', '=', uid)]"/>
+                <filter name="filter_unresolved" string="Open"
+                        domain="[('is_resolved', '=', False)]"/>
+                <filter name="filter_resolved" string="Resolved"
+                        domain="[('is_resolved', '=', True)]"/>
+                <separator/>
+                <filter name="filter_active_promise" string="With Active Promise"
+                        domain="[('has_active_promise', '=', True)]"/>
+                <filter name="filter_broken_promise" string="Broken Promise"
+                        domain="[('broken_promise', '=', True)]"/>
+                <filter name="filter_over_60" string="Over 60 Days"
+                        domain="[('days_overdue_max', '&gt;', 60)]"/>
+                <filter name="filter_over_90" string="Over 90 Days"
+                        domain="[('days_overdue_max', '&gt;', 90)]"/>
+                <filter name="filter_high_priority" string="High Priority"
+                        domain="[('priority', 'in', ['2', '3'])]"/>
+                <group>
+                    <filter name="group_stage" string="Stage"
+                            context="{'group_by': 'stage_id'}"/>
+                    <filter name="group_collector" string="Collector"
+                            context="{'group_by': 'collector_id'}"/>
+                    <filter name="group_priority" string="Priority"
+                            context="{'group_by': 'priority'}"/>
+                    <filter name="group_followup_level" string="Follow-up Level"
+                            context="{'group_by': 'current_followup_level_id'}"/>
+                    <filter name="group_company" string="Company"
+                            context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company"/>
+                    <filter name="group_create_month" string="Created Month"
+                            context="{'group_by': 'create_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="eh_account_collections_case_view_graph" model="ir.ui.view">
+        <field name="name">eh.collections.case.graph</field>
+        <field name="model">eh.collections.case</field>
+        <field name="arch" type="xml">
+            <graph string="Collections Cases" type="bar" sample="1">
+                <field name="stage_id"/>
+                <field name="total_overdue_amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_collections_case_view_pivot" model="ir.ui.view">
+        <field name="name">eh.collections.case.pivot</field>
+        <field name="model">eh.collections.case</field>
+        <field name="arch" type="xml">
+            <pivot string="Collections Cases" sample="1">
+                <field name="collector_id" type="row"/>
+                <field name="stage_id" type="col"/>
+                <field name="total_overdue_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_collections_case" model="ir.actions.act_window">
+        <field name="name">Collections Workbench</field>
+        <field name="res_model">eh.collections.case</field>
+        <field name="view_mode">kanban,list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_collections_case_search"/>
+        <field name="context">{'search_default_filter_unresolved': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No cases yet.</p>
+            <p>Run the auto creator (or wait for the daily cron) to populate cases from your overdue receivables. Each open partner gets one case; the cron refreshes the totals daily.</p>
+        </field>
+    </record>
+
+    <record id="action_eh_collections_auto_create" model="ir.actions.server">
+        <field name="name">Auto Create Cases</field>
+        <field name="model_id" ref="model_eh_collections_case"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_auto_create_cases()</field>
+    </record>
+
+</odoo>

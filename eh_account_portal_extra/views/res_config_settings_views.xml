@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="res_config_settings_view_form_portal_extra"
+            model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.portal.extra</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id"
+               ref="eh_account_base.res_config_settings_view_form_eh"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='eh_block_reporting']"
+                   position="after">
+                <block title="ERP Heritage Customer Portal"
+                       name="eh_block_portal_extra"
+                       id="eh_block_portal_extra"
+                       help="Customer-facing statement download controls.">
+                    <setting id="eh_portal_max_statement_days_setting"
+                             string="Maximum Statement Period (days)"
+                             help="Maximum inclusive period a customer may request. Valid range: 1 to 3660 days.">
+                        <field name="eh_portal_max_statement_days"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

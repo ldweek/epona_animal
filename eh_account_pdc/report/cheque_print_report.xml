@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        Physical cheque print: renders one cheque face per document with
+        payee, numeric amount, amount in words, value date, and the
+        pre-numbered serial, for printing onto cheque stock. The numeric
+        and word amounts both honour the cheque's own currency.
+    -->
+
+    <record id="action_report_cheque_print" model="ir.actions.report">
+        <field name="name">Print Cheque</field>
+        <field name="model">eh.cheque</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">eh_account_pdc.report_cheque_print</field>
+        <field name="report_file">eh_account_pdc.report_cheque_print</field>
+        <field name="binding_model_id" ref="model_eh_cheque"/>
+        <field name="binding_type">report</field>
+        <field name="group_ids"
+               eval="[(6, 0, [ref('eh_account_base.group_eh_manager')])]"/>
+    </record>
+
+    <template id="report_cheque_print">
+        <t t-call="web.html_container">
+            <t t-call="eh_account_base.eh_report_styles"/>
+            <t t-foreach="docs" t-as="cheque">
+                <t t-call="web.external_layout">
+                    <div class="page eh_pdf_page">
+                        <h1 class="eh_pdf_title">Cheque</h1>
+                        <div class="eh_pdf_meta">
+                            <span>
+                                <strong>Serial:</strong>
+                                <t t-out="cheque.cheque_number or '-'"/>
+                            </span>
+                            <span>
+                                <strong>Date:</strong>
+                                <t t-out="cheque.value_date and cheque.value_date.strftime('%Y-%m-%d') or ''"/>
+                            </span>
+                            <span>
+                                <strong>Reference:</strong>
+                                <t t-out="cheque.name or ''"/>
+                            </span>
+                        </div>
+                        <table class="eh_pdf_table">
+                            <tr>
+                                <td style="width: 25%;"><strong>Pay to</strong></td>
+                                <td>
+                                    <t t-out="cheque.payee_name_snapshot or cheque.partner_id.complete_name or cheque.partner_id.name or ''"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Amount</strong></td>
+                                <td>
+                                    <span t-out="cheque.amount"
+                                          t-options="{'widget': 'monetary', 'display_currency': cheque.currency_id}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>In words</strong></td>
+                                <td><t t-out="cheque.amount_in_words or ''"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bank</strong></td>
+                                <td>
+                                    <t t-out="cheque.issuer_bank_name or cheque.journal_id.name or ''"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <t t-call="eh_account_base.eh_report_footer"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

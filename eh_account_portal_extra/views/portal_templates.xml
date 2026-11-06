@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        Portal home card.
+
+        Inherits portal.portal_my_home and adds an Accounts Receivable
+        summary card. The card shows:
+        * Positive overdue invoice residual in company currency.
+        * Days overdue on the oldest overdue invoice.
+        * Date-range and statement-type PDF form.
+        * Direct link to the open-invoice list (standard portal route).
+    -->
+    <template id="portal_my_home_eh_card"
+              name="Portal: ERP Heritage AR card"
+              inherit_id="portal.portal_my_home"
+              customize_show="True"
+              priority="40">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <div class="o_portal_index_card col-12 col-md-6 mb-3"
+                 t-if="eh_partner_id">
+                <div class="card border-secondary h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fa fa-balance-scale me-2" aria-hidden="true"/>
+                            Account balance
+                        </h5>
+                        <p class="card-text">
+                            <span t-if="eh_total_overdue and eh_total_overdue > 0"
+                                  t-att-data-eh-total-overdue="eh_total_overdue"
+                                  class="text-danger fw-bold">
+                                Overdue:
+                                <t t-out="eh_total_overdue"
+                                   t-options='{"widget": "monetary", "display_currency": eh_partner_currency}'/>
+                            </span>
+                            <span t-elif="eh_open_invoice_count"
+                                  class="text-warning">
+                                Open invoices:
+                                <t t-out="eh_open_invoice_count"/>
+                            </span>
+                            <span t-else=""
+                                  class="text-success">
+                                You are up to date. Nothing to pay right now.
+                            </span>
+                        </p>
+                        <p class="card-text"
+                           t-if="eh_oldest_due_date"
+                           t-att-data-eh-oldest-due-date="eh_oldest_due_date">
+                            Oldest overdue invoice:
+                            <t t-out="eh_oldest_due_date"
+                               t-options='{"widget": "date"}'/>
+                            (<t t-out="eh_days_overdue_max"/> days)
+                        </p>
+                        <form action="/my/eh/statement" method="get"
+                              class="row g-2 mb-3"
+                              aria-label="Customer statement options">
+                            <div class="col-12 col-lg-6">
+                                <label for="eh_statement_date_from"
+                                       class="form-label mb-1">From</label>
+                                <input id="eh_statement_date_from"
+                                       name="date_from" type="date"
+                                       class="form-control form-control-sm"
+                                       t-att-required="'required'"
+                                       t-att-value="eh_statement_date_from"/>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <label for="eh_statement_date_to"
+                                       class="form-label mb-1">To</label>
+                                <input id="eh_statement_date_to"
+                                       name="date_to" type="date"
+                                       class="form-control form-control-sm"
+                                       t-att-required="'required'"
+                                       t-att-value="eh_statement_date_to"/>
+                            </div>
+                            <div class="col-12">
+                                <label for="eh_statement_type"
+                                       class="form-label mb-1">
+                                    Statement type
+                                </label>
+                                <select id="eh_statement_type"
+                                        name="statement_type"
+                                        class="form-select form-select-sm">
+                                    <option value="open_item">
+                                        Open items as at end date
+                                    </option>
+                                    <option value="activity">
+                                        Activity during period
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit"
+                                        class="btn btn-primary btn-sm me-2">
+                                    <i class="fa fa-file-pdf-o me-1"
+                                       aria-hidden="true"/>
+                                    Download statement
+                                </button>
+                            </div>
+                        </form>
+                        <a href="/my/invoices"
+                           class="btn btn-secondary btn-sm">
+                            View invoices
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <!--
+        Error pages.
+
+        Each refuses gracefully rather than throwing a stack trace so
+        a misconfigured portal user gets actionable guidance.
+    -->
+
+    <template id="portal_invalid_dates" name="Portal: ERP Heritage invalid dates error">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <div class="alert alert-danger mt-4">
+                    <h4>Invalid date range</h4>
+                    <p>
+                        The dates you provided could not be parsed or
+                        the start date was later than the end date.
+                        Use the format YYYY-MM-DD.
+                    </p>
+                    <a href="/my/eh/statement" class="btn btn-primary">
+                        Reset to defaults
+                    </a>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_range_too_large"
+              name="Portal: ERP Heritage statement range limit">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <div class="alert alert-warning mt-4">
+                    <h4>Statement period is too long</h4>
+                    <p>
+                        Select a period of no more than
+                        <strong><t t-out="max_statement_days"/> days</strong>.
+                        Shorter periods protect your financial data from
+                        timeouts and produce a faster statement.
+                    </p>
+                    <a href="/my" class="btn btn-primary">
+                        Choose another period
+                    </a>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_statement_busy"
+              name="Portal: ERP Heritage statement busy">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <div class="alert alert-info mt-4">
+                    <h4>Your statement is already being prepared</h4>
+                    <p>
+                        Another statement request is still running for your
+                        account. Wait a few seconds, then try again.
+                    </p>
+                    <a href="/my" class="btn btn-primary">
+                        Return to account balance
+                    </a>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_render_failed"
+              name="Portal: ERP Heritage statement render failure">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <div class="alert alert-danger mt-4">
+                    <h4>We could not prepare your statement</h4>
+                    <p>
+                        No financial document was downloaded. Please try
+                        again later or contact support if the issue persists.
+                    </p>
+                    <a href="/my" class="btn btn-primary">
+                        Return to account balance
+                    </a>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_report_missing" name="Portal: ERP Heritage report missing error">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <div class="alert alert-danger mt-4">
+                    <h4>Statement report not configured</h4>
+                    <p>
+                        The customer statement report is not registered.
+                        This usually means eh_account_dynamic_reports is
+                        not installed; please contact support.
+                    </p>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

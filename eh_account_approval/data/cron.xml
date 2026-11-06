@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <!--
+            SLA reminder + escalation sweep.
+
+            Hourly cadence so reminders land within the same business
+            hour the threshold is crossed; the sweep is per-record
+            idempotent (each request tracks last_reminded_at and
+            last_escalated_at) so running too often is cheap, not
+            harmful.
+
+            The cron is owned by user_root so it runs unconditionally
+            on every database that installs eh_account_approval; the
+            individual rule's sla_hours is the per-policy enable knob.
+            A policy with sla_hours=0 contributes nothing to the sweep.
+        -->
+
+        <record id="cron_eh_approval_sla_sweep" model="ir.cron">
+            <field name="name">EH Approval: SLA reminder &amp; escalation sweep</field>
+            <field name="model_id" ref="model_eh_approval_request"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_sla_sweep()</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="active" eval="True"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+        </record>
+
+    </data>
+</odoo>

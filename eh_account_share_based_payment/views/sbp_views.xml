@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- ================= plan ================= -->
+
+    <record id="view_eh_sbp_plan_list" model="ir.ui.view">
+        <field name="name">eh.sbp.plan.list</field>
+        <field name="model">eh.sbp.plan</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="settlement"/>
+                <field name="condition_kind"/>
+                <field name="grant_date"/>
+                <field name="vesting_end_date" optional="show"/>
+                <field name="graded_vesting" optional="hide"/>
+                <field name="recognised_cumulative" widget="monetary"/>
+                <field name="outstanding_total" optional="show"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'active'"
+                       decoration-muted="state in ('settled', 'cancelled')"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_sbp_plan_search" model="ir.ui.view">
+        <field name="name">eh.sbp.plan.search</field>
+        <field name="model">eh.sbp.plan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="instrument_desc"/>
+                <filter name="filter_active" string="Active"
+                        domain="[('state', '=', 'active')]"/>
+                <filter name="filter_equity" string="Equity-settled"
+                        domain="[('settlement', '=', 'equity')]"/>
+                <filter name="filter_cash" string="Cash-settled"
+                        domain="[('settlement', '=', 'cash')]"/>
+                <group>
+                    <filter name="group_state" string="State"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_condition" string="Condition"
+                            context="{'group_by': 'condition_kind'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_sbp_plan_form" model="ir.ui.view">
+        <field name="name">eh.sbp.plan.form</field>
+        <field name="model">eh.sbp.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_activate" type="object"
+                            string="Activate" class="btn-primary"
+                            invisible="state != 'draft'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_settle" type="object"
+                            string="Settle"
+                            invisible="state != 'active' or legacy_provenance_quarantined"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel"
+                            invisible="state not in ('draft', 'active') or legacy_provenance_quarantined"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_review_legacy_provenance"
+                            type="object"
+                            string="Complete Legacy Review"
+                            class="btn-primary"
+                            invisible="not legacy_provenance_quarantined"
+                            confirm="Historical source, valuation and journal evidence stays frozen and unverified. Only future accounting resumes. Continue?"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,active,settled"
+                           readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not legacy_provenance_quarantined">
+                        <field name="legacy_provenance_quarantined"
+                               invisible="1"/>
+                        <strong>Legacy provenance quarantine:</strong>
+                        <field name="legacy_provenance_quarantine_note"
+                               readonly="1" nolabel="1"/>
+                    </div>
+                    <group string="Controlled Legacy Review"
+                           invisible="not legacy_provenance_quarantined and not legacy_provenance_reviewed_at">
+                        <group>
+                            <field name="legacy_provenance_review_currency_id"
+                                   readonly="not legacy_provenance_quarantined"/>
+                            <field name="legacy_provenance_review_anchor"
+                                   widget="monetary"
+                                   readonly="not legacy_provenance_quarantined"/>
+                            <field name="legacy_provenance_review_anchor_confirmed"
+                                   readonly="not legacy_provenance_quarantined"/>
+                            <field name="legacy_provenance_review_move_count"
+                                   readonly="1"
+                                   invisible="not legacy_provenance_reviewed_at"/>
+                            <field name="legacy_provenance_review_unverified_move_count"
+                                   readonly="1"
+                                   invisible="not legacy_provenance_reviewed_at"/>
+                        </group>
+                        <group>
+                            <field name="legacy_provenance_review_note"
+                                   readonly="not legacy_provenance_quarantined"/>
+                            <field name="legacy_provenance_reviewed_at"
+                                   readonly="1"/>
+                            <field name="legacy_provenance_reviewed_by_id"
+                                   readonly="1"/>
+                            <field name="legacy_provenance_review_digest"
+                                   readonly="1"/>
+                        </group>
+                    </group>
+                    <field name="legacy_provenance_review_snapshot"
+                           invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_runs" type="object"
+                                class="oe_stat_button" icon="fa-refresh">
+                            <field name="run_count" widget="statinfo"
+                                   string="Runs"/>
+                        </button>
+                        <button name="action_view_moves" type="object"
+                                class="oe_stat_button" icon="fa-book">
+                            <field name="move_count" widget="statinfo"
+                                   string="Entries"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="settlement"
+                                   readonly="state != 'draft'"/>
+                            <field name="condition_kind"
+                                   readonly="state != 'draft'"/>
+                            <field name="instrument_desc"/>
+                            <field name="grant_date"
+                                   readonly="state != 'draft'"/>
+                            <field name="graded_vesting"
+                                   readonly="state != 'draft'"/>
+                            <field name="vesting_years"
+                                   invisible="graded_vesting"
+                                   readonly="state != 'draft'"/>
+                            <field name="vesting_months"
+                                   invisible="graded_vesting"
+                                   readonly="state != 'draft'"/>
+                            <field name="vesting_end_date"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="measurement_currency_id"
+                                   readonly="1"
+                                   invisible="state == 'draft'"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="recognised_cumulative"
+                                   widget="monetary" readonly="1"/>
+                            <field name="settlement_amount" widget="monetary"
+                                   invisible="settlement != 'cash' or state != 'active'"/>
+                            <field name="settlement_date"
+                                   invisible="state != 'active'"/>
+                            <field name="cancellation_date"
+                                   invisible="state not in ('draft', 'active')"/>
+                            <field name="cancellation_payment_amount"
+                                   widget="monetary"
+                                   invisible="settlement != 'equity' or state != 'active'"/>
+                            <field name="cancellation_repurchase_fair_value"
+                                   widget="monetary"
+                                   invisible="settlement != 'equity' or state != 'active' or not cancellation_payment_amount"/>
+                        </group>
+                    </group>
+                    <group string="Accounts">
+                        <group>
+                            <field name="expense_account_id"
+                                   readonly="state not in ('draft',)"/>
+                            <field name="equity_account_id"
+                                   invisible="settlement != 'equity'"
+                                   readonly="state not in ('draft',)"/>
+                            <field name="liability_account_id"
+                                   invisible="settlement != 'cash'"
+                                   readonly="state not in ('draft',)"/>
+                        </group>
+                        <group>
+                            <field name="settlement_account_id"
+                                   readonly="state not in ('draft',)"/>
+                            <field name="journal_id"
+                                   readonly="state not in ('draft',)"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Grants" name="grants">
+                            <div class="alert alert-info" role="alert"
+                                 invisible="state != 'active'">
+                                Active-plan true-ups: update expected
+                                forfeiture, condition outcome and final vested
+                                quantity below. Next period run posts resulting
+                                cumulative catch-up under IFRS 2.20.
+                            </div>
+                            <field name="grant_ids">
+                                <list editable="bottom">
+                                    <field name="company_id" column_invisible="1"/>
+                                    <field name="partner_id"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="instruments_granted"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="grant_date_fair_value"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="exercise_price" optional="show"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="expected_forfeiture_pct"
+                                           readonly="parent.state in ('settled', 'cancelled') or parent.legacy_provenance_quarantined"/>
+                                    <field name="forfeited" optional="show"
+                                           readonly="parent.state in ('settled', 'cancelled') or parent.legacy_provenance_quarantined"/>
+                                    <field name="condition_failed" optional="show"
+                                           readonly="parent.state in ('settled', 'cancelled') or parent.legacy_provenance_quarantined"/>
+                                    <field name="vesting_finalised" optional="show"
+                                           readonly="parent.state in ('settled', 'cancelled') or parent.legacy_provenance_quarantined"/>
+                                    <field name="actual_vested_qty" optional="show"
+                                           readonly="parent.state in ('settled', 'cancelled') or parent.legacy_provenance_quarantined"/>
+                                    <field name="exercised_qty" optional="hide"
+                                           readonly="parent.legacy_provenance_quarantined"/>
+                                    <field name="expired_qty" optional="hide"
+                                           readonly="parent.legacy_provenance_quarantined"/>
+                                    <field name="exercisable_qty" optional="hide"
+                                           readonly="parent.legacy_provenance_quarantined"/>
+                                    <field name="exercise_date_share_price"
+                                           optional="hide"
+                                           readonly="parent.legacy_provenance_quarantined"/>
+                                    <field name="contractual_expiry_date"
+                                           optional="hide"
+                                           readonly="parent.legacy_provenance_quarantined"/>
+                                    <field name="outstanding_qty"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                                <form>
+                                    <field name="company_id" invisible="1"/>
+                                    <group>
+                                        <group>
+                                            <field name="partner_id"
+                                                   readonly="parent.state != 'draft'"/>
+                                            <field name="instruments_granted"
+                                                   readonly="parent.state != 'draft'"/>
+                                            <field name="grant_date_fair_value"
+                                                   readonly="parent.state != 'draft'"/>
+                                            <field name="exercise_price"
+                                                   readonly="parent.state != 'draft'"/>
+                                            <field name="valuation_id"
+                                                   readonly="parent.state != 'draft'"/>
+                                            <button name="action_use_valuation"
+                                                    type="object"
+                                                    string="Use Valuation Result"
+                                                    class="btn-secondary"
+                                                    invisible="parent.state != 'draft'"/>
+                                        </group>
+                                        <group>
+                                            <field name="expected_forfeiture_pct"
+                                                   readonly="parent.state in ('settled', 'cancelled') or parent.legacy_provenance_quarantined"/>
+                                            <field name="forfeited"
+                                                   readonly="parent.state in ('settled', 'cancelled') or parent.legacy_provenance_quarantined"/>
+                                            <field name="condition_failed"
+                                                   readonly="parent.state in ('settled', 'cancelled') or parent.legacy_provenance_quarantined"/>
+                                            <field name="vesting_finalised"
+                                                   readonly="parent.state in ('settled', 'cancelled') or parent.legacy_provenance_quarantined"/>
+                                            <field name="actual_vested_qty"
+                                                   readonly="parent.state in ('settled', 'cancelled') or parent.legacy_provenance_quarantined"/>
+                                            <field name="exercised_qty"
+                                                   readonly="parent.legacy_provenance_quarantined"/>
+                                            <field name="expired_qty"
+                                                   readonly="parent.legacy_provenance_quarantined"/>
+                                            <field name="exercisable_qty"
+                                                   readonly="parent.legacy_provenance_quarantined"/>
+                                            <field name="exercise_date_share_price"
+                                                   readonly="parent.legacy_provenance_quarantined"/>
+                                            <field name="contractual_expiry_date"
+                                                   readonly="parent.legacy_provenance_quarantined"/>
+                                            <field name="forfeited_qty"/>
+                                            <field name="outstanding_qty"/>
+                                            <field name="currency_id" invisible="1"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <field name="notes"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Tranches" name="tranches"
+                              invisible="not graded_vesting">
+                            <field name="tranche_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="portion_pct"/>
+                                    <field name="vesting_end_date"/>
+                                    <field name="fair_value"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Modifications" name="modifications">
+                            <field name="modification_ids">
+                                <list editable="bottom">
+                                    <field name="date"/>
+                                    <field name="name"/>
+                                    <field name="modification_kind"/>
+                                    <field name="replacement_award_reference"
+                                           optional="hide"/>
+                                    <field name="incremental_fv"/>
+                                    <field name="cash_fair_value" optional="hide"/>
+                                    <field name="applied" optional="show"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                                <form>
+                                    <header>
+                                        <button name="action_apply_classification_change"
+                                                type="object"
+                                                string="Apply Classification Change"
+                                                class="btn-primary"
+                                                invisible="modification_kind != 'equity_to_cash' or applied"
+                                                groups="eh_account_base.group_eh_manager"/>
+                                    </header>
+                                    <group>
+                                        <group>
+                                            <field name="date"/>
+                                            <field name="name"/>
+                                            <field name="modification_kind"/>
+                                            <field name="replacement_award_reference"
+                                                   invisible="modification_kind != 'replacement'"/>
+                                        </group>
+                                        <group>
+                                            <field name="incremental_fv"
+                                                   invisible="modification_kind == 'equity_to_cash'"/>
+                                            <field name="cash_fair_value"
+                                                   invisible="modification_kind != 'equity_to_cash'"/>
+                                            <field name="applied" readonly="1"/>
+                                            <field name="transfer_move_id" readonly="1"/>
+                                        </group>
+                                    </group>
+                                    <field name="tranche_value_ids"
+                                           invisible="modification_kind != 'equity_to_cash'">
+                                        <list editable="bottom">
+                                            <field name="company_id"
+                                                   column_invisible="1"/>
+                                            <field name="tranche_id"/>
+                                            <field name="current_fair_value"/>
+                                            <field name="currency_id" column_invisible="1"/>
+                                        </list>
+                                    </field>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Disclosure (IFRS 2.45)" name="disclosure">
+                            <field name="disclosure_date"/>
+                            <group>
+                                <group>
+                                    <field name="granted_total"/>
+                                    <field name="waep_granted"/>
+                                    <field name="forfeited_total"/>
+                                    <field name="waep_forfeited"/>
+                                    <field name="exercised_total"/>
+                                    <field name="waep_exercised"/>
+                                    <field name="wa_share_price_at_exercise"/>
+                                </group>
+                                <group>
+                                    <field name="expired_total"/>
+                                    <field name="waep_expired"/>
+                                    <field name="outstanding_total"/>
+                                    <field name="waep_outstanding"/>
+                                    <field name="exercisable_total"/>
+                                    <field name="waep_exercisable"/>
+                                    <field name="exercise_price_min"/>
+                                    <field name="exercise_price_max"/>
+                                    <field name="wa_remaining_contractual_life_years"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    <group>
+                        <field name="notes" nolabel="1" colspan="2"
+                               placeholder="Terms of the arrangement, valuation basis, condition targets..."/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_sbp_plan" model="ir.actions.act_window">
+        <field name="name">Share-based Payments</field>
+        <field name="res_model">eh.sbp.plan</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first share-based payment plan</p>
+            <p>Track equity-settled and cash-settled arrangements under IFRS 2, from grant through vesting and settlement. Use New to record the grant date, settlement type and vesting terms.</p>
+        </field>
+    </record>
+
+    <!-- ================= period run ================= -->
+
+    <record id="view_eh_sbp_period_run_list" model="ir.ui.view">
+        <field name="name">eh.sbp.period.run.list</field>
+        <field name="model">eh.sbp.period.run</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="plan_id"/>
+                <field name="period_end"/>
+                <field name="cumulative_target" widget="monetary" optional="show"/>
+                <field name="period_charge" widget="monetary"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'posted'"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_sbp_period_run_form" model="ir.ui.view">
+        <field name="name">eh.sbp.period.run.form</field>
+        <field name="model">eh.sbp.period.run</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_compute" type="object"
+                            string="Compute"
+                            invisible="state != 'draft'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_post" type="object"
+                            string="Post" class="btn-primary"
+                            invisible="state != 'draft'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,posted"
+                           readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="plan_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="plan_settlement"/>
+                            <field name="plan_graded_vesting" invisible="1"/>
+                            <field name="period_end"
+                                   readonly="state != 'draft'"/>
+                            <field name="current_fair_value"
+                                   invisible="plan_settlement != 'cash' or plan_graded_vesting"
+                                   readonly="state != 'draft'"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="vested_fraction" readonly="1"/>
+                            <field name="prior_recognised"
+                                   widget="monetary" readonly="1"/>
+                            <field name="cumulative_target"
+                                   widget="monetary" readonly="1"/>
+                            <field name="period_charge"
+                                   widget="monetary" readonly="1"/>
+                            <field name="move_id" readonly="1"/>
+                            <field name="is_zero_charge" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Current Fair Values by Tranche"
+                           invisible="plan_settlement != 'cash' or not plan_graded_vesting">
+                        <field name="tranche_value_ids"
+                               readonly="state != 'draft'">
+                            <list editable="bottom">
+                                <field name="company_id"
+                                       column_invisible="1"/>
+                                <field name="tranche_id"/>
+                                <field name="current_fair_value"/>
+                                <field name="currency_id" column_invisible="1"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group>
+                        <field name="notes" nolabel="1" colspan="2"
+                               placeholder="Estimate changes flowing through this period..."/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="eh_account_share_based_payment_period_run_view_graph" model="ir.ui.view">
+        <field name="name">eh.sbp.period.run.graph</field>
+        <field name="model">eh.sbp.period.run</field>
+        <field name="arch" type="xml">
+            <graph string="Period Charges" type="bar">
+                <field name="period_end" interval="month"/>
+                <field name="plan_id"/>
+                <field name="period_charge" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_share_based_payment_period_run_view_pivot" model="ir.ui.view">
+        <field name="name">eh.sbp.period.run.pivot</field>
+        <field name="model">eh.sbp.period.run</field>
+        <field name="arch" type="xml">
+            <pivot string="Period Charges">
+                <field name="plan_id" type="row"/>
+                <field name="period_end" interval="month" type="col"/>
+                <field name="period_charge" type="measure"/>
+                <field name="cumulative_target" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_sbp_period_run" model="ir.actions.act_window">
+        <field name="name">SBP Period Runs</field>
+        <field name="res_model">eh.sbp.period.run</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Record your first period run</p>
+            <p>Each run measures the cumulative IFRS 2 charge at a period end and posts the incremental expense. Use New, pick a plan and period end, then Compute and Post.</p>
+        </field>
+    </record>
+
+    <!-- ================= valuation ================= -->
+
+    <record id="view_eh_sbp_valuation_list" model="ir.ui.view">
+        <field name="name">eh.sbp.valuation.list</field>
+        <field name="model">eh.sbp.valuation</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="pricing_model"/>
+                <field name="spot"/>
+                <field name="strike"/>
+                <field name="volatility_pct"/>
+                <field name="term_years"/>
+                <field name="result_value"/>
+                <field name="result_currency_id" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_sbp_valuation_form" model="ir.ui.view">
+        <field name="name">eh.sbp.valuation.form</field>
+        <field name="model">eh.sbp.valuation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_compute" type="object"
+                            string="Compute Value" class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="not legacy_result_unverified">
+                        Legacy valuation result is unverified. Preserved value
+                        below is historical evidence only. Recompute only when
+                        no approved plan consumed this valuation.
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="pricing_model"/>
+                            <field name="spot"/>
+                            <field name="strike"/>
+                            <field name="volatility_pct"/>
+                            <field name="rate_pct"/>
+                        </group>
+                        <group>
+                            <field name="term_years"/>
+                            <field name="dividend_yield_pct"/>
+                            <field name="steps"
+                                   invisible="pricing_model != 'binomial'"/>
+                            <field name="result_value" readonly="1"/>
+                            <field name="result_currency_id" readonly="1"/>
+                            <field name="legacy_result_unverified"
+                                   readonly="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Preserved Legacy Evidence"
+                           invisible="not legacy_result_unverified">
+                        <field name="legacy_result_value" readonly="1"/>
+                        <field name="legacy_result_provenance_version"
+                               readonly="1"/>
+                        <field name="legacy_result_currency_id" readonly="1"/>
+                        <field name="legacy_result_quarantine_note"
+                               readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="notes" nolabel="1" colspan="2"
+                               placeholder="Source of the volatility, rate and expected-term inputs..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_sbp_valuation" model="ir.actions.act_window">
+        <field name="name">Option Valuations</field>
+        <field name="res_model">eh.sbp.valuation</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Value your first option grant</p>
+            <p>Estimate grant-date fair value with Black-Scholes or a binomial model from the spot price, strike, volatility and expected term. Use New, enter the inputs, then Compute Value.</p>
+        </field>
+    </record>
+
+</odoo>

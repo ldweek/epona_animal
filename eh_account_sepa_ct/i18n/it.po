@@ -1,0 +1,942 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_sepa_ct
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Italian\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0) ? 1 : 2);\n"
+
+#. module: eh_account_sepa_ct
+#: model:mail.template,body_html:eh_account_sepa_ct.email_template_eh_sepa_ct_confirmation
+msgid ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #C9A372;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                SEPA Credit Transfer file generated\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#6c757d;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;\">\n"
+"                                <t t-out=\"object.company_id.name\"/>\n"
+"                            </p>\n"
+"                        </div>\n"
+"\n"
+"                        <table style=\"width:100%;border-collapse:collapse;margin:18px 0;background:#fff;border:1px solid #e1e4e8;border-radius:6px;\">\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    Message ID\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;font-family:'DM Mono',monospace;border-bottom:1px solid #e1e4e8;text-align:right;\" t-out=\"object.message_id\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    Batch\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;border-bottom:1px solid #e1e4e8;text-align:right;\" t-out=\"object.batch_id.name\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    Transactions\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;border-bottom:1px solid #e1e4e8;text-align:right;font-weight:600;\" t-out=\"object.transaction_count\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    Control sum\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;border-bottom:1px solid #e1e4e8;text-align:right;font-weight:700;\" t-out=\"'{:,.2f}'.format(object.control_sum or 0.0)\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;\">\n"
+"                                    SHA-256\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;font-family:'DM Mono',monospace;font-size:11px;text-align:right;\" t-out=\"object.file_hash\"/>\n"
+"                            </tr>\n"
+"                        </table>\n"
+"\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            The file is attached. Upload it to the bank\n"
+"                            portal and forward the bank's acceptance\n"
+"                            confirmation back to this thread for the\n"
+"                            audit log.\n"
+"                        </p>\n"
+"\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #C9A372;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                File di bonifico SEPA generato\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#6c757d;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;\">\n"
+"                                <t t-out=\"object.company_id.name\"/>\n"
+"                            </p>\n"
+"                        </div>\n"
+"\n"
+"                        <table style=\"width:100%;border-collapse:collapse;margin:18px 0;background:#fff;border:1px solid #e1e4e8;border-radius:6px;\">\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    ID messaggio\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;font-family:'DM Mono',monospace;border-bottom:1px solid #e1e4e8;text-align:right;\" t-out=\"object.message_id\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    Lotto\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;border-bottom:1px solid #e1e4e8;text-align:right;\" t-out=\"object.batch_id.name\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    Transazioni\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;border-bottom:1px solid #e1e4e8;text-align:right;font-weight:600;\" t-out=\"object.transaction_count\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid #e1e4e8;\">\n"
+"                                    Somma di controllo\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;border-bottom:1px solid #e1e4e8;text-align:right;font-weight:700;\" t-out=\"'{:,.2f}'.format(object.control_sum or 0.0)\"/>\n"
+"                            </tr>\n"
+"                            <tr>\n"
+"                                <td style=\"padding:10px 14px;color:#6c757d;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;\">\n"
+"                                    SHA-256\n"
+"                                </td>\n"
+"                                <td style=\"padding:10px 14px;font-family:'DM Mono',monospace;font-size:11px;text-align:right;\" t-out=\"object.file_hash\"/>\n"
+"                            </tr>\n"
+"                        </table>\n"
+"\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Il file è allegato. Caricalo sul portale bancario e inoltra la conferma di accettazione della banca a questo thread per il registro di audit.\n"
+"                        </p>\n"
+"\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>"
+
+#. module: eh_account_sepa_ct
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_export_kanban
+msgid ""
+"<i class=\"fa fa-clock-o\" title=\"Generated at\" role=\"img\" aria-"
+"label=\"Generated at\"/>"
+msgstr ""
+"<i class=\"fa fa-clock-o\" title=\"Generato il\" role=\"img\" aria-"
+"label=\"Generato il\"/>"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__message_needaction
+msgid "Action Needed"
+msgstr "Azione richiesta"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__activity_ids
+msgid "Activities"
+msgstr "Attività"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decorazione eccezione attività"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__activity_state
+msgid "Activity State"
+msgstr "Stato attività"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icona tipo di attività"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__attachment_id
+msgid "Attachment"
+msgstr "Allegato"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__message_attachment_count
+msgid "Attachment Count"
+msgstr "Numero allegati"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_originator__bic
+msgid "BIC / SWIFT"
+msgstr ""
+
+#. module: eh_account_sepa_ct
+#. odoo-python
+#: code:addons/eh_account_sepa_ct/models/sepa_originator.py:0
+msgid "BIC validation failed: %s"
+msgstr "Convalida del BIC fallita: %s"
+
+#. module: eh_account_sepa_ct
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_originator_search
+msgid "Bank Journal"
+msgstr "Registro banca"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_originator__journal_id
+msgid ""
+"Bank journal whose IBAN drives the Dbtr block of every PmtInf section. One "
+"originator per journal; reuse across every batch sourced from this journal."
+msgstr ""
+"Registro banca il cui IBAN determina il blocco Dbtr di ogni sezione PmtInf. "
+"Un ordinante per registro; riutilizzato per ogni lotto originato da questo "
+"registro."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__batch_id
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_export_search
+msgid "Batch"
+msgstr "Gruppo"
+
+#. module: eh_account_sepa_ct
+#. odoo-python
+#: code:addons/eh_account_sepa_ct/models/batch_payment.py:0
+msgid "Batch contains no posted payments to export."
+msgstr "Il lotto non contiene pagamenti registrati da esportare."
+
+#. module: eh_account_sepa_ct
+#. odoo-python
+#: code:addons/eh_account_sepa_ct/models/batch_payment.py:0
+msgid ""
+"Batch contains payments in %(count)s different currencies (%(names)s). Split"
+" the batch by currency before exporting; SEPA Credit Transfer requires one "
+"currency per file."
+msgstr ""
+"Il lotto contiene pagamenti in %(count)s valute diverse (%(names)s). "
+"Suddividere il lotto per valuta prima dell'esportazione; SEPA Credit "
+"Transfer richiede una sola valuta per file."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model,name:eh_account_sepa_ct.model_eh_batch_payment
+msgid "Batch payment"
+msgstr "Pagamento in lotto"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__company_id
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_originator__company_id
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_originator_search
+msgid "Company"
+msgstr "Azienda"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_originator__company_id
+msgid "Company related to this journal"
+msgstr "Azienda correlata al registro"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__control_sum
+msgid "Control Sum"
+msgstr "Somma di controllo"
+
+#. module: eh_account_sepa_ct
+#: model_terms:ir.actions.act_window,help:eh_account_sepa_ct.action_eh_sepa_originator
+msgid ""
+"Create one originator per bank journal you pay vendors from. The originator "
+"carries the IBAN, BIC and legal name the bank expects on every PAIN.001 "
+"file."
+msgstr ""
+"Crea un originatore per ogni registro bancario da cui paghi i fornitori. "
+"L'originatore contiene l'IBAN, il BIC e la ragione sociale che la banca si "
+"aspetta su ogni file PAIN.001."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__create_uid
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_originator__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__create_date
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_originator__create_date
+msgid "Created on"
+msgstr "Data creazione"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_originator__requested_execution_offset_days
+msgid ""
+"Days to add to the batch payment_date when computing ReqdExctnDt. 0 means "
+"same-day. 1 means next business day; the export does not enforce business-"
+"day arithmetic, set the offset to match your bank's processing rules."
+msgstr ""
+"Numero di giorni da aggiungere al payment_date del lotto durante il calcolo "
+"di ReqdExctnDt. 0 significa lo stesso giorno. 1 significa il giorno "
+"lavorativo successivo; l'esportazione non applica il calcolo dei giorni "
+"lavorativi, imposta lo scostamento in base alle regole di elaborazione della"
+" tua banca."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_batch_payment__display_name
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__display_name
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_originator__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: eh_account_sepa_ct
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_batch_payment_form_sepa
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_export_form
+msgid "Download"
+msgstr "Scarica"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields.selection,name:eh_account_sepa_ct.selection__eh_sepa_export__state__downloaded
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_export_search
+msgid "Downloaded"
+msgstr "Scaricato"
+
+#. module: eh_account_sepa_ct
+#: model:mail.template,name:eh_account_sepa_ct.email_template_eh_sepa_ct_confirmation
+msgid "EH SEPA CT — Generation Confirmation"
+msgstr "EH SEPA CT — Conferma di generazione"
+
+#. module: eh_account_sepa_ct
+#. odoo-python
+#: code:addons/eh_account_sepa_ct/models/sepa_export.py:0
+msgid ""
+"Export %s has no attached XML file. The export was either created in error "
+"or the attachment was deleted. Generate a fresh export from the batch."
+msgstr ""
+"L'esportazione %s non ha alcun file XML allegato. L'esportazione è stata "
+"creata per errore oppure l'allegato è stato eliminato. Genera una nuova "
+"esportazione dal lotto."
+
+#. module: eh_account_sepa_ct
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_batch_payment_form_sepa
+msgid "Export SEPA"
+msgstr "Esporta SEPA"
+
+#. module: eh_account_sepa_ct
+#. odoo-python
+#: code:addons/eh_account_sepa_ct/models/batch_payment.py:0
+msgid ""
+"Export the SEPA file only after the batch is posted. This guarantees the "
+"bank receives the same payments the GL has booked."
+msgstr ""
+"Esporta il file SEPA solo dopo che il lotto è stato registrato. Questo "
+"garantisce che la banca riceva gli stessi pagamenti contabilizzati nel GL."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__file_hash
+msgid "File Hash"
+msgstr "Hash del file"
+
+#. module: eh_account_sepa_ct
+#. odoo-javascript
+#: code:addons/eh_account_sepa_ct/static/src/js/tours/sepa_ct_tour.js:0
+msgid ""
+"First: configure a <b>SEPA Originator</b> per bank journal under "
+"Configuration. The originator carries your IBAN, BIC, initiating-party name "
+"and an optional party identifier (Spanish CIF, Italian Codice Fiscale, "
+"etc.). The mod-97 IBAN check runs on save so a typo is caught immediately."
+msgstr ""
+"Per prima cosa: configura un <b>emittente SEPA</b> per ogni registro "
+"bancario in Configurazione. L'emittente contiene il tuo IBAN, il BIC, il "
+"nome della parte iniziante e un identificativo di parte facoltativo (CIF "
+"spagnolo, Codice Fiscale italiano, ecc.). Il controllo IBAN mod-97 viene "
+"eseguito al salvataggio, così un errore di battitura viene rilevato "
+"immediatamente."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__message_follower_ids
+msgid "Followers"
+msgstr "Seguito da"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguito da (partner)"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_export__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icona Font Awesome es. fa-tasks"
+
+#. module: eh_account_sepa_ct
+#. odoo-javascript
+#: code:addons/eh_account_sepa_ct/static/src/js/tours/sepa_ct_tour.js:0
+msgid ""
+"Fourth: click <b>Export SEPA</b> on the posted batch. The file is generated,"
+" validated against the PAIN.001.001.03 schema, and saved as an "
+"ir.attachment. An <code>eh.sepa.export</code> audit row links the message "
+"id, file hash, and control sum back to the batch."
+msgstr ""
+"Quarto: fai clic su <b>Esporta SEPA</b> sul lotto registrato. Il file viene "
+"generato, convalidato rispetto allo schema PAIN.001.001.03 e salvato come "
+"ir.attachment. Una riga di audit <code>eh.sepa.export</code> collega l'id "
+"del messaggio, l'hash del file e la somma di controllo al lotto."
+
+#. module: eh_account_sepa_ct
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_batch_payment_form_sepa
+msgid ""
+"Generate the PAIN.001 SEPA Credit Transfer XML for upload to the bank. "
+"Continue?"
+msgstr ""
+"Genera l'XML PAIN.001 SEPA Credit Transfer da caricare in banca. Continuare?"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields.selection,name:eh_account_sepa_ct.selection__eh_sepa_export__state__generated
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_export_search
+msgid "Generated"
+msgstr "Generato il"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__generated_at
+msgid "Generated At"
+msgstr "Generato il"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__generated_by_id
+msgid "Generated By"
+msgstr "Generato da"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_originator__initiating_party_name
+msgid ""
+"Goes into GrpHdr/InitgPty/Nm. The exact legal name the bank has on file for "
+"the account holder. Capped at 70 characters per the scheme."
+msgstr ""
+"Inserito in GrpHdr/InitgPty/Nm. La denominazione legale esatta registrata "
+"dalla banca per il titolare del conto. Limitato a 70 caratteri secondo lo "
+"schema."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_export__message_id
+msgid "GrpHdr/MsgId stamped on the XML. Globally unique."
+msgstr "GrpHdr/MsgId impresso sull'XML. Univoco a livello globale."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__has_message
+msgid "Has Message"
+msgstr "Contiene messaggio"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_originator__iban
+msgid "IBAN"
+msgstr ""
+
+#. module: eh_account_sepa_ct
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_originator_form
+msgid ""
+"IBAN and BIC are validated locally on save: ISO 13616 mod-97 for IBAN, ISO "
+"9362 structure for BIC. The export refuses to render when validation fails "
+"so configuration errors surface here, not mid-payment-run."
+msgstr ""
+"IBAN e BIC vengono validati localmente al salvataggio: ISO 13616 mod-97 per "
+"IBAN, struttura ISO 9362 per BIC. L'esportazione si rifiuta di generare "
+"quando la validazione fallisce, così gli errori di configurazione emergono "
+"qui e non a metà di un ciclo di pagamento."
+
+#. module: eh_account_sepa_ct
+#. odoo-python
+#: code:addons/eh_account_sepa_ct/models/sepa_originator.py:0
+msgid "IBAN validation failed: %s"
+msgstr "Convalida IBAN non riuscita: %s"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_batch_payment__id
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__id
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_originator__id
+msgid "ID"
+msgstr ""
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_originator__pain_001_version
+msgid ""
+"ISO 20022 PAIN.001 version emitted for this journal. PAIN.001.001.03 is the "
+"long-standing SEPA file. PAIN.001.001.09 is the EU Implementation Guidelines"
+" version that many banks require from 2024 onwards. Confirm with your bank "
+"which version they accept; the switch is namespace + a few element renames, "
+"not a data migration."
+msgstr ""
+"Versione ISO 20022 PAIN.001 emessa per questo registro. PAIN.001.001.03 è il"
+" file SEPA consolidato da tempo. PAIN.001.001.09 è la versione delle Linee "
+"guida di implementazione UE che molte banche richiedono a partire dal 2024. "
+"Verifica con la tua banca quale versione accetta; il passaggio riguarda il "
+"namespace e alcune rinomine di elementi, non una migrazione dei dati."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__activity_exception_icon
+msgid "Icon"
+msgstr "Icona"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_export__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icona per indicare un'attività eccezione."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_export__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Se selezionata, nuovi messaggi richiedono attenzione."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_export__message_has_error
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_export__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Se selezionata, alcuni messaggi presentano un errore di consegna."
+
+#. module: eh_account_sepa_ct
+#. odoo-python
+#: code:addons/eh_account_sepa_ct/models/sepa_originator.py:0
+msgid "InitgPty/Nm must be at most 70 characters per the SEPA scheme; got %d."
+msgstr ""
+"InitgPty/Nm deve contenere al massimo 70 caratteri secondo lo schema SEPA; "
+"ottenuti %d."
+
+#. module: eh_account_sepa_ct
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_originator_form
+msgid "Initiating Party"
+msgstr "Parte iniziante"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_originator__initiating_party_identifier
+msgid "Initiating Party Identifier"
+msgstr "Identificativo della parte iniziante"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_originator__initiating_party_name
+msgid "Initiating Party Name"
+msgstr "Nome della parte iniziante"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__message_is_follower
+msgid "Is Follower"
+msgstr "Sta seguendo"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_originator__journal_id
+msgid "Journal"
+msgstr "Registro"
+
+#. module: eh_account_sepa_ct
+#. odoo-python
+#: code:addons/eh_account_sepa_ct/models/batch_payment.py:0
+msgid ""
+"Journal %s has no SEPA originator configured. Add one under Configuration > "
+"SEPA Originators."
+msgstr ""
+"Il registro %s non ha alcun originatore SEPA configurato. Aggiungine uno in "
+"Configurazione > Originatori SEPA."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_batch_payment__last_sepa_export_id
+msgid "Last Sepa Export"
+msgstr "Ultima esportazione SEPA"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__write_uid
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_originator__write_uid
+msgid "Last Updated by"
+msgstr "Ultimo aggiornamento di"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__write_date
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_originator__write_date
+msgid "Last Updated on"
+msgstr "Ultimo aggiornamento il"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_export__company_id
+msgid "Legal entity this batch belongs to."
+msgstr "Entità giuridica a cui appartiene questo lotto."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__message_id
+msgid "Message"
+msgstr "Messaggio"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__message_has_error
+msgid "Message Delivery error"
+msgstr "Errore di consegna messaggio"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__message_ids
+msgid "Messages"
+msgstr "Messaggi"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Scadenza mie attività"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Prossimo evento del calendario delle attività"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Scadenza prossima attività"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__activity_summary
+msgid "Next Activity Summary"
+msgstr "Riepilogo prossima attività"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipologia prossima attività"
+
+#. module: eh_account_sepa_ct
+#: model_terms:ir.actions.act_window,help:eh_account_sepa_ct.action_eh_sepa_originator
+msgid "No SEPA originators yet."
+msgstr "Nessun ordinante SEPA ancora."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__notes
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_originator__notes
+msgid "Notes"
+msgstr "Note"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Numero di azioni"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__message_has_error_counter
+msgid "Number of errors"
+msgstr "Numero di errori"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_export__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Numero di messaggi che richiedono un'azione"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_export__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Numero di messaggi con errore di consegna"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.constraint,message:eh_account_sepa_ct.constraint_eh_sepa_originator_unique_journal
+msgid "Only one SEPA originator per bank journal."
+msgstr "Un solo ordinante SEPA per registro bancario."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_originator__initiating_party_identifier
+msgid ""
+"Optional identifier for InitgPty/Id/OrgId/Othr/Id. Capped at 35 characters. "
+"Used by some banks to verify the file originator against a customer "
+"reference."
+msgstr ""
+"Identificativo facoltativo per InitgPty/Id/OrgId/Othr/Id. Limitato a 35 "
+"caratteri. Utilizzato da alcune banche per verificare l'originatore del file"
+" rispetto a un riferimento cliente."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_originator__bic
+msgid ""
+"Optional. When omitted the export emits 'NOTPROVIDED', which signals the "
+"bank to look up the BIC from the IBAN. Some banks reject NOTPROVIDED; if "
+"yours does, fill this in."
+msgstr ""
+"Facoltativo. Se omesso, l'esportazione emette 'NOTPROVIDED', che segnala "
+"alla banca di ricavare il BIC dall'IBAN. Alcune banche rifiutano "
+"NOTPROVIDED; se la tua lo fa, compila questo campo."
+
+#. module: eh_account_sepa_ct
+#. odoo-python
+#: code:addons/eh_account_sepa_ct/models/batch_payment.py:0
+msgid "Originator BIC failed validation: %s."
+msgstr "Convalida del BIC dell'originante non riuscita: %s."
+
+#. module: eh_account_sepa_ct
+#. odoo-python
+#: code:addons/eh_account_sepa_ct/models/batch_payment.py:0
+msgid ""
+"Originator IBAN failed validation: %s. Fix the SEPA originator config and "
+"retry."
+msgstr ""
+"Convalida dell'IBAN dell'originante non riuscita: %s. Correggi la "
+"configurazione dell'originante SEPA e riprova."
+
+#. module: eh_account_sepa_ct
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_originator_search
+msgid "PAIN.001 Version"
+msgstr "Versione PAIN.001"
+
+#. module: eh_account_sepa_ct
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_originator_search
+msgid "PAIN.001.001.03"
+msgstr ""
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields.selection,name:eh_account_sepa_ct.selection__eh_sepa_originator__pain_001_version__03
+msgid "PAIN.001.001.03 (legacy SEPA rulebook)"
+msgstr "PAIN.001.001.03 (rulebook SEPA legacy)"
+
+#. module: eh_account_sepa_ct
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_originator_search
+msgid "PAIN.001.001.09"
+msgstr ""
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields.selection,name:eh_account_sepa_ct.selection__eh_sepa_originator__pain_001_version__09
+msgid "PAIN.001.001.09 (current EU IG, 2024+)"
+msgstr "PAIN.001.001.09 (IG UE attuale, 2024+)"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_originator__pain_001_version
+msgid "Pain 001 Version"
+msgstr "Versione Pain 001"
+
+#. module: eh_account_sepa_ct
+#. odoo-python
+#: code:addons/eh_account_sepa_ct/models/batch_payment.py:0
+msgid "Payment %(name)s: creditor BIC invalid (%(err)s)."
+msgstr "Pagamento %(name)s: BIC del creditore non valido (%(err)s)."
+
+#. module: eh_account_sepa_ct
+#. odoo-python
+#: code:addons/eh_account_sepa_ct/models/batch_payment.py:0
+msgid "Payment %(name)s: creditor IBAN invalid (%(err)s)."
+msgstr "Pagamento %(name)s: IBAN del creditore non valido (%(err)s)."
+
+#. module: eh_account_sepa_ct
+#. odoo-python
+#: code:addons/eh_account_sepa_ct/models/batch_payment.py:0
+msgid ""
+"Payment %(name)s: partner %(partner)s has no IBAN bank account on file. Add "
+"one before exporting SEPA."
+msgstr ""
+"Pagamento %(name)s: il partner %(partner)s non ha alcun conto bancario IBAN "
+"registrato. Aggiungerne uno prima di esportare SEPA."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__rating_ids
+msgid "Ratings"
+msgstr "Valutazioni"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_originator__requested_execution_offset_days
+msgid "Requested Execution Offset Days"
+msgstr "Scostamento di esecuzione richiesto (giorni)"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__activity_user_id
+msgid "Responsible User"
+msgstr "Utente responsabile"
+
+#. module: eh_account_sepa_ct
+#: model:ir.ui.menu,name:eh_account_sepa_ct.menu_eh_sepa_export
+msgid "SEPA CT Exports"
+msgstr "Esportazioni SEPA CT"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model,name:eh_account_sepa_ct.model_eh_sepa_export
+msgid "SEPA Credit Transfer export file"
+msgstr "File di esportazione bonifico SEPA"
+
+#. module: eh_account_sepa_ct
+#. odoo-python
+#: code:addons/eh_account_sepa_ct/models/batch_payment.py:0
+msgid ""
+"SEPA Credit Transfer file generated. Message ID: %s. Transactions: %d. "
+"Control sum: %.2f."
+msgstr ""
+"File bonifico SEPA generato. ID messaggio: %s. Transazioni: %d. Somma di "
+"controllo: %.2f."
+
+#. module: eh_account_sepa_ct
+#. odoo-python
+#: code:addons/eh_account_sepa_ct/models/batch_payment.py:0
+msgid ""
+"SEPA Credit Transfer files are euro-denominated, but this batch is in "
+"%(name)s. Convert the payments to EUR or use a non-SEPA payment method."
+msgstr ""
+"I file di bonifico SEPA sono denominati in euro, ma questo lotto è in "
+"%(name)s. Converti i pagamenti in EUR o usa un metodo di pagamento non SEPA."
+
+#. module: eh_account_sepa_ct
+#. odoo-python
+#: code:addons/eh_account_sepa_ct/models/batch_payment.py:0
+msgid "SEPA Credit Transfer is for outbound batches only."
+msgstr "Il bonifico SEPA è solo per i lotti in uscita."
+
+#. module: eh_account_sepa_ct
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_export_form
+msgid "SEPA Export"
+msgstr "Esportazione SEPA"
+
+#. module: eh_account_sepa_ct
+#: model:ir.actions.act_window,name:eh_account_sepa_ct.action_eh_sepa_export
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_export_list
+msgid "SEPA Exports"
+msgstr "Esportazioni SEPA"
+
+#. module: eh_account_sepa_ct
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_originator_form
+msgid "SEPA Originator"
+msgstr "Ordinante SEPA"
+
+#. module: eh_account_sepa_ct
+#: model:ir.actions.act_window,name:eh_account_sepa_ct.action_eh_sepa_originator
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_originator_list
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_originator_search
+msgid "SEPA Originators"
+msgstr "Ordinanti SEPA"
+
+#. module: eh_account_sepa_ct
+#: model:ir.ui.menu,name:eh_account_sepa_ct.menu_eh_sepa_originator
+msgid "SEPA Originators (CT)"
+msgstr "Ordinanti SEPA (CT)"
+
+#. module: eh_account_sepa_ct
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_batch_payment_form_sepa
+msgid "SEPA exports"
+msgstr "esportazioni SEPA"
+
+#. module: eh_account_sepa_ct
+#: model:mail.template,subject:eh_account_sepa_ct.email_template_eh_sepa_ct_confirmation
+msgid "SEPA file generated — {{ object.message_id }}"
+msgstr "File SEPA generato — {{ object.message_id }}"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model,name:eh_account_sepa_ct.model_eh_sepa_originator
+msgid "SEPA originator (per journal)"
+msgstr "Ordinante SEPA (per registro)"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_export__file_hash
+msgid "SHA-256 of the rendered XML bytes."
+msgstr "SHA-256 dei byte XML renderizzati."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Errore di consegna SMS"
+
+#. module: eh_account_sepa_ct
+#. odoo-javascript
+#: code:addons/eh_account_sepa_ct/static/src/js/tours/sepa_ct_tour.js:0
+msgid ""
+"Second: every <b>vendor</b> in the batch needs an IBAN bank account on their"
+" partner record. The export refuses to run when even one payee is missing an"
+" IBAN — better to fix the data than to have the bank reject the file."
+msgstr ""
+"In secondo luogo: ogni <b>fornitore</b> nel lotto deve avere un conto "
+"bancario IBAN nella scheda del partner. L'esportazione si rifiuta di essere "
+"eseguita quando anche un solo beneficiario è privo di IBAN — meglio "
+"correggere i dati che far respingere il file dalla banca."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_batch_payment__sepa_export_ids
+msgid "Sepa Export"
+msgstr "Esportazione SEPA"
+
+#. module: eh_account_sepa_ct
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_originator_form
+msgid "Source Account & File Format"
+msgstr "Conto di origine e formato file"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_originator__iban
+msgid ""
+"Source IBAN. Validated locally at write time using mod-97 per ISO 13616; the"
+" export refuses to render if this fails."
+msgstr ""
+"IBAN di origine. Convalidato localmente al momento della scrittura tramite "
+"mod-97 secondo lo standard ISO 13616; l'esportazione rifiuta il rendering in"
+" caso di errore."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__state
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_export_search
+msgid "State"
+msgstr "Stato"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_export__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Stato basato sulle attività\n"
+"In ritardo: scadenza già superata\n"
+"Oggi: attività in data odierna\n"
+"Pianificato: attività future."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_export__control_sum
+msgid "Sum of every transaction amount in the file."
+msgstr "Somma di tutti gli importi delle transazioni nel file."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields.selection,name:eh_account_sepa_ct.selection__eh_sepa_export__state__superseded
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_export_search
+msgid "Superseded"
+msgstr "Sostituito"
+
+#. module: eh_account_sepa_ct
+#. odoo-javascript
+#: code:addons/eh_account_sepa_ct/static/src/js/tours/sepa_ct_tour.js:0
+msgid ""
+"Third: open <b>Batch Payments</b>, create an outbound batch, attach the "
+"vendor payments you want to bundle, and post it. Posting a batch locks the "
+"line set so the SEPA file matches exactly what the GL sees."
+msgstr ""
+"Terzo: apri <b>Batch Payments</b>, crea un lotto in uscita, allega i "
+"pagamenti dei fornitori che desideri raggruppare e registralo. La "
+"registrazione di un lotto blocca l'insieme delle righe in modo che il file "
+"SEPA corrisponda esattamente a ciò che vede il GL."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__transaction_count
+msgid "Transaction Count"
+msgstr "Numero transazione"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_export__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo di attività eccezione sul record."
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,field_description:eh_account_sepa_ct.field_eh_sepa_export__website_message_ids
+msgid "Website Messages"
+msgstr "Messaggi sito web"
+
+#. module: eh_account_sepa_ct
+#: model:ir.model.fields,help:eh_account_sepa_ct.field_eh_sepa_export__website_message_ids
+msgid "Website communication history"
+msgstr "Cronologia comunicazioni sito web"
+
+#. module: eh_account_sepa_ct
+#. odoo-javascript
+#: code:addons/eh_account_sepa_ct/static/src/js/tours/sepa_ct_tour.js:0
+msgid ""
+"Welcome to <b>SEPA Credit Transfer</b>. This walkthrough shows the four "
+"prerequisites you need before a batch can produce a bank-acceptable PAIN.001"
+" XML."
+msgstr ""
+"Benvenuto in <b>SEPA Credit Transfer</b>. Questa guida mostra i quattro "
+"prerequisiti necessari prima che un batch possa produrre un file PAIN.001 "
+"XML accettabile dalla banca."
+
+#. module: eh_account_sepa_ct
+#: model_terms:ir.ui.view,arch_db:eh_account_sepa_ct.view_eh_sepa_export_kanban
+msgid "txns"
+msgstr "Trans."

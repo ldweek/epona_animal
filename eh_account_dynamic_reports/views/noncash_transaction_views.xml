@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    ERP Heritage
+    Copyright (C) 2026 (https://www.erpheritage.com.au/)
+
+    IAS 7.43 non-cash transaction register views, plus the "Apply IAS 7
+    Cash Flow Tags" server action that stamps the EH Non-Cash account
+    tags from the suite's own account configuration.
+-->
+<odoo>
+    <data>
+
+        <record id="view_eh_noncash_transaction_list" model="ir.ui.view">
+            <field name="name">eh.noncash.transaction.list</field>
+            <field name="model">eh.noncash.transaction</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="date"/>
+                    <field name="name"/>
+                    <field name="kind"/>
+                    <field name="amount" sum="Total"/>
+                    <field name="currency_id" column_invisible="1"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_eh_noncash_transaction_form" model="ir.ui.view">
+            <field name="name">eh.noncash.transaction.form</field>
+            <field name="model">eh.noncash.transaction</field>
+            <field name="arch" type="xml">
+                <form string="Non-Cash Transaction">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="date"/>
+                                <field name="kind"/>
+                            </group>
+                            <group>
+                                <field name="amount"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="company_id"
+                                       groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_eh_noncash_transaction_search" model="ir.ui.view">
+            <field name="name">eh.noncash.transaction.search</field>
+            <field name="model">eh.noncash.transaction</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <filter name="filter_lease" string="Leases"
+                            domain="[('kind', '=', 'lease')]"/>
+                    <filter name="filter_debt_conversion"
+                            string="Debt Conversions"
+                            domain="[('kind', '=', 'debt_conversion')]"/>
+                    <filter name="filter_other" string="Other"
+                            domain="[('kind', '=', 'other')]"/>
+                    <group>
+                        <filter name="group_kind" string="Kind"
+                                context="{'group_by': 'kind'}"/>
+                        <filter name="group_date" string="Month"
+                                context="{'group_by': 'date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_eh_noncash_transaction" model="ir.actions.act_window">
+            <field name="name">Non-Cash Transactions (IAS 7.43)</field>
+            <field name="res_model">eh.noncash.transaction</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Record a non-cash investing or financing transaction
+                </p>
+                <p>
+                    Assets acquired under leases, debt converted to equity,
+                    and similar transactions never move cash, so they are
+                    excluded from the Cash Flow Statement's activity
+                    sections. IAS 7.43 still requires their disclosure:
+                    entries recorded here are listed in a dedicated section
+                    at the foot of the Cash Flow Statement for every period
+                    containing their date.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_eh_noncash_transaction"
+                  name="Non-Cash Transactions"
+                  parent="account.menu_finance_entries"
+                  action="action_eh_noncash_transaction"
+                  sequence="40"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <!--
+            Tag assignment helper: walks the suite's own account
+            configuration (asset depreciation expense, impairment loss,
+            provision expense/unwind, FX revaluation gain/loss, fair value
+            gain/loss, company exchange difference accounts) and stamps the
+            matching EH Non-Cash account tags. Additive and idempotent;
+            also runs automatically once at module install (post_init_hook).
+        -->
+        <record id="action_eh_ias7_auto_tag" model="ir.actions.server">
+            <field name="name">Apply IAS 7 Cash Flow Tags</field>
+            <field name="model_id" ref="model_eh_noncash_transaction"/>
+            <field name="binding_model_id" ref="model_eh_noncash_transaction"/>
+            <field name="state">code</field>
+            <field name="code">action = model.action_eh_ias7_auto_tag()</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_eh_ic_sale_order_form" model="ir.ui.view">
+        <field name="name">sale.order.form.intercompany.so.po</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="eh_ic_pair" string="Inter-company"
+                      invisible="not eh_ic_mirror_po_id and not eh_ic_origin_po_id">
+                    <group>
+                        <group string="Counterpart">
+                            <field name="eh_ic_mirror_po_id"/>
+                            <field name="eh_ic_origin_po_id"/>
+                            <field name="eh_ic_provenance_verified"/>
+                        </group>
+                        <group string="Integrity review">
+                            <field name="eh_ic_integrity_review_reason"/>
+                            <field name="eh_ic_integrity_review_note"/>
+                            <field name="eh_ic_integrity_reviewed_by_id"/>
+                            <field name="eh_ic_integrity_reviewed_at"/>
+                            <button name="action_eh_ic_open_integrity_review"
+                                    type="object" string="Review and Release"
+                                    class="btn-primary"
+                                    groups="eh_account_base.group_eh_manager"
+                                    invisible="eh_ic_provenance_verified and not eh_ic_integrity_review_reason"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/*[self::list or self::tree]/field[@name='product_uom_qty']"
+                   position="after">
+                <button name="action_eh_ic_open_fulfillment_wizard"
+                        type="object" string="Fulfil"
+                        icon="fa-check-square-o"
+                        groups="eh_account_base.group_eh_manager"
+                        invisible="not parent.eh_ic_provenance_verified or display_type or qty_delivered_method != 'manual'"/>
+                <field name="eh_ic_derived_line_kind" optional="hide"/>
+                <field name="eh_ic_source_tax_summary" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_eh_ic_purchase_order_form" model="ir.ui.view">
+        <field name="name">purchase.order.form.intercompany.so.po</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="eh_ic_pair" string="Inter-company"
+                      invisible="not eh_ic_mirror_so_id and not eh_ic_origin_so_id">
+                    <group>
+                        <group string="Counterpart">
+                            <field name="eh_ic_mirror_so_id"/>
+                            <field name="eh_ic_origin_so_id"/>
+                            <field name="eh_ic_provenance_verified"/>
+                        </group>
+                        <group string="Integrity review">
+                            <field name="eh_ic_integrity_review_reason"/>
+                            <field name="eh_ic_integrity_review_note"/>
+                            <field name="eh_ic_integrity_reviewed_by_id"/>
+                            <field name="eh_ic_integrity_reviewed_at"/>
+                            <button name="action_eh_ic_open_integrity_review"
+                                    type="object" string="Review and Release"
+                                    class="btn-primary"
+                                    groups="eh_account_base.group_eh_manager"
+                                    invisible="eh_ic_provenance_verified and not eh_ic_integrity_review_reason"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/*[self::list or self::tree]/field[@name='product_qty']"
+                   position="after">
+                <button name="action_eh_ic_open_fulfillment_wizard"
+                        type="object" string="Fulfil"
+                        icon="fa-check-square-o"
+                        groups="eh_account_base.group_eh_manager"
+                        invisible="not parent.eh_ic_provenance_verified or display_type or qty_received_method != 'manual'"/>
+                <field name="eh_ic_derived_line_kind" optional="hide"/>
+                <field name="eh_ic_source_tax_summary" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

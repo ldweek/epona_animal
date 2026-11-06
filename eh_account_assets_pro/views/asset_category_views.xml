@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_asset_category_tree" model="ir.ui.view">
+        <field name="name">eh.asset.category.list</field>
+        <field name="model">eh.asset.category</field>
+        <field name="arch" type="xml">
+            <list string="Asset Categories" sample="1">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="method"/>
+                <field name="useful_life_months"/>
+                <field name="salvage_rate"/>
+                <field name="asset_count"/>
+                <field name="active" widget="boolean_toggle" optional="hide"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_asset_category_form" model="ir.ui.view">
+        <field name="name">eh.asset.category.form</field>
+        <field name="model">eh.asset.category</field>
+        <field name="arch" type="xml">
+            <form string="Asset Category">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_assets"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-cubes">
+                            <field name="asset_count" widget="statinfo"
+                                   string="Assets"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Category name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="active"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="method"/>
+                            <field name="useful_life_months"/>
+                            <field name="salvage_rate"/>
+                            <field name="declining_factor"
+                                   invisible="method not in ('reducing_balance', 'diminishing_value')"/>
+                            <field name="prorata_mode"/>
+                            <field name="prorate_first_period"
+                                   invisible="prorata_mode"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="asset_account_id"/>
+                            <field name="depreciation_account_id"/>
+                            <field name="accumulated_depreciation_account_id"/>
+                        </group>
+                        <group>
+                            <field name="disposal_gain_account_id"/>
+                            <field name="disposal_loss_account_id"/>
+                            <field name="revaluation_reserve_account_id"/>
+                            <field name="journal_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_asset_category_search" model="ir.ui.view">
+        <field name="name">eh.asset.category.search</field>
+        <field name="model">eh.asset.category</field>
+        <field name="arch" type="xml">
+            <search string="Asset Categories">
+                <field name="name"/>
+                <field name="code"/>
+                <filter string="Archived" name="archived"
+                        domain="[('active', '=', False)]"/>
+                <group>
+                    <filter string="Method" name="group_method"
+                            context="{'group_by': 'method'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_asset_category" model="ir.actions.act_window">
+        <field name="name">Asset Categories</field>
+        <field name="res_model">eh.asset.category</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first asset category</p>
+            <p>Categories carry the default useful life, salvage rate, depreciation method and the asset, expense and accumulated accounts. Use New to define a category so new assets inherit its settings.</p>
+        </field>
+        <field name="search_view_id" ref="view_eh_asset_category_search"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        Budget vs Actual report.
+
+        One PDF per budget record, with header summary box, line table
+        and a closing variance row. Variance percentage uses the same
+        sign convention as the form view: positive means actual exceeds
+        budget for income accounts and falls short for expense accounts.
+
+        Output is the suite landscape format because budget tables run
+        five-to-seven columns and shrinking to portrait kills readability
+        when account names are long.
+    -->
+
+    <record id="action_report_budget" model="ir.actions.report">
+        <field name="name">Budget vs Actual</field>
+        <field name="model">eh.budget.budget</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">eh_account_budget_pro.report_budget_document</field>
+        <field name="report_file">eh_account_budget_pro.report_budget_document</field>
+        <field name="binding_model_id" ref="model_eh_budget_budget"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id"
+               ref="eh_account_base.paperformat_eh_landscape"/>
+    </record>
+
+    <template id="report_budget_document">
+        <t t-call="web.html_container">
+            <t t-call="eh_account_base.eh_report_styles"/>
+            <t t-foreach="docs" t-as="budget">
+                <t t-call="web.external_layout">
+                    <div class="page eh_pdf_page">
+                        <h1 class="eh_pdf_title">
+                            Budget &#8212; <t t-out="budget.name"/>
+                        </h1>
+                        <div class="eh_pdf_meta">
+                            <span>
+                                <strong>Code:</strong>
+                                <t t-out="budget.code or ''"/>
+                            </span>
+                            <span>
+                                <strong>Version:</strong>
+                                <t t-out="budget.version_label or ''"/>
+                            </span>
+                            <span>
+                                <strong>Period:</strong>
+                                <t t-out="budget.date_from and budget.date_from.strftime('%Y-%m-%d') or ''"/>
+                                to
+                                <t t-out="budget.date_to and budget.date_to.strftime('%Y-%m-%d') or ''"/>
+                            </span>
+                            <span>
+                                <strong>State:</strong>
+                                <t t-out="dict(budget._fields['state'].selection).get(budget.state, budget.state)"/>
+                            </span>
+                            <span>
+                                <strong>Company:</strong>
+                                <t t-out="budget.company_id.display_name"/>
+                            </span>
+                        </div>
+
+                        <t t-set="lines" t-value="budget.line_ids.sorted(lambda l: (l.account_id.code or '', l.period_from or fields.Date.today()))"/>
+                        <t t-set="total_budget" t-value="budget.total_budgeted"/>
+                        <t t-set="total_actual" t-value="budget.total_actual"/>
+                        <t t-set="total_variance" t-value="budget.total_variance"/>
+
+                        <table class="eh_pdf_table">
+                            <thead>
+                                <tr>
+                                    <th>Account</th>
+                                    <th>Analytic</th>
+                                    <th>Period</th>
+                                    <th class="text-end">Budgeted</th>
+                                    <th class="text-end">Actual</th>
+                                    <th class="text-end">Variance</th>
+                                    <th class="text-end">Var %</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="lines" t-as="line">
+                                    <tr>
+                                        <td>
+                                            <t t-out="line.account_id.code or ''"/>
+                                            <t t-out="line.account_id.name or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-out="line.analytic_account_id.display_name or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-out="line.period_from and line.period_from.strftime('%Y-%m-%d') or ''"/>
+                                            -
+                                            <t t-out="line.period_to and line.period_to.strftime('%Y-%m-%d') or ''"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-out="line.budgeted_amount"
+                                                  t-options="{'widget': 'monetary', 'display_currency': budget.currency_id}"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-out="line.normalised_actual_amount"
+                                                  t-options="{'widget': 'monetary', 'display_currency': budget.currency_id}"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-out="line.variance_amount"
+                                                  t-options="{'widget': 'monetary', 'display_currency': budget.currency_id}"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <t t-out="'{:.1f}%'.format(line.variance_pct or 0.0)"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-if="not lines">
+                                    <tr>
+                                        <td colspan="7" class="text-center text-muted"
+                                            style="padding: 16pt;">
+                                            This budget has no lines.
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr t-if="lines" class="eh_pdf_grand_total">
+                                    <td colspan="3">Total</td>
+                                    <td class="text-end">
+                                        <span t-out="total_budget"
+                                              t-options="{'widget': 'monetary', 'display_currency': budget.currency_id}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-out="total_actual"
+                                              t-options="{'widget': 'monetary', 'display_currency': budget.currency_id}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-out="total_variance"
+                                              t-options="{'widget': 'monetary', 'display_currency': budget.currency_id}"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <t t-if="total_budget">
+                                            <t t-out="'{:.1%}'.format(total_variance / total_budget)"/>
+                                        </t>
+                                        <t t-else="">-</t>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <t t-call="eh_account_base.eh_report_footer"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_lease_modify_wizard_form" model="ir.ui.view">
+        <field name="name">eh.lease.modify.wizard.form</field>
+        <field name="model">eh.lease.modify.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Modify Lease">
+                <sheet>
+                    <group>
+                        <field name="lease_id" readonly="1"/>
+                        <field name="modification_date"/>
+                        <field name="modification_type"/>
+                        <field name="scope_decrease_pct"
+                               invisible="modification_type != 'scope_decrease'"
+                               required="modification_type == 'scope_decrease'"/>
+                        <field name="new_term_months"/>
+                        <field name="new_payment_amount"/>
+                        <field name="new_ibr"/>
+                        <field name="pl_account_id"
+                               required="pl_amount != 0"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="company_id" invisible="1"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="current_liability" readonly="1"/>
+                            <field name="current_rou" readonly="1"/>
+                            <field name="rou_reduction" readonly="1"/>
+                            <field name="scope_gain_loss" readonly="1"
+                                   invisible="modification_type != 'scope_decrease'"/>
+                        </group>
+                        <group>
+                            <field name="new_liability" readonly="1"/>
+                            <field name="delta" readonly="1"/>
+                            <field name="pl_amount" readonly="1"/>
+                            <field name="remeasurement_delta" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes" placeholder="Reason for modification" colspan="2"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_modify"
+                            type="object"
+                            string="Apply Modification"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_lease_modify_wizard" model="ir.actions.act_window">
+        <field name="name">Modify Lease</field>
+        <field name="res_model">eh.lease.modify.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

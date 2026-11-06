@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_year_end_run_list" model="ir.ui.view">
+        <field name="name">eh.year.end.run.list</field>
+        <field name="model">eh.year.end.run</field>
+        <field name="arch" type="xml">
+            <list string="Year-End Closing Runs" default_order="fiscal_year_end desc">
+                <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="fiscal_year_start"/>
+                <field name="fiscal_year_end"/>
+                <field name="line_count"/>
+                <field name="net_profit" widget="monetary"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'posted'"
+                       decoration-info="state == 'computed'"
+                       decoration-warning="state == 'draft'"
+                       decoration-danger="state == 'cancelled'"
+                       decoration-muted="state == 'reversed'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_year_end_run_form" model="ir.ui.view">
+        <field name="name">eh.year.end.run.form</field>
+        <field name="model">eh.year.end.run</field>
+        <field name="arch" type="xml">
+            <form string="Year-End Closing Run">
+                <header>
+                    <button name="action_compute"
+                            type="object"
+                            string="Compute"
+                            class="btn-primary"
+                            invisible="state not in ('draft', 'computed', 'reversed')"/>
+                    <button name="action_post"
+                            type="object"
+                            string="Post Closing Entry"
+                            class="btn-success"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'computed'"
+                            confirm="Post one closing entry on the exact fiscal year end. It closes the selected company/branch scope's computed profit or loss to retained earnings and mapped OCI to AOCI sub-reserves; effective fiscal, hard and inherited locks are checked first."/>
+                    <button name="action_seed_aoci_map"
+                            type="object"
+                            string="Discover OCI Reserves"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state not in ('draft', 'computed')"
+                            help="Discover known OCI flow accounts from the installed modules and seed the company's AOCI sub-reserve mapping."/>
+                    <button name="action_view_move"
+                            type="object"
+                            string="View Closing Entry"
+                            invisible="not move_id"/>
+                    <button name="action_reverse"
+                            type="object"
+                            string="Reverse"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'posted'"
+                            confirm="Post the exact inverse on the day after fiscal year end. A lock on that date or a newer posted close blocks reversal; locks are never rewound. After verified reversal, recompute and re-post if needed."/>
+                    <button name="action_cancel"
+                            type="object"
+                            string="Cancel"
+                            invisible="state in ('posted', 'reversed', 'cancelled')"/>
+                    <button name="action_set_to_draft"
+                            type="object"
+                            string="Set to Draft"
+                            invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,computed,posted,reversed,cancelled"
+                           readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box"/>
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                    <group>
+                        <group string="Fiscal year">
+                            <field name="company_id"
+                                   readonly="state != 'draft'"
+                                   groups="base.group_multi_company"/>
+                            <field name="fiscal_year_start"
+                                   readonly="state != 'draft'"/>
+                            <field name="fiscal_year_end"
+                                   readonly="state != 'draft'"/>
+                            <field name="lock_after_post"
+                                   readonly="state in ('posted', 'reversed', 'cancelled')"/>
+                        </group>
+                        <group string="Posting accounts">
+                            <field name="journal_id"
+                                   readonly="state != 'draft'"
+                                   options="{'no_create': True}"/>
+                            <field name="retained_earnings_account_id"
+                                   readonly="state != 'draft'"
+                                   options="{'no_create': True}"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="move_id" readonly="1"/>
+                            <field name="reversal_move_id" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <!-- Full-width reason strip: Text fields never sit in a
+                         narrow group column. -->
+                    <group string="Reason for not locking (required, logged in chatter)"
+                           invisible="lock_after_post">
+                        <field name="no_lock_reason" nolabel="1" colspan="2"
+                               readonly="state in ('posted', 'reversed', 'cancelled')"
+                               placeholder="Why is this close posting without advancing the fiscal-year lock date?"/>
+                    </group>
+
+                    <separator string="Computed totals"/>
+                    <group>
+                        <group>
+                            <field name="total_income" widget="monetary"/>
+                            <field name="total_expense" widget="monetary"/>
+                        </group>
+                        <group>
+                            <field name="net_profit" widget="monetary"/>
+                            <field name="total_oci_reclass" widget="monetary"/>
+                            <field name="line_count"/>
+                        </group>
+                    </group>
+
+                    <field name="has_unmapped_oci" invisible="1"/>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="not has_unmapped_oci">
+                        Known OCI accounts moved this fiscal year without a
+                        complete AOCI sub-reserve mapping. Posting would
+                        leave accumulated OCI commingled in equity
+                        (IAS 1.106): map them below or override with a
+                        documented reason.
+                    </div>
+                    <group string="Unmapped OCI accounts"
+                           invisible="not has_unmapped_oci">
+                        <field name="unmapped_oci_note" nolabel="1"
+                               colspan="2" readonly="1"/>
+                    </group>
+                    <group invisible="not has_unmapped_oci">
+                        <group>
+                            <field name="override_unmapped_oci"
+                                   readonly="state in ('posted', 'reversed', 'cancelled')"/>
+                        </group>
+                    </group>
+                    <group string="Override reason (required, logged in chatter)"
+                           invisible="not override_unmapped_oci">
+                        <field name="override_unmapped_reason" nolabel="1"
+                               colspan="2"
+                               readonly="state in ('posted', 'reversed', 'cancelled')"
+                               required="override_unmapped_oci"
+                               placeholder="Documented basis for closing with unmapped OCI accounts."/>
+                    </group>
+
+                    <notebook>
+                        <page string="Account breakdown">
+                            <field name="line_ids" readonly="1">
+                                <list>
+                                    <field name="line_kind"/>
+                                    <field name="account_id"/>
+                                    <field name="source_account_label"
+                                           optional="show"/>
+                                    <field name="account_type"/>
+                                    <field name="income_balance" widget="monetary"
+                                           sum="Total income"/>
+                                    <field name="expense_balance" widget="monetary"
+                                           sum="Total expense"/>
+                                    <field name="oci_kind" optional="show"/>
+                                    <field name="oci_balance" widget="monetary"
+                                           optional="show"/>
+                                    <field name="reserve_account_id"
+                                           optional="show"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                        <page string="Entry history">
+                            <group>
+                                <field name="closing_move_ids" readonly="1"/>
+                                <field name="reversal_move_ids" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_year_end_run_search" model="ir.ui.view">
+        <field name="name">eh.year.end.run.search</field>
+        <field name="model">eh.year.end.run</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="fiscal_year_end"/>
+                <filter name="filter_draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_computed" string="Computed"
+                        domain="[('state', '=', 'computed')]"/>
+                <filter name="filter_posted" string="Posted"
+                        domain="[('state', '=', 'posted')]"/>
+                <group>
+                    <filter name="group_state" string="State"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_year" string="Fiscal year end"
+                            context="{'group_by': 'fiscal_year_end'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_year_end_run_kanban" model="ir.ui.view">
+        <field name="name">eh.year.end.run.kanban</field>
+        <field name="model">eh.year.end.run</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state"
+                    quick_create="false"
+                    class="o_kanban_small_column"
+                    sample="1">
+                <field name="name"/>
+                <field name="fiscal_year_start"/>
+                <field name="fiscal_year_end"/>
+                <field name="state"/>
+                <field name="net_profit"/>
+                <field name="line_count"/>
+                <field name="company_id"/>
+                <field name="currency_id"/>
+                <templates>
+                    <t t-name="card" class="row g-0">
+                        <main class="col-12">
+                            <field name="name" class="fs-5 fw-bold"/>
+                            <div class="text-muted">
+                                <field name="fiscal_year_start"/> - <field name="fiscal_year_end"/>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <span>
+                                    Net:
+                                    <field name="net_profit"
+                                           widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                </span>
+                                <span class="badge text-bg-secondary">
+                                    <field name="line_count"/> lines
+                                </span>
+                            </div>
+                            <footer class="d-flex justify-content-end mt-2">
+                                <field name="company_id"
+                                       groups="base.group_multi_company"/>
+                            </footer>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="eh_account_year_end_run_view_graph" model="ir.ui.view">
+        <field name="name">eh.year.end.run.graph</field>
+        <field name="model">eh.year.end.run</field>
+        <field name="arch" type="xml">
+            <graph string="Year-End Closing" type="bar">
+                <field name="fiscal_year_end"/>
+                <field name="net_profit" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_year_end_run_view_pivot" model="ir.ui.view">
+        <field name="name">eh.year.end.run.pivot</field>
+        <field name="model">eh.year.end.run</field>
+        <field name="arch" type="xml">
+            <pivot string="Year-End Closing">
+                <field name="fiscal_year_end" type="row"/>
+                <field name="state" type="col"/>
+                <field name="total_income" type="measure"/>
+                <field name="total_expense" type="measure"/>
+                <field name="net_profit" type="measure"/>
+                <field name="total_oci_reclass" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_year_end_run" model="ir.actions.act_window">
+        <field name="name">Year-End Closing</field>
+        <field name="res_model">eh.year.end.run</field>
+        <field name="view_mode">kanban,list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_year_end_run_search"/>
+        <field name="context">{'search_default_filter_draft': 1, 'search_default_filter_computed': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No year-end closing runs yet.</p>
+            <p>Create one run per fiscal year. Compute first to review the breakdown, then post to zero income and expense accounts and transfer the net to retained earnings.</p>
+        </field>
+    </record>
+
+</odoo>

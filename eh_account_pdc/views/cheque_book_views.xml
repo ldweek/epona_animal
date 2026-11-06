@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_cheque_book_tree" model="ir.ui.view">
+        <field name="name">eh.cheque.book.list</field>
+        <field name="model">eh.cheque.book</field>
+        <field name="arch" type="xml">
+            <list string="Cheque Books" sample="1">
+                <field name="name"/>
+                <field name="journal_id"/>
+                <field name="start_number"/>
+                <field name="end_number"/>
+                <field name="next_number"/>
+                <field name="remaining_count"/>
+                <field name="cheque_count"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'in_use'"
+                       decoration-warning="state == 'exhausted'"
+                       decoration-muted="state == 'closed'"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_cheque_book_form" model="ir.ui.view">
+        <field name="name">eh.cheque.book.form</field>
+        <field name="model">eh.cheque.book</field>
+        <field name="arch" type="xml">
+            <form string="Cheque Book">
+                <header>
+                    <button name="action_activate"
+                            type="object"
+                            string="Activate"
+                            class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_close"
+                            type="object"
+                            string="Close"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state in ('closed',)"
+                            confirm="Closing the book stops new cheques from drawing serials. Continue?"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,in_use,exhausted,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"
+                                   placeholder="ENBD Operating Account 0001-1000"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="journal_id"/>
+                            <field name="start_number"/>
+                            <field name="end_number"/>
+                            <field name="next_number" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="remaining_count"/>
+                            <field name="cheque_count"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                    <chatter/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_cheque_book_search" model="ir.ui.view">
+        <field name="name">eh.cheque.book.search</field>
+        <field name="model">eh.cheque.book</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="journal_id"/>
+                <filter name="filter_in_use" string="In Use"
+                        domain="[('state', '=', 'in_use')]"/>
+                <filter name="filter_draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_exhausted" string="Exhausted"
+                        domain="[('state', '=', 'exhausted')]"/>
+                <group>
+                    <filter name="group_journal" string="Journal"
+                            context="{'group_by': 'journal_id'}"/>
+                    <filter name="group_state" string="State"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_cheque_book" model="ir.actions.act_window">
+        <field name="name">Cheque Books</field>
+        <field name="res_model">eh.cheque.book</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_cheque_book_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Register your first cheque book</p>
+            <p>Cheque books hold the ranges of cheque numbers available for issuing. Use the New button to add a cheque book and its number range.</p>
+        </field>
+    </record>
+
+</odoo>

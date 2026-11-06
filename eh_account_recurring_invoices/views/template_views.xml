@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_recurring_template_tree" model="ir.ui.view">
+        <field name="name">eh.recurring.invoice.template.list</field>
+        <field name="model">eh.recurring.invoice.template</field>
+        <field name="arch" type="xml">
+            <list string="Recurring Templates"
+                  default_order="state, next_run_date asc"
+                  sample="1">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="partner_id"/>
+                <field name="currency_id" optional="show"/>
+                <field name="recurring_subtotal" optional="show"/>
+                <field name="mrr" optional="show"/>
+                <field name="arr" optional="hide"/>
+                <field name="company_currency_id" column_invisible="1"/>
+                <field name="mrr_company" optional="hide"/>
+                <field name="interval"/>
+                <field name="interval_unit"/>
+                <field name="next_run_date"/>
+                <field name="count_generated"/>
+                <field name="auto_post" widget="boolean_toggle"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'active'"
+                       decoration-warning="state == 'paused'"
+                       decoration-muted="state == 'finished'"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_recurring_template_form" model="ir.ui.view">
+        <field name="name">eh.recurring.invoice.template.form</field>
+        <field name="model">eh.recurring.invoice.template</field>
+        <field name="arch" type="xml">
+            <form string="Recurring Template">
+                <header>
+                    <button name="action_activate"
+                            type="object"
+                            string="Activate"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_pause"
+                            type="object"
+                            string="Pause"
+                            invisible="state != 'active'"/>
+                    <button name="action_resume"
+                            type="object"
+                            string="Resume"
+                            invisible="state != 'paused'"/>
+                    <button name="action_finish"
+                            type="object"
+                            string="Finish"
+                            invisible="state == 'finished'"/>
+                    <button name="action_generate_now"
+                            type="object"
+                            string="Generate Now"
+                            invisible="state not in ('draft', 'active')"/>
+                    <button name="action_review_legacy_and_resume_setup"
+                            type="object"
+                            string="Complete Legacy Review"
+                            class="btn-primary"
+                            invisible="not eh_legacy_integrity_unverified"
+                            confirm="Historical moves remain quarantined. Template becomes paused for reviewed future setup. Continue?"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,active,paused,finished"
+                           readonly="1"/>
+                </header>
+                <sheet>
+                    <!-- Unrestricted dependency for check_company domains on
+                         Odoo 16/17; visible copy remains multi-company-only. -->
+                    <field name="company_id" invisible="1"/>
+                    <field name="eh_legacy_integrity_unverified" invisible="1"/>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not eh_legacy_integrity_unverified">
+                        Legacy recurring evidence is quarantined. Enter manager
+                        attestation under Run Status to reopen future setup.
+                        Historical moves remain permanently unverified.
+                    </div>
+                    <div name="button_box">
+                        <button name="action_view_generated"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-file-text-o"
+                                title="Generated invoices">
+                            <field name="generated_count"
+                                   widget="statinfo"
+                                   string="Generated"/>
+                        </button>
+                    </div>
+                    <h1>
+                        <field name="name" placeholder="Monthly support fee"/>
+                    </h1>
+                    <group>
+                        <group string="Billing">
+                            <field name="code" placeholder="monthly_support"/>
+                            <field name="partner_id"/>
+                            <field name="journal_id"/>
+                            <field name="payment_term_id"/>
+                            <field name="fiscal_position_id"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="currency_id"/>
+                        </group>
+                        <group string="Cadence &amp; Schedule">
+                            <label for="interval"/>
+                            <div>
+                                Every
+                                <field name="interval" class="oe_inline"/>
+                                <field name="interval_unit" class="oe_inline"/>
+                            </div>
+                            <field name="start_date"/>
+                            <field name="next_run_date"/>
+                            <field name="billing_day"
+                                   invisible="interval_unit not in ('month', 'quarter', 'year')"/>
+                            <field name="end_date"/>
+                            <field name="auto_post"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group string="Termination">
+                            <field name="count_total"/>
+                            <field name="count_generated" readonly="1"/>
+                            <field name="count_remaining" readonly="1"/>
+                        </group>
+                        <group string="Recurring Revenue">
+                            <field name="recurring_subtotal" readonly="1"/>
+                            <field name="mrr" readonly="1"/>
+                            <field name="arr" readonly="1"/>
+                            <field name="company_currency_id" invisible="1"/>
+                            <field name="recurring_subtotal_company"
+                                   readonly="1"/>
+                            <field name="mrr_company" readonly="1"/>
+                            <field name="arr_company" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="company_id"
+                                           column_invisible="1"/>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="product_id"
+                                           options="{'no_create': True}"/>
+                                    <field name="name"/>
+                                    <field name="account_id"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit"/>
+                                    <field name="tax_ids"
+                                           widget="many2many_tags"
+                                           options="{'no_create': True}"/>
+                                    <field name="subtotal"
+                                           widget="monetary"/>
+                                    <field name="currency_id"
+                                           column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Defaults">
+                            <group>
+                                <field name="ref"/>
+                            </group>
+                            <field name="narration" placeholder="Default note for generated invoices."/>
+                        </page>
+                        <page string="Run Status">
+                            <group>
+                                <field name="last_run_at" readonly="1"/>
+                                <field name="last_generated_move_id"
+                                       readonly="1"/>
+                            </group>
+                            <field name="last_error" readonly="1"
+                                   placeholder="Last error message, if the most recent run failed."/>
+                            <field name="eh_legacy_integrity_reason"
+                                   readonly="1"
+                                   invisible="not eh_legacy_integrity_unverified"/>
+                            <field name="eh_legacy_review_note"
+                                   readonly="not eh_legacy_integrity_unverified"/>
+                            <group invisible="not eh_legacy_reviewed_at">
+                                <field name="eh_legacy_reviewed_at" readonly="1"/>
+                                <field name="eh_legacy_reviewed_by_id" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    <chatter/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="eh_account_recurring_invoices_template_view_graph" model="ir.ui.view">
+        <field name="name">eh.recurring.invoice.template.graph</field>
+        <field name="model">eh.recurring.invoice.template</field>
+        <field name="arch" type="xml">
+            <graph string="Recurring Templates" type="bar" sample="1">
+                <field name="partner_id"/>
+                <field name="count_generated" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_recurring_invoices_template_view_pivot" model="ir.ui.view">
+        <field name="name">eh.recurring.invoice.template.pivot</field>
+        <field name="model">eh.recurring.invoice.template</field>
+        <field name="arch" type="xml">
+            <pivot string="Recurring Templates" sample="1">
+                <field name="partner_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="count_generated" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_eh_recurring_template_search" model="ir.ui.view">
+        <field name="name">eh.recurring.invoice.template.search</field>
+        <field name="model">eh.recurring.invoice.template</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="partner_id"/>
+                <filter name="filter_active" string="Active"
+                        domain="[('state', '=', 'active')]"/>
+                <filter name="filter_paused" string="Paused"
+                        domain="[('state', '=', 'paused')]"/>
+                <filter name="filter_finished" string="Finished"
+                        domain="[('state', '=', 'finished')]"/>
+                <separator/>
+                <filter name="filter_due_today" string="Due Today"
+                        domain="[('next_run_date', '&lt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter name="filter_auto_post" string="Auto Post"
+                        domain="[('auto_post', '=', True)]"/>
+                <group>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_partner" string="Customer"
+                            context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_move_form_eh_recurring" model="ir.ui.view">
+        <field name="name">account.move.form.eh.recurring</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <group name="accounting_info_group" position="inside">
+                <field name="eh_recurring_template_id" readonly="1"
+                       invisible="not eh_recurring_template_id"/>
+                <field name="eh_recurring_period_start" readonly="1"
+                       invisible="not eh_recurring_template_id"/>
+                <field name="eh_recurring_period_end" readonly="1"
+                       invisible="not eh_recurring_template_id"/>
+                <field name="eh_recurring_generation_key" invisible="1"/>
+                <field name="eh_recurring_legacy_unverified" invisible="1"/>
+                <field name="eh_sealed" invisible="1"/>
+                <field name="eh_legacy_unverified_seal" invisible="1"/>
+                <field name="eh_recurring_correction_move_id" readonly="1"
+                       invisible="not eh_recurring_correction_move_id"/>
+                <field name="eh_recurring_corrected_at" readonly="1"
+                       invisible="not eh_recurring_corrected_at"/>
+                <field name="eh_recurring_corrected_by_id" readonly="1"
+                       invisible="not eh_recurring_corrected_by_id"/>
+            </group>
+            <xpath expr="//header" position="inside">
+                <button name="action_eh_correct_recurring_invoice"
+                        type="object"
+                        string="Correct Recurring Invoice"
+                        groups="eh_account_base.group_eh_manager"
+                        confirm="This posts an exact linked sealed counter-entry. The original invoice remains immutable. Continue?"
+                        invisible="not eh_recurring_template_id or state != 'posted' or not eh_sealed or eh_legacy_unverified_seal or eh_recurring_legacy_unverified or not eh_recurring_generation_key or eh_recurring_correction_move_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_filter_eh_recurring" model="ir.ui.view">
+        <field name="name">account.invoice.select.eh.recurring</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="eh_recurring_template_id"/>
+            </field>
+            <filter name="late" position="after">
+                <separator/>
+                <filter name="filter_eh_recurring" string="Recurring"
+                        domain="[('eh_recurring_template_id', '!=', False)]"/>
+            </filter>
+            <filter name="groupy_by_journal" position="after">
+                <filter name="group_eh_recurring_template" string="Recurring Template"
+                        context="{'group_by': 'eh_recurring_template_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_eh_recurring_template" model="ir.actions.act_window">
+        <field name="name">Recurring Invoices</field>
+        <field name="res_model">eh.recurring.invoice.template</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_recurring_template_search"/>
+        <field name="context">{'search_default_filter_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No recurring templates yet.</p>
+            <p>Create a template, set the customer, journal, lines, and cadence. Activate it; the daily cron generates draft invoices on schedule. Auto post if you want hands off operation, or leave drafts for review.</p>
+        </field>
+    </record>
+
+</odoo>

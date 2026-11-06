@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_eps_run_list" model="ir.ui.view">
+        <field name="name">eh.eps.run.list</field>
+        <field name="model">eh.eps.run</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="active" column_invisible="1"/>
+                <field name="period_end"/>
+                <field name="basic_eps" optional="show"/>
+                <field name="diluted_eps" optional="show"/>
+                <field name="basic_eps_continuing" optional="hide"/>
+                <field name="diluted_eps_continuing" optional="hide"/>
+                <field name="weighted_avg_shares" optional="hide"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'computed'"
+                       decoration-muted="state == 'cancelled'"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_eps_run_form" model="ir.ui.view">
+        <field name="name">eh.eps.run.form</field>
+        <field name="model">eh.eps.run</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_compute" type="object"
+                            string="Compute" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_prefill_discontinued" type="object"
+                            string="Prefill Discontinued"
+                            invisible="state != 'draft' or not has_held_for_sale"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state != 'computed'"/>
+                    <button name="action_set_to_draft" type="object"
+                            string="Set to Draft" invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,computed,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <field name="has_held_for_sale" invisible="1"/>
+                    <field name="active" invisible="1"/>
+                    <field name="ever_computed" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"
+                                   readonly="state != 'draft'"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="period_start" readonly="state != 'draft'"/>
+                            <field name="period_end" readonly="state != 'draft'"/>
+                            <field name="net_profit" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="preference_dividends" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="profit_continuing" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="profit_discontinued" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="has_restatement_events" invisible="1"/>
+                            <field name="restatement_factor"
+                                   readonly="state != 'draft' or has_restatement_events"/>
+                        </group>
+                        <group>
+                            <field name="weighted_avg_shares" readonly="1"/>
+                            <field name="basic_earnings" widget="monetary" readonly="1"/>
+                            <field name="basic_eps" readonly="1"/>
+                            <field name="diluted_shares" readonly="1"/>
+                            <field name="diluted_earnings" widget="monetary" readonly="1"/>
+                            <field name="diluted_eps" readonly="1"/>
+                            <field name="basic_eps_continuing" readonly="1"
+                                   invisible="not profit_continuing and not profit_discontinued"/>
+                            <field name="basic_eps_discontinued" readonly="1"
+                                   invisible="not profit_continuing and not profit_discontinued"/>
+                            <field name="diluted_eps_continuing" readonly="1"
+                                   invisible="not profit_continuing and not profit_discontinued"/>
+                            <field name="diluted_eps_discontinued" readonly="1"
+                                   invisible="not profit_continuing and not profit_discontinued"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Share Movements">
+                            <field name="movement_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="effective_date"/>
+                                    <field name="shares_outstanding"/>
+                                    <field name="note"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Potential Ordinary Shares">
+                            <field name="potential_ids" readonly="state != 'draft'">
+                                <list editable="bottom" open_form_view="1">
+                                    <field name="name"/>
+                                    <field name="instrument_type"/>
+                                    <field name="potential_shares"/>
+                                    <field name="effective_from" optional="show"/>
+                                    <field name="effective_to" optional="show"/>
+                                    <field name="share_count_date"/>
+                                    <field name="exercise_price" widget="monetary" optional="show"/>
+                                    <field name="average_market_price" widget="monetary" optional="show"/>
+                                    <field name="net_incremental_shares" readonly="1" optional="show"/>
+                                    <field name="weighted_incremental_shares" readonly="1" optional="show"/>
+                                    <field name="earnings_adjustment" widget="monetary"/>
+                                    <field name="incremental_eps" readonly="1"/>
+                                    <field name="is_dilutive" readonly="1"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="name"/>
+                                            <field name="instrument_type"/>
+                                            <field name="potential_shares"/>
+                                            <field name="effective_from"/>
+                                            <field name="effective_to"/>
+                                            <field name="contingency_satisfied"
+                                                   invisible="instrument_type != 'contingently_issuable'"/>
+                                            <field name="share_count_date"/>
+                                            <field name="earnings_adjustment" widget="monetary"/>
+                                            <field name="currency_id" invisible="1"/>
+                                        </group>
+                                        <group>
+                                            <field name="has_observations" invisible="1"/>
+                                            <field name="exercise_price" widget="monetary"/>
+                                            <field name="average_market_price" widget="monetary"
+                                                   readonly="has_observations"/>
+                                            <field name="net_incremental_shares" readonly="1"/>
+                                            <field name="weighted_incremental_shares" readonly="1"/>
+                                            <field name="incremental_eps" readonly="1"/>
+                                            <field name="is_dilutive" readonly="1"/>
+                                        </group>
+                                    </group>
+                                    <separator string="Market Price Observations"/>
+                                    <field name="observation_ids">
+                                        <list editable="bottom">
+                                            <field name="date"/>
+                                            <field name="price" widget="monetary"/>
+                                            <field name="currency_id" column_invisible="1"/>
+                                        </list>
+                                    </field>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Restatement Events">
+                            <field name="restatement_event_ids"
+                                   readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="date"/>
+                                    <field name="kind"/>
+                                    <field name="factor"/>
+                                    <field name="note" optional="show"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" nolabel="1" colspan="2"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_eps_run_search" model="ir.ui.view">
+        <field name="name">eh.eps.run.search</field>
+        <field name="model">eh.eps.run</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="period_end"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <filter name="active_runs" string="Active runs"
+                        domain="[('state', '!=', 'cancelled')]"/>
+                <filter name="draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="computed" string="Computed"
+                        domain="[('state', '=', 'computed')]"/>
+                <filter name="cancelled" string="Cancelled"
+                        domain="[('state', '=', 'cancelled')]"/>
+                <group>
+                    <filter name="group_state" string="State"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_company" string="Company"
+                            context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company"/>
+                    <filter name="group_period" string="Period End"
+                            context="{'group_by': 'period_end:year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_eps_run_graph" model="ir.ui.view">
+        <field name="name">eh.eps.run.graph</field>
+        <field name="model">eh.eps.run</field>
+        <field name="arch" type="xml">
+            <graph string="Earnings Per Share" type="line">
+                <field name="period_end"/>
+                <field name="basic_eps" type="measure"/>
+                <field name="diluted_eps" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_eh_eps_run_pivot" model="ir.ui.view">
+        <field name="name">eh.eps.run.pivot</field>
+        <field name="model">eh.eps.run</field>
+        <field name="arch" type="xml">
+            <pivot string="Earnings Per Share">
+                <field name="period_end" type="row"/>
+                <field name="net_profit" type="measure"/>
+                <field name="weighted_avg_shares" type="measure"/>
+                <field name="basic_eps" type="measure"/>
+                <field name="diluted_eps" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_eps_run" model="ir.actions.act_window">
+        <field name="name">Earnings Per Share</field>
+        <field name="res_model">eh.eps.run</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_eps_run_search"/>
+        <field name="context">{'search_default_active_runs': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first EPS run</p>
+            <p>Compute basic and diluted earnings per share under IAS 33 for a reporting period. Start a run, enter the profit and share movements, then compute.</p>
+        </field>
+    </record>
+
+</odoo>

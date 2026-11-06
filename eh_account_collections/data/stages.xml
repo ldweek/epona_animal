@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="stage_new" model="eh.collections.stage">
+            <field name="name">New</field>
+            <field name="sequence">10</field>
+            <field name="is_default" eval="True"/>
+            <field name="color">0</field>
+            <field name="description">Cases that have not yet been contacted.</field>
+        </record>
+
+        <record id="stage_contacted" model="eh.collections.stage">
+            <field name="name">Contacted</field>
+            <field name="sequence">20</field>
+            <field name="color">4</field>
+            <field name="description">First contact made; awaiting response.</field>
+        </record>
+
+        <record id="stage_promise" model="eh.collections.stage">
+            <field name="name">Promise to Pay</field>
+            <field name="sequence">30</field>
+            <field name="color">10</field>
+            <field name="description">Partner committed to a promised amount and date.</field>
+        </record>
+
+        <record id="stage_escalated" model="eh.collections.stage">
+            <field name="name">Escalated</field>
+            <field name="sequence">40</field>
+            <field name="color">2</field>
+            <field name="is_escalated" eval="True"/>
+            <field name="description">Escalated to manager or legal.</field>
+        </record>
+
+        <record id="stage_disputed" model="eh.collections.stage">
+            <field name="name">Disputed</field>
+            <field name="sequence">50</field>
+            <field name="color">5</field>
+            <field name="is_disputed" eval="True"/>
+            <field name="description">Partner disputes the invoice or amount.</field>
+        </record>
+
+        <record id="stage_resolved" model="eh.collections.stage">
+            <field name="name">Resolved</field>
+            <field name="sequence">60</field>
+            <field name="fold" eval="True"/>
+            <field name="is_resolved" eval="True"/>
+            <field name="color">7</field>
+            <field name="description">Paid in full. Closed.</field>
+        </record>
+
+        <record id="stage_written_off" model="eh.collections.stage">
+            <field name="name">Written Off</field>
+            <field name="sequence">70</field>
+            <field name="fold" eval="True"/>
+            <field name="is_resolved" eval="True"/>
+            <field name="color">1</field>
+            <field name="description">Closed as bad debt; no further action.</field>
+        </record>
+
+    </data>
+</odoo>

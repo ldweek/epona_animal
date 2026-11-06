@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="0">
+    <data>
+
+        <record id="rule_eh_sbp_plan_company" model="ir.rule">
+            <field name="name">eh.sbp.plan: company isolation</field>
+            <field name="model_id" ref="model_eh_sbp_plan"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_sbp_plan_tranche_company" model="ir.rule">
+            <field name="name">eh.sbp.plan.tranche: company isolation</field>
+            <field name="model_id" ref="model_eh_sbp_plan_tranche"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_sbp_grant_company" model="ir.rule">
+            <field name="name">eh.sbp.grant: company isolation</field>
+            <field name="model_id" ref="model_eh_sbp_grant"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_sbp_modification_company" model="ir.rule">
+            <field name="name">eh.sbp.modification: company isolation</field>
+            <field name="model_id" ref="model_eh_sbp_modification"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_sbp_modification_tranche_value_company" model="ir.rule">
+            <field name="name">eh.sbp.modification.tranche.value: company isolation</field>
+            <field name="model_id" ref="model_eh_sbp_modification_tranche_value"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_sbp_period_run_company" model="ir.rule">
+            <field name="name">eh.sbp.period.run: company isolation</field>
+            <field name="model_id" ref="model_eh_sbp_period_run"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_sbp_period_run_tranche_value_company" model="ir.rule">
+            <field name="name">eh.sbp.period.run.tranche.value: company isolation</field>
+            <field name="model_id" ref="model_eh_sbp_period_run_tranche_value"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_sbp_valuation_company" model="ir.rule">
+            <field name="name">eh.sbp.valuation: company isolation</field>
+            <field name="model_id" ref="model_eh_sbp_valuation"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

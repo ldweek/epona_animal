@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="group_eh_grant_reviewer" model="res.groups">
+        <field name="name">Government Grant Reviewer</field>
+        <field name="privilege_id" ref="eh_account_base.privilege_eh_accounting"/>
+        <!-- Replace, rather than append to, the direct implications.  Odoo's
+             command 4 leaves the legacy broad EH preparer implication in
+             place during an upgrade. -->
+        <field name="implied_ids" eval="[(6, 0, [ref('account.group_account_readonly')])]"/>
+        <field name="comment">Read grants and transition non-posting grant conditions through the dedicated reviewer ACL. Does not inherit broad EH preparer access; accounting entries remain manager-only.</field>
+    </record>
+</odoo>

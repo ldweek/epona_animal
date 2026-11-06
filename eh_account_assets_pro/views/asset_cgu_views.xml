@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_asset_cgu_list" model="ir.ui.view">
+        <field name="name">eh.asset.cgu.list</field>
+        <field name="model">eh.asset.cgu</field>
+        <field name="arch" type="xml">
+            <list string="Cash-generating units"
+                  decoration-danger="impairment_shortfall &gt; 0"
+                  decoration-warning="annual_test_required">
+                <field name="name"/>
+                <field name="member_count"/>
+                <field name="carrying_amount" widget="monetary"/>
+                <field name="recoverable_amount" widget="monetary"/>
+                <field name="impairment_shortfall" widget="monetary"/>
+                <field name="annual_test_required" widget="boolean_toggle"/>
+                <field name="last_test_date" optional="show"/>
+                <field name="last_test_result" widget="badge" optional="show"
+                       decoration-success="last_test_result == 'passed'"
+                       decoration-danger="last_test_result == 'impaired'"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_asset_cgu_form" model="ir.ui.view">
+        <field name="name">eh.asset.cgu.form</field>
+        <field name="model">eh.asset.cgu</field>
+        <field name="arch" type="xml">
+            <form string="Cash-generating unit">
+                <header>
+                    <button name="action_test_now"
+                            type="object"
+                            string="Test for Impairment Now"
+                            class="btn-primary"
+                            confirm="Run the IAS 36 impairment test? When the carrying amount exceeds the recoverable amount, an impairment will be derived, allocated across the member assets, and posted to the ledger."/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_impairments"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-bolt">
+                            <field name="impairment_ids" widget="statinfo"
+                                   string="Impairments"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Retail store A"/></h1>
+                    </div>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not currency_mismatch_quarantined">
+                        <strong>Currency integrity quarantine:</strong>
+                        this legacy CGU has IAS 36 evidence calculated in a
+                        non-company currency without FX conversion. Existing
+                        evidence was not rewritten; preserve/reverse linked
+                        impairments and recreate the CGU in company currency.
+                        <field name="currency_mismatch_note" readonly="1"
+                               nolabel="1"/>
+                    </div>
+                    <field name="currency_mismatch_quarantined" invisible="1"/>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="not legacy_test_basis_quarantined">
+                        <strong>Legacy test-basis quarantine:</strong>
+                        a pre-upgrade outcome is retained without inventing an
+                        input/member/cash-flow snapshot. Run a new test to
+                        create prospective immutable evidence.
+                        <field name="legacy_test_basis_note" readonly="1"
+                               nolabel="1"/>
+                    </div>
+                    <field name="legacy_test_basis_quarantined" invisible="1"/>
+                    <group>
+                        <group string="Unit">
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="currency_id"/>
+                            <field name="annual_test_required"/>
+                            <field name="member_count"/>
+                            <field name="carrying_amount" widget="monetary"/>
+                        </group>
+                        <group string="Recoverable amount (higher of)">
+                            <field name="value_in_use" widget="monetary"/>
+                            <field name="fair_value_less_costs" widget="monetary"/>
+                            <field name="recoverable_amount" widget="monetary"/>
+                            <field name="impairment_shortfall" widget="monetary"
+                                   decoration-danger="impairment_shortfall &gt; 0"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Value in use (DCF)">
+                            <field name="discount_rate"/>
+                        </group>
+                        <group string="Fair value less costs of disposal">
+                            <field name="fair_value" widget="monetary"/>
+                            <field name="costs_of_disposal" widget="monetary"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Member Assets" name="members">
+                            <field name="member_ids">
+                                <list>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="is_goodwill"
+                                           widget="boolean_toggle"/>
+                                    <field name="net_book_value"
+                                           widget="monetary"/>
+                                    <field name="cgu_impairment_floor"
+                                           widget="monetary"/>
+                                    <field name="currency_id"
+                                           column_invisible="1"/>
+                                    <field name="company_id"
+                                           column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Projected Cash Flows" name="cashflows">
+                            <field name="cashflow_ids">
+                                <list editable="bottom">
+                                    <field name="period"/>
+                                    <field name="amount" widget="monetary"/>
+                                    <field name="note"/>
+                                    <field name="currency_id"
+                                           column_invisible="1"/>
+                                    <field name="company_id"
+                                           column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Test Evidence" name="test_evidence">
+                            <field name="test_event_ids" readonly="1">
+                                <list create="0" edit="0" delete="0">
+                                    <field name="test_date"/>
+                                    <field name="result" widget="badge"/>
+                                    <field name="carrying_amount"/>
+                                    <field name="recoverable_amount"/>
+                                    <field name="impairment_shortfall"/>
+                                    <field name="basis_fingerprint"/>
+                                    <field name="tested_by_id"/>
+                                    <field name="tested_at"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group>
+                        <field name="last_test_date" readonly="1"/>
+                        <field name="last_test_result" readonly="1"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_asset_cgu_search" model="ir.ui.view">
+        <field name="name">eh.asset.cgu.search</field>
+        <field name="model">eh.asset.cgu</field>
+        <field name="arch" type="xml">
+            <search string="Cash-generating units">
+                <field name="name"/>
+                <filter string="Annual test required" name="annual"
+                        domain="[('annual_test_required', '=', True)]"/>
+                <filter string="Impaired" name="impaired"
+                        domain="[('last_test_result', '=', 'impaired')]"/>
+                <filter string="No impairment" name="passed"
+                        domain="[('last_test_result', '=', 'passed')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_asset_cgu" model="ir.actions.act_window">
+        <field name="name">Cash-generating units</field>
+        <field name="res_model">eh.asset.cgu</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_asset_cgu_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first cash-generating unit</p>
+            <p>Group assets into a CGU to test recoverable amount and allocate impairment under IAS 36. Use New to define a unit, then assign its assets.</p>
+        </field>
+    </record>
+
+</odoo>

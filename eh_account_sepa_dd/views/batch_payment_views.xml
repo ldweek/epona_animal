@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_batch_payment_form_sepa_dd" model="ir.ui.view">
+        <field name="name">eh.batch.payment.form.sepa_dd</field>
+        <field name="model">eh.batch.payment</field>
+        <field name="inherit_id" ref="eh_account_batch_payment.view_eh_batch_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_export_csv']" position="after">
+                <button name="action_export_sepa_dd"
+                        type="object"
+                        string="Export SEPA DD"
+                        groups="eh_account_base.group_eh_manager"
+                        invisible="state != 'posted' or batch_type != 'inbound' or not sepa_dd_collection or sepa_dd_export_count"
+                        confirm="Generate the PAIN.008 SEPA Direct Debit XML file(s) for upload to the bank. Each mandate's collection counter advances atomically. Continue?"/>
+                <button name="action_reapprove_sepa_dd_sources"
+                        type="object" string="Re-approve DD Sources"
+                        groups="eh_account_base.group_eh_manager"
+                        invisible="state != 'posted' or batch_type != 'inbound' or not sepa_dd_collection or sepa_dd_export_count"
+                        confirm="Approve the current creditor, mandate, amendment, and sequence sources? A different manager must export."/>
+            </xpath>
+            <xpath expr="//field[@name='batch_type']" position="after">
+                <field name="sepa_dd_export_count" invisible="1"/>
+                <field name="sepa_dd_collection"
+                       invisible="batch_type != 'inbound'"
+                       readonly="state != 'draft'"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_sepa_dd_exports"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-file-code-o"
+                        groups="eh_account_base.group_eh_manager,eh_account_base.group_eh_auditor"
+                        invisible="not sepa_dd_export_ids">
+                    <field name="sepa_dd_export_count"
+                           widget="statinfo"
+                           string="Live DD exports"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='payment_ids']/*/field[@name='partner_bank_id']" position="after">
+                <field name="eh_sepa_dd_debtor_bank_id"
+                       string="Debtor IBAN"
+                       optional="show"/>
+                <field name="eh_sepa_dd_final_collection"
+                       string="Final (FNAL)"
+                       optional="hide"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="SEPA DD exports"
+                      groups="eh_account_base.group_eh_manager,eh_account_base.group_eh_auditor"
+                      invisible="batch_type != 'inbound'">
+                    <field name="sepa_dd_export_ids" readonly="1">
+                        <list>
+                            <field name="generated_at"/>
+                            <field name="message_id"/>
+                            <field name="sequence_type"/>
+                            <field name="local_instrument"/>
+                            <field name="transaction_count"/>
+                            <field name="control_sum"/>
+                            <field name="state" widget="badge"
+                                   decoration-success="state == 'downloaded'"
+                                   decoration-info="state == 'generated'"
+                                   decoration-muted="state == 'superseded'"/>
+                            <button name="action_download"
+                                    type="object" icon="fa-download"
+                                    string="Download"
+                                    invisible="state == 'superseded'"/>
+                            <button name="action_void_for_recut"
+                                    type="object" icon="fa-ban"
+                                    string="Void for re-cut"
+                                    invisible="state == 'superseded'"
+                                    confirm="Void this SEPA Direct Debit file so the batch can be re-collected? Do this ONLY if the file was not submitted to the bank."/>
+                        </list>
+                    </field>
+                    <group invisible="not sepa_dd_collection">
+                        <field name="sepa_dd_source_approved_at" readonly="1"/>
+                        <field name="sepa_dd_source_approved_by_id" readonly="1"/>
+                        <field name="sepa_dd_reapproval_reason"
+                               placeholder="Reason and evidence for changed mandate/sequence data (minimum 20 characters)"/>
+                    </group>
+                    <field name="sepa_dd_source_approval_ids" readonly="1"
+                           invisible="not sepa_dd_collection">
+                        <list>
+                            <field name="approved_at"/>
+                            <field name="approved_by_id"/>
+                            <field name="reason"/>
+                            <field name="source_fingerprint" optional="hide"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

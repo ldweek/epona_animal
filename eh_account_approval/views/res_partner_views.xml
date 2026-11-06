@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        Pending approvals smart-button on the partner form.
+
+        Rendered only when the partner has at least one pending request
+        so quiet partners don't get a meaningless "0" card. The button
+        navigates to the filtered approval-request list.
+    -->
+
+    <record id="view_eh_partner_form_approvals" model="ir.ui.view">
+        <field name="name">eh.account.approval.res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_eh_pending_approvals"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-hourglass-half"
+                        groups="eh_account_base.group_eh_user"
+                        title="Pending approvals"
+                        invisible="eh_pending_approval_count == 0">
+                    <field name="eh_pending_approval_count"
+                           widget="statinfo"
+                           string="Pending Approvals"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

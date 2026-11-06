@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_revenue_modification_wizard_form" model="ir.ui.view">
+        <field name="name">eh.revenue.modification.wizard.form</field>
+        <field name="model">eh.revenue.modification.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Modify Contract">
+                <sheet>
+                    <group>
+                        <field name="contract_id" invisible="1"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="method"/>
+                        <field name="effective_date"/>
+                        <field name="description"/>
+                        <field name="set_new_price"/>
+                        <field name="new_transaction_price" widget="monetary"
+                               invisible="not set_new_price"/>
+                    </group>
+                    <field name="line_ids">
+                        <list editable="bottom">
+                            <field name="name"/>
+                            <field name="standalone_price" widget="monetary"/>
+                            <field name="satisfaction"/>
+                            <field name="progress_method"
+                                   invisible="satisfaction != 'over_time'"/>
+                            <field name="method_basis" optional="show"
+                                   invisible="satisfaction != 'over_time'"/>
+                            <field name="currency_id" column_invisible="1"/>
+                        </list>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_apply" type="object" string="Apply"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_revenue_modification_list" model="ir.ui.view">
+        <field name="name">eh.revenue.modification.list</field>
+        <field name="model">eh.revenue.modification</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="create_date"/>
+                <field name="method"/>
+                <field name="effective_date"/>
+                <field name="description"/>
+                <field name="price_before" widget="monetary"/>
+                <field name="price_after" widget="monetary"/>
+                <field name="separate_contract_id"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+</odoo>

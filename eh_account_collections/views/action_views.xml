@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_collections_action_tree" model="ir.ui.view">
+        <field name="name">eh.collections.action.list</field>
+        <field name="model">eh.collections.action</field>
+        <field name="arch" type="xml">
+            <list string="Action Log" default_order="action_date desc"
+                  sample="1" create="0" edit="0" delete="0">
+                <field name="action_date"/>
+                <field name="case_id"/>
+                <field name="user_id"/>
+                <field name="action_type" widget="badge"/>
+                <field name="summary"/>
+                <field name="contact_made"/>
+                <field name="promise_amount" widget="monetary"/>
+                <field name="promise_date"/>
+                <field name="late_fee_move_id" optional="show"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_collections_action_form" model="ir.ui.view">
+        <field name="name">eh.collections.action.form</field>
+        <field name="model">eh.collections.action</field>
+        <field name="arch" type="xml">
+            <form string="Action Log" create="0" edit="0" delete="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="case_id"/>
+                            <field name="action_type"/>
+                            <field name="action_date"/>
+                            <field name="user_id"/>
+                            <field name="contact_made"/>
+                            <field name="late_fee_move_id"
+                                   invisible="action_type != 'late_fee'"
+                                   readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="promise_amount" widget="monetary"/>
+                            <field name="promise_date"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <field name="summary" placeholder="Brief summary"/>
+                    <field name="detail" placeholder="Detail of the conversation, email content, etc."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_collections_action_search" model="ir.ui.view">
+        <field name="name">eh.collections.action.search</field>
+        <field name="model">eh.collections.action</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="summary"/>
+                <field name="case_id"/>
+                <field name="user_id"/>
+                <filter name="filter_contact_made" string="Contact Made"
+                        domain="[('contact_made', '=', True)]"/>
+                <filter name="filter_with_promise" string="With Promise"
+                        domain="[('promise_amount', '!=', 0)]"/>
+                <separator/>
+                <filter name="filter_today" string="Today"
+                        domain="[('action_date', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <group>
+                    <filter name="group_type" string="Action Type"
+                            context="{'group_by': 'action_type'}"/>
+                    <filter name="group_user" string="User"
+                            context="{'group_by': 'user_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_collections_action" model="ir.actions.act_window">
+        <field name="name">Action Log</field>
+        <field name="res_model">eh.collections.action</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Log your first collections action</p>
+            <p>This screen tracks every call, email, letter, or note logged against a collections case. Actions are usually created from a case, or click New to record one here.</p>
+        </field>
+    </record>
+
+</odoo>

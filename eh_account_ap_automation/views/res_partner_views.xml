@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_partner_form_eh_ap" model="ir.ui.view">
+        <field name="name">res.partner.form.eh.ap</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='accounting']" position="inside">
+                <group string="AP Automation"
+                       groups="account.group_account_user">
+                    <field name="eh_ap_tolerance_profile_id"/>
+                    <field name="eh_ap_invoice_ref_regex"/>
+                    <field name="eh_ap_total_regex"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

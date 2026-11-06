@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ERP Heritage
+    Copyright (C) 2026 (https://www.erpheritage.com.au/)
+
+    Multi-company record rules. A user only sees a consolidation graph when
+    its parent, dedicated consolidation ledger and every member company are
+    all enabled in the request's current company context. Without the full
+    closure, an internal user could read or mutate another group company's
+    consolidated figures through a child model.
+-->
+<odoo>
+    <data noupdate="1">
+
+        <record id="eh_consol_entity_company_rule" model="ir.rule">
+            <field name="name">Consolidation entity: allowed companies</field>
+            <field name="model_id" ref="model_eh_consol_entity"/>
+            <field name="domain_force">[('eh_company_scope_allowed', '=', True)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="eh_consol_member_company_rule" model="ir.rule">
+            <field name="name">Consolidation member: allowed companies</field>
+            <field name="model_id" ref="model_eh_consol_member"/>
+            <field name="domain_force">[('eh_company_scope_allowed', '=', True)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="eh_consol_run_company_rule" model="ir.rule">
+            <field name="name">Consolidation run: allowed companies</field>
+            <field name="model_id" ref="model_eh_consol_run"/>
+            <field name="domain_force">[('eh_company_scope_allowed', '=', True)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="eh_consol_run_line_company_rule" model="ir.rule">
+            <field name="name">Consolidation run line: allowed companies</field>
+            <field name="model_id" ref="model_eh_consol_run_line"/>
+            <field name="domain_force">[('eh_company_scope_allowed', '=', True)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="eh_consol_elimination_company_rule" model="ir.rule">
+            <field name="name">Consolidation elimination: allowed companies</field>
+            <field name="model_id" ref="model_eh_consol_elimination"/>
+            <field name="domain_force">[('eh_company_scope_allowed', '=', True)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="eh_consol_elimination_line_company_rule" model="ir.rule">
+            <field name="name">Consolidation elimination line: allowed companies</field>
+            <field name="model_id" ref="model_eh_consol_elimination_line"/>
+            <field name="domain_force">[('eh_company_scope_allowed', '=', True)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="eh_consol_unrealised_profit_company_rule" model="ir.rule">
+            <field name="name">Consolidation unrealised profit: allowed companies</field>
+            <field name="model_id" ref="model_eh_consol_unrealised_profit"/>
+            <field name="domain_force">[('eh_company_scope_allowed', '=', True)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="eh_consol_acquisition_component_company_rule" model="ir.rule">
+            <field name="name">Acquisition component: allowed companies</field>
+            <field name="model_id" ref="model_eh_consol_acquisition_equity_component"/>
+            <field name="domain_force">[('eh_company_scope_allowed', '=', True)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="eh_consol_equity_rollforward_company_rule" model="ir.rule">
+            <field name="name">Equity rollforward: allowed companies</field>
+            <field name="model_id" ref="model_eh_consol_equity_rollforward"/>
+            <field name="domain_force">[('eh_company_scope_allowed', '=', True)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="eh_consol_disposal_event_company_rule" model="ir.rule">
+            <field name="name">Disposal event: allowed companies</field>
+            <field name="model_id" ref="model_eh_consol_disposal_event"/>
+            <field name="domain_force">[('eh_company_scope_allowed', '=', True)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="eh_consol_trial_balance_company_rule" model="ir.rule">
+            <field name="name">Consolidated trial balance: allowed companies</field>
+            <field name="model_id" ref="model_eh_consol_trial_balance"/>
+            <field name="domain_force">[('eh_company_scope_allowed', '=', True)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

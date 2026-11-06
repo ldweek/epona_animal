@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    ERP Heritage
+    Copyright (C) 2026 (https://www.erpheritage.com.au/)
+
+    Multi-company isolation for the IAS 7.43 non-cash register: entries
+    are visible only within their own company scope, mirroring the
+    isolation rules of the eh_account_base reporting models.
+-->
+<odoo>
+    <data noupdate="1">
+
+        <record id="rule_eh_noncash_transaction_company" model="ir.rule">
+            <field name="name">Non-Cash Transaction: company isolation</field>
+            <field name="model_id" ref="model_eh_noncash_transaction"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_recurring_proration_wizard_form" model="ir.ui.view">
+        <field name="name">eh.recurring.invoice.proration.wizard.form</field>
+        <field name="model">eh.recurring.invoice.proration.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Mid-period plan change">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="template_id" readonly="1"/>
+                            <field name="change_date"/>
+                            <field name="new_amount"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="period_end_date" readonly="1"/>
+                            <field name="period_length_days" readonly="1"/>
+                            <field name="days_remaining" readonly="1"/>
+                        </group>
+                    </group>
+                    <separator string="Effect"/>
+                    <group>
+                        <group>
+                            <field name="old_amount" readonly="1"/>
+                            <field name="credit_amount" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="new_period_amount" readonly="1"/>
+                            <field name="net_amount" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_apply"
+                            type="object"
+                            string="Apply proration"
+                            groups="eh_account_base.group_eh_manager"
+                            class="btn-primary"/>
+                    <button special="cancel" string="Cancel"
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_recurring_proration_wizard" model="ir.actions.act_window">
+        <field name="name">Apply mid-period proration</field>
+        <field name="res_model">eh.recurring.invoice.proration.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_eh_recurring_invoice_template"/>
+        <field name="binding_view_types">form</field>
+        <field name="group_ids"
+               eval="[(4, ref('eh_account_base.group_eh_manager'))]"/>
+    </record>
+
+    <record id="view_eh_recurring_correction_wizard_form" model="ir.ui.view">
+        <field name="name">eh.recurring.invoice.correction.wizard.form</field>
+        <field name="model">eh.recurring.invoice.correction.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Correct Recurring Invoice">
+                <sheet>
+                    <div class="alert alert-warning" role="alert">
+                        The original posted invoice remains immutable. This
+                        action posts an exact linked sealed counter-entry and
+                        releases its service period for deliberate reissue.
+                    </div>
+                    <group>
+                        <field name="move_id"/>
+                        <field name="date"/>
+                        <field name="reason"
+                               placeholder="Explain the operational error and reviewed correction."/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_reverse"
+                            type="object"
+                            string="Post Correction"
+                            groups="eh_account_base.group_eh_manager"
+                            class="btn-primary"/>
+                    <button special="cancel" string="Cancel"
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- Hedge tree -->
+    <record id="view_eh_fx_hedge_tree" model="ir.ui.view">
+        <field name="name">eh.fx.hedge.list</field>
+        <field name="model">eh.fx.hedge</field>
+        <field name="arch" type="xml">
+            <list string="Hedges" sample="1"
+                  default_order="designation_date desc"
+                  decoration-info="state == 'designated'"
+                  decoration-success="state == 'effective'"
+                  decoration-warning="state == 'dedesignated'"
+                  decoration-muted="state == 'terminated'">
+                <field name="name"/>
+                <field name="hedge_type"/>
+                <field name="designation_date"/>
+                <field name="hedged_currency_id"/>
+                <field name="notional_amount" widget="monetary"
+                       options="{'currency_field': 'hedged_currency_id'}"/>
+                <field name="last_test_date" optional="show"/>
+                <field name="last_test_effective" widget="boolean_toggle" optional="show"/>
+                <field name="movement_count" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'designated'"
+                       decoration-success="state == 'effective'"
+                       decoration-warning="state == 'dedesignated'"
+                       decoration-muted="state in ('draft', 'terminated')"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Hedge form -->
+    <record id="view_eh_fx_hedge_form" model="ir.ui.view">
+        <field name="name">eh.fx.hedge.form</field>
+        <field name="model">eh.fx.hedge</field>
+        <field name="arch" type="xml">
+            <form string="Hedge designation">
+                <header>
+                    <button name="action_designate"
+                            type="object"
+                            string="Designate"
+                            class="btn-primary"
+                            invisible="state != 'draft'"
+                            confirm="Designate this hedge? IFRS 9 requires risk management objective and strategy in the Notes field before designation."/>
+                    <button name="action_dedesignate"
+                            type="object"
+                            string="De-designate"
+                            invisible="state not in ('designated', 'effective')"
+                            confirm="De-designate this hedge? Subsequent gains/losses on the instrument go straight to P&amp;L; the OCI reserve stays."/>
+                    <button name="action_terminate"
+                            type="object"
+                            string="Terminate"
+                            class="btn-warning"
+                            invisible="state == 'terminated'"
+                            confirm="Mark hedge as terminated?"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,designated,effective"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_tests"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-check-square-o">
+                            <field name="test_count" widget="statinfo" string="Tests"/>
+                        </button>
+                        <button name="action_view_movements"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-line-chart">
+                            <field name="movement_count" widget="statinfo" string="Movements"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="hedge_type"
+                                   readonly="state != 'draft'"/>
+                            <field name="designation_date"
+                                   readonly="state != 'draft'"/>
+                            <field name="termination_date" readonly="1"
+                                   invisible="not termination_date"/>
+                            <field name="hedged_currency_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="notional_amount" widget="monetary"
+                                   options="{'currency_field': 'hedged_currency_id'}"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="test_method"/>
+                            <field name="rsquared_threshold"
+                                   invisible="test_method != 'regression'"/>
+                            <field name="last_test_date" readonly="1"/>
+                            <field name="last_test_effective" widget="boolean_toggle" readonly="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Accounts">
+                        <group>
+                            <field name="instrument_account_id"/>
+                            <field name="oci_account_id"
+                                   invisible="hedge_type == 'fair_value'"/>
+                            <field name="cta_position_id"
+                                   invisible="hedge_type != 'net_investment'"
+                                   domain="[('state', '=', 'open')]"
+                                   options="{'no_quick_create': True}"/>
+                            <field name="hedged_item_account_id"
+                                   invisible="hedge_type != 'fair_value'"
+                                   required="hedge_type == 'fair_value'"/>
+                        </group>
+                        <group>
+                            <field name="pl_account_id"/>
+                            <field name="journal_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Hedged item">
+                            <field name="hedged_item_description"
+                                   placeholder="USD revenue forecast Q3 2026, EUR receivable from Acme GmbH, net investment in DE subsidiary, ..."/>
+                        </page>
+                        <page string="Hedging instrument">
+                            <field name="hedging_instrument_description"
+                                   placeholder="AUD/USD forward 2026-09-30 notional 1M, USD-denominated loan, ..."/>
+                        </page>
+                        <page string="Risk management documentation (IFRS 9 6.4.1)">
+                            <field name="notes"
+                                   placeholder="Risk management objective and strategy. Method of measuring effectiveness. Sources of ineffectiveness. Required at inception per IFRS 9."/>
+                        </page>
+                    </notebook>
+                    <field name="currency_id" invisible="1"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Hedge search -->
+    <record id="view_eh_fx_hedge_search" model="ir.ui.view">
+        <field name="name">eh.fx.hedge.search</field>
+        <field name="model">eh.fx.hedge</field>
+        <field name="arch" type="xml">
+            <search string="Hedges">
+                <field name="name"/>
+                <field name="hedged_currency_id"/>
+                <field name="hedge_type"/>
+                <filter string="Draft" name="state_draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="Designated" name="state_designated"
+                        domain="[('state', '=', 'designated')]"/>
+                <filter string="Effective" name="state_effective"
+                        domain="[('state', '=', 'effective')]"/>
+                <filter string="De-designated" name="state_dedesignated"
+                        domain="[('state', '=', 'dedesignated')]"/>
+                <filter string="Terminated" name="state_terminated"
+                        domain="[('state', '=', 'terminated')]"/>
+                <separator/>
+                <filter string="Cash flow (CFH)" name="type_cash_flow"
+                        domain="[('hedge_type', '=', 'cash_flow')]"/>
+                <filter string="Fair value (FVH)" name="type_fair_value"
+                        domain="[('hedge_type', '=', 'fair_value')]"/>
+                <filter string="Net investment (NIH)" name="type_net_investment"
+                        domain="[('hedge_type', '=', 'net_investment')]"/>
+                <group>
+                    <filter string="State" name="group_state"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Hedge type" name="group_hedge_type"
+                            context="{'group_by': 'hedge_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_fx_hedge" model="ir.actions.act_window">
+        <field name="name">Hedges</field>
+        <field name="res_model">eh.fx.hedge</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_fx_hedge_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first hedge relationship</p>
+            <p>Track a hedging relationship, its designated risk and effectiveness testing. Use New to define the hedged item and hedging instrument.</p>
+        </field>
+    </record>
+
+    <!-- Test list/form -->
+    <record id="view_eh_fx_hedge_test_tree" model="ir.ui.view">
+        <field name="name">eh.fx.hedge.test.list</field>
+        <field name="model">eh.fx.hedge.test</field>
+        <field name="arch" type="xml">
+            <list string="Hedge tests" default_order="test_date desc">
+                <field name="hedge_id"/>
+                <field name="test_date"/>
+                <field name="method"/>
+                <field name="cumulative_instrument_change" widget="monetary"
+                       optional="show"/>
+                <field name="cumulative_hedged_change" widget="monetary"
+                       optional="show"/>
+                <field name="offset_ratio" optional="show"/>
+                <field name="rsquared" optional="show"/>
+                <field name="is_effective" widget="boolean_toggle"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_fx_hedge_test_form" model="ir.ui.view">
+        <field name="name">eh.fx.hedge.test.form</field>
+        <field name="model">eh.fx.hedge.test</field>
+        <field name="arch" type="xml">
+            <form string="Hedge effectiveness test">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="hedge_id"
+                                   options="{'no_create': True}"/>
+                            <field name="test_date"/>
+                            <field name="method"/>
+                        </group>
+                        <group>
+                            <field name="is_effective" widget="boolean_toggle" readonly="1"/>
+                            <field name="offset_ratio" readonly="1"
+                                   invisible="method != 'dollar_offset'"/>
+                            <field name="rsquared" readonly="1"
+                                   invisible="method != 'regression'"/>
+                        </group>
+                    </group>
+                    <group string="Inputs (dollar-offset)"
+                           invisible="method != 'dollar_offset'">
+                        <field name="cumulative_instrument_change" widget="monetary"/>
+                        <field name="cumulative_hedged_change" widget="monetary"/>
+                    </group>
+                    <group string="Inputs (regression)"
+                           invisible="method != 'regression'">
+                        <field name="regression_pairs"
+                               placeholder="One pair per line: instrument_change,hedged_change&#10;e.g.&#10;1000,-980&#10;-450,460&#10;700,-720" colspan="2"/>
+                    </group>
+                    <field name="notes" placeholder="Test methodology notes..."/>
+                    <field name="currency_id" invisible="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Movement list/form -->
+    <record id="view_eh_fx_hedge_movement_tree" model="ir.ui.view">
+        <field name="name">eh.fx.hedge.movement.list</field>
+        <field name="model">eh.fx.hedge.movement</field>
+        <field name="arch" type="xml">
+            <list string="Hedge movements" default_order="movement_date desc"
+                  decoration-info="state == 'posted'"
+                  decoration-success="state == 'reclassified'">
+                <field name="hedge_id"/>
+                <field name="movement_date"/>
+                <field name="total_change" widget="monetary"/>
+                <field name="hedged_item_change" widget="monetary"/>
+                <field name="effective_portion" widget="monetary"/>
+                <field name="ineffective_portion" widget="monetary"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'posted'"
+                       decoration-success="state == 'reclassified'"
+                       decoration-muted="state == 'draft'"/>
+                <field name="move_id" optional="hide"/>
+                <field name="reclassification_move_id" optional="hide"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_fx_hedge_movement_form" model="ir.ui.view">
+        <field name="name">eh.fx.hedge.movement.form</field>
+        <field name="model">eh.fx.hedge.movement</field>
+        <field name="arch" type="xml">
+            <form string="Hedge movement">
+                <field name="hedge_type" invisible="1"/>
+                <header>
+                    <button name="action_post"
+                            type="object"
+                            string="Post"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_reclassify_to_pl"
+                            type="object"
+                            string="Reclassify OCI to P&amp;L"
+                            invisible="state != 'posted' or hedge_type == 'fair_value'"
+                            confirm="Reclassify the effective portion from OCI to the P&amp;L account? Used when the hedged forecast transaction occurs (CFH) or the foreign operation is disposed (NIH)."/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,posted,reclassified"/>
+                </header>
+                <sheet>
+                    <group string="Amounts">
+                        <group>
+                            <field name="hedge_id"
+                                   options="{'no_create': True}"
+                                   readonly="state != 'draft'"/>
+                            <field name="movement_date"
+                                   readonly="state != 'draft'"/>
+                            <field name="reclassification_date"
+                                   readonly="state == 'reclassified'"
+                                   invisible="hedge_type == 'fair_value'"/>
+                        </group>
+                        <group>
+                            <field name="total_change" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="hedged_item_change" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="effective_portion" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="ineffective_portion" widget="monetary" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Posting / Audit">
+                        <field name="move_id" readonly="1"/>
+                        <field name="reclassification_move_id" readonly="1"/>
+                        <field name="posted_at" readonly="1"/>
+                        <field name="posted_by_id" readonly="1"/>
+                    </group>
+                    <field name="notes"/>
+                    <field name="currency_id" invisible="1"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,832 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_batch_payment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#. module: eh_account_batch_payment
+#. odoo-python
+#: code:addons/eh_account_batch_payment/wizards/build_batch_wizard.py:0
+msgid ""
+"%d source document(s) were already partially settled by a previous batch. "
+"Verify amounts before posting."
+msgstr ""
+"%d исходных документов уже частично погашены предыдущим пакетом. Проверьте "
+"суммы перед проведением."
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_kanban
+msgid "<i class=\"fa fa-bank\" title=\"Bank journal\"/>"
+msgstr "<i class=\"fa fa-bank\" title=\"Банковский журнал\"/>"
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_kanban
+msgid "<i class=\"fa fa-calendar\" title=\"Payment date\"/>"
+msgstr "<i class=\"fa fa-calendar\" title=\"Дата платежа\"/>"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__message_needaction
+msgid "Action Needed"
+msgstr "Требуются действия"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__activity_ids
+msgid "Activities"
+msgstr "Активность"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Оформление задачи-исключения"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__activity_state
+msgid "Activity State"
+msgstr "Состояние активности"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Значок типа активности"
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_form
+msgid "Add Payments"
+msgstr "Добавить платежи"
+
+#. module: eh_account_batch_payment
+#. odoo-python
+#: code:addons/eh_account_batch_payment/models/batch_payment.py:0
+msgid "Add payments to batch"
+msgstr "Добавить платежи в пакет"
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_build_wizard_form
+msgid "Add to Batch"
+msgstr "Добавить в пакет"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment_build_wizard__aggregate_per_partner
+msgid "Aggregate Per Partner"
+msgstr "Агрегировать по каждому партнёру"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__message_attachment_count
+msgid "Attachment Count"
+msgstr "Количество вложений"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__journal_id
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment_build_wizard__journal_id
+msgid ""
+"Bank or cash journal to debit (inbound) or credit (outbound). Drives the "
+"batch's currency and the SEPA originator lookup when the SEPA CT module is "
+"installed."
+msgstr ""
+"Банковский или кассовый журнал для дебетования (входящие) или кредитования "
+"(исходящие). Определяет валюту партии и поиск инициатора SEPA при "
+"установленном модуле SEPA CT."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_account_payment__eh_batch_payment_id
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment_build_wizard__batch_id
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_account_payment_form_batch
+msgid "Batch"
+msgstr "Порция"
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_form
+msgid "Batch Payment"
+msgstr "Пакетная оплата"
+
+#. module: eh_account_batch_payment
+#: model:ir.actions.act_window,name:eh_account_batch_payment.action_eh_batch_payment
+#: model:ir.ui.menu,name:eh_account_batch_payment.menu_eh_batch_payment_root
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_list
+msgid "Batch Payments"
+msgstr "Групповые платежи"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__batch_type
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment_build_wizard__batch_type
+msgid "Batch Type"
+msgstr "Тип партии"
+
+#. module: eh_account_batch_payment
+#. odoo-python
+#: code:addons/eh_account_batch_payment/models/batch_payment.py:0
+msgid "Batch must be in draft or confirmed state to post."
+msgstr ""
+"Для проведения пакет должен быть в состоянии черновика или подтверждён."
+
+#. module: eh_account_batch_payment
+#: model:ir.model,name:eh_account_batch_payment.model_eh_batch_payment
+msgid "Batch payment"
+msgstr "Пакетный платёж"
+
+#. module: eh_account_batch_payment
+#. odoo-python
+#: code:addons/eh_account_batch_payment/models/batch_payment.py:0
+msgid ""
+"Batch posted with %d failure(s). Review chatter for details and post the "
+"affected payments manually after fixing the underlying issue."
+msgstr ""
+"Пакет проведён с %d ошибкой(-ами). Просмотрите чат для получения "
+"подробностей и проведите затронутые платежи вручную после устранения "
+"основной проблемы."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__name
+msgid ""
+"Batch reference. Auto-generated from a sequence at create time when left as "
+"the default '/'. Manual entry is allowed for backfills from a legacy system."
+msgstr ""
+"Ссылка на пакет. Автоматически генерируется из последовательности при "
+"создании, если оставлено значение по умолчанию '/'. Ручной ввод допускается "
+"для загрузки данных из устаревшей системы."
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_build_wizard_form
+msgid "Build batch payment"
+msgstr "Создать пакетный платёж"
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_build_wizard_form
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_form
+msgid "Cancel"
+msgstr "Отменить"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields.selection,name:eh_account_batch_payment.selection__eh_batch_payment__state__cancelled
+msgid "Cancelled"
+msgstr "Отменен"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__cancelled_at
+msgid "Cancelled At"
+msgstr "Отменено"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__cancelled_by_id
+msgid "Cancelled By"
+msgstr "Кто отменил"
+
+#. module: eh_account_batch_payment
+#. odoo-python
+#: code:addons/eh_account_batch_payment/models/batch_payment.py:0
+msgid "Cannot confirm an empty batch. Add payments first."
+msgstr "Невозможно подтвердить пустой пакет. Сначала добавьте платежи."
+
+#. module: eh_account_batch_payment
+#. odoo-python
+#: code:addons/eh_account_batch_payment/models/batch_payment.py:0
+msgid "Cannot post an empty batch."
+msgstr "Невозможно провести пустой пакет."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__company_id
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment_build_wizard__company_id
+msgid "Company"
+msgstr "Компания"
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_form
+msgid "Configuration"
+msgstr "Конфигурация"
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_form
+msgid "Confirm"
+msgstr "Подтвердить"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields.selection,name:eh_account_batch_payment.selection__eh_batch_payment__state__confirmed
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_search
+msgid "Confirmed"
+msgstr "Подтверждена"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__confirmed_at
+msgid "Confirmed At"
+msgstr "Подтверждено"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__confirmed_by_id
+msgid "Confirmed By"
+msgstr "Подтверждено кем"
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.actions.act_window,help:eh_account_batch_payment.action_eh_batch_payment
+msgid ""
+"Create a batch, add the invoices or bills you want to pay together, and post"
+" them all in one go. Per partner aggregation collapses multiple invoices "
+"into a single payment."
+msgstr ""
+"Создайте пакет, добавьте счета клиентов или поставщиков, которые вы хотите "
+"оплатить вместе, и проведите их все сразу. Агрегация по партнёру объединяет "
+"несколько счетов в один платёж."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__create_uid
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment_build_wizard__create_uid
+msgid "Created by"
+msgstr "Создано:"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__create_date
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment_build_wizard__create_date
+msgid "Created on"
+msgstr "Дата создания:"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__currency_id
+msgid "Currency"
+msgstr "Валюта"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__currency_id
+msgid "Currency derived from the bank journal."
+msgstr "Валюта, полученная из банковского журнала."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__payment_date
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment_build_wizard__payment_date
+msgid ""
+"Date that will be stamped on every payment in the batch when posted. "
+"Defaults to today; override to schedule a future-dated batch."
+msgstr ""
+"Дата, которая будет проставлена на каждом платеже пакета при проведении. По "
+"умолчанию — сегодня; измените, чтобы запланировать пакет на будущую дату."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__batch_type
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment_build_wizard__batch_type
+msgid ""
+"Direction of the batch. Inbound batches group customer receipts (debits to "
+"bank); outbound batches group vendor payments (credits from bank). The "
+"wizard filters add-able moves accordingly."
+msgstr ""
+"Направление пакета. Входящие пакеты группируют поступления от клиентов "
+"(дебет банка); исходящие пакеты группируют платежи поставщикам (кредит "
+"банка). Мастер соответствующим образом фильтрует добавляемые проводки."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_account_payment__display_name
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__display_name
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment_build_wizard__display_name
+msgid "Display Name"
+msgstr "Отображаемое имя"
+
+#. module: eh_account_batch_payment
+#. odoo-python
+#: code:addons/eh_account_batch_payment/wizards/build_batch_wizard.py:0
+msgid "Document %s has no partner; cannot batch."
+msgstr "У документа %s нет партнёра; пакетная обработка невозможна."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields.selection,name:eh_account_batch_payment.selection__eh_batch_payment__state__draft
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_search
+msgid "Draft"
+msgstr "Черновик"
+
+#. module: eh_account_batch_payment
+#. odoo-python
+#: code:addons/eh_account_batch_payment/wizards/build_batch_wizard.py:0
+msgid ""
+"Every selected document must belong to the batch's company. Mixed company "
+"batches are not supported."
+msgstr ""
+"Каждый выбранный документ должен принадлежать компании пакета. Пакеты со "
+"смешанными компаниями не поддерживаются."
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_form
+msgid "Export CSV"
+msgstr "Экспортировать CSV"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__message_follower_ids
+msgid "Followers"
+msgstr "Подписчики"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Подписчики"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Шрифт, отличный значок, например. к.-а.-задачи"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__notes
+msgid "Free-form notes attached to the batch (audit context)."
+msgstr "Произвольные заметки, прикреплённые к пакету (контекст аудита)."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__has_message
+msgid "Has Message"
+msgstr "Есть сообщение"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_account_payment__id
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__id
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment_build_wizard__id
+msgid "ID"
+msgstr "Номер"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__activity_exception_icon
+msgid "Icon"
+msgstr "Иконка"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Иконка, указывающая на задачу-исключение."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+"Если флажок установлен, значит, новые сообщения требуют вашего внимания."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__message_has_error
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Если отмечено, некоторые сообщения имеют ошибку доставки."
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_search
+msgid "Inbound"
+msgstr "Входящие"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields.selection,name:eh_account_batch_payment.selection__eh_batch_payment__batch_type__inbound
+msgid "Inbound (customer receipts)"
+msgstr "Входящие (поступления от клиентов)"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__message_is_follower
+msgid "Is Follower"
+msgstr "Является подписчиком"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__is_fully_reconciled
+msgid "Is Fully Reconciled"
+msgstr "Полностью сверено"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__journal_id
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment_build_wizard__journal_id
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_search
+msgid "Journal"
+msgstr "Журнал"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__write_uid
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment_build_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Последнее обновление:"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__write_date
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment_build_wizard__write_date
+msgid "Last Updated on"
+msgstr "Дата последнего обновления:"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__company_id
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment_build_wizard__company_id
+msgid "Legal entity this batch belongs to."
+msgstr "Юридическое лицо, к которому относится этот пакет."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__payment_ids
+msgid "Member payments belonging to this batch."
+msgstr "Платежи участников, относящиеся к этому пакету."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__message_has_error
+msgid "Message Delivery error"
+msgstr "Ошибка доставки сообщения"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__message_ids
+msgid "Messages"
+msgstr "Сообщения"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Крайний срок моей активности"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__name
+msgid "Name"
+msgstr "Имя"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Следующее событие календаря активности"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Следующий срок мероприятия"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__activity_summary
+msgid "Next Activity Summary"
+msgstr "Резюме следующего действия"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__activity_type_id
+msgid "Next Activity Type"
+msgstr "Следующий Тип Мероприятия"
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.actions.act_window,help:eh_account_batch_payment.action_eh_batch_payment
+msgid "No batch payments yet."
+msgstr "Пакетных платежей пока нет."
+
+#. module: eh_account_batch_payment
+#. odoo-python
+#: code:addons/eh_account_batch_payment/models/batch_payment.py:0
+msgid ""
+"No payment could be posted; all %d attempt(s) failed. The batch stays in its"
+" current state. Fix the errors above and post again."
+msgstr ""
+"Не удалось провести ни один платёж; все %d попытки завершились неудачей. "
+"Пакет остаётся в текущем состоянии. Исправьте указанные выше ошибки и "
+"проведите снова."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__notes
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_form
+msgid "Notes"
+msgstr "Заметки"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Число действий"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__message_has_error_counter
+msgid "Number of errors"
+msgstr "Число ошибок"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__posted_count
+msgid ""
+"Number of member payments already posted. Used by the form to surface "
+"partial posting after a per-payment savepoint failure."
+msgstr ""
+"Количество уже проведённых платежей участников. Используется формой для "
+"отображения частичной проводки после сбоя точки сохранения по отдельному "
+"платежу."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__payment_count
+msgid "Number of member payments in the batch."
+msgstr "Количество платежей участников в пакете."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Количество сообщений, требующих принятия мер"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Количество недоставленных сообщений"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__reconciled_count
+msgid ""
+"Number of posted member payments that have been fully reconciled against "
+"bank statement lines."
+msgstr ""
+"Количество проведённых платежей участников, полностью сверенных со строками "
+"банковской выписки."
+
+#. module: eh_account_batch_payment
+#. odoo-python
+#: code:addons/eh_account_batch_payment/models/batch_payment.py:0
+msgid "Only an EH Accounting Manager can cancel batch payments."
+msgstr "Отменить пакетные платежи может только менеджер по бухгалтерии EH."
+
+#. module: eh_account_batch_payment
+#. odoo-python
+#: code:addons/eh_account_batch_payment/models/batch_payment.py:0
+msgid "Only an EH Accounting Manager can post batch payments."
+msgstr "Провести пакетные платежи может только менеджер по бухгалтерии EH."
+
+#. module: eh_account_batch_payment
+#. odoo-python
+#: code:addons/eh_account_batch_payment/models/batch_payment.py:0
+msgid ""
+"Only cancelled batches, or a posted batch with no posted payments, can "
+"return to draft."
+msgstr ""
+"Вернуть в черновик можно только отмененные пакеты или проведенный пакет без "
+"проведенных платежей."
+
+#. module: eh_account_batch_payment
+#. odoo-python
+#: code:addons/eh_account_batch_payment/models/batch_payment.py:0
+msgid "Only draft batches can be confirmed."
+msgstr "Подтвердить можно только черновики пакетов."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_account_payment__eh_batch_payment_id
+msgid ""
+"Optional. When set, this payment is part of a batch run and is posted "
+"together with the batch's other members."
+msgstr ""
+"Необязательно. Если задано, этот платёж является частью пакетного запуска и "
+"проводится вместе с остальными участниками пакета."
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_search
+msgid "Outbound"
+msgstr "Исходящие"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields.selection,name:eh_account_batch_payment.selection__eh_batch_payment__batch_type__outbound
+msgid "Outbound (vendor payments)"
+msgstr "Исходящие (платежи поставщикам)"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__payment_ids
+msgid "Payment"
+msgstr "Оплата"
+
+#. module: eh_account_batch_payment
+#. odoo-python
+#: code:addons/eh_account_batch_payment/models/batch_payment.py:0
+msgid "Payment %(name)s failed to post: %(err)s"
+msgstr "Не удалось провести платёж %(name)s: %(err)s"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__payment_count
+msgid "Payment Count"
+msgstr "Количество платежей"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__payment_date
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment_build_wizard__payment_date
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_search
+msgid "Payment Date"
+msgstr "Дата платежа"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__payment_method_line_id
+msgid "Payment method"
+msgstr "Способ оплаты"
+
+#. module: eh_account_batch_payment
+#: model:ir.model,name:eh_account_batch_payment.model_account_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_form
+msgid "Payments"
+msgstr "Платежи"
+
+#. module: eh_account_batch_payment
+#. odoo-python
+#: code:addons/eh_account_batch_payment/models/batch_payment.py:0
+msgid "Payments in batch %s"
+msgstr "Платежи в пакете %s"
+
+#. module: eh_account_batch_payment
+#. odoo-python
+#: code:addons/eh_account_batch_payment/wizards/build_batch_wizard.py:0
+msgid "Pick at least one invoice or bill."
+msgstr "Выберите хотя бы один счёт-фактуру или счёт поставщика."
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_form
+msgid "Post Batch"
+msgstr "Провести пакет"
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_form
+msgid "Post every draft payment in this batch. Continue?"
+msgstr "Провести все черновые платежи в этом пакете. Продолжить?"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields.selection,name:eh_account_batch_payment.selection__eh_batch_payment__state__posted
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_search
+msgid "Posted"
+msgstr "Опубликовано"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__posted_at
+msgid "Posted At"
+msgstr "Проведено"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__posted_by_id
+msgid "Posted By"
+msgstr "Кем проведено"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__posted_count
+msgid "Posted Count"
+msgstr "Количество проведённых"
+
+#. module: eh_account_batch_payment
+#. odoo-python
+#: code:addons/eh_account_batch_payment/models/batch_payment.py:0
+msgid ""
+"Posted batches cannot be cancelled. Reverse the underlying payments instead."
+msgstr ""
+"Проведённые пакеты нельзя отменить. Вместо этого сторнируйте базовые "
+"платежи."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__rating_ids
+msgid "Ratings"
+msgstr "Рейтинги"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__reconciled_count
+msgid "Reconciled Count"
+msgstr "Количество сверенных"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__activity_user_id
+msgid "Responsible User"
+msgstr "Ответственный пользователь"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Ошибка доставки SMS"
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_form
+msgid "Set to Draft"
+msgstr "Установить в черновик"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment_build_wizard__move_ids
+msgid "Source invoices / bills"
+msgstr "Исходные счета продаж / покупок"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__payment_method_line_id
+msgid ""
+"Specific payment method on the journal (e.g. SEPA CT, ACH, manual). Filtered"
+" to methods available for the journal's direction."
+msgstr ""
+"Конкретный метод оплаты в журнале (например, SEPA CT, ACH, вручную). "
+"Отфильтровано по методам, доступным для направления журнала."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__state
+msgid "State"
+msgstr "Область"
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_search
+msgid "Status"
+msgstr "Статус"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Статус, основанный на мероприятии\n"
+"Просроченная: Дата, уже прошла\n"
+"Сегодня: Дата мероприятия сегодня\n"
+"Запланировано: будущая деятельность."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__total_amount
+msgid "Sum of member payment amounts in the batch's currency."
+msgstr "Сумма сумм платежей участников в валюте пакета."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__cancelled_at
+msgid "Timestamp at which the batch was cancelled."
+msgstr "Метка времени, когда пакет был отменён."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__confirmed_at
+msgid "Timestamp at which the batch was confirmed (locked from edits)."
+msgstr ""
+"Метка времени, когда пакет был подтверждён (заблокирован для изменений)."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__posted_at
+msgid "Timestamp at which the batch's payments were posted."
+msgstr "Метка времени, когда платежи пакета были проведены."
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_form
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_list
+msgid "Total"
+msgstr "Всего"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__total_amount
+msgid "Total Amount"
+msgstr "Общая сумма"
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_form
+msgid "Totals"
+msgstr "Итоги"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__is_fully_reconciled
+msgid ""
+"True when every member payment is fully reconciled. Closes the loop for "
+"period-end reporting."
+msgstr ""
+"True, когда каждый платёж участника полностью сверен. Замыкает цикл для "
+"отчётности на конец периода."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Тип задачи-исключения в записи."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__cancelled_by_id
+msgid "User who cancelled the batch."
+msgstr "Пользователь, отменивший пакет."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__confirmed_by_id
+msgid "User who confirmed the batch."
+msgstr "Пользователь, подтвердивший пакет."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__posted_by_id
+msgid "User who posted the batch."
+msgstr "Пользователь, разнесший пакет."
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,field_description:eh_account_batch_payment.field_eh_batch_payment__website_message_ids
+msgid "Website Messages"
+msgstr "Веб-сайт сообщения"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__website_message_ids
+msgid "Website communication history"
+msgstr "История общений с сайта"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment_build_wizard__aggregate_per_partner
+msgid ""
+"When enabled, multiple selected invoices for the same partner produce a "
+"single payment summing the residuals. Otherwise each invoice gets its own "
+"payment."
+msgstr ""
+"При включении несколько выбранных счетов для одного контрагента формируют "
+"один платеж, суммирующий остатки. В противном случае для каждого счета "
+"создается отдельный платеж."
+
+#. module: eh_account_batch_payment
+#: model:ir.model,name:eh_account_batch_payment.model_eh_batch_payment_build_wizard
+msgid "Wizard: build a batch payment from selected invoices"
+msgstr "Мастер: создать пакетный платёж из выбранных счетов"
+
+#. module: eh_account_batch_payment
+#: model:ir.model.fields,help:eh_account_batch_payment.field_eh_batch_payment__state
+msgid ""
+"draft: still building the batch, members can be added or removed. confirmed:"
+" locked from member edits, ready to post. posted: every member payment has "
+"been posted; cash has moved. cancelled: terminal, members released back to "
+"the open pool."
+msgstr ""
+"draft: пакет ещё формируется, участников можно добавлять или удалять. "
+"confirmed: заблокировано для изменений участников, готово к проведению. "
+"posted: каждый платёж участника проведён; денежные средства перемещены. "
+"cancelled: конечное состояние, участники возвращены в открытый пул."
+
+#. module: eh_account_batch_payment
+#: model_terms:ir.ui.view,arch_db:eh_account_batch_payment.view_eh_batch_payment_kanban
+msgid "pmts"
+msgstr "Платежи"

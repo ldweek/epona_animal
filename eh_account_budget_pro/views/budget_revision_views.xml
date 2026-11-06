@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_budget_forecast_revision_tree" model="ir.ui.view">
+        <field name="name">eh.budget.forecast.revision.list</field>
+        <field name="model">eh.budget.forecast.revision</field>
+        <field name="arch" type="xml">
+            <list string="Forecast Revisions" create="0"
+                  default_order="revision_date desc">
+                <field name="name"/>
+                <field name="budget_id"/>
+                <field name="revision_date"/>
+                <field name="line_count"/>
+                <field name="total_amount" widget="monetary"/>
+                <field name="eh_integrity_review_required"
+                       readonly="1" optional="show"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_budget_forecast_revision_form" model="ir.ui.view">
+        <field name="name">eh.budget.forecast.revision.form</field>
+        <field name="model">eh.budget.forecast.revision</field>
+        <field name="arch" type="xml">
+            <form string="Forecast Revision">
+                <field name="company_id" invisible="1"/>
+                <sheet>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not eh_integrity_review_required">
+                        Legacy forecast snapshot is preserved but excluded
+                        from latest-revision reporting.
+                    </div>
+                    <field name="eh_integrity_review_required" invisible="1"/>
+                    <field name="eh_integrity_review_reason"
+                           invisible="not eh_integrity_review_required"
+                           readonly="1"/>
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="budget_id" readonly="1"/>
+                            <field name="revision_date" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="line_count"/>
+                            <field name="total_amount" widget="monetary"/>
+                        </group>
+                    </group>
+                    <field name="line_ids" readonly="1">
+                        <list default_order="period_from, account_id">
+                            <field name="company_id" column_invisible="1"/>
+                            <field name="account_id"/>
+                            <field name="analytic_account_id" optional="hide"/>
+                            <field name="period_from"/>
+                            <field name="period_to"/>
+                            <field name="amount" widget="monetary"/>
+                            <field name="source"/>
+                            <field name="currency_id" column_invisible="1"/>
+                        </list>
+                    </field>
+                    <group>
+                        <field name="notes" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

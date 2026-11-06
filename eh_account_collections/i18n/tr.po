@@ -1,0 +1,2342 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_collections
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Turkish\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/reminder_wizard.py:0
+msgid "%s has no mobile or phone number for SMS."
+msgstr "%s için SMS gönderilecek cep veya telefon numarası yok."
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.email_template_eh_dunning_friendly
+msgid ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #C9A372;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                A friendly reminder\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#6c757d;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;\">\n"
+"                                <t t-out=\"object.company_id.name\"/>\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Dear <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            We noticed that an open balance of\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> is showing on your account.\n"
+"                            The oldest invoice dates back to\n"
+"                            <strong t-out=\"object.oldest_overdue_date and object.oldest_overdue_date.strftime('%Y-%m-%d') or ''\"/>.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            If payment has been issued in the last few days,\n"
+"                            please ignore this message — our records may\n"
+"                            simply be a couple of days behind. Otherwise,\n"
+"                            we'd appreciate it if you could settle the\n"
+"                            balance at your earliest convenience.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            Thank you,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #C9A372;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                Dostça bir hatırlatma\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#6c757d;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;\">\n"
+"                                <t t-out=\"object.company_id.name\"/>\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Sayın <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Hesabınızda\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> tutarında açık bir bakiye göründüğünü fark ettik. En eski fatura şu tarihe aittir:\n"
+"                            <strong t-out=\"object.oldest_overdue_date and object.oldest_overdue_date.strftime('%Y-%m-%d') or ''\"/>.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Ödeme son birkaç gün içinde yapıldıysa lütfen bu mesajı dikkate almayın — kayıtlarımız yalnızca birkaç gün geride kalmış olabilir. Aksi takdirde, bakiyeyi en kısa sürede ödemenizi rica ederiz.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            Teşekkür ederiz,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.email_template_eh_dunning_final
+msgid ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #dc3545;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                Final notice\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#721c24;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;font-weight:700;\">\n"
+"                                Before external referral\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Dear <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Despite our prior reminders, the balance of\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> remains\n"
+"                            unpaid and is now\n"
+"                            <strong t-out=\"object.days_overdue_max or 0\"/> days overdue.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            This is our final notice before we refer the\n"
+"                            matter externally for collection. We strongly\n"
+"                            encourage you to settle this balance, or to\n"
+"                            contact us within 7 days to make alternative\n"
+"                            arrangements.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            Sincerely,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #dc3545;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                Son bildirim\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#721c24;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;font-weight:700;\">\n"
+"                                Dış tahsilata devirden önce\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Sayın <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Önceki hatırlatmalarımıza rağmen\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> bakiyesi hâlâ ödenmemiş olup şu anda\n"
+"                            <strong t-out=\"object.days_overdue_max or 0\"/> gün gecikmiştir.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Bu, konuyu tahsilat için harici bir kuruma devretmeden önceki son bildirimimizdir. Bu bakiyeyi ödemenizi veya alternatif düzenlemeler yapmak için 7 gün içinde bizimle iletişime geçmenizi önemle rica ederiz.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            Saygılarımızla,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.email_template_eh_dunning_firm
+msgid ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #ffc107;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                Action required\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#856404;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;font-weight:600;\">\n"
+"                                Overdue balance\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Dear <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Our previous reminder appears to have gone\n"
+"                            unanswered. The balance of\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> is now\n"
+"                            <strong t-out=\"object.days_overdue_max or 0\"/> days past due.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Please arrange payment or contact us to discuss\n"
+"                            a payment plan within the next 7 days. Continued\n"
+"                            non-payment may result in late fees and could\n"
+"                            affect future credit terms.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            Sincerely,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #ffc107;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                İşlem gerekli\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#856404;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;font-weight:600;\">\n"
+"                                Vadesi geçmiş bakiye\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Sayın <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Önceki hatırlatmamız yanıtsız kalmış görünüyor.\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> bakiyesi şu anda\n"
+"                            <strong t-out=\"object.days_overdue_max or 0\"/> gün gecikmiştir.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Lütfen önümüzdeki 7 gün içinde ödeme yapın veya bir ödeme planı görüşmek için bizimle iletişime geçin. Ödemenin yapılmaması gecikme ücretlerine yol açabilir ve gelecekteki kredi koşullarınızı etkileyebilir.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            Saygılarımızla,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.mail_template_followup_final
+msgid ""
+"<div>\n"
+"                    <p>Dear <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        Despite previous reminders, the balance of\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>\n"
+"                        on your account remains unpaid. The oldest item\n"
+"                        has been outstanding since\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        This is the final notice before the case is\n"
+"                        escalated for collection. Please contact us\n"
+"                        within seven days to settle the balance or\n"
+"                        agree a payment plan.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Regards,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div>\n"
+"                    <p>Sayın <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        Önceki hatırlatmalara rağmen hesabınızdaki\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>\n"
+"                        bakiyesi hâlâ ödenmemiştir. En eski kalem şu tarihten beri ödenmemektedir:\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Bu, dosya tahsilata devredilmeden önceki son bildirimdir. Lütfen bakiyeyi ödemek veya bir ödeme planı üzerinde anlaşmak için yedi gün içinde bizimle iletişime geçin.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Saygılarımızla,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.mail_template_followup_reminder_2
+msgid ""
+"<div>\n"
+"                    <p>Hi <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        We have not received payment on outstanding\n"
+"                        invoices totalling\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>.\n"
+"                        The oldest item has been due since\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>\n"
+"                        (<t t-out=\"object.days_overdue_max\"/> days overdue).\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Please settle the balance within the next seven\n"
+"                        days, or reply to this email to arrange a\n"
+"                        payment plan if you are facing difficulty.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Kind regards,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div>\n"
+"                    <p>Merhaba <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        Toplam\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>.\n"
+"                        tutarındaki ödenmemiş faturalar için ödeme almadık. En eski kalem şu tarihten beri vadesi geçmiş durumdadır:\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>\n"
+"                        (<t t-out=\"object.days_overdue_max\"/> gün gecikmiş).\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Lütfen bakiyeyi önümüzdeki yedi gün içinde ödeyin veya zorluk yaşıyorsanız bir ödeme planı ayarlamak için bu e-postayı yanıtlayın.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Saygılarımızla,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.mail_template_followup_reminder_1
+msgid ""
+"<div>\n"
+"                    <p>Hi <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        We notice an outstanding balance of\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>\n"
+"                        on your account, with the oldest item due on\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        If you have already settled the balance, please\n"
+"                        ignore this note. Otherwise, please arrange\n"
+"                        payment at your earliest convenience or reply to\n"
+"                        this email if you have any questions.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Kind regards,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div>\n"
+"                    <p>Merhaba <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        Hesabınızda\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>\n"
+"                        tutarında ödenmemiş bir bakiye tespit ettik; en eski kalemin vade tarihi:\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Bakiyeyi zaten ödediyseniz lütfen bu bildirimi dikkate almayın. Aksi takdirde lütfen en kısa sürede ödeme yapın veya sorularınız varsa bu e-postayı yanıtlayın.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Saygılarımızla,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_kanban
+msgid ""
+"<i class=\"fa fa-comment-o\" title=\"Actions logged\" aria-label=\"Actions "
+"logged\"/>"
+msgstr ""
+"<i class=\"fa fa-comment-o\" title=\"Kaydedilen Eylemler\" aria-"
+"label=\"Kaydedilen Eylemler\"/>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "<span class=\"o_stat_text\">Invoices</span>"
+msgstr "<span class=\"o_stat_text\">Faturalar</span>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "<strong>Company:</strong>"
+msgstr "<strong>Şirket:</strong>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "<strong>Generated:</strong>"
+msgstr "<strong>Oluşturuldu:</strong>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "<strong>Reference:</strong>"
+msgstr "<strong>Referans:</strong>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "<strong>Stage:</strong>"
+msgstr "<strong>Aşama:</strong>"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__responsible_type__account_manager
+msgid "Accounting manager"
+msgstr "Muhasebe müdürü"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__action_ids
+msgid "Action"
+msgstr "Aksiyon"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__action_count
+msgid "Action Count"
+msgstr "Eylem Sayısı"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__action_date
+msgid "Action Date"
+msgstr "Eylem tarihi"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Action History"
+msgstr "Eylem geçmişi"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+#: model:ir.actions.act_window,name:eh_account_collections.action_eh_collections_action
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_collections_action_log
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_form
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_tree
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Action Log"
+msgstr "Eylem günlüğü"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_needaction
+msgid "Action Needed"
+msgstr "Aksiyon Gerekiyor"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__action_type
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__last_action_type
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__action_type
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_search
+msgid "Action Type"
+msgstr "İşlem Türü"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.email_template_eh_dunning_firm
+msgid "Action required: overdue balance — {{ object.partner_id.name }}"
+msgstr "İşlem gerekli: vadesi geçmiş bakiye — {{ object.partner_id.name }}"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Actions"
+msgstr "Aksiyonlar"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__active
+msgid "Active"
+msgstr "Etkin"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_partner_form_collections
+msgid "Active Collections"
+msgstr "Etkin tahsilatlar"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_ids
+msgid "Activities"
+msgstr "Aktiviteler"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid "Activity"
+msgstr "Aktivite"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Etkinlik İstisna Dekorasyonu"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__activity_offset_days
+msgid "Activity Offset Days"
+msgstr "Etkinlik erteleme günleri"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_state
+msgid "Activity State"
+msgstr "Aktivite Durumu"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__activity_summary
+msgid "Activity Summary"
+msgstr "Faaliyet Özeti"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__activity_type_id
+msgid "Activity Type"
+msgstr "Aktivite Türü"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Aktivite Türü İmgesi"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__responsible_type
+msgid "Activity responsible"
+msgstr "Etkinlik sorumlusu"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__activity_type_id
+msgid ""
+"Activity type to schedule when action_type involves an activity. Defaults to"
+" 'Call' when not set."
+msgstr ""
+"action_type bir etkinlik içerdiğinde planlanacak etkinlik türü. "
+"Ayarlanmadığında varsayılan olarak 'Call' olur."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__also_send_sms
+msgid "Also send SMS"
+msgstr "Ayrıca SMS gönder"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_attachment_count
+msgid "Attachment Count"
+msgstr "Ek Sayısı"
+
+#. module: eh_account_collections
+#: model:ir.actions.server,name:eh_account_collections.action_eh_collections_auto_create
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_collections_auto_create
+msgid "Auto Create Cases"
+msgstr "Vakaları Otomatik Oluştur"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__auto_post
+msgid "Auto Post"
+msgstr "Otomatik Kaydet"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__name
+msgid "Auto computed from partner and company."
+msgstr "İş ortağı ve şirketten otomatik hesaplanır."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__body
+msgid "Body"
+msgstr "Gövde"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_form
+msgid "Brief summary"
+msgstr "Kısa özet"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__broken_promise
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Broken Promise"
+msgstr "Tutulmayan Söz"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid ""
+"Broken promise detected. Promised %(amount).2f by %(date)s; case escalated."
+msgstr ""
+"Tutulmayan söz tespit edildi. %(date)s tarihine kadar %(amount).2f sözü "
+"verildi; vaka üst mercie iletildi."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Broken promise: amount %(amount).2f, due %(date)s"
+msgstr "Tutulmayan söz: tutar %(amount).2f, vade %(date)s"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid ""
+"Bump priority, escalate the stage, and fire the next follow-up. Continue?"
+msgstr ""
+"Önceliği yükseltin, aşamayı yükseltin ve bir sonraki takibi başlatın. Devam "
+"edilsin mi?"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "By"
+msgstr "İle"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__call
+msgid "Call"
+msgstr "Ara"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,activity_summary:eh_account_collections.followup_level_2
+msgid "Call the customer about outstanding balance"
+msgstr "Ödenmemiş bakiye hakkında müşteriyi arayın"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_late_fee_wizard_form
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_reminder_wizard_form
+msgid "Cancel"
+msgstr "İptal"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__case_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__case_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__case_id
+msgid "Case"
+msgstr "Büyük/Küçük"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Case %s does not have a broken promise to handle."
+msgstr "%s vakasının işlenecek yerine getirilmemiş bir taahhüdü yok."
+
+#. module: eh_account_collections
+#: model:ir.actions.report,name:eh_account_collections.action_report_case_statement
+msgid "Case Statement"
+msgstr "Case İfadesi"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__responsible_type__collector
+msgid "Case collector"
+msgstr "Vaka toplayıcı"
+
+#. module: eh_account_collections
+#. odoo-javascript
+#: code:addons/eh_account_collections/static/src/js/tours/collections_tour.js:0
+msgid ""
+"Cases <b>auto-create</b> from overdue customer AR via the nightly cron. You "
+"almost never create a case manually — the system opens one when a partner "
+"crosses the configured grace days, and closes it when the AR clears."
+msgstr ""
+"Vakalar, gecelik cron aracılığıyla vadesi geçmiş müşteri AR'sinden "
+"<b>otomatik olarak oluşturulur</b>. Bir vakayı neredeyse hiç manuel olarak "
+"oluşturmazsınız — bir iş ortağı yapılandırılmış ödemesiz gün sayısını "
+"aştığında sistem bir vaka açar ve AR tahsil edildiğinde kapatır."
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_new
+msgid "Cases that have not yet been contacted."
+msgstr "Henüz iletişim kurulmamış vakalar."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__channel
+msgid "Channel"
+msgstr "Kanal"
+
+#. module: eh_account_collections
+#. odoo-javascript
+#: code:addons/eh_account_collections/static/src/js/tours/collections_tour.js:0
+msgid ""
+"Click <b>Late Fee</b> on any case to issue a customer invoice for the "
+"configured fee — flat or percentage of the overdue. The wizard posts a real "
+"invoice, not a memo entry, so your AR balances stay correct."
+msgstr ""
+"Yapılandırılan ücret için (sabit veya gecikmiş tutarın yüzdesi) müşteri "
+"faturası düzenlemek üzere herhangi bir vakada <b>Late Fee</b> öğesine "
+"tıklayın. Sihirbaz, bir not kaydı değil gerçek bir fatura işler, böylece AR "
+"bakiyeleriniz doğru kalır."
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_written_off
+msgid "Closed as bad debt; no further action."
+msgstr "Şüpheli alacak olarak kapatıldı; başka işlem yok."
+
+#. module: eh_account_collections
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_collections_stage
+msgid "Collection Stages"
+msgstr "Tahsilat Aşamaları"
+
+#. module: eh_account_collections
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_collections_root
+msgid "Collections"
+msgstr "Tahsilatlar"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Collections Case"
+msgstr "Tahsilat Vakası"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_tree
+msgid "Collections Cases"
+msgstr "Tahsilat Vakaları"
+
+#. module: eh_account_collections
+#: model:ir.actions.act_window,name:eh_account_collections.action_eh_collections_stage
+msgid "Collections Stages"
+msgstr "Tahsilat Aşamaları"
+
+#. module: eh_account_collections
+#: model:ir.actions.act_window,name:eh_account_collections.action_eh_collections_case
+msgid "Collections Workbench"
+msgstr "Tahsilat Çalışma Tezgahı"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/action.py:0
+msgid "Collections action log rows are append-only."
+msgstr "Tahsilat işlem günlüğü satırları yalnızca ekleme içindir."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/action.py:0
+msgid "Collections action log rows cannot be deleted."
+msgstr "Tahsilat işlem günlüğü satırları silinemez."
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_case
+msgid "Collections case"
+msgstr "Tahsilat vakası"
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_action
+msgid "Collections case action log"
+msgstr "Tahsilat vakası işlem günlüğü"
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_stage
+msgid "Collections case stage"
+msgstr "Tahsilat vakası aşaması"
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_followup_level
+msgid "Collections follow-up level"
+msgstr "Tahsilat takip düzeyi"
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_reminder_wizard
+msgid "Collections manual reminder"
+msgstr "Manuel tahsilat hatırlatması"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.mail_template_followup_final
+msgid "Collections: Final Notice"
+msgstr "Tahsilat: Son Bildirim"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.mail_template_followup_reminder_1
+msgid "Collections: Reminder 1"
+msgstr "Tahsilat: Hatırlatma 1"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.mail_template_followup_reminder_2
+msgid "Collections: Reminder 2"
+msgstr "Tahsilat: Hatırlatma 2"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__collector_id
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Collector"
+msgstr "Tahsildar"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__color
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__color
+msgid "Color"
+msgstr "Renk"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__color
+msgid "Color tag used by the kanban card decoration."
+msgstr "kanban kart süslemesi tarafından kullanılan renk etiketi."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__company_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__company_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__company_id
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Company"
+msgstr "Firma"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__computed_fee
+msgid "Computed Fee"
+msgstr "Hesaplanan Ücret"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid ""
+"Computed fee is zero or negative; adjust the rate or the overdue cut-off and"
+" try again."
+msgstr ""
+"Hesaplanan ücret sıfır veya negatif; oranı ya da gecikme kesim noktasını "
+"ayarlayıp tekrar deneyin."
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_res_partner
+msgid "Contact"
+msgstr "Kontak"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__contact_made
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_search
+msgid "Contact Made"
+msgstr "İletişim Kuruldu"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_contacted
+msgid "Contacted"
+msgstr "İletişim Kuruldu"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Created Month"
+msgstr "Oluşturulma Ayı"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__create_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__create_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__create_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__create_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__create_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__create_uid
+msgid "Created by"
+msgstr "Tarafından oluşturuldu"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__create_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__create_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__create_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__create_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__create_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__create_date
+msgid "Created on"
+msgstr "Oluşturuldu"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__currency_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__currency_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__currency_id
+msgid "Currency"
+msgstr "Kur"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__current_followup_level_id
+msgid "Current Followup Level"
+msgstr "Mevcut Takip Düzeyi"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Customer"
+msgstr "Müşteri"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__responsible_type__salesperson
+msgid "Customer salesperson"
+msgstr "Müşteri satış temsilcisi"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Date"
+msgstr "Tarih"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__next_followup_date
+msgid ""
+"Date on which the next follow-up becomes due, derived from "
+"last_followup_sent_at plus the current level's delay_days. Indexed via the "
+"cron's domain filter."
+msgstr ""
+"Bir sonraki takibin vadesinin dolduğu tarih; last_followup_sent_at değerine "
+"mevcut seviyenin delay_days değeri eklenerek türetilir. Cron'un alan "
+"filtresi üzerinden dizinlenir."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_action__promise_date
+msgid "Date the partner promised to pay by."
+msgstr "İş ortağının ödemeyi yapmayı taahhüt ettiği tarih."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__days_overdue
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__days_overdue
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Days Overdue"
+msgstr "Gecikme Günü"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__days_overdue_max
+msgid "Days Overdue Max"
+msgstr "Maks. Gecikme Günü"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__days_overdue_max
+msgid "Days between today and oldest_overdue_date."
+msgstr "Bugün ile oldest_overdue_date arasındaki gün sayısı."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__activity_offset_days
+msgid ""
+"Days from today to set the activity due date. 0 means today; 2 means the day"
+" after tomorrow."
+msgstr ""
+"Etkinlik son tarihini belirlemek için bugünden itibaren gün sayısı. 0 bugün "
+"anlamına gelir; 2 öbür gün anlamına gelir."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Days overdue"
+msgstr "Gecikme günü"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__delay_days
+msgid ""
+"Days to wait after this level fires before advancing to the next level. Used"
+" to compute the case's next_followup_date."
+msgstr ""
+"Bu seviye tetiklendikten sonra bir sonraki seviyeye geçmeden önce beklenecek"
+" gün sayısı. Vakanın next_followup_date değerini hesaplamak için kullanılır."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__activity_summary
+msgid "Default summary for the scheduled activity."
+msgstr "Zamanlanmış etkinlik için varsayılan özet."
+
+#. module: eh_account_collections
+#: model_terms:ir.actions.act_window,help:eh_account_collections.action_eh_followup_level
+msgid ""
+"Define an escalation ladder once. The cron picks the highest applicable "
+"level for each overdue case and applies it (send email, schedule call, "
+"escalate stage). Common shape: Reminder 1 at 7 days, Reminder 2 at 30, Final"
+" Notice at 60, Legal at 90."
+msgstr ""
+"Bir yükseltme merdivenini bir kez tanımlayın. Cron, her vadesi geçmiş vaka "
+"için geçerli en yüksek seviyeyi seçer ve uygular (e-posta gönder, arama "
+"planla, aşamayı yükselt). Yaygın biçim: Hatırlatma 1 7 günde, Hatırlatma 2 "
+"30 günde, Son İhtar 60 günde, Hukuki 90 günde."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__delay_days
+msgid "Delay Days"
+msgstr "Gecikme günleri"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__description
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__description
+msgid "Description"
+msgstr "Açıklama"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__detail
+msgid "Detail"
+msgstr "Detay"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_form
+msgid "Detail of the conversation, email content, etc."
+msgstr "Görüşmenin ayrıntısı, e-posta içeriği vb."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_action__contact_made
+msgid ""
+"Did we actually reach the partner? Voicemails, undelivered emails, and "
+"unanswered calls should be False."
+msgstr ""
+"İş ortağına gerçekten ulaştık mı? Sesli mesajlar, teslim edilmeyen "
+"e-postalar ve yanıtlanmayan aramalar False olmalıdır."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_res_partner__display_name
+msgid "Display Name"
+msgstr "İsim Göster"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_disputed
+msgid "Disputed"
+msgstr "İtiraz Edildi"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__sequence
+msgid "Drag to reorder. Lower numbers fire first."
+msgstr "Yeniden sıralamak için sürükleyin. Düşük numaralar önce çalışır."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Due"
+msgstr "Vade"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.email_template_eh_dunning_final
+msgid "EH Dunning — Final Notice"
+msgstr "EH İhtar — Son Bildirim"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.email_template_eh_dunning_firm
+msgid "EH Dunning — Firm Follow-Up"
+msgstr "EH İhtar — Kesin Takip"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.email_template_eh_dunning_friendly
+msgid "EH Dunning — Friendly Reminder"
+msgstr "EH İhtar — Dostça Hatırlatma"
+
+#. module: eh_account_collections
+#: model:ir.actions.server,name:eh_account_collections.cron_eh_collections_auto_create_ir_actions_server
+msgid "ERP Heritage: Auto create collections cases"
+msgstr "ERP Heritage: Tahsilat vakalarını otomatik oluştur"
+
+#. module: eh_account_collections
+#: model:ir.actions.server,name:eh_account_collections.cron_eh_collections_handle_broken_promises_ir_actions_server
+msgid "ERP Heritage: Handle broken collections promises"
+msgstr "ERP Heritage: İhlal edilen tahsilat sözlerini işle"
+
+#. module: eh_account_collections
+#: model:ir.actions.server,name:eh_account_collections.cron_eh_collections_refresh_open_ir_actions_server
+msgid "ERP Heritage: Refresh aging on open collections cases"
+msgstr "ERP Heritage: Açık tahsilat vakalarında yaşlandırmayı yenile"
+
+#. module: eh_account_collections
+#: model:ir.actions.server,name:eh_account_collections.cron_eh_collections_send_followups_ir_actions_server
+msgid "ERP Heritage: Send collections follow-ups"
+msgstr "ERP Heritage: Tahsilat takip bildirimlerini gönder"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__oldest_overdue_date
+msgid "Earliest due date among the open receivables for this partner."
+msgstr "Bu iş ortağının açık alacakları arasındaki en erken vade tarihi."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_res_partner__eh_active_collections_count
+#: model:ir.model.fields,field_description:eh_account_collections.field_res_users__eh_active_collections_count
+msgid "Eh Active Collections Count"
+msgstr "Eh Aktif Tahsilat Sayısı"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__email
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_reminder_wizard__channel__email
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid "Email"
+msgstr "E-Posta"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_reminder_wizard__channel__both
+msgid "Email and SMS"
+msgstr "E-posta ve SMS"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Escalate"
+msgstr "Yükselt"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__escalate_to_stage_id
+msgid "Escalate To Stage"
+msgstr "Aşamaya Yükselt"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,name:eh_account_collections.followup_level_4_escalate
+msgid "Escalate to legal (90 days)"
+msgstr "Hukuk birimine yükselt (90 gün)"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_escalated
+msgid "Escalated"
+msgstr "Üst destek birimi"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_escalated
+msgid "Escalated to manager or legal."
+msgstr "Yöneticiye veya hukuk birimine yükseltildi."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__fee_mode
+msgid "Fee Mode"
+msgstr "Ücret modu"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_late_fee_wizard_form
+msgid "Fee policy"
+msgstr "Ücret politikası"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,activity_summary:eh_account_collections.followup_level_3
+msgid "Final follow-up call before escalation"
+msgstr "Yükseltmeden önceki son takip görüşmesi"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,name:eh_account_collections.followup_level_3
+msgid "Final notice (60 days)"
+msgstr "Son bildirim (60 gün)"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.mail_template_followup_final
+msgid "Final notice before escalation"
+msgstr "Yükseltmeden önceki son bildirim"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.email_template_eh_dunning_final
+msgid "Final notice before referral — {{ object.partner_id.name }}"
+msgstr "Yönlendirmeden önceki son bildirim — {{ object.partner_id.name }}"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_contacted
+msgid "First contact made; awaiting response."
+msgstr "İlk temas kuruldu; yanıt bekleniyor."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__flat_amount
+msgid "Flat Amount"
+msgstr "Sabit Tutar"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_late_fee_wizard__fee_mode__flat
+msgid "Flat amount"
+msgstr "Sabit tutar"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__fold
+msgid "Fold"
+msgstr "Katla"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__fold
+msgid "Fold this stage's column on the kanban view by default."
+msgstr "Bu aşamanın sütununu kanban görünümünde varsayılan olarak katla."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid "Follow-up Level"
+msgstr "Takip Düzeyi"
+
+#. module: eh_account_collections
+#: model:ir.actions.act_window,name:eh_account_collections.action_eh_followup_level
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_followup_level
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_list
+msgid "Follow-up Levels"
+msgstr "Takip Düzeyleri"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Follow-up applied: %(name)s (level %(seq)s). Source: %(src)s."
+msgstr "Takip uygulandı: %(name)s (seviye %(seq)s). Kaynak: %(src)s."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Follow-up call"
+msgstr "Takip araması"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Follow-up engine"
+msgstr "Takip motoru"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Follow-up level"
+msgstr "Takip seviyesi"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Follow-up: %s"
+msgstr "Takip: %s"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_follower_ids
+msgid "Followers"
+msgstr "Takipçiler"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Takipçiler (İş ortakları)"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__followup_count
+msgid "Followup Count"
+msgstr "Takip Sayısı"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__followup_paused
+msgid "Followup Paused"
+msgstr "Takip Duraklatıldı"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Yazı tipi harika simgesi ör. fa-görevler"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.email_template_eh_dunning_friendly
+msgid "Friendly reminder: outstanding balance — {{ object.partner_id.name }}"
+msgstr "Dostça hatırlatma: ödenmemiş bakiye — {{ object.partner_id.name }}"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.mail_template_followup_reminder_1
+msgid "Friendly reminder: outstanding invoices"
+msgstr "Dostça hatırlatma: ödenmemiş faturalar"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Handle Broken Promise"
+msgstr "Yerine Getirilmeyen Sözü Ele Al"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__has_active_promise
+msgid "Has Active Promise"
+msgstr "Aktif Söz Var"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__has_message
+msgid "Has Message"
+msgstr "Mesaj Var"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_case__priority__2
+msgid "High"
+msgstr "Yüksek"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "High Priority"
+msgstr "Yüksek Öncelik"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_res_partner__id
+msgid "ID"
+msgstr "İD"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_exception_icon
+msgid "Icon"
+msgstr "Simge"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "İstisnai bir etkinliği belirtmek için kullanılan simge."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "İşaretliyse, yeni mesajlar dikkatinize sunulacak."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__message_has_error
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "İşaretliyse, bazı mesajlar gönderi hatası içermektedir."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__income_account_id
+msgid "Income Account"
+msgstr "Gelir Hesabı"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_late_fee_wizard__income_account_id
+msgid "Income account where the late fee lands."
+msgstr "Gecikme ücretinin kaydedildiği gelir hesabı."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Invoice"
+msgstr "Fatura"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__is_default
+msgid "Is Default"
+msgstr "Varsayılan mı"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__is_disputed
+msgid "Is Disputed"
+msgstr "İtiraz Edildi mi"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__is_escalated
+msgid "Is Escalated"
+msgstr "Yükseltildi mi"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_is_follower
+msgid "Is Follower"
+msgstr "Takipçi mi"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__is_resolved
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__is_resolved
+msgid "Is Resolved"
+msgstr "Çözüldü mü"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__is_terminal
+msgid "Is Terminal"
+msgstr "Nihai Durum mu"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_late_fee_wizard_form
+msgid "Issue invoice"
+msgstr "Fatura düzenle"
+
+#. module: eh_account_collections
+#: model:ir.actions.act_window,name:eh_account_collections.action_eh_collections_late_fee_wizard
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_late_fee_wizard_form
+msgid "Issue late-fee invoice"
+msgstr "Gecikme ücreti faturası düzenle"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__journal_id
+msgid "Journal"
+msgstr "Yevmiye"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__last_action_at
+msgid "Last Action At"
+msgstr "Son İşlem Zamanı"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__last_broken_promise_handled_at
+msgid "Last Broken Promise Handled At"
+msgstr "Son İhlal Edilen Söz İşlenme Zamanı"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__last_followup_sent_at
+msgid "Last Followup Sent At"
+msgstr "Son Takip Gönderim Zamanı"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__write_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__write_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__write_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__write_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__write_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__write_uid
+msgid "Last Updated by"
+msgstr "Son Güncelleyen"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__write_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__write_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__write_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__write_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__write_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__write_date
+msgid "Last Updated on"
+msgstr "Son Güncelleme"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid "Late-fee invoice"
+msgstr "Gecikme ücreti faturası"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid "Late-fee invoice %(ref)s issued for %(amount).2f (state: %(state)s)."
+msgstr ""
+"%(amount).2f tutarında gecikme ücreti faturası %(ref)s düzenlendi (durum: "
+"%(state)s)."
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_late_fee_wizard
+msgid "Late-fee invoicing wizard"
+msgstr "Gecikme ücreti faturalandırma sihirbazı"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid ""
+"Late-payment fee on overdue %(amt).2f, %(days)s days overdue, %(mode)s."
+msgstr ""
+"Vadesi geçmiş %(amt).2f tutarı üzerinden gecikme ücreti, %(days)s gün "
+"gecikme, %(mode)s."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__letter
+msgid "Letter"
+msgstr "Mektup"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/followup_level.py:0
+msgid "Level %(name)s sends email but has no mail_template_id configured."
+msgstr ""
+"%(name)s düzeyi e-posta gönderir ancak yapılandırılmış bir mail_template_id "
+"yok."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/followup_level.py:0
+msgid ""
+"Level %(name)s template must target eh.collections.case (got %(model)r)."
+msgstr ""
+"%(name)s düzeyi şablonu eh.collections.case hedeflemelidir (%(model)r "
+"alındı)."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Level %s has no mail_template_id configured."
+msgstr "Seviye %s için yapılandırılmış mail_template_id yok."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Log Action"
+msgstr "İşlemi Günlüğe Kaydet"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Log Call"
+msgstr "Aramayı Günlüğe Kaydet"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Log Email"
+msgstr "E-postayı Günlüğe Kaydet"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Log SMS"
+msgstr "SMS'i Günlüğe Kaydet"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_case__priority__0
+msgid "Low"
+msgstr "Düşük"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__mail_template_id
+msgid "Mail Template"
+msgstr "E-Posta Şablonu"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__mail_template_id
+msgid ""
+"Mail template used when action_type involves email. Templates must be bound "
+"to eh.collections.case so {{ object.* }} expressions resolve to the case."
+msgstr ""
+"action_type e-posta içerdiğinde kullanılan posta şablonu. {{ object.* }} "
+"ifadelerinin vakaya çözümlenmesi için şablonlar eh.collections.case ile "
+"bağlanmalıdır."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/reminder_wizard.py:0
+msgid "Manual reminder (%s)"
+msgstr "Manuel hatırlatma (%s)"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__next_action_date
+msgid "Manually set next follow up date for this case."
+msgstr "Bu vaka için sonraki takip tarihini manuel olarak ayarlayın."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__is_disputed
+msgid "Mark cases in this stage as disputed for downstream filtering."
+msgstr ""
+"Sonraki filtreleme için bu aşamadaki vakaları itiraz edildi olarak "
+"işaretleyin."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__is_terminal
+msgid ""
+"Mark the last level in the chain. Cases on a terminal level are not auto-"
+"advanced; the cron stops sending follow-ups for them and a collector must "
+"intervene."
+msgstr ""
+"Zincirdeki son seviyeyi işaretleyin. Bir terminal seviyesindeki vakalar "
+"otomatik olarak ilerletilmez; cron bunlar için takip göndermeyi durdurur ve "
+"bir tahsilat görevlisinin müdahale etmesi gerekir."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_case__priority__1
+msgid "Medium"
+msgstr "Aracı:"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__meeting
+msgid "Meeting"
+msgstr "Toplantı"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_has_error
+msgid "Message Delivery error"
+msgstr "Mesaj Teslim hatası"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_ids
+msgid "Messages"
+msgstr "Mesajlar"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__action_type__escalate
+msgid "Move case to Escalated stage (no email)"
+msgstr "Vakayı Yükseltildi aşamasına taşı (e-posta yok)"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Aktivite Son Tarihim"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "My Cases"
+msgstr "Vakalarım"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__name
+msgid "Name"
+msgstr "Adı"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_new
+msgid "New"
+msgstr "Yeni"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__next_action_date
+msgid "Next Action Date"
+msgstr "Sonraki İşlem Tarihi"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Sonraki Aktivite Takvimi Etkinliği"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Sonraki Aktivite Son Tarihi"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_summary
+msgid "Next Activity Summary"
+msgstr "Sonraki Aktivite Özeti"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_type_id
+msgid "Next Activity Type"
+msgstr "Sonraki Aktivitie Türü"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__next_followup_date
+msgid "Next Followup Date"
+msgstr "Sonraki Takip Tarihi"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Next action"
+msgstr "Sonraki işlem"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_kanban
+msgid "Next action:"
+msgstr "Sonraki işlem:"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "No actions recorded yet."
+msgstr "Henüz kaydedilmiş bir işlem yok."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid ""
+"No applicable follow-up level for case %s. Either the case is not overdue "
+"enough, the chain is exhausted (terminal level), or there are no levels "
+"configured for this company."
+msgstr ""
+"%s vakası için geçerli bir takip düzeyi yok. Ya vaka yeterince gecikmemiş, "
+"zincir tükenmiş (son düzey) ya da bu şirket için yapılandırılmış düzey yok."
+
+#. module: eh_account_collections
+#: model_terms:ir.actions.act_window,help:eh_account_collections.action_eh_collections_case
+msgid "No cases yet."
+msgstr "Henüz vaka yok."
+
+#. module: eh_account_collections
+#: model_terms:ir.actions.act_window,help:eh_account_collections.action_eh_followup_level
+msgid "No follow-up levels yet."
+msgstr "Henüz takip düzeyi yok."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid "No income account is configured for company %s; cannot post the fee."
+msgstr "%s şirketi için gelir hesabı yapılandırılmamış; ücret kaydedilemiyor."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "No open invoices on the account."
+msgstr "Hesapta açık fatura yok."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "No resolved stage configured. Add one with is_resolved=True."
+msgstr ""
+"Yapılandırılmış çözüldü aşaması yok. is_resolved=True olan bir tane ekleyin."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid ""
+"No sales journal is configured for company %s; cannot issue a late-fee "
+"invoice."
+msgstr ""
+"%s şirketi için satış yevmiyesi yapılandırılmamış; gecikme ücreti faturası "
+"düzenlenemez."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__note
+msgid "Note"
+msgstr "Not"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__notes
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__notes
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid "Notes"
+msgstr "Notlar"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Aksiyon Sayısı"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_has_error_counter
+msgid "Number of errors"
+msgstr "Hata adedi"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "İşlem gerektiren mesaj sayısı"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Teslimat hatası olan mesaj adedi"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_res_partner__eh_active_collections_count
+#: model:ir.model.fields,help:eh_account_collections.field_res_users__eh_active_collections_count
+msgid ""
+"Number of non-resolved collections cases on this partner. Refreshed on form "
+"load; the auto-creator cron and the manual refresh action update the "
+"underlying case totals."
+msgstr ""
+"Bu iş ortağındaki çözülmemiş tahsilat vakalarının sayısı. Form yüklendiğinde"
+" yenilenir; otomatik oluşturucu cron ve manuel yenileme eylemi, temeldeki "
+"vaka toplamlarını günceller."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__oldest_overdue_date
+msgid "Oldest Overdue Date"
+msgstr "En eski vadesi geçmiş tarih"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Oldest due date"
+msgstr "En eski vade tarihi"
+
+#. module: eh_account_collections
+#. odoo-javascript
+#: code:addons/eh_account_collections/static/src/js/tours/collections_tour.js:0
+msgid ""
+"On each case, the <b>Action History</b> log is the audit trail: every email "
+"sent, every phone-call logged, every promise-to-pay captured, every late-fee"
+" invoice issued. Filter the case list by Last Action to find stale follow-"
+"ups."
+msgstr ""
+"Her davada <b>Action History</b> günlüğü denetim izidir: gönderilen her "
+"e-posta, kaydedilen her telefon görüşmesi, alınan her ödeme sözü, düzenlenen"
+" her gecikme ücreti faturası. Bekleyen takipleri bulmak için dava listesini "
+"Son İşleme göre filtreleyin."
+
+#. module: eh_account_collections
+#: model:ir.model.constraint,message:eh_account_collections.constraint_eh_collections_case_open_case_per_partner_company
+msgid "Only one open case per partner per company."
+msgstr "Şirket başına iş ortağı başına yalnızca bir açık vaka."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Open"
+msgstr "Açık"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Open Invoices"
+msgstr "Açık faturalar"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Over 60 Days"
+msgstr "60 Günün Üzerinde"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Over 90 Days"
+msgstr "90 Günün Üzerinde"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__overdue_amount
+msgid "Overdue Amount"
+msgstr "Gecikmiş Tutar"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Overdue position"
+msgstr "Gecikmiş durum"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_resolved
+msgid "Paid in full. Closed."
+msgstr "Tamamı ödendi. Kapatıldı."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__partner_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__partner_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__partner_id
+msgid "Partner"
+msgstr "İş Ortağı"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid "Partner %s has no overdue receivable; nothing to charge a late fee on."
+msgstr ""
+"%s iş ortağının vadesi geçmiş alacağı yok; gecikme ücreti uygulanacak bir "
+"kalem bulunmuyor."
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_promise
+msgid "Partner committed to a promised amount and date."
+msgstr "İş ortağı, taahhüt edilen bir tutar ve tarihe bağlılık gösterdi."
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_disputed
+msgid "Partner disputes the invoice or amount."
+msgstr "İş ortağı faturaya veya tutara itiraz ediyor."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Pause Follow-ups"
+msgstr "Takipleri Duraklat"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__followup_paused
+msgid ""
+"Pause auto follow-ups on this case (for example while negotiating a payment "
+"plan). The cron skips paused cases; manual sends are still permitted."
+msgstr ""
+"Bu vaka için otomatik takipleri duraklatın (örneğin bir ödeme planı "
+"görüşülürken). cron duraklatılan vakaları atlar; manuel gönderimlere hâlâ "
+"izin verilir."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/reminder_wizard.py:0
+msgid "Payment reminder"
+msgstr "Ödeme hatırlatması"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__percent_per_month
+msgid "Percent Per Month"
+msgstr "Aylık yüzde"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_late_fee_wizard__fee_mode__percent
+msgid "Percent of overdue per month"
+msgstr "Aylık gecikme yüzdesi"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__priority
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Priority"
+msgstr "Öncelik"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__promise_amount
+msgid "Promise Amount"
+msgstr "Söz verilen tutar"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__promise_date
+msgid "Promise Date"
+msgstr "Söz verilen tarih"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_promise
+msgid "Promise to Pay"
+msgstr "Ödeme sözü"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Promise to pay"
+msgstr "Ödeme sözü"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_kanban
+msgid "Promise:"
+msgstr "Söz:"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Promised"
+msgstr "Söz verildi"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__promised_amount
+msgid "Promised Amount"
+msgstr "Söz verilen tutar"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__promised_date
+msgid "Promised Date"
+msgstr "Söz verilen tarih"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__rating_ids
+msgid "Ratings"
+msgstr "Değerlendirmeler"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Refresh Overdue"
+msgstr "Vadesi geçenleri yenile"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid "Reminder 1"
+msgstr "Hatırlatma 1"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,name:eh_account_collections.followup_level_1
+msgid "Reminder 1 (7 days)"
+msgstr "Hatırlatma 1 (7 gün)"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,name:eh_account_collections.followup_level_2
+msgid "Reminder 2 (30 days)"
+msgstr "Hatırlatma 2 (30 gün)"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_reminder_wizard_form
+msgid "Reminder message..."
+msgstr "Hatırlatma mesajı..."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Residual"
+msgstr "Kalan"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Resolve"
+msgstr "Çöz"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_resolved
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Resolved"
+msgstr "Çözüldü"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_user_id
+msgid "Responsible User"
+msgstr "Sorumlu Kullanıcı"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Resume Follow-ups"
+msgstr "Takipleri Sürdür"
+
+#. module: eh_account_collections
+#: model_terms:ir.actions.act_window,help:eh_account_collections.action_eh_collections_case
+msgid ""
+"Run the auto creator (or wait for the daily cron) to populate cases from "
+"your overdue receivables. Each open partner gets one case; the cron "
+"refreshes the totals daily."
+msgstr ""
+"Vadesi geçmiş alacaklarınızdan vakaları doldurmak için otomatik oluşturucuyu"
+" çalıştırın (veya günlük cron'u bekleyin). Her açık iş ortağı bir vaka alır;"
+" cron toplamları günlük olarak yeniler."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__sms
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_reminder_wizard__channel__sms
+msgid "SMS"
+msgstr ""
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS İleti hatası"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__sms_template_id
+msgid ""
+"SMS template used when 'Also send SMS' is on. Bound to eh.collections.case "
+"so {{ object.* }} resolves to the case."
+msgstr ""
+"'Also send SMS' açık olduğunda kullanılan SMS şablonu. eh.collections.case "
+"ile bağlıdır, böylece {{ object.* }} vakaya çözümlenir."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_late_fee_wizard__journal_id
+msgid "Sales journal that issues the late-fee invoice."
+msgstr "Gecikme ücreti faturasını düzenleyen satış yevmiyesi."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__action_type__activity
+msgid "Schedule a call activity (no email)"
+msgstr "Bir arama etkinliği zamanla (e-posta yok)"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.mail_template_followup_reminder_2
+msgid "Second reminder: invoices past due"
+msgstr "İkinci hatırlatma: vadesi geçmiş faturalar"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_reminder_wizard_form
+msgid "Send"
+msgstr "Gönder"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Send Follow-up"
+msgstr "Takip gönder"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Send Reminder"
+msgstr "Hatırlatıcıyı Gönder"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__action_type__email_and_activity
+msgid "Send email and schedule a call activity"
+msgstr "E-posta gönder ve bir arama etkinliği planla"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_reminder_wizard_form
+msgid "Send reminder"
+msgstr "Hatırlatma gönder"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__action_type__email
+msgid "Send templated email"
+msgstr "Şablonlu e-posta gönder"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Send the next follow-up email and advance the level. Continue?"
+msgstr ""
+"Sonraki takip e-postasını gönder ve seviyeyi ilerlet. Devam edilsin mi?"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__sequence
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__sequence
+msgid "Sequence"
+msgstr "Sıralama"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__sms_template_id
+msgid "Sms Template"
+msgstr "SMS Şablonu"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__stage_id
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_stage_form
+msgid "Stage"
+msgstr "Aşama"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__is_escalated
+msgid ""
+"Stage to which the broken-promise cron escalates cases. When no stage "
+"carries this flag, the cron leaves the stage unchanged and only bumps "
+"priority."
+msgstr ""
+"Yerine getirilmeyen söz cron'unun vakaları yükselttiği aşama. Hiçbir aşama "
+"bu işareti taşımadığında, cron aşamayı değiştirmez ve yalnızca önceliği "
+"artırır."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_stage_tree
+msgid "Stages"
+msgstr "Aşamalar"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Statement of Account"
+msgstr "Hesap Ekstresi"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Aktivitelere göre durum \n"
+"Gecikmiş\\: Son tarih geçmiş\n"
+"Bugün\\: Aktivite tarihi bugün\n"
+"Planlanmış\\: Gelecek Aktiviteler."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__subject
+msgid "Subject"
+msgstr "Konu"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__total_overdue_amount
+msgid ""
+"Sum of amount_residual on overdue receivable AML for this partner. Refreshed"
+" by the auto creator and on demand."
+msgstr ""
+"Bu iş ortağı için vadesi geçmiş alacak AML üzerindeki amount_residual "
+"toplamı. Otomatik oluşturucu tarafından ve talep üzerine yenilenir."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__summary
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Summary"
+msgstr "Özet"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__is_resolved
+msgid ""
+"Terminal state. Cases here are considered closed; the auto creator does not "
+"refresh or duplicate them."
+msgstr ""
+"Son durum. Buradaki vakalar kapatılmış sayılır; otomatik oluşturucu bunları "
+"yenilemez veya çoğaltmaz."
+
+#. module: eh_account_collections
+#. odoo-javascript
+#: code:addons/eh_account_collections/static/src/js/tours/collections_tour.js:0
+msgid ""
+"The Configuration menu has <b>Stages</b> and <b>Follow-up Levels</b>. Stages"
+" drive the kanban columns; follow-up levels schedule recurring reminder "
+"emails based on days overdue."
+msgstr ""
+"Yapılandırma menüsünde <b>Aşamalar</b> ve <b>Takip Seviyeleri</b> bulunur. "
+"Aşamalar kanban sütunlarını yönlendirir; takip seviyeleri, gecikilen gün "
+"sayısına göre yinelenen hatırlatma e-postaları zamanlar."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid ""
+"The mail template must target eh.collections.case so {{ object.* }} "
+"expressions resolve to the case record. Create or edit templates from "
+"Settings &gt; Technical &gt; Email Templates."
+msgstr ""
+"{{ object.* }} ifadelerinin vaka kaydına çözümlenmesi için posta şablonu "
+"eh.collections.case'i hedeflemelidir. Şablonları Settings &gt; Technical "
+"&gt; Email Templates üzerinden oluşturun veya düzenleyin."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__current_followup_level_id
+msgid ""
+"The most recent follow-up level applied to this case. The next cron pass "
+"picks the next applicable level above this one whose days_overdue threshold "
+"is met."
+msgstr ""
+"Bu vakaya uygulanan en son takip düzeyi. Sonraki cron geçişi, bunun "
+"üzerindeki days_overdue eşiği karşılanan bir sonraki uygulanabilir düzeyi "
+"seçer."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__collector_id
+msgid "The user responsible for following up on this case."
+msgstr "Bu vakanın takibinden sorumlu kullanıcı."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__last_followup_sent_at
+msgid "Timestamp of the most recent follow-up email sent on this case."
+msgstr "Bu vaka için gönderilen en son takip e-postasının zaman damgası."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__today
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_search
+msgid "Today"
+msgstr "Bugün"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_tree
+msgid "Total"
+msgstr "Toplam"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__total_overdue_amount
+msgid "Total Overdue Amount"
+msgstr "Toplam Vadesi Geçen Tutar"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__followup_count
+msgid "Total follow-up messages sent across this case's lifetime."
+msgstr ""
+"Bu vakanın yaşam süresi boyunca gönderilen toplam takip mesajı sayısı."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Total open"
+msgstr "Toplam açık"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Total overdue"
+msgstr "Toplam vadesi geçmiş"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__days_overdue
+msgid ""
+"Trigger this level when the case's days_overdue_max is at least this many "
+"days. Levels fire in ascending order; a case at 45 days overdue with levels "
+"at 7 / 30 / 60 sits on the 30 level until it crosses 60."
+msgstr ""
+"Vakanın days_overdue_max değeri en az bu kadar gün olduğunda bu seviyeyi "
+"tetikleyin. Seviyeler artan sırada tetiklenir; 7 / 30 / 60 seviyelerine "
+"sahip 45 gün gecikmiş bir vaka, 60'ı geçene kadar 30 seviyesinde kalır."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__is_resolved
+msgid "True when the case is in a terminal stage."
+msgstr "Vaka bir son aşamada olduğunda True olur."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__broken_promise
+msgid ""
+"True when the latest promise to pay has lapsed (promise date is in the past)"
+" and the case has not been resolved. The broken-promise cron escalates these"
+" cases."
+msgstr ""
+"En son ödeme sözü geçersiz kaldığında (söz tarihi geçmişte) ve vaka "
+"çözülmediğinde True olur. Tutulmayan söz cron'u bu vakaları yükseltir."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Type"
+msgstr "Tip"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Kayıtlardaki istisna etkinliğinin türü."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_case__priority__3
+msgid "Urgent"
+msgstr "Acil"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__is_default
+msgid ""
+"Used by the auto creator to place new cases. Only one stage should carry "
+"this flag at any given time."
+msgstr ""
+"Yeni vakaları yerleştirmek için otomatik oluşturucu tarafından kullanılır. "
+"Herhangi bir anda yalnızca bir aşama bu işareti taşımalıdır."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_late_fee_wizard__flat_amount
+msgid "Used when fee_mode = 'flat'."
+msgstr "fee_mode = 'flat' olduğunda kullanılır."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_late_fee_wizard__percent_per_month
+msgid ""
+"Used when fee_mode = 'percent'. Applied to the overdue amount, prorated by "
+"days_overdue / 30."
+msgstr ""
+"fee_mode = 'percent' olduğunda kullanılır. Vadesi geçmiş tutara uygulanır, "
+"days_overdue / 30 oranında orantılanır."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__user_id
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_search
+msgid "User"
+msgstr "Kullanıcı"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__website_message_ids
+msgid "Website Messages"
+msgstr "Websitesi Mesajları"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__website_message_ids
+msgid "Website communication history"
+msgstr "Websitesi iletişim geçmişi"
+
+#. module: eh_account_collections
+#. odoo-javascript
+#: code:addons/eh_account_collections/static/src/js/tours/collections_tour.js:0
+msgid ""
+"Welcome to <b>Collections Workbench</b>. This walkthrough shows what the "
+"workbench does differently from a follow-up list, and how to use it day-to-"
+"day."
+msgstr ""
+"<b>Collections Workbench</b> uygulamasına hoş geldiniz. Bu tanıtım, çalışma "
+"tezgahının bir takip listesinden farkını ve günlük kullanımını gösterir."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_late_fee_wizard__auto_post
+msgid ""
+"When True, the fee invoice is posted immediately. Off by default so the "
+"collector can review the draft first."
+msgstr ""
+"True olduğunda, ücret faturası hemen kaydedilir. Tahsilatçının önce taslağı "
+"incelemesi için varsayılan olarak kapalıdır."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__escalate_to_stage_id
+msgid ""
+"When action_type is 'escalate', the case moves to this stage. Defaults to "
+"the first stage flagged is_disputed when blank."
+msgstr ""
+"action_type 'escalate' olduğunda, vaka bu aşamaya geçer. Boş bırakıldığında "
+"varsayılan olarak is_disputed işaretli ilk aşamadır."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__also_send_sms
+msgid ""
+"When set, an SMS rendered from the SMS template is sent to the partner's "
+"mobile alongside whatever the action type does, giving multi-channel "
+"dunning."
+msgstr ""
+"Ayarlandığında, işlem türünün yaptığı işlemin yanı sıra SMS şablonundan "
+"oluşturulan bir SMS, iş ortağının cep telefonuna gönderilir ve çok kanallı "
+"tahsilat sağlar."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__last_broken_promise_handled_at
+msgid ""
+"When the broken-promise cron last escalated this case. Prevents repeated "
+"escalation on the same broken promise."
+msgstr ""
+"Bozulan söz cron'unun bu vakayı en son ne zaman yükselttiği. Aynı bozulan "
+"sözde tekrarlanan yükseltmeyi önler."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_action__promise_amount
+msgid ""
+"When this action results in a promise to pay, record the amount here. The "
+"case's promise tracking pulls from the most recent action that has a non "
+"zero promise_amount."
+msgstr ""
+"Bu eylem bir ödeme sözüyle sonuçlandığında, tutarı buraya kaydedin. Vakanın "
+"söz takibi, promise_amount değeri sıfırdan farklı olan en son eylemden "
+"alınır."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__responsible_type
+msgid ""
+"Who the scheduled follow-up activity is assigned to: the case collector, the"
+" customer's salesperson, or an accounting manager."
+msgstr ""
+"Zamanlanmış takip etkinliğinin kime atandığı: dava tahsildarı, müşterinin "
+"satış temsilcisi veya bir muhasebe yöneticisi."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "With Active Promise"
+msgstr "Aktif taahhütle"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_search
+msgid "With Promise"
+msgstr "Söz ile"
+
+#. module: eh_account_collections
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_collections_workbench
+msgid "Workbench"
+msgstr "Çalışma Tezgahı"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_written_off
+msgid "Written Off"
+msgstr "Silindi"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_kanban
+msgid "by"
+msgstr "yazan"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_kanban
+msgid "days overdue"
+msgstr "gecikme günü"
+
+#. module: eh_account_collections
+#: model:ir.model.constraint,message:eh_account_collections.constraint_eh_collections_followup_level_check_days_non_negative
+msgid "days_overdue cannot be negative."
+msgstr "days_overdue negatif olamaz."
+
+#. module: eh_account_collections
+#: model:ir.model.constraint,message:eh_account_collections.constraint_eh_collections_followup_level_check_delay_non_negative
+msgid "delay_days cannot be negative."
+msgstr "delay_days negatif olamaz."

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="home_theme.HtColorField">
+        <div class="o_ht_colorfield" t-ref="root">
+            <button type="button" class="o_ht_colorfield_btn"
+                    t-att-disabled="props.readonly" t-on-click="() => this.toggle()">
+                <span class="o_ht_colorfield_swatch"
+                      t-attf-style="background:{{ value or 'transparent' }}"/>
+                <span class="o_ht_colorfield_hex" t-esc="displayValue"/>
+                <i class="fa fa-caret-down o_ht_colorfield_caret"/>
+            </button>
+
+            <div t-if="state.open" class="o_ht_colorfield_pop">
+                <div class="o_ht_colorfield_swatches">
+                    <button t-foreach="presets" t-as="c" t-key="c" type="button"
+                            class="o_ht_colorfield_sw"
+                            t-att-class="{ o_sel: isSelected(c) }"
+                            t-attf-style="background:{{ c }}" t-att-title="c"
+                            t-on-click="() => this.onPreset(c)"/>
+                </div>
+                <div class="o_ht_colorfield_row">
+                    <input type="text" class="o_ht_colorfield_input"
+                           t-att-value="value" placeholder="#RRGGBB"
+                           t-on-change="(ev) => this.onHex(ev)"/>
+                    <label class="o_ht_colorfield_more" title="Fine-tune">
+                        <i class="fa fa-eyedropper"/>
+                        <input type="color" t-att-value="value or '#000000'"
+                               t-on-input="(ev) => this.onNative(ev)"/>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

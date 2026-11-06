@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_collections_case_form_ai" model="ir.ui.view">
+        <field name="name">eh.collections.case.form.ai</field>
+        <field name="model">eh.collections.case</field>
+        <field name="inherit_id"
+               ref="eh_account_collections.view_eh_collections_case_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_eh_ai_refresh_suggestion"
+                        type="object"
+                        string="Refresh AI suggestion"
+                        groups="eh_account_base.group_eh_manager"
+                        invisible="is_resolved or followup_paused or has_active_payment_plan or has_active_promise or broken_promise"
+                        confirm="Call the configured provider for this case and store attributed evidence?"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="AI Next Action" name="ai_next_action">
+                    <group string="Suggested next action">
+                        <field name="has_active_payment_plan"/>
+                        <field name="eh_ai_suggested_action" readonly="1"/>
+                        <field name="eh_ai_suggested_priority"
+                               widget="badge"
+                               decoration-danger="eh_ai_suggested_priority == 'high'"
+                               decoration-warning="eh_ai_suggested_priority == 'medium'"
+                               decoration-success="eh_ai_suggested_priority == 'low'"
+                               readonly="1"/>
+                    </group>
+                    <separator string="Rationale"/>
+                    <field name="eh_ai_suggestion_rationale" readonly="1"/>
+                    <p class="text-muted">
+                        Deterministic suggestion from the dunning ladder.
+                        An active promise to pay always suppresses
+                        escalation. Configure an AI provider on the
+                        company and press Refresh AI suggestion to enrich
+                        the narrative below.
+                    </p>
+                    <separator string="AI narrative"
+                               invisible="not eh_ai_suggestion_narrative"/>
+                    <field name="eh_ai_suggestion_narrative" readonly="1"
+                           invisible="not eh_ai_suggestion_narrative"/>
+                    <group string="Provider evidence"
+                           invisible="not eh_ai_suggestion_narrative">
+                        <field name="eh_ai_narrative_generated_at"/>
+                        <field name="eh_ai_narrative_generated_by_id"/>
+                        <field name="eh_ai_narrative_provider_key"/>
+                        <field name="eh_ai_narrative_source_fingerprint"/>
+                        <field name="eh_ai_narrative_stale"
+                               widget="boolean_toggle"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_eh_collections_case_list_ai" model="ir.ui.view">
+        <field name="name">eh.collections.case.list.ai</field>
+        <field name="model">eh.collections.case</field>
+        <field name="inherit_id"
+               ref="eh_account_collections.view_eh_collections_case_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='stage_id']" position="after">
+                <field name="eh_ai_suggested_action" optional="show"/>
+                <field name="eh_ai_suggested_priority"
+                       widget="badge" optional="show"/>
+                <field name="eh_ai_narrative_stale"
+                       widget="boolean_toggle" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_eh_collections_case_search_ai" model="ir.ui.view">
+        <field name="name">eh.collections.case.search.ai</field>
+        <field name="model">eh.collections.case</field>
+        <field name="inherit_id"
+               ref="eh_account_collections.view_eh_collections_case_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='stage_id']" position="after">
+                <field name="eh_ai_suggested_action"/>
+                <field name="eh_ai_suggested_priority"/>
+            </xpath>
+            <xpath expr="//filter[@name='filter_high_priority']"
+                   position="after">
+                <filter name="filter_ai_stale" string="Stale AI Narrative"
+                        domain="[('eh_ai_narrative_stale', '=', True)]"/>
+            </xpath>
+            <xpath expr="//filter[@name='group_priority']" position="after">
+                <filter name="group_ai_action" string="AI Suggested Action"
+                        context="{'group_by': 'eh_ai_suggested_action'}"/>
+                <filter name="group_ai_priority" string="AI Priority"
+                        context="{'group_by': 'eh_ai_suggested_priority'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_eh_followup_level_form_ai" model="ir.ui.view">
+        <field name="name">eh.collections.followup.level.form.ai</field>
+        <field name="model">eh.collections.followup.level</field>
+        <field name="inherit_id"
+               ref="eh_account_collections.view_eh_followup_level_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_terminal']" position="after">
+                <field name="eh_ai_is_demand_letter"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_eh_collections_action_list_ai" model="ir.ui.view">
+        <field name="name">eh.collections.action.list.ai</field>
+        <field name="model">eh.collections.action</field>
+        <field name="inherit_id"
+               ref="eh_account_collections.view_eh_collections_action_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='action_type']" position="after">
+                <field name="eh_ai_is_demand_letter" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_company_form_eh_ai_collections" model="ir.ui.view">
+        <field name="name">res.company.form.eh.ai.collections</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id"
+               ref="eh_account_ai_agent.view_res_company_form_eh_ai"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='eh_ai_agent']/group" position="inside">
+                <group string="Collections">
+                    <field name="eh_ai_collections_writeoff_materiality"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

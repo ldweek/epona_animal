@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_bank_live_connector_profile_tree" model="ir.ui.view">
+        <field name="name">eh.bank.live.connector.profile.list</field>
+        <field name="model">eh.bank.live.connector.profile</field>
+        <field name="arch" type="xml">
+            <list string="Live Bank Connectors" sample="1">
+                <field name="name"/>
+                <field name="connector_key"/>
+                <field name="journal_id"/>
+                <field name="since_date"/>
+                <field name="last_run_at"/>
+                <field name="last_run_state" widget="badge"
+                       decoration-success="last_run_state == 'ok'"
+                       decoration-danger="last_run_state == 'error'"
+                       decoration-muted="last_run_state == 'idle'"/>
+                <field name="transactions_imported_count" string="Imported"/>
+                <field name="active" widget="boolean_toggle"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_bank_live_connector_profile_search" model="ir.ui.view">
+        <field name="name">eh.bank.live.connector.profile.search</field>
+        <field name="model">eh.bank.live.connector.profile</field>
+        <field name="arch" type="xml">
+            <search string="Live Bank Connectors">
+                <field name="name"/>
+                <field name="connector_key"/>
+                <field name="journal_id"/>
+                <filter name="run_ok" string="Success"
+                        domain="[('last_run_state', '=', 'ok')]"/>
+                <filter name="run_error" string="Error"
+                        domain="[('last_run_state', '=', 'error')]"/>
+                <filter name="run_idle" string="Idle"
+                        domain="[('last_run_state', '=', 'idle')]"/>
+                <separator/>
+                <filter name="active" string="Active"
+                        domain="[('active', '=', True)]"/>
+                <filter name="inactive" string="Archived"
+                        domain="[('active', '=', False)]"/>
+                <group>
+                    <filter name="group_run_state" string="Last Run State"
+                            context="{'group_by': 'last_run_state'}"/>
+                    <filter name="group_connector" string="Connector"
+                            context="{'group_by': 'connector_key'}"/>
+                    <filter name="group_journal" string="Journal"
+                            context="{'group_by': 'journal_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_bank_live_connector_profile_form" model="ir.ui.view">
+        <field name="name">eh.bank.live.connector.profile.form</field>
+        <field name="model">eh.bank.live.connector.profile</field>
+        <field name="arch" type="xml">
+            <form string="Live Bank Connector">
+                <header>
+                    <button name="action_fetch_now"
+                            type="object"
+                            string="Fetch now"
+                            groups="eh_account_base.group_eh_manager"
+                            class="btn-primary"/>
+                    <field name="last_run_state" widget="statusbar"
+                           statusbar_visible="idle,ok,error"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="My bank live"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="connector_key"/>
+                            <field name="journal_id"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="since_date"/>
+                            <field name="last_run_at" readonly="1"/>
+                            <field name="transactions_imported_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Credentials"
+                              groups="eh_account_base.group_eh_manager">
+                            <group>
+                                <group string="Plaid"
+                                       invisible="connector_key != 'plaid'">
+                                    <field name="cred_client_id"
+                                           required="connector_key == 'plaid'"/>
+                                    <field name="cred_secret" password="True"
+                                           required="connector_key == 'plaid'"/>
+                                    <field name="cred_access_token"
+                                           password="True"
+                                           required="connector_key == 'plaid'"/>
+                                    <field name="cred_environment"/>
+                                </group>
+                                <group string="Basiq"
+                                       invisible="connector_key != 'basiq'">
+                                    <field name="cred_api_key" password="True"
+                                           required="connector_key == 'basiq'"/>
+                                    <field name="cred_user_id"
+                                           required="connector_key == 'basiq'"/>
+                                </group>
+                                <group string="GoCardless"
+                                       invisible="connector_key != 'gocardless'">
+                                    <field name="cred_secret_id"
+                                           password="True"
+                                           required="connector_key == 'gocardless'"/>
+                                    <field name="cred_secret_key"
+                                           password="True"
+                                           required="connector_key == 'gocardless'"/>
+                                </group>
+                                <group string="Account"
+                                       invisible="connector_key not in ('plaid', 'basiq', 'gocardless')">
+                                    <field name="cred_account_id"
+                                           required="connector_key in ('plaid', 'basiq', 'gocardless')"/>
+                                </group>
+                            </group>
+                            <p class="text-muted">
+                                Enter the keys your bank or aggregator gave
+                                you. They are masked in this form and handled
+                                as a secret on every screen, but stored as
+                                regular configuration data, not encrypted at
+                                rest. For production, keep the database access
+                                controlled or point a vault at the Advanced
+                                credentials field.
+                            </p>
+                        </page>
+                        <page string="Advanced" groups="base.group_no_one">
+                            <field name="advanced_credentials_json"
+                                   password="True"
+                                   placeholder='{"client_id": "...", "secret": "..."}'/>
+                            <p class="text-muted">
+                                Raw JSON handed verbatim to the connector's
+                                authenticate() method. Developer-only; the
+                                Credentials tab assembles this for everyone
+                                else.
+                            </p>
+                        </page>
+                        <page string="Last run">
+                            <field name="last_run_message" readonly="1"
+                                   widget="text"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_bank_live_connector_profile" model="ir.actions.act_window">
+        <field name="name">Live Bank Connectors</field>
+        <field name="res_model">eh.bank.live.connector.profile</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_bank_live_connector_profile_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No live connector configured yet.</p>
+            <p>
+                A live connector pulls transactions directly from a bank's
+                API into the bound journal. Connector implementations live
+                in their own packages; install one to register a connector
+                key here.
+            </p>
+        </field>
+    </record>
+
+</odoo>

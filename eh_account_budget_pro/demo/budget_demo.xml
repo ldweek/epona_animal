@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <!--
+            Demo budget for the current calendar year, with three
+            expense lines pinned to whichever expense accounts the
+            installed chart of accounts provides. Lines use search
+            references so the demo installs cleanly on any CoA without
+            assuming specific account codes.
+        -->
+
+        <record id="demo_budget_annual" model="eh.budget.budget">
+            <field name="name">Demo Annual Operating Budget</field>
+            <field name="code">demo_annual</field>
+            <field name="version_label">v1</field>
+            <field name="date_from" eval="(DateTime.today().replace(month=1, day=1)).strftime('%Y-%m-%d')"/>
+            <field name="date_to" eval="(DateTime.today().replace(month=12, day=31)).strftime('%Y-%m-%d')"/>
+            <field name="state">draft</field>
+            <field name="notes">Demo budget. Replace the lines with your real budget once you have decided account splits.</field>
+        </record>
+
+        <record id="demo_budget_line_q1" model="eh.budget.line">
+            <field name="budget_id" ref="demo_budget_annual"/>
+            <field name="sequence">10</field>
+            <field name="account_id" search="[('account_type', '=', 'expense')]"/>
+            <field name="period_from" eval="(DateTime.today().replace(month=1, day=1)).strftime('%Y-%m-%d')"/>
+            <field name="period_to" eval="(DateTime.today().replace(month=3, day=31)).strftime('%Y-%m-%d')"/>
+            <field name="budgeted_amount">25000.00</field>
+        </record>
+
+        <record id="demo_budget_line_q2" model="eh.budget.line">
+            <field name="budget_id" ref="demo_budget_annual"/>
+            <field name="sequence">20</field>
+            <field name="account_id" search="[('account_type', '=', 'expense')]"/>
+            <field name="period_from" eval="(DateTime.today().replace(month=4, day=1)).strftime('%Y-%m-%d')"/>
+            <field name="period_to" eval="(DateTime.today().replace(month=6, day=30)).strftime('%Y-%m-%d')"/>
+            <field name="budgeted_amount">26000.00</field>
+        </record>
+
+        <record id="demo_budget_line_h2" model="eh.budget.line">
+            <field name="budget_id" ref="demo_budget_annual"/>
+            <field name="sequence">30</field>
+            <field name="account_id" search="[('account_type', '=', 'expense')]"/>
+            <field name="period_from" eval="(DateTime.today().replace(month=7, day=1)).strftime('%Y-%m-%d')"/>
+            <field name="period_to" eval="(DateTime.today().replace(month=12, day=31)).strftime('%Y-%m-%d')"/>
+            <field name="budgeted_amount">55000.00</field>
+        </record>
+
+    </data>
+</odoo>

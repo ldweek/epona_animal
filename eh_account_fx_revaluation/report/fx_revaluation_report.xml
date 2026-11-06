@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        FX Revaluation run report.
+
+        One PDF per run with header (date, journal, company, state),
+        a totals box (gain, loss, net adjustment, line count), and the
+        full line table grouped by foreign currency. Auditors take this
+        report verbatim as the supporting evidence for the period-end
+        revaluation journal entry.
+    -->
+
+    <record id="action_report_fx_revaluation" model="ir.actions.report">
+        <field name="name">FX Revaluation</field>
+        <field name="model">eh.fx.revaluation.run</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">eh_account_fx_revaluation.report_fx_revaluation</field>
+        <field name="report_file">eh_account_fx_revaluation.report_fx_revaluation</field>
+        <field name="binding_model_id" ref="model_eh_fx_revaluation_run"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id"
+               ref="eh_account_base.paperformat_eh_landscape"/>
+    </record>
+
+    <template id="report_fx_revaluation">
+        <t t-call="web.html_container">
+            <t t-call="eh_account_base.eh_report_styles"/>
+            <t t-foreach="docs" t-as="run">
+                <t t-call="web.external_layout">
+                    <div class="page eh_pdf_page">
+                        <h1 class="eh_pdf_title">
+                            FX Revaluation: <t t-out="run.name or ''"/>
+                        </h1>
+                        <div class="eh_pdf_meta">
+                            <span>
+                                <strong>Revaluation date:</strong>
+                                <t t-out="run.revaluation_date and run.revaluation_date.strftime('%Y-%m-%d') or ''"/>
+                            </span>
+                            <span>
+                                <strong>State:</strong>
+                                <t t-out="dict(run._fields['state'].selection).get(run.state, run.state)"/>
+                            </span>
+                            <span>
+                                <strong>Journal:</strong>
+                                <t t-out="run.journal_id.name or ''"/>
+                            </span>
+                            <span>
+                                <strong>Auto reverse:</strong>
+                                <span t-if="run.auto_reverse">Yes</span>
+                                <span t-else="">No</span>
+                            </span>
+                            <span>
+                                <strong>Reversal date:</strong>
+                                <span t-field="run.reversal_date"/>
+                            </span>
+                            <span>
+                                <strong>Company:</strong>
+                                <t t-out="run.company_id.display_name"/>
+                            </span>
+                        </div>
+
+                        <div class="eh_pdf_summary_box">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 25%;">
+                                        <div class="label">Total gain</div>
+                                        <div class="value">
+                                            <span t-out="run.total_gain"
+                                                  t-options="{'widget': 'monetary', 'display_currency': run.currency_id}"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 25%;">
+                                        <div class="label">Total loss</div>
+                                        <div class="value">
+                                            <span t-out="run.total_loss"
+                                                  t-options="{'widget': 'monetary', 'display_currency': run.currency_id}"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 25%;">
+                                        <div class="label">Net adjustment</div>
+                                        <div class="value">
+                                            <span t-out="run.net_adjustment"
+                                                  t-options="{'widget': 'monetary', 'display_currency': run.currency_id}"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 25%;">
+                                        <div class="label">Lines</div>
+                                        <div class="value">
+                                            <t t-out="run.line_count or 0"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 25%;">
+                                        <div class="label">Settled revaluation-date adjustment</div>
+                                        <div class="value">
+                                            <span t-out="run.realized_gain_loss"
+                                                  t-options="{'widget': 'monetary', 'display_currency': run.currency_id}"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 25%;">
+                                        <div class="label">Open revaluation-date adjustment</div>
+                                        <div class="value">
+                                            <span t-out="run.unrealized_gain_loss"
+                                                  t-options="{'widget': 'monetary', 'display_currency': run.currency_id}"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 25%;"/>
+                                    <td style="width: 25%;"/>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <h2 class="eh_pdf_subtitle">Revaluation lines</h2>
+                        <t t-set="lines"
+                           t-value="run.line_ids.sorted(lambda l: (l.foreign_currency_id.name or '', l.account_id.code or '', l.partner_id.name or ''))"/>
+                        <table class="eh_pdf_table">
+                            <thead>
+                                <tr>
+                                    <th>Currency</th>
+                                    <th>Account</th>
+                                    <th>Partner</th>
+                                    <th class="text-end">Foreign Balance</th>
+                                    <th class="text-end">Rate</th>
+                                    <th class="text-end">Carrying</th>
+                                    <th class="text-end">Restated</th>
+                                    <th class="text-end">Adjustment</th>
+                                    <th class="text-center">Nature</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="lines" t-as="line">
+                                    <tr>
+                                        <td>
+                                            <t t-out="line.foreign_currency_id.name or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-out="line.account_id.code or ''"/>
+                                            <t t-out="line.account_id.name or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-out="line.partner_id.display_name or ''"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-out="line.balance_foreign"
+                                                  t-options="{'widget': 'monetary', 'display_currency': line.foreign_currency_id}"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <t t-out="'{:,.6f}'.format(line.closing_rate or 0.0)"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-out="line.balance_company"
+                                                  t-options="{'widget': 'monetary', 'display_currency': run.currency_id}"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-out="line.new_balance_company"
+                                                  t-options="{'widget': 'monetary', 'display_currency': run.currency_id}"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-out="line.adjustment"
+                                                  t-options="{'widget': 'monetary', 'display_currency': run.currency_id}"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-set="badge_class"
+                                               t-value="{
+                                                   'gain': 'eh_pdf_status_ok',
+                                                   'loss': 'eh_pdf_status_danger',
+                                                   'flat': 'eh_pdf_status_neutral',
+                                               }.get(line.nature, 'eh_pdf_status_neutral')"/>
+                                            <span t-att-class="'eh_pdf_status_badge ' + badge_class">
+                                                <t t-out="dict(line._fields['nature'].selection).get(line.nature, line.nature)"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-if="not lines">
+                                    <tr>
+                                        <td colspan="9" class="text-center text-muted"
+                                            style="padding: 16pt;">
+                                            No revaluation lines computed yet.
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <div class="eh_pdf_signature_block" t-if="run.state in ('posted', 'reversed')">
+                            <div>
+                                Posted by
+                                <strong>
+                                    <t t-out="run.posted_by_id.name or '-'"/>
+                                </strong>
+                                on
+                                <strong>
+                                    <span t-if="run.posted_at"
+                                          t-field="run.posted_at"/>
+                                    <span t-else="">-</span>
+                                </strong>
+                            </div>
+                            <div t-if="run.move_id">
+                                Journal entry:
+                                <strong>
+                                    <t t-out="run.move_id.name or ''"/>
+                                </strong>
+                            </div>
+                            <div t-if="run.reversal_move_id">
+                                Reversal entry:
+                                <strong>
+                                    <t t-out="run.reversal_move_id.name or ''"/>
+                                </strong>
+                                dated
+                                <strong>
+                                    <span t-field="run.reversal_move_id.date"/>
+                                </strong>
+                            </div>
+                        </div>
+
+                        <t t-call="eh_account_base.eh_report_footer"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

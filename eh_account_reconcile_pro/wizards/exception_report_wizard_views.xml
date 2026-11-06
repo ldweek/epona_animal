@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_reconciliation_exception_wizard_form" model="ir.ui.view">
+        <field name="name">eh.reconciliation.exception.wizard.form</field>
+        <field name="model">eh.reconciliation.exception.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Reconciliation Exception Report">
+                <sheet>
+                    <h1>Reconciliation Exception Report</h1>
+                    <p class="text-muted">
+                        Per-journal snapshot of bank reconciliation health for the selected period: total statement lines, reconciled count, unmatched count and amount, the oldest unmatched line, and write-off / skip counts.
+                    </p>
+                    <group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="journal_ids"
+                                   widget="many2many_tags"
+                                   placeholder="All accessible bank/cash journals"/>
+                            <field name="show_zero_journals"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_print"
+                            type="object"
+                            string="Print PDF"
+                            class="btn-primary"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_reconciliation_exception_wizard" model="ir.actions.act_window">
+        <field name="name">Exception Report</field>
+        <field name="res_model">eh.reconciliation.exception.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

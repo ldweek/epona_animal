@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <menuitem id="menu_eh_collections_root"
+                  name="Collections"
+                  parent="account.menu_finance_receivables"
+                  sequence="40"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_collections_workbench"
+                  name="Workbench"
+                  parent="menu_eh_collections_root"
+                  action="action_eh_collections_case"
+                  sequence="10"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_collections_auto_create"
+                  name="Auto Create Cases"
+                  parent="menu_eh_collections_root"
+                  action="action_eh_collections_auto_create"
+                  sequence="20"
+                  groups="eh_account_base.group_eh_manager"/>
+
+        <menuitem id="menu_eh_collections_action_log"
+                  name="Action Log"
+                  parent="menu_eh_collections_root"
+                  action="action_eh_collections_action"
+                  sequence="30"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_collections_stage"
+                  name="Collection Stages"
+                  parent="eh_account_base.menu_eh_config_operations"
+                  action="action_eh_collections_stage"
+                  sequence="60"
+                  groups="eh_account_base.group_eh_manager"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- ===== Portfolio segments (IFRS 9.B5.5.35) ===== -->
+
+    <record id="view_eh_ecl_segment_list" model="ir.ui.view">
+        <field name="name">eh.ecl.segment.list</field>
+        <field name="model">eh.ecl.segment</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="country_ids" widget="many2many_tags" optional="show"/>
+                <field name="partner_category_ids" widget="many2many_tags" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_ecl_segment_form" model="ir.ui.view">
+        <field name="name">eh.ecl.segment.form</field>
+        <field name="model">eh.ecl.segment</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="e.g. Domestic retail"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="country_ids" widget="many2many_tags"/>
+                            <field name="partner_category_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_ecl_segment" model="ir.actions.act_window">
+        <field name="name">ECL Segments</field>
+        <field name="res_model">eh.ecl.segment</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first ECL segment</p>
+            <p>Group receivables into portfolios by country or partner category so each shares consistent loss rates and staging. Use New to define a segment.</p>
+        </field>
+    </record>
+
+    <!-- ===== Allowance write-offs (IFRS 9.5.4.4) ===== -->
+
+    <record id="view_eh_ecl_writeoff_list" model="ir.ui.view">
+        <field name="name">eh.ecl.writeoff.list</field>
+        <field name="model">eh.ecl.writeoff</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="run_id"/>
+                <field name="partner_id"/>
+                <field name="stage"/>
+                <field name="amount" widget="monetary"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'posted'"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_ecl_writeoff_form" model="ir.ui.view">
+        <field name="name">eh.ecl.writeoff.form</field>
+        <field name="model">eh.ecl.writeoff</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_post_writeoff" type="object"
+                            string="Post Write-off" class="btn-primary"
+                            invisible="state != 'draft'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,posted"/>
+                </header>
+                <sheet>
+                    <field name="move_id" invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_move" type="object"
+                                class="oe_stat_button" icon="fa-book"
+                                invisible="not move_id">
+                            <span class="o_stat_text">Write-off Entry</span>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="run_id" readonly="state != 'draft'"/>
+                            <field name="move_line_id"
+                                   domain="[('company_id', '=', company_id), ('account_id.account_type', '=', 'asset_receivable'), ('parent_state', '=', 'posted'), ('reconciled', '=', False)]"
+                                   readonly="state != 'draft'"/>
+                            <field name="partner_id"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="amount" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="stage" readonly="state != 'draft'"/>
+                            <field name="date" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_ecl_writeoff_search" model="ir.ui.view">
+        <field name="name">eh.ecl.writeoff.search</field>
+        <field name="model">eh.ecl.writeoff</field>
+        <field name="arch" type="xml">
+            <search string="ECL Write-offs">
+                <field name="name"/>
+                <field name="run_id"/>
+                <field name="partner_id"/>
+                <field name="date"/>
+                <filter name="draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="posted" string="Posted"
+                        domain="[('state', '=', 'posted')]"/>
+                <separator/>
+                <filter name="group_run" string="Group by ECL Run"
+                        context="{'group_by': 'run_id'}"/>
+                <filter name="group_stage" string="Group by Stage"
+                        context="{'group_by': 'stage'}"/>
+                <filter name="group_company" string="Group by Company"
+                        context="{'group_by': 'company_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_ecl_writeoff" model="ir.actions.act_window">
+        <field name="name">ECL Write-offs</field>
+        <field name="res_model">eh.ecl.writeoff</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_ecl_writeoff_search"/>
+    </record>
+
+</odoo>

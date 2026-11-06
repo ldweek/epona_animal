@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <!--
+            Daily cron that processes all active recurring templates whose
+            next_run_date is past. Each template's failure is isolated;
+            one bad template never freezes the queue.
+        -->
+        <record id="cron_eh_recurring_generate_due" model="ir.cron">
+            <field name="name">ERP Heritage: Generate due recurring invoices</field>
+            <field name="model_id" ref="model_eh_recurring_invoice_template"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_generate_due()</field>
+            <field name="active" eval="True"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="user_id" ref="base.user_root"/>
+        </record>
+
+    </data>
+</odoo>

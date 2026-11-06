@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        Collections case statement.
+
+        Per case PDF that finance can mail or hand to a partner alongside
+        a follow-up email. Three blocks:
+
+        * Header summary box: stage, days overdue, total overdue, oldest
+          due date, current follow-up level.
+        * Open-items table: every posted-and-unpaid AR invoice or credit for
+          the case commercial partner, with signed currency subtotals and a
+          homogeneous company-currency ledger total.
+        * Action history: chronological log of every collections action
+          taken on the case, with type, summary, user, and any promise
+          to pay.
+
+        Suite portrait paperformat fits the form-style layout; tabular
+        register reports use landscape but a customer-facing letter
+        looks dated when sent landscape.
+    -->
+
+    <record id="action_report_case_statement" model="ir.actions.report">
+        <field name="name">Case Statement</field>
+        <field name="model">eh.collections.case</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">eh_account_collections.report_case_statement</field>
+        <field name="report_file">eh_account_collections.report_case_statement</field>
+        <field name="binding_model_id" ref="model_eh_collections_case"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id"
+               ref="eh_account_base.paperformat_eh_portrait"/>
+    </record>
+
+    <template id="report_case_statement">
+        <t t-call="web.html_container">
+            <t t-call="eh_account_base.eh_report_styles"/>
+            <t t-foreach="docs" t-as="case">
+                <t t-call="web.external_layout">
+                    <div class="page eh_pdf_page">
+                        <h1 class="eh_pdf_title">
+                            Statement of Account
+                        </h1>
+                        <h2 class="eh_pdf_subtitle">
+                            <t t-out="case.partner_id.display_name or ''"/>
+                        </h2>
+                        <div class="eh_pdf_meta">
+                            <span>
+                                <strong>Reference:</strong>
+                                <t t-out="case.name or ''"/>
+                            </span>
+                            <span>
+                                <strong>Stage:</strong>
+                                <t t-out="case.stage_id.name or ''"/>
+                            </span>
+                            <span>
+                                <strong>Generated:</strong>
+                                <t t-out="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                            </span>
+                            <span>
+                                <strong>Company:</strong>
+                                <t t-out="case.company_id.display_name"/>
+                            </span>
+                        </div>
+
+                        <div class="eh_pdf_summary_box">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <td style="width: 25%;">
+                                        <div class="label">Total overdue</div>
+                                        <div class="value">
+                                            <span t-out="case.total_overdue_amount"
+                                                  t-options="{'widget': 'monetary', 'display_currency': case.currency_id}"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 25%;">
+                                        <div class="label">Oldest due date</div>
+                                        <div class="value">
+                                            <t t-out="case.oldest_overdue_date and case.oldest_overdue_date.strftime('%Y-%m-%d') or '-'"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 25%;">
+                                        <div class="label">Days overdue</div>
+                                        <div class="value">
+                                            <t t-out="case.days_overdue_max or 0"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 25%;">
+                                        <div class="label">Follow-up level</div>
+                                        <div class="value">
+                                            <t t-out="case.current_followup_level_id.name or '-'"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <h2 class="eh_pdf_subtitle">Open Invoices and Credits</h2>
+                        <t t-set="statement"
+                           t-value="case._eh_statement_data_for_report()"/>
+                        <t t-set="open_items" t-value="statement['items']"/>
+                        <table class="eh_pdf_table">
+                            <thead>
+                                <tr>
+                                    <th>Invoice</th>
+                                    <th>Date</th>
+                                    <th>Due</th>
+                                    <th>Currency</th>
+                                    <th class="text-end">Total</th>
+                                    <th class="text-end">Residual</th>
+                                    <th class="text-end">Days Overdue</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="open_items" t-as="item">
+                                    <t t-set="inv" t-value="item['move']"/>
+                                    <tr>
+                                        <td>
+                                            <t t-out="inv.name or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-out="inv.invoice_date and inv.invoice_date.strftime('%Y-%m-%d') or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-out="item['due_date'] and item['due_date'].strftime('%Y-%m-%d') or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-out="item['currency'].name"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-out="item['document_total']"
+                                                  t-options="{'widget': 'monetary', 'display_currency': item['currency']}"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-out="item['residual']"
+                                                  t-options="{'widget': 'monetary', 'display_currency': item['currency']}"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <t t-out="item['days_overdue']"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-if="not open_items">
+                                    <tr>
+                                        <td colspan="7" class="text-center text-muted"
+                                            style="padding: 12pt;">
+                                            No open invoices or credits on the account.
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr t-foreach="statement['currency_totals']"
+                                    t-as="subtotal" class="eh_pdf_grand_total">
+                                    <td colspan="5">
+                                        Open subtotal
+                                        (<t t-out="subtotal['currency'].name"/>)
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-out="subtotal['amount']"
+                                              t-options="{'widget': 'monetary', 'display_currency': subtotal['currency']}"/>
+                                    </td>
+                                    <td/>
+                                </tr>
+                                <tr t-if="statement['show_company_total']"
+                                    class="eh_pdf_grand_total">
+                                    <td colspan="5">
+                                        Ledger total
+                                        (<t t-out="case.currency_id.name"/>)
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-out="statement['company_total']"
+                                              t-options="{'widget': 'monetary', 'display_currency': case.currency_id}"/>
+                                    </td>
+                                    <td/>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h2 class="eh_pdf_subtitle"
+                            style="margin-top: 14pt;">Action History</h2>
+                        <table class="eh_pdf_table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>User</th>
+                                    <th>Summary</th>
+                                    <th class="text-end">Promised</th>
+                                    <th>By</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="actions" t-value="case.action_ids.sorted(lambda a: a.action_date or datetime.datetime.now(), reverse=True)"/>
+                                <t t-foreach="actions" t-as="act">
+                                    <tr>
+                                        <td>
+                                            <t t-out="act.action_date and act.action_date.strftime('%Y-%m-%d') or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-out="dict(act._fields['action_type'].selection).get(act.action_type, act.action_type)"/>
+                                        </td>
+                                        <td>
+                                            <t t-out="act.user_id.name or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-out="act.summary or ''"/>
+                                        </td>
+                                        <td class="text-end">
+                                            <t t-if="act.promise_amount">
+                                                <span t-out="act.promise_amount"
+                                                      t-options="{'widget': 'monetary', 'display_currency': act.currency_id}"/>
+                                            </t>
+                                            <t t-else="">-</t>
+                                        </td>
+                                        <td>
+                                            <t t-out="act.promise_date and act.promise_date.strftime('%Y-%m-%d') or ''"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-if="not actions">
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted"
+                                            style="padding: 12pt;">
+                                            No actions recorded yet.
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <t t-call="eh_account_base.eh_report_footer"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

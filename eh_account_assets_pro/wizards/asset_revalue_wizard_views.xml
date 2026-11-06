@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_asset_revalue_wizard_form" model="ir.ui.view">
+        <field name="name">eh.asset.revalue.wizard.form</field>
+        <field name="model">eh.asset.revalue.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Revalue Asset">
+                <sheet>
+                    <group>
+                        <field name="asset_id" readonly="1"/>
+                        <field name="revalue_date"/>
+                        <field name="direction"/>
+                        <field name="amount"/>
+                        <field name="counterpart_account_id"/>
+                        <field name="revaluation_reserve_account_id"
+                               invisible="direction != 'impairment'"/>
+                        <field name="revaluation_income_account_id"
+                               invisible="direction != 'uplift'"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="company_id" invisible="1"/>
+                        <field name="nbv" readonly="1"/>
+                        <field name="new_nbv" readonly="1"/>
+                        <field name="recoverable_latest" readonly="1"
+                               invisible="not recoverable_latest"/>
+                        <field name="recoverable_date" readonly="1"
+                               invisible="not recoverable_latest"/>
+                        <field name="override_recoverable_cap"
+                               groups="eh_account_base.group_eh_manager"
+                               invisible="direction != 'uplift' or not recoverable_latest"/>
+                        <field name="override_reason"
+                               groups="eh_account_base.group_eh_manager"
+                               invisible="not override_recoverable_cap"
+                               placeholder="New recoverable-amount assessment supporting the higher value..."
+                               colspan="2"/>
+                        <field name="notes" placeholder="Reason for revaluation" colspan="2"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_revalue"
+                            type="object"
+                            string="Revalue"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_asset_revalue_wizard" model="ir.actions.act_window">
+        <field name="name">Revalue Asset</field>
+        <field name="res_model">eh.asset.revalue.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

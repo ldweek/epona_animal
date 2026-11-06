@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_lease_terminate_wizard_form" model="ir.ui.view">
+        <field name="name">eh.lease.terminate.wizard.form</field>
+        <field name="model">eh.lease.terminate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Terminate Lease">
+                <sheet>
+                    <group>
+                        <field name="lease_id" readonly="1"/>
+                        <field name="termination_date"/>
+                        <field name="settlement_amount"/>
+                        <field name="settlement_account_id"
+                               required="settlement_amount != 0"
+                               invisible="settlement_amount == 0"/>
+                        <field name="pl_account_id"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="company_id" invisible="1"/>
+                    </group>
+                    <group>
+                        <field name="current_liability" readonly="1"/>
+                        <field name="current_rou" readonly="1"/>
+                        <field name="rou_accumulated" readonly="1"/>
+                        <field name="pl_amount" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="notes" placeholder="Reason for termination" colspan="2"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_terminate"
+                            type="object"
+                            string="Terminate"
+                            class="btn-warning"
+                            confirm="Derecognise the lease and post the termination entry?"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_lease_terminate_wizard" model="ir.actions.act_window">
+        <field name="name">Terminate Lease</field>
+        <field name="res_model">eh.lease.terminate.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

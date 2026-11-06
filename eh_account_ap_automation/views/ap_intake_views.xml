@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_ap_intake_tree" model="ir.ui.view">
+        <field name="name">eh.ap.intake.list</field>
+        <field name="model">eh.ap.intake</field>
+        <field name="arch" type="xml">
+            <list string="Vendor Bill Intake" sample="1"
+                  default_order="received_at desc"
+                  decoration-success="state == 'posted'"
+                  decoration-info="state in ('parsed', 'matched')"
+                  decoration-warning="state == 'exception'"
+                  decoration-danger="(duplicate_intake_id or duplicate_move_id) and not duplicate_override_reason"
+                  decoration-muted="state == 'rejected'">
+                <field name="name"/>
+                <field name="received_at"/>
+                <field name="partner_id"/>
+                <field name="vendor_reference"/>
+                <field name="bill_date"/>
+                <field name="purchase_order_id"/>
+                <field name="line_count" optional="hide"/>
+                <field name="ok_count" optional="hide"/>
+                <field name="exception_count" optional="hide"/>
+                <field name="eh_list_statistics"
+                       widget="eh_list_statistics" optional="show"/>
+                <field name="duplicate_intake_id" optional="show"/>
+                <field name="duplicate_move_id" optional="hide"/>
+                <field name="duplicate_override_reason" column_invisible="True"/>
+                <field name="total_invoice_amount" sum="Total"/>
+                <field name="state" widget="badge"
+                       decoration-info="state in ('parsed', 'matched')"
+                       decoration-success="state == 'posted'"
+                       decoration-warning="state == 'exception'"
+                       decoration-muted="state in ('received', 'rejected')"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_ap_intake_kanban" model="ir.ui.view">
+        <field name="name">eh.ap.intake.kanban</field>
+        <field name="model">eh.ap.intake</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" sample="1" records_draggable="false"
+                    class="o_kanban_small_column">
+                <field name="state"/>
+                <field name="partner_id"/>
+                <field name="line_count"/>
+                <field name="exception_count"/>
+                <field name="total_invoice_amount"/>
+                <field name="currency_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong>
+                                        <field name="name"/>
+                                    </strong>
+                                    <span class="text-muted ms-2">
+                                        <field name="partner_id"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <div>
+                                    <field name="line_count"/> lines /
+                                    <field name="exception_count"/> exceptions
+                                </div>
+                                <div>
+                                    <field name="total_invoice_amount" widget="monetary"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_eh_ap_intake_form" model="ir.ui.view">
+        <field name="name">eh.ap.intake.form</field>
+        <field name="model">eh.ap.intake</field>
+        <field name="arch" type="xml">
+            <form string="Vendor Bill Intake">
+                <header>
+                    <button name="action_parse"
+                            type="object"
+                            string="Parse"
+                            class="btn-primary"
+                            invisible="state not in ('received', 'parsed')"/>
+                    <button name="action_match"
+                            type="object"
+                            string="Match"
+                            class="btn-primary"
+                            invisible="state not in ('parsed', 'exception')"/>
+                    <button name="action_post"
+                            type="object"
+                            string="Post Bill"
+                            class="btn-success"
+                            invisible="state != 'matched'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_view_move"
+                            type="object"
+                            string="View Bill"
+                            invisible="state != 'posted'"/>
+                    <button name="action_override_duplicate"
+                            type="object"
+                            string="Override Duplicate"
+                            class="btn-warning"
+                            invisible="not duplicate_intake_id and not duplicate_move_id"
+                            groups="eh_account_base.group_eh_manager"
+                            confirm="Override the duplicate flag? Capture a reason in the field below first."/>
+                    <button name="action_reject"
+                            type="object"
+                            string="Reject"
+                            class="btn-warning"
+                            invisible="state in ('posted', 'rejected')"
+                            groups="eh_account_base.group_eh_manager"
+                            confirm="Reject this intake?"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="received,parsed,matched,posted"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                        <h3>
+                            <field name="vendor_reference"
+                                   readonly="state in ('posted', 'rejected')"
+                                   placeholder="Vendor invoice reference"/>
+                        </h3>
+                    </div>
+                    <group>
+                        <group string="Bill">
+                            <field name="partner_id" readonly="state in ('posted', 'rejected')"/>
+                            <field name="purchase_order_id" readonly="state in ('posted', 'rejected')"/>
+                            <field name="journal_id" readonly="state in ('posted', 'rejected')"/>
+                            <field name="bill_date" readonly="state in ('posted', 'rejected')"/>
+                            <field name="received_at" readonly="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="currency_id" readonly="state in ('posted', 'rejected')"/>
+                        </group>
+                        <group string="Match summary">
+                            <field name="extracted_total" readonly="state in ('posted', 'rejected')"/>
+                            <field name="total_invoice_amount"/>
+                            <field name="line_count"/>
+                            <field name="ok_count"/>
+                            <field name="exception_count"/>
+                        </group>
+                    </group>
+                    <group string="Duplicate detection"
+                           invisible="not duplicate_intake_id and not duplicate_move_id">
+                        <field name="duplicate_intake_id" readonly="1"/>
+                        <field name="duplicate_move_id" readonly="1"/>
+                        <field name="duplicate_override_request_reason"
+                               readonly="state in ('posted', 'rejected')"
+                               placeholder="Required reason for overriding the duplicate flag"
+                               colspan="2"/>
+                        <field name="duplicate_override_reason" readonly="1"/>
+                        <field name="duplicate_overridden_at" readonly="1"/>
+                        <field name="duplicate_overridden_by_id" readonly="1"/>
+                        <field name="duplicate_override_log_ids" readonly="1" colspan="2">
+                            <list create="0" edit="0" delete="0">
+                                <field name="overridden_at"/>
+                                <field name="overridden_by_id"/>
+                                <field name="duplicate_intake_id"/>
+                                <field name="duplicate_move_id"/>
+                                <field name="reason"/>
+                                <field name="evidence_fingerprint" optional="hide"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Line-item extractor (optional)" col="2">
+                        <group>
+                            <field name="extractor_key"
+                                   readonly="state in ('posted', 'rejected')"
+                                   placeholder="(blank: regex parser only)"/>
+                            <field name="extractor_min_confidence"
+                                   readonly="state in ('posted', 'rejected')"/>
+                        </group>
+                        <group>
+                            <field name="extractor_last_run_summary"
+                                   readonly="1" colspan="2"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids" readonly="state in ('posted', 'rejected')">
+                                <list editable="bottom"
+                                      decoration-success="match_status in ('ok', 'overridden')"
+                                      decoration-warning="match_status in ('qty_exception', 'price_exception', 'over_received')"
+                                      decoration-danger="match_status in ('no_match', 'rejected')">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="product_code"/>
+                                    <field name="product_id"/>
+                                    <field name="description"/>
+                                    <field name="invoice_qty"/>
+                                    <field name="invoice_price"/>
+                                    <field name="subtotal" sum="Total"/>
+                                    <field name="extractor_confidence" optional="hide"/>
+                                    <field name="purchase_order_line_id" optional="show" readonly="1"/>
+                                    <field name="po_qty" optional="hide" readonly="1"/>
+                                    <field name="po_price" optional="hide" readonly="1"/>
+                                    <field name="received_qty" optional="show" readonly="1"/>
+                                    <field name="qty_diff" optional="hide" readonly="1"/>
+                                    <field name="price_diff" optional="hide" readonly="1"/>
+                                    <field name="match_status"
+                                           widget="badge"
+                                           decoration-success="match_status in ('ok', 'overridden')"
+                                           decoration-warning="match_status in ('qty_exception', 'price_exception', 'over_received')"
+                                           decoration-danger="match_status in ('no_match', 'rejected')"/>
+                                    <field name="decision_log_id" optional="hide"/>
+                                    <field name="tax_provenance" optional="hide"/>
+                                    <button name="action_override"
+                                            type="object"
+                                            string="Override"
+                                            groups="eh_account_base.group_eh_manager"
+                                            title="Override"
+                                            aria-label="Override"
+                                            invisible="match_status not in ('qty_exception', 'price_exception', 'over_received', 'no_match')"
+                                            icon="fa-check-circle"/>
+                                    <button name="action_reject_line"
+                                            type="object"
+                                            string="Reject"
+                                            groups="eh_account_base.group_eh_manager"
+                                            title="Reject"
+                                            aria-label="Reject"
+                                            invisible="match_status not in ('qty_exception', 'price_exception', 'over_received', 'no_match')"
+                                            icon="fa-times-circle"/>
+                                    <button name="action_reopen_line"
+                                            type="object"
+                                            string="Reopen"
+                                            groups="eh_account_base.group_eh_manager"
+                                            title="Reopen"
+                                            aria-label="Reopen"
+                                            invisible="match_status != 'rejected'"
+                                            icon="fa-undo"/>
+                                </list>
+                                <form string="Intake Line">
+                                    <group>
+                                        <group>
+                                            <field name="sequence"/>
+                                            <field name="product_code"/>
+                                            <field name="product_id"/>
+                                            <field name="description"/>
+                                            <field name="invoice_qty"/>
+                                            <field name="invoice_price"/>
+                                            <field name="subtotal"/>
+                                            <field name="extractor_confidence" readonly="1"/>
+                                            <field name="extractor_metadata_json" readonly="1"/>
+                                            <field name="tax_ids" widget="many2many_tags"/>
+                                            <field name="tax_provenance" readonly="1"/>
+                                        </group>
+                                        <group>
+                                            <field name="purchase_order_line_id" readonly="1"/>
+                                            <field name="po_qty" readonly="1"/>
+                                            <field name="po_price" readonly="1"/>
+                                            <field name="received_qty" readonly="1"/>
+                                            <field name="qty_diff" readonly="1"/>
+                                            <field name="price_diff" readonly="1"/>
+                                            <field name="match_status" readonly="1"/>
+                                            <field name="match_notes" readonly="1"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <field name="override_reason" colspan="2"/>
+                                        <field name="overridden_at" readonly="1"/>
+                                        <field name="overridden_by_id" readonly="1"/>
+                                        <field name="decision_log_id" readonly="1"/>
+                                        <field name="match_evidence_fingerprint" readonly="1"/>
+                                        <field name="decision_log_ids" readonly="1">
+                                            <list create="0" edit="0" delete="0">
+                                                <field name="decided_at"/>
+                                                <field name="decision"/>
+                                                <field name="decided_by_id"/>
+                                                <field name="reason"/>
+                                                <field name="evidence_fingerprint" optional="hide"/>
+                                            </list>
+                                        </field>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Captured Text">
+                            <field name="source_email_subject" readonly="1"
+                                   invisible="not source_email_subject"/>
+                            <field name="raw_text" widget="text"
+                                   readonly="state in ('posted', 'rejected')"
+                                   placeholder="Paste or upload bill text"/>
+                            <field name="source_attachment_id" readonly="1"/>
+                            <field name="source_fingerprint" readonly="1"/>
+                            <field name="source_size" readonly="1"/>
+                            <field name="source_mimetype" readonly="1"/>
+                            <field name="source_captured_at" readonly="1"/>
+                        </page>
+                        <page string="Posted Bill" invisible="state != 'posted'">
+                            <group>
+                                <field name="move_id"/>
+                                <field name="posted_at"/>
+                                <field name="posted_by_id"/>
+                            </group>
+                        </page>
+                        <page string="Rejection" invisible="state == 'posted'">
+                            <group>
+                                <field name="rejection_reason" colspan="2"
+                                       readonly="state == 'rejected'"/>
+                                <field name="rejected_at"/>
+                                <field name="rejected_by_id"/>
+                            </group>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_ap_intake_search" model="ir.ui.view">
+        <field name="name">eh.ap.intake.search</field>
+        <field name="model">eh.ap.intake</field>
+        <field name="arch" type="xml">
+            <search string="Vendor Bill Intake">
+                <field name="name"/>
+                <field name="vendor_reference"/>
+                <field name="partner_id"/>
+                <field name="purchase_order_id"/>
+                <filter string="Received" name="state_received"
+                        domain="[('state', '=', 'received')]"/>
+                <filter string="Parsed" name="state_parsed"
+                        domain="[('state', '=', 'parsed')]"/>
+                <filter string="Matched" name="state_matched"
+                        domain="[('state', '=', 'matched')]"/>
+                <filter string="Exception" name="state_exception"
+                        domain="[('state', '=', 'exception')]"/>
+                <filter string="Posted" name="state_posted"
+                        domain="[('state', '=', 'posted')]"/>
+                <filter string="Rejected" name="state_rejected"
+                        domain="[('state', '=', 'rejected')]"/>
+                <separator/>
+                <filter string="Has Exceptions" name="has_exceptions"
+                        domain="[('exception_count', '>', 0)]"/>
+                <filter string="Duplicates Flagged" name="duplicates_flagged"
+                        domain="['|',
+                                 ('duplicate_intake_id', '!=', False),
+                                 ('duplicate_move_id', '!=', False)]"/>
+                <filter string="Duplicates Unresolved"
+                        name="duplicates_unresolved"
+                        domain="[('duplicate_override_reason', '=', False),
+                                 '|',
+                                 ('duplicate_intake_id', '!=', False),
+                                 ('duplicate_move_id', '!=', False)]"/>
+                <group>
+                    <filter string="Vendor" name="group_partner"
+                            context="{'group_by': 'partner_id'}"/>
+                    <filter string="State" name="group_state"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Received (day)" name="group_received"
+                            context="{'group_by': 'received_at:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="eh_account_ap_automation_intake_view_graph" model="ir.ui.view">
+        <field name="name">eh.ap.intake.graph</field>
+        <field name="model">eh.ap.intake</field>
+        <field name="arch" type="xml">
+            <graph string="Vendor Bill Intake" sample="1">
+                <field name="bill_date" interval="month"/>
+                <field name="state"/>
+                <field name="total_invoice_amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_ap_automation_intake_view_pivot" model="ir.ui.view">
+        <field name="name">eh.ap.intake.pivot</field>
+        <field name="model">eh.ap.intake</field>
+        <field name="arch" type="xml">
+            <pivot string="Vendor Bill Intake" sample="1">
+                <field name="partner_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="total_invoice_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_ap_intake" model="ir.actions.act_window">
+        <field name="name">Bill Inbox</field>
+        <field name="res_model">eh.ap.intake</field>
+        <field name="view_mode">list,kanban,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_ap_intake_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Capture your first vendor bill</p>
+            <p>This inbox holds captured vendor bills as they move from received through parse, three way match, and posting. Forward a bill to the intake email alias, or create one here and paste its text to start.</p>
+        </field>
+    </record>
+
+    <record id="action_eh_ap_intake_exception" model="ir.actions.act_window">
+        <field name="name">Exceptions</field>
+        <field name="res_model">eh.ap.intake</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('state', '=', 'exception')]</field>
+        <field name="search_view_id" ref="view_eh_ap_intake_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No exceptions to review</p>
+            <p>Bills whose lines fall outside the tolerance profile land here for review. Open one, override or reject the flagged lines, then re-match to clear it.</p>
+        </field>
+    </record>
+
+</odoo>

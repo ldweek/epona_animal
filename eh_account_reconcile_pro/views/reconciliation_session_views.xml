@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_reconciliation_session_kanban" model="ir.ui.view">
+        <field name="name">eh.reconciliation.session.kanban</field>
+        <field name="model">eh.reconciliation.session</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state"
+                    quick_create="false"
+                    class="o_kanban_small_column"
+                    sample="1">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="journal_id"/>
+                <field name="state"/>
+                <field name="opened_at"/>
+                <field name="matches_made"/>
+                <field name="write_offs"/>
+                <field name="skips"/>
+                <templates>
+                    <t t-name="card" class="row g-0">
+                        <main class="col-12">
+                            <field name="name" class="fs-5 fw-bold"/>
+                            <field name="journal_id" class="text-muted"/>
+                            <div class="d-flex justify-content-between mt-2">
+                                <span class="badge text-bg-success">
+                                    <field name="matches_made"/> matched
+                                </span>
+                                <span class="badge text-bg-warning"
+                                      t-if="record.write_offs.raw_value">
+                                    <field name="write_offs"/> wo
+                                </span>
+                                <span class="badge text-bg-secondary"
+                                      t-if="record.skips.raw_value">
+                                    <field name="skips"/> skip
+                                </span>
+                            </div>
+                            <div class="text-muted mt-1">
+                                <i class="fa fa-clock-o" title="Opened at"/>
+                                <field name="opened_at"/>
+                            </div>
+                            <footer class="d-flex justify-content-end mt-2">
+                                <field name="user_id"
+                                       widget="many2one_avatar_user"/>
+                            </footer>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_eh_reconciliation_session_tree" model="ir.ui.view">
+        <field name="name">eh.reconciliation.session.list</field>
+        <field name="model">eh.reconciliation.session</field>
+        <field name="arch" type="xml">
+            <list string="Reconciliation Sessions"
+                  default_order="opened_at desc"
+                  sample="1">
+                <field name="opened_at"/>
+                <field name="user_id"/>
+                <field name="journal_id"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'closed'"
+                       decoration-warning="state == 'open'"/>
+                <field name="matches_made" sum="Total matches"/>
+                <field name="matches_via_suggestion" sum="From suggestions"/>
+                <field name="matches_manual" sum="Manual"/>
+                <field name="write_offs" sum="Write offs"/>
+                <field name="skips" sum="Skipped"/>
+                <field name="duration_seconds" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_reconciliation_session_form" model="ir.ui.view">
+        <field name="name">eh.reconciliation.session.form</field>
+        <field name="model">eh.reconciliation.session</field>
+        <field name="arch" type="xml">
+            <form string="Reconciliation Session">
+                <header>
+                    <button name="action_close"
+                            type="object"
+                            string="Close Session"
+                            class="btn-primary"
+                            invisible="state != 'open'"/>
+                    <field name="state" widget="statusbar" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_audits"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-list">
+                            <field name="audit_count"
+                                   widget="statinfo"
+                                   string="Decisions"/>
+                        </button>
+                    </div>
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                    <group>
+                        <group string="Session">
+                            <field name="user_id" readonly="1"/>
+                            <field name="journal_id" readonly="1"/>
+                            <field name="company_id"
+                                   readonly="1"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Timing">
+                            <field name="opened_at" readonly="1"/>
+                            <field name="closed_at" readonly="1"/>
+                            <field name="duration_seconds" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Match outcomes">
+                            <field name="matches_made" readonly="1"/>
+                            <field name="matches_via_suggestion" readonly="1"/>
+                            <field name="matches_manual" readonly="1"/>
+                        </group>
+                        <group string="Other outcomes">
+                            <field name="write_offs" readonly="1"/>
+                            <field name="skips" readonly="1"/>
+                            <field name="statements_processed" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_reconciliation_session_search" model="ir.ui.view">
+        <field name="name">eh.reconciliation.session.search</field>
+        <field name="model">eh.reconciliation.session</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id"/>
+                <field name="journal_id"/>
+                <filter name="filter_open" string="Open"
+                        domain="[('state', '=', 'open')]"/>
+                <filter name="filter_closed" string="Closed"
+                        domain="[('state', '=', 'closed')]"/>
+                <separator/>
+                <filter name="filter_my" string="My Sessions"
+                        domain="[('user_id', '=', uid)]"/>
+                <group>
+                    <filter name="group_user" string="User"
+                            context="{'group_by': 'user_id'}"/>
+                    <filter name="group_journal" string="Journal"
+                            context="{'group_by': 'journal_id'}"/>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_reconciliation_session" model="ir.actions.act_window">
+        <field name="name">Reconciliation Sessions</field>
+        <field name="res_model">eh.reconciliation.session</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id"
+               ref="view_eh_reconciliation_session_search"/>
+        <field name="context">{'search_default_filter_my': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No reconciliation sessions yet.</p>
+            <p>A session is opened when you enter the bank reconciliation workspace. Each match, write off, or skip is recorded as an audit decision linked to the session.</p>
+        </field>
+    </record>
+
+</odoo>

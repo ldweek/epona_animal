@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Odoo 19 owns the field and column; use the suite widget so the same
+         safe click-through contract is available on every supported series. -->
+    <record id="view_partner_tree_application_statistics" model="ir.ui.view">
+        <field name="name">res.partner.list.application.statistics</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <field name="application_statistics" position="attributes">
+                <attribute name="widget">eh_list_statistics</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

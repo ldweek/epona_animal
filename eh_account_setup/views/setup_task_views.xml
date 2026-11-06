@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_eh_account_setup_task_list" model="ir.ui.view">
+        <field name="name">eh.account.setup.task.list</field>
+        <field name="model">eh.account.setup.task</field>
+        <field name="arch" type="xml">
+            <list string="Setup task definitions" default_order="category, sequence">
+                <field name="sequence"/>
+                <field name="key"/>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="required_modules"/>
+                <field name="action_xmlid"/>
+                <field name="line_done_count" string="Done"/>
+                <field name="line_count" string="Companies"/>
+                <field name="completion_ratio" widget="progressbar" string="Completion"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_account_setup_task_form" model="ir.ui.view">
+        <field name="name">eh.account.setup.task.form</field>
+        <field name="model">eh.account.setup.task</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_lines" icon="fa-building-o">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="line_count"/>
+                                </span>
+                                <span class="o_stat_text">Companies</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_lines_done" icon="fa-check-circle">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value text-success">
+                                    <field name="line_done_count"/>
+                                </span>
+                                <span class="o_stat_text">Done</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_lines_todo" icon="fa-clock-o">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="line_todo_count"/>
+                                </span>
+                                <span class="o_stat_text">To do</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_lines_skipped" icon="fa-ban">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value text-muted">
+                                    <field name="line_skipped_count"/>
+                                </span>
+                                <span class="o_stat_text">Skipped</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_lines" icon="fa-tachometer">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="completion_ratio" widget="percentage"
+                                           digits="[16, 1]"/>
+                                </span>
+                                <span class="o_stat_text">Completion</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="e.g. Configure approval policy"/>
+                        </h1>
+                    </div>
+                    <group string="Definition">
+                        <group>
+                            <field name="key"/>
+                            <field name="category"/>
+                            <field name="sequence"/>
+                            <field name="icon"/>
+                        </group>
+                        <group>
+                            <field name="required_modules"/>
+                            <field name="action_xmlid"/>
+                        </group>
+                    </group>
+                    <group string="What this task achieves">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Per company snapshot" name="snapshot">
+                            <field name="line_ids" mode="kanban,list" nolabel="1" readonly="1">
+                                <kanban default_group_by="state"
+                                        records_draggable="false"
+                                        group_create="false"
+                                        group_edit="false"
+                                        group_delete="false">
+                                    <field name="state"/>
+                                    <field name="company_id"/>
+                                    <field name="completed_at"/>
+                                    <field name="completed_by_id"/>
+                                    <field name="is_relevant"/>
+                                    <templates>
+                                        <t t-name="card">
+                                            <div class="oe_kanban_card oe_kanban_global_click p-2">
+                                                <div class="o_kanban_record_top mb-1">
+                                                    <strong class="o_kanban_record_title">
+                                                        <field name="company_id"/>
+                                                    </strong>
+                                                    <field name="state" widget="label_selection"
+                                                           options="{'classes': {'todo': 'default', 'done': 'success', 'skipped': 'muted'}}"/>
+                                                </div>
+                                                <div class="o_kanban_record_body small text-muted">
+                                                    <div t-if="record.completed_at.raw_value">
+                                                        Completed <field name="completed_at" widget="date"/>
+                                                    </div>
+                                                    <div t-if="record.completed_by_id.raw_value">
+                                                        by <field name="completed_by_id"/>
+                                                    </div>
+                                                    <div t-if="!record.is_relevant.raw_value" class="text-warning">
+                                                        Hidden, required modules not installed
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <list default_order="company_id, state">
+                                    <field name="company_id"/>
+                                    <field name="state"/>
+                                    <field name="completed_at"/>
+                                    <field name="completed_by_id"/>
+                                    <field name="is_relevant" string="Relevant"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_account_setup_task_kanban" model="ir.ui.view">
+        <field name="name">eh.account.setup.task.kanban</field>
+        <field name="model">eh.account.setup.task</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="category"
+                    class="o_kanban_dashboard"
+                    records_draggable="false">
+                <field name="key"/>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="icon"/>
+                <field name="line_done_count"/>
+                <field name="line_count"/>
+                <field name="completion_ratio"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click p-2">
+                            <div class="o_kanban_record_top mb-2">
+                                <strong class="o_kanban_record_title">
+                                    <i t-if="record.icon.raw_value"
+                                       t-attf-class="fa fa-#{record.icon.raw_value} me-2 text-muted"
+                                       t-att-title="record.name.value"/>
+                                    <field name="name"/>
+                                </strong>
+                            </div>
+                            <div class="o_kanban_record_body small text-muted mb-2">
+                                <field name="description"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <small><field name="line_done_count"/> / <field name="line_count"/> companies done</small>
+                                <field name="completion_ratio" widget="progressbar"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_eh_account_setup_task_search" model="ir.ui.view">
+        <field name="name">eh.account.setup.task.search</field>
+        <field name="model">eh.account.setup.task</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Search"
+                       filter_domain="['|', '|', '|', ('name', 'ilike', self), ('description', 'ilike', self), ('key', 'ilike', self), ('action_xmlid', 'ilike', self)]"/>
+                <field name="key"/>
+                <field name="category"/>
+                <field name="required_modules"/>
+                <field name="action_xmlid"/>
+                <field name="sequence"/>
+
+                <filter name="cat_foundations" string="Foundations"
+                        domain="[('category', '=', 'foundations')]"/>
+                <filter name="cat_currencies" string="Currencies"
+                        domain="[('category', '=', 'currencies')]"/>
+                <filter name="cat_receivables" string="Receivables"
+                        domain="[('category', '=', 'receivables')]"/>
+                <filter name="cat_payables" string="Payables"
+                        domain="[('category', '=', 'payables')]"/>
+                <filter name="cat_approvals" string="Approvals"
+                        domain="[('category', '=', 'approvals')]"/>
+                <filter name="cat_reporting" string="Reporting"
+                        domain="[('category', '=', 'reporting')]"/>
+                <filter name="cat_close" string="Period Close"
+                        domain="[('category', '=', 'close')]"/>
+
+                <separator/>
+
+                <filter name="filter_always_shown" string="Always shown"
+                        domain="['|', ('required_modules', '=', False), ('required_modules', '=', '')]"/>
+                <filter name="filter_module_specific" string="Module specific"
+                        domain="['&amp;', ('required_modules', '!=', False), ('required_modules', '!=', '')]"/>
+
+                <separator/>
+
+                <filter name="filter_any_done" string="At least one company done"
+                        domain="[('line_ids.state', '=', 'done')]"/>
+                <filter name="filter_no_done" string="No company done yet"
+                        domain="[('line_done_count', '=', 0)]"/>
+                <filter name="filter_any_skipped" string="At least one company skipped"
+                        domain="[('line_ids.state', '=', 'skipped')]"/>
+
+                <separator/>
+
+                <filter name="filter_completion_high" string="Completion 75% or more"
+                        domain="[('completion_ratio', '&gt;=', 75)]"/>
+                <filter name="filter_completion_partial" string="Completion 25 to 74%"
+                        domain="['&amp;', ('completion_ratio', '&gt;=', 25), ('completion_ratio', '&lt;', 75)]"/>
+                <filter name="filter_completion_low" string="Completion under 25%"
+                        domain="[('completion_ratio', '&lt;', 25)]"/>
+
+                <separator/>
+                <filter name="group_category" string="Category"
+                        context="{'group_by': 'category'}"/>
+                <filter name="group_required_modules" string="Required modules"
+                        context="{'group_by': 'required_modules'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_account_setup_task" model="ir.actions.act_window">
+        <field name="name">Setup task definitions</field>
+        <field name="res_model">eh.account.setup.task</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="view_eh_account_setup_task_search"/>
+        <field name="context">{'search_default_group_category': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No setup task definitions yet</p>
+            <p>Create a definition to add a tracked setup step for every company.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_setup_task_definitions"
+              name="Setup task definitions"
+              parent="account.menu_finance_configuration"
+              action="action_eh_account_setup_task"
+              groups="eh_account_base.group_eh_manager"
+              sequence="8"/>
+
+</odoo>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_reconciliation_rule_list" model="ir.ui.view">
+        <field name="name">eh.reconciliation.rule.list</field>
+        <field name="model">eh.reconciliation.rule</field>
+        <field name="arch" type="xml">
+            <list string="Reconciliation Rules" default_order="sequence, id">
+                <header>
+                    <button name="action_learn_from_history"
+                            type="object"
+                            string="Learn from History"
+                            class="btn-secondary"
+                            groups="eh_account_base.group_eh_manager"/>
+                </header>
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="rule_type"/>
+                <field name="payment_ref_regex" optional="show"/>
+                <field name="amount_min" optional="hide"/>
+                <field name="amount_max" optional="hide"/>
+                <field name="direction" optional="hide"/>
+                <field name="partner_id" optional="hide"/>
+                <field name="auto_confirm" optional="hide"/>
+                <field name="fire_count" optional="show"/>
+                <field name="last_fired_at" optional="hide"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_reconciliation_rule_form" model="ir.ui.view">
+        <field name="name">eh.reconciliation.rule.form</field>
+        <field name="model">eh.reconciliation.rule</field>
+        <field name="arch" type="xml">
+            <form string="Reconciliation Rule">
+                <sheet>
+                    <h1>
+                        <field name="name" placeholder="Bank fee writeoff"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="code" placeholder="bank_fee_writeoff"/>
+                            <field name="rule_type"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="fire_count" readonly="1"/>
+                            <field name="last_fired_at" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Scope">
+                            <group>
+                                <field name="journal_ids" widget="many2many_tags"
+                                       domain="[('type', 'in', ['bank', 'cash']), ('company_id', '=', company_id)]"
+                                       options="{'no_create': True}"/>
+                            </group>
+                            <p class="text-muted">Limit which bank or cash journals this rule applies to. Leave empty to match every bank or cash journal in the company.</p>
+                        </page>
+                        <page string="Pattern">
+                            <group>
+                                <group>
+                                    <field name="payment_ref_regex"
+                                           placeholder="^INV-\d{6}$"/>
+                                    <field name="narration_regex"/>
+                                </group>
+                                <group>
+                                    <field name="amount_min"/>
+                                    <field name="amount_max"/>
+                                    <field name="direction"/>
+                                </group>
+                            </group>
+                            <p class="text-muted">All non-empty fields must match for this rule to fire. Empty fields are ignored. Regexes use Python <code>re</code> syntax.</p>
+                        </page>
+                        <page string="Match action"
+                              invisible="rule_type != 'match'">
+                            <group>
+                                <field name="partner_id"
+                                       domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]"
+                                       options="{'no_create': True}"/>
+                                <field name="score_boost"/>
+                                <field name="auto_confirm"/>
+                            </group>
+                            <p class="text-muted">When this rule fires on a candidate journal item, its score is boosted by <field name="score_boost" readonly="1" class="oe_inline"/>. With Auto Confirm on, the workspace can apply the match without a user click.</p>
+                        </page>
+                        <page string="Write-off"
+                              invisible="rule_type != 'write_off'">
+                            <group>
+                                <field name="writeoff_account_id"
+                                       domain="[('account_type', 'in', ['income', 'income_other', 'expense', 'expense_depreciation', 'expense_direct_cost'])]"
+                                       options="{'no_create': True}"/>
+                                <field name="writeoff_label"/>
+                                <field name="writeoff_amount_type"/>
+                                <field name="writeoff_amount"
+                                       invisible="writeoff_amount_type == 'residual'"/>
+                                <field name="auto_confirm"/>
+                            </group>
+                            <p class="text-muted">When the rule fires on a statement line that has no AML candidate, Auto Confirm can post only a full-residual write-off. Fixed or percentage rules that do not equal the exact open residual remain for explicit operator review.</p>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_reconciliation_rule" model="ir.actions.act_window">
+        <field name="name">Reconciliation Rules</field>
+        <field name="res_model">eh.reconciliation.rule</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No reconciliation rules yet.</p>
+            <p>Define a rule once, and the suggestion engine boosts (or auto-confirms) every matching statement line from then on. Common starting rules: bank fee write-off, payroll deposit auto-match, supplier reference pattern.</p>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Settings mirror for the PDC bounce charge fallback account, added to
+    the ERP Heritage Operations block provided by eh_account_base.
+-->
+<odoo>
+
+    <record id="res_config_settings_view_form_eh_pdc" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.eh.pdc</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="eh_account_base.res_config_settings_view_form_eh"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='eh_block_operations']" position="inside">
+                <setting id="eh_pdc_bounce_charge_setting"
+                         string="PDC Bounce Charges Account"
+                         help="Fallback expense account for cheque dishonour bank charges when the bank journal has none.">
+                    <field name="eh_pdc_bounce_charge_account_id"/>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

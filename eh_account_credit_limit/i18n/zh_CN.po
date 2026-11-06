@@ -1,0 +1,851 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_credit_limit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Chinese (Simplified)\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__excess
+msgid ""
+"(exposure + move_amount) - limit. The amount by which the override exceeds "
+"the limit."
+msgstr "(exposure + move_amount) - limit。覆盖超出限额的金额。"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_partner_form_eh_credit_button
+msgid "<span class=\"o_stat_text\">Credit</span>"
+msgstr "<span class=\"o_stat_text\">信用额度</span>"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_needaction
+msgid "Action Needed"
+msgstr "所需操作"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__active
+msgid "Active"
+msgstr "有效"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_ids
+msgid "Activities"
+msgstr "活动"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "活动异常标示"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_state
+msgid "Activity State"
+msgstr "活动状态"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "活动类型图标"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__user_id
+msgid "Actor"
+msgstr "参与者"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__move_amount
+msgid "Amount of the move that triggered the override."
+msgstr "触发覆盖的分录金额。"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Archived"
+msgstr "已归档"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_attachment_count
+msgid "Attachment Count"
+msgstr "附件数量"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_override_log_id
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_move__eh_credit_override_log_id
+msgid ""
+"Audit row recorded when this move's post bypassed the credit gate. Empty "
+"when no override was needed."
+msgstr "当此凭证的过账绕过信用关卡时记录的审计行。无需覆盖时为空。"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_form
+msgid ""
+"Block mode raises a UserError on customer invoice post when exposure exceeds"
+" the limit. The override field on the invoice plus a comment from a manager "
+"records the bypass to the immutable audit log. Warn-only logs the breach to "
+"chatter and lets the post proceed."
+msgstr ""
+"当风险敞口超过限额时，阻止模式会在过账客户发票时引发 "
+"UserError。发票上的覆盖字段加上经理的备注会将此绕过记录到不可变审计日志中。仅警告模式会将违规记录到聊天记录中，并允许继续过账。"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Block on Post"
+msgstr "过账时阻止"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__eh_credit_policy__enforcement_mode__block
+msgid "Block on post (override allowed)"
+msgstr "过账时阻止（允许覆盖）"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__comment
+msgid "Comment"
+msgstr "备注"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__company_id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__company_id
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Company"
+msgstr "公司"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/credit_policy.py:0
+msgid ""
+"Company %(company)s already has a default credit policy (%(name)s). Unset "
+"that one first."
+msgstr "公司 %(company)s 已有默认信用政策 (%(name)s)。请先取消该设置。"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/credit_policy.py:0
+msgid ""
+"Company %(company)s already has a default policy (%(name)s). Saving this "
+"record will fail unless you clear the existing default first."
+msgstr "公司 %(company)s 已有默认政策 (%(name)s)。除非您先清除现有的默认设置，否则保存此记录将失败。"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Company Default"
+msgstr "公司默认值"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_credit_exposure_currency_id
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_credit_exposure_currency_id
+msgid "Company currency exposure and limit are expressed in."
+msgstr "公司敞口和限额所使用的货币。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model,name:eh_account_credit_limit.model_res_partner
+msgid "Contact"
+msgstr "联系人"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.actions.act_window,help:eh_account_credit_limit.action_eh_credit_policy
+msgid ""
+"Create one default policy per company. Mark it 'Company default' so partners"
+" without an override use this limit. Set per-partner overrides on the "
+"partner form when a specific customer needs different terms."
+msgstr ""
+"为每家公司创建一个默认政策。将其标记为“公司默认”，以便没有覆盖设置的合作伙伴使用此限额。当特定客户需要不同条款时，在合作伙伴表单上设置针对该合作伙伴的覆盖设置。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__create_uid
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__create_date
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__create_date
+msgid "Created on"
+msgstr "创建日期"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_form
+msgid "Credit Override"
+msgstr "信用覆盖"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_list
+msgid "Credit Override Audit Log"
+msgstr "信用覆盖审计日志"
+
+#. module: eh_account_credit_limit
+#: model:ir.actions.act_window,name:eh_account_credit_limit.action_eh_credit_override_log
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Credit Override Log"
+msgstr "信用覆盖日志"
+
+#. module: eh_account_credit_limit
+#: model:ir.ui.menu,name:eh_account_credit_limit.menu_eh_credit_override_log
+msgid "Credit Overrides"
+msgstr "信用覆盖"
+
+#. module: eh_account_credit_limit
+#: model:ir.actions.act_window,name:eh_account_credit_limit.action_eh_credit_policy
+#: model:ir.ui.menu,name:eh_account_credit_limit.menu_eh_credit_policy
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_list
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Credit Policies"
+msgstr "信用政策"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_form
+msgid "Credit Policy"
+msgstr "信用政策"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid ""
+"Credit limit exceeded for %(partner)s. Posting this invoice would bring "
+"exposure to %(new).2f against a limit of %(limit).2f (excess %(excess).2f). "
+"To proceed, a manager must record the override reason on this invoice before"
+" posting again."
+msgstr ""
+"%(partner)s 的信用额度已超限。过账此发票将使敞口达到 %(new).2f，而额度为 %(limit).2f（超出 "
+"%(excess).2f）。要继续，管理员必须在再次过账前在此发票上记录覆盖原因。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model,name:eh_account_credit_limit.model_eh_credit_override_log
+msgid "Credit override audit log"
+msgstr "信用覆盖审计日志"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_move_form_eh_credit
+msgid "Credit override audit row"
+msgstr "信用覆盖审计行"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_move_form_eh_credit
+msgid "Credit override reason"
+msgstr "信用覆盖原因"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid ""
+"Credit override recorded. Exposure %(exp).2f, limit %(lim).2f, excess "
+"%(exc).2f. Reason: %(reason)s."
+msgstr "已记录信用覆盖。敞口 %(exp).2f，额度 %(lim).2f，超出 %(exc).2f。原因：%(reason)s。"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_partner_form_eh_credit
+msgid "Credit policy"
+msgstr "信用政策"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_partner_form_eh_credit_button
+msgid "Credit status and override history"
+msgstr "信用状态与覆盖历史"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid ""
+"Credit warning: posting this invoice brings %(partner)s to %(new).2f, "
+"exceeding the %(limit).2f limit by %(excess).2f. Posting allowed (warn-only "
+"policy)."
+msgstr ""
+"信用警告：过账此发票将使 %(partner)s 达到 %(new).2f，超出 %(limit).2f 额度 "
+"%(excess).2f。允许过账（仅警告政策）。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__currency_id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__currency_id
+msgid "Currency"
+msgstr "币别"
+
+#. module: eh_account_credit_limit
+#: model:ir.model,name:eh_account_credit_limit.model_eh_credit_policy
+msgid "Customer credit policy"
+msgstr "客户信用政策"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__default_credit_limit
+msgid "Default Credit Limit"
+msgstr "默认信用额度"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__default_credit_limit
+msgid ""
+"Default credit limit applied when a partner has no override. Zero means no "
+"enforcement; the gate skips."
+msgstr "当合作伙伴没有覆盖值时应用的默认信用额度。零表示不强制执行；该关卡会跳过。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.constraint,message:eh_account_credit_limit.constraint_eh_credit_policy_check_default_limit_non_negative
+msgid "Default credit limit cannot be negative."
+msgstr "默认信用额度不能为负数。"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_form
+msgid "Default policy"
+msgstr "默认策略"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_move__display_name
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__display_name
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__display_name
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__limit_at_override
+msgid "Effective credit limit applied to the partner at override time."
+msgstr "在覆盖时应用于该合作伙伴的有效信用额度。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_credit_exposure
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_credit_exposure
+msgid "Eh Credit Exposure"
+msgstr "信用敞口"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_credit_exposure_currency_id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_credit_exposure_currency_id
+msgid "Eh Credit Exposure Currency"
+msgstr "信用敞口货币"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_credit_limit
+msgid "Eh Credit Limit"
+msgstr "信用额度"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_override_log_id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_move__eh_credit_override_log_id
+msgid "Eh Credit Override Log"
+msgstr "信用覆盖日志"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_override_reason
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_move__eh_credit_override_reason
+msgid "Eh Credit Override Reason"
+msgstr "信用覆盖原因"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_credit_policy_id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_credit_policy_id
+msgid "Eh Credit Policy"
+msgstr "信用政策"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_credit_status
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_credit_status
+msgid "Eh Credit Status"
+msgstr "信用状态"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_warning
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_move__eh_credit_warning
+msgid "Eh Credit Warning"
+msgstr "信用警告"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_effective_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_effective_credit_limit
+msgid "Eh Effective Credit Limit"
+msgstr "有效信用额度"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_form
+msgid "Enforcement"
+msgstr "强制执行"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__enforcement_mode
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Enforcement Mode"
+msgstr "强制执行模式"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__excess
+msgid "Excess"
+msgstr "超额"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/credit_policy.py:0
+msgid "Existing default"
+msgstr "现有默认值"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__exposure_at_override
+msgid "Exposure At Override"
+msgstr "覆盖时的敞口"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_follower_ids
+msgid "Followers"
+msgstr "关注者"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "关注者（合作伙伴）"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font Awesome图标，例如：fa-tasks"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__comment
+msgid ""
+"Free-form note. The only field that stays writable after the row is created."
+msgstr "自由格式备注。行创建后唯一保持可写的字段。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__override_group_id
+msgid ""
+"Group whose members can record an override on a move. Defaults to the EH "
+"Accounting Manager group; deployments that need a separate Credit Officer "
+"cohort point this at their own group."
+msgstr "其成员可以在凭证上记录覆盖的组。默认为 EH 会计经理组；需要单独信贷专员群体的部署可将其指向自己的组。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__has_message
+msgid "Has Message"
+msgstr "有消息"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_move__id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__id
+msgid "ID"
+msgstr "识别号"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_exception_icon
+msgid "Icon"
+msgstr "图标"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "指示异常活动的图标。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "如果勾选此项，则需要查看新消息。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__message_has_error
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "如果勾选此项， 某些消息将出现发送错误。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__include_drafts
+msgid "Include Drafts"
+msgstr "包含草稿"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__include_sale_orders
+msgid "Include Sale Orders"
+msgstr "包含销售订单"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__is_company_default
+msgid "Is Company Default"
+msgstr "是否为公司默认值"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_is_follower
+msgid "Is Follower"
+msgstr "是关注者"
+
+#. module: eh_account_credit_limit
+#: model:ir.model,name:eh_account_credit_limit.model_account_move
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Journal Entry"
+msgstr "日记账分录"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Last 30 Days"
+msgstr "最近30天"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__write_uid
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__write_date
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__write_date
+msgid "Last Updated on"
+msgstr "上次更新日期"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__limit_at_override
+msgid "Limit At Override"
+msgstr "覆盖时的限额"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_warning
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_move__eh_credit_warning
+msgid ""
+"Live, non-blocking warning shown on a draft customer invoice when posting it"
+" would take the partner over its credit limit. The hard gate still runs at "
+"post time."
+msgstr "在客户草稿发票上显示的实时、非阻断式警告，提示过账后会使业务伙伴超出其信用额度。过账时仍会执行硬性拦截。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_has_error
+msgid "Message Delivery error"
+msgstr "消息发送错误"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_ids
+msgid "Messages"
+msgstr "消息"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__move_id
+msgid "Move"
+msgstr "分录"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__move_amount
+msgid "Move Amount"
+msgstr "凭证金额"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "我的活动截止时间"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__name
+msgid "Name"
+msgstr "名称"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "下一活动日历事件"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "下一活动截止日期"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_summary
+msgid "Next Activity Summary"
+msgstr "下一活动摘要"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_type_id
+msgid "Next Activity Type"
+msgstr "下一活动类型"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.actions.act_window,help:eh_account_credit_limit.action_eh_credit_policy
+msgid "No credit policies yet."
+msgstr "尚无信用政策。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__res_partner__eh_credit_status__disabled
+msgid "No policy"
+msgstr "无策略"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__notes
+msgid "Notes"
+msgstr "备注"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_needaction_counter
+msgid "Number of Actions"
+msgstr "操作数量"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_has_error_counter
+msgid "Number of errors"
+msgstr "错误数量"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "需要采取行动的消息数量"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "发送错误的消息的数量"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__res_partner__eh_credit_status__ok
+msgid "OK"
+msgstr "确定"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_credit_status
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_credit_status
+msgid ""
+"OK: exposure under 80 percent of limit. Warning: between 80 and 100 percent."
+" Over: above the limit. Disabled: no company policy in place."
+msgstr "OK：敞口低于限额的 80%。警告：介于 80% 和 100% 之间。超限：高于限额。已禁用：未制定公司政策。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__res_partner__eh_credit_status__over
+msgid "Over limit"
+msgstr "超出限额"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Override Date"
+msgstr "覆盖日期"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__override_group_id
+msgid "Override Group"
+msgstr "覆盖组"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__partner_id
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Partner"
+msgstr "合作伙伴"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__exposure_at_override
+msgid ""
+"Partner exposure (open AR plus drafts when policy says so) at the moment of "
+"override."
+msgstr "覆盖时刻的合作伙伴敞口（未结 AR 加上策略要求时的草稿）。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_credit_limit
+msgid ""
+"Per-partner credit limit override. Zero means use the company default "
+"policy. Negative values are not allowed."
+msgstr "按业务伙伴的信用额度覆盖值。零表示使用公司默认策略。不允许负值。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_effective_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_effective_credit_limit
+msgid ""
+"Per-partner override if set, else the company default policy's "
+"default_credit_limit. Zero means no enforcement. Expressed in the company "
+"currency to match exposure."
+msgstr ""
+"如已设置则采用按业务伙伴的覆盖值，否则采用公司默认策略的 default_credit_limit。零表示不强制执行。以公司货币表示以匹配敞口。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_credit_policy_id
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_credit_policy_id
+msgid ""
+"Per-partner policy override. When set, takes precedence over the company "
+"default. Useful for known-risk customers that need stricter enforcement than"
+" the default policy applies."
+msgstr "按业务伙伴的策略覆盖值。设置后优先于公司默认值。适用于需要比默认策略更严格执行的已知风险客户。"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid ""
+"Posting %(partner)s over its credit limit requires an override by a member "
+"of %(group)s. Configure the override group on the credit policy, or have an "
+"authorised user post this invoice."
+msgstr "过账 %(partner)s 超出其信用额度需要 %(group)s 成员的越权批准。请在信用政策中配置越权组，或由授权用户过账此发票。"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid ""
+"Posting brings %(partner)s to %(new).2f, over the %(limit).2f credit limit "
+"(excess %(excess).2f)."
+msgstr "过账使 %(partner)s 达到 %(new).2f，超出 %(limit).2f 的信用额度（超额 %(excess).2f）。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__rating_ids
+msgid "Ratings"
+msgstr "点评"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__reason
+msgid "Reason"
+msgstr "原因"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_override_reason
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_move__eh_credit_override_reason
+msgid ""
+"Reason for overriding the customer credit limit on this specific invoice. "
+"Setting this field is a positive act: the gate sees it as 'manager has "
+"explicitly accepted this excess' and records the override before posting."
+msgstr "在此特定发票上覆盖客户信用额度的原因。设置此字段是一项明确操作：控制关卡会将其视为“经理已明确接受此超限”，并在过账前记录该覆盖。"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_move_form_eh_credit
+msgid "Required only when posting would exceed the customer's credit limit"
+msgstr "仅当过账将超出客户信用额度时才需要"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_user_id
+msgid "Responsible User"
+msgstr "责任用户"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "短信发送错误"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_form
+msgid "Scope"
+msgstr "作用范围"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__sequence
+msgid "Sequence"
+msgstr "序列"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_partner_form_eh_credit
+msgid ""
+"Set the limit per partner only when a specific customer needs different "
+"terms. Otherwise the company default policy's limit applies. Status flips to"
+" Warning above 80 percent of the limit and Over above 100 percent. Posting a"
+" customer invoice in Over state requires a manager override unless the "
+"policy is in warn-only mode."
+msgstr ""
+"仅当特定客户需要不同条款时才按合作伙伴设置限额。否则将应用公司默认策略的限额。超过限额的 80% 时状态变为 Warning，超过 100% 时变为 "
+"Over。在 Over 状态下过账客户发票需要经理覆盖，除非策略处于仅警告模式。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"基于活动的状态\n"
+"逾期：超出到期日期\n"
+"今天：活动日期是今天\n"
+"计划：未来活动。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_credit_exposure
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_credit_exposure
+msgid ""
+"Sum of unpaid open AR plus, when the effective policy says so, draft "
+"customer invoices and not-yet-invoiced sale orders. Multi-currency lines are"
+" converted to the company currency at the rate captured on each document. "
+"Live; recomputes on every form load."
+msgstr ""
+"未付未结 AR "
+"之和，并且当生效政策要求时，加上草稿客户发票及尚未开票的销售订单。多币种行按每份单据上记录的汇率换算为公司货币。实时；每次加载表单时重新计算。"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Today"
+msgstr "今天"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "记录中异常活动的类型。"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "User"
+msgstr "用户"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__user_id
+msgid "User who performed the action this row records."
+msgstr "执行本行所记录操作的用户。"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Warn Only"
+msgstr "仅警告"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__eh_credit_policy__enforcement_mode__warn
+msgid "Warn only"
+msgstr "仅警告"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__enforcement_mode
+msgid ""
+"Warn-only logs the breach to the move's chatter but does not block the post."
+" Block raises a UserError unless an override has been recorded on the move."
+msgstr "仅警告会将违规记录到分录的沟通栏，但不会阻止过账。阻止将引发 UserError，除非分录上已记录了覆盖。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__res_partner__eh_credit_status__warn
+msgid "Warning"
+msgstr "警告"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__website_message_ids
+msgid "Website Messages"
+msgstr "网站消息"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__website_message_ids
+msgid "Website communication history"
+msgstr "网站沟通记录"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__include_drafts
+msgid ""
+"When set, draft customer invoices count toward a partner's exposure "
+"alongside posted-and-unpaid invoices. Useful in shops where sales and "
+"accounting are different cohorts and drafts are a real commitment. Default "
+"off so the gate only considers what is posted."
+msgstr ""
+"设置后，客户发票草稿将与已过账且未付的发票一起计入合作伙伴的敞口。适用于销售与会计属不同群体且草稿构成真实承诺的门店。默认关闭，使门槛仅考虑已过账的部分。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__include_sale_orders
+msgid ""
+"When set, the not-yet-invoiced portion of confirmed sales orders counts "
+"toward a partner's exposure. Catches credit risk earlier than waiting for "
+"the invoice: a customer with a 100k confirmed order but only 20k invoiced "
+"has 80k of real future receivables, and a strict gate should refuse a fresh "
+"order that pushes total commitments past the limit. Has no effect when the "
+"sale module is not installed."
+msgstr ""
+"设置后，已确认销售订单中尚未开票的部分将计入合作伙伴的敞口。它比等待发票更早地捕捉信用风险：某客户有一笔 100k 的已确认订单但仅开票 20k，则有 "
+"80k 的真实未来应收账款，严格的门槛应拒绝一笔会使总承诺超过限额的新订单。当未安装销售模块时无效。"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__is_company_default
+msgid ""
+"When set, this policy is the company-level default for partners that do not "
+"define their own override. Only one company-default policy may exist per "
+"company; the constraint enforces this."
+msgstr "设置后，此策略是公司级别的默认策略，适用于未定义自身覆盖的合作伙伴。每家公司只能存在一个公司默认策略；约束会强制执行这一点。"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid "the credit-override group"
+msgstr "信用额度覆盖组"

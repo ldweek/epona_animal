@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_asset_depreciation_line_tree" model="ir.ui.view">
+        <field name="name">eh.asset.depreciation.line.list</field>
+        <field name="model">eh.asset.depreciation.line</field>
+        <field name="arch" type="xml">
+            <list string="Depreciation Lines" sample="1"
+                  default_order="depreciation_date, sequence"
+                  decoration-success="is_posted"
+                  decoration-muted="not is_posted">
+                <field name="asset_id"/>
+                <field name="sequence"/>
+                <field name="depreciation_date"/>
+                <field name="amount" sum="Total"/>
+                <field name="accumulated"/>
+                <field name="remaining_value"/>
+                <field name="is_posted" readonly="1"/>
+                <field name="is_event_accrual" optional="hide" readonly="1"/>
+                <field name="posted_at" optional="hide"/>
+                <field name="move_id" optional="hide"/>
+                <field name="currency_id" optional="hide"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+                <button name="action_post"
+                        type="object"
+                        string="Post"
+                        invisible="is_posted"
+                        icon="fa-check"/>
+                <button name="action_view_move"
+                        type="object"
+                        string="View Move"
+                        invisible="not is_posted"
+                        icon="fa-external-link"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_asset_depreciation_line_search" model="ir.ui.view">
+        <field name="name">eh.asset.depreciation.line.search</field>
+        <field name="model">eh.asset.depreciation.line</field>
+        <field name="arch" type="xml">
+            <search string="Depreciation Lines">
+                <field name="asset_id"/>
+                <filter string="Posted" name="filter_posted"
+                        domain="[('is_posted', '=', True)]"/>
+                <filter string="Pending" name="filter_pending"
+                        domain="[('is_posted', '=', False)]"/>
+                <filter string="Due (today or earlier)" name="filter_due"
+                        domain="[('is_posted', '=', False),
+                                 ('depreciation_date', '&lt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <group>
+                    <filter string="Asset" name="group_asset"
+                            context="{'group_by': 'asset_id'}"/>
+                    <filter string="Date (month)" name="group_date"
+                            context="{'group_by': 'depreciation_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_asset_depreciation_line" model="ir.actions.act_window">
+        <field name="name">Depreciation Lines</field>
+        <field name="res_model">eh.asset.depreciation.line</field>
+        <field name="view_mode">list</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No depreciation lines yet</p>
+            <p>Each line is one period of an asset schedule with its depreciation, accumulated balance and net book value. Confirm an asset to generate its persisted depreciation lines.</p>
+        </field>
+        <field name="search_view_id" ref="view_eh_asset_depreciation_line_search"/>
+        <field name="context">{'search_default_filter_pending': 1}</field>
+    </record>
+
+</odoo>

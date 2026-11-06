@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_budget_commitment_tree" model="ir.ui.view">
+        <field name="name">eh.budget.commitment.list</field>
+        <field name="model">eh.budget.commitment</field>
+        <field name="arch" type="xml">
+            <list string="Budget commitments"
+                  default_order="create_date desc"
+                  decoration-info="state == 'reserved'"
+                  decoration-muted="state == 'released'">
+                <field name="create_date"/>
+                <field name="budget_id"/>
+                <field name="budget_line_id"/>
+                <field name="amount" widget="monetary" sum="Total"/>
+                <field name="source_model"/>
+                <field name="source_ref"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'reserved'"
+                       decoration-muted="state in ('draft', 'released')"/>
+                <field name="active" optional="hide"/>
+                <field name="eh_integrity_review_reason" optional="hide"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_budget_commitment_form" model="ir.ui.view">
+        <field name="name">eh.budget.commitment.form</field>
+        <field name="model">eh.budget.commitment</field>
+        <field name="arch" type="xml">
+            <form string="Budget commitment">
+                <header>
+                    <button name="action_reserve"
+                            type="object"
+                            string="Reserve"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_release"
+                            type="object"
+                            string="Release"
+                            invisible="state != 'reserved'"
+                            confirm="Release this commitment? Availability on the budget line increases by the commitment amount."/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,reserved,released"/>
+                </header>
+                <sheet>
+                    <!-- Unrestricted hidden dependency for check_company
+                         domains on Odoo 16/17. The visible copy below stays
+                         limited to multi-company users. -->
+                    <field name="company_id" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="budget_id" readonly="1"/>
+                            <field name="budget_line_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="amount" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="source_model" readonly="1"/>
+                            <field name="source_id" readonly="1"/>
+                            <field name="source_ref" readonly="1"/>
+                            <field name="company_id" readonly="1"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="notes"/>
+                    <field name="eh_integrity_review_reason"
+                           readonly="1"
+                           invisible="not eh_integrity_review_reason"/>
+                    <field name="active" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_budget_commitment_search" model="ir.ui.view">
+        <field name="name">eh.budget.commitment.search</field>
+        <field name="model">eh.budget.commitment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="budget_id"/>
+                <field name="budget_line_id"/>
+                <field name="source_ref"/>
+                <field name="source_model"/>
+                <filter name="filter_reserved" string="Reserved"
+                        domain="[('state', '=', 'reserved')]"/>
+                <filter name="filter_released" string="Released"
+                        domain="[('state', '=', 'released')]"/>
+                <separator/>
+                <filter name="filter_draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_quarantined" string="Quarantined"
+                        domain="[('active', '=', False)]"
+                        context="{'active_test': False}"/>
+                <group>
+                    <filter name="group_budget" string="Budget"
+                            context="{'group_by': 'budget_id'}"/>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_source_model" string="Source Model"
+                            context="{'group_by': 'source_model'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_budget_commitment" model="ir.actions.act_window">
+        <field name="name">Budget commitments</field>
+        <field name="res_model">eh.budget.commitment</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_budget_commitment_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No budget commitments yet</p>
+            <p>Commitments record encumbered amounts that reserve availability on a budget line. They are created automatically when a purchase order on a confirmed budget is confirmed, and released as the order is billed.</p>
+        </field>
+    </record>
+
+</odoo>

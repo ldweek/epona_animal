@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_fx_revaluation_run_tree" model="ir.ui.view">
+        <field name="name">eh.fx.revaluation.run.list</field>
+        <field name="model">eh.fx.revaluation.run</field>
+        <field name="arch" type="xml">
+            <list string="FX Revaluation Runs" sample="1"
+                  default_order="revaluation_date desc"
+                  decoration-success="state in ('posted', 'reversed')"
+                  decoration-info="state == 'computed'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="revaluation_date"/>
+                <field name="line_count"/>
+                <field name="total_gain" sum="Gain"/>
+                <field name="total_loss" sum="Loss"/>
+                <field name="net_adjustment" sum="Net"/>
+                <field name="realized_gain_loss" optional="show"/>
+                <field name="unrealized_gain_loss" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state in ('posted', 'reversed')"
+                       decoration-warning="state == 'computed'"
+                       decoration-muted="state == 'cancelled'"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_fx_revaluation_run_form" model="ir.ui.view">
+        <field name="name">eh.fx.revaluation.run.form</field>
+        <field name="model">eh.fx.revaluation.run</field>
+        <field name="arch" type="xml">
+            <form string="FX Revaluation Run">
+                <header>
+                    <button name="action_fetch_missing_rates"
+                            type="object"
+                            string="Fetch Rates"
+                            class="btn-secondary"
+                            groups="eh_account_base.group_eh_user"
+                            invisible="state not in ('draft', 'computed')"
+                            help="Pull closing rates from the configured provider for the revaluation date and write them into the currency table."/>
+                    <button name="action_compute"
+                            type="object"
+                            string="Compute Lines"
+                            class="btn-primary"
+                            groups="eh_account_base.group_eh_user"
+                            invisible="state not in ('draft', 'computed')"/>
+                    <button name="action_post"
+                            type="object"
+                            string="Post Entry"
+                            class="btn-primary"
+                            invisible="state != 'computed'"
+                            groups="eh_account_base.group_eh_manager"
+                            confirm="Post the revaluation entry and, when enabled, its dated reversal?"/>
+                    <button name="action_reverse"
+                            type="object"
+                            string="Post Reversal"
+                            class="btn-secondary"
+                            invisible="state != 'posted'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_cancel"
+                            type="object"
+                            string="Cancel"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state in ('posted', 'reversed', 'cancelled')"/>
+                    <button name="action_set_to_draft"
+                            type="object"
+                            string="Set to Draft"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,computed,posted,reversed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                        <h3>
+                            <field name="description"
+                                   readonly="state in ('posted', 'reversed')"
+                                   placeholder="e.g. March 2026 month end"/>
+                        </h3>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="revaluation_date"
+                                   readonly="state != 'draft'"/>
+                            <field name="journal_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"
+                                   readonly="state != 'draft'"/>
+                            <field name="currency_id"/>
+                        </group>
+                        <group>
+                            <field name="gain_account_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="loss_account_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="auto_reverse"
+                                   readonly="state != 'draft'"/>
+                            <field name="reversal_date"
+                                   readonly="state != 'draft'"/>
+                            <field name="aggregate_by_partner"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <group string="Totals">
+                        <group>
+                            <field name="line_count"/>
+                            <field name="total_gain"/>
+                            <field name="total_loss"/>
+                        </group>
+                        <group>
+                            <field name="net_adjustment"/>
+                            <field name="realized_gain_loss"
+                                   help="Signed net of lines whose source items have since been settled (fully reconciled)."/>
+                            <field name="unrealized_gain_loss"
+                                   help="Signed net of lines whose source items are still open; follows the auto-reverse pattern."/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Revaluation Lines">
+                            <field name="line_ids" readonly="1">
+                                <list>
+                                    <field name="account_id"/>
+                                    <field name="partner_id"/>
+                                    <field name="foreign_currency_id"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                    <field name="balance_foreign"/>
+                                    <field name="balance_company"/>
+                                    <field name="closing_rate"/>
+                                    <field name="new_balance_company"/>
+                                    <field name="adjustment" sum="Net"/>
+                                    <field name="nature"
+                                           widget="badge"
+                                           decoration-success="nature == 'gain'"
+                                           decoration-danger="nature == 'loss'"
+                                           decoration-muted="nature == 'flat'"/>
+                                    <field name="is_realized" optional="show"/>
+                                    <field name="source_line_count"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Posted Entries">
+                            <group string="Journal Entries">
+                                <field name="move_id"/>
+                                <field name="reversal_move_id"/>
+                            </group>
+                            <group string="Audit Trail">
+                                <group>
+                                    <field name="computed_at"/>
+                                    <field name="computed_by_id"/>
+                                    <field name="posted_at"/>
+                                    <field name="posted_by_id"/>
+                                </group>
+                                <group>
+                                    <field name="reversed_at"/>
+                                    <field name="reversed_by_id"/>
+                                    <field name="cancelled_at"/>
+                                    <field name="cancelled_by_id"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"
+                                   readonly="state in ('posted', 'reversed')"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_fx_revaluation_run_search" model="ir.ui.view">
+        <field name="name">eh.fx.revaluation.run.search</field>
+        <field name="model">eh.fx.revaluation.run</field>
+        <field name="arch" type="xml">
+            <search string="FX Revaluation Runs">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="revaluation_date"/>
+                <filter string="Draft" name="state_draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="Computed" name="state_computed"
+                        domain="[('state', '=', 'computed')]"/>
+                <filter string="Posted" name="state_posted"
+                        domain="[('state', 'in', ['posted', 'reversed'])]"/>
+                <filter string="Cancelled" name="state_cancelled"
+                        domain="[('state', '=', 'cancelled')]"/>
+                <group>
+                    <filter string="State" name="group_state"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="Date (month)" name="group_date"
+                            context="{'group_by': 'revaluation_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_fx_revaluation_run_kanban" model="ir.ui.view">
+        <field name="name">eh.fx.revaluation.run.kanban</field>
+        <field name="model">eh.fx.revaluation.run</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state"
+                    quick_create="false"
+                    class="o_kanban_small_column"
+                    sample="1">
+                <field name="name"/>
+                <field name="revaluation_date"/>
+                <field name="state"/>
+                <field name="total_gain"/>
+                <field name="total_loss"/>
+                <field name="net_adjustment"/>
+                <field name="line_count"/>
+                <field name="company_id"/>
+                <field name="currency_id"/>
+                <templates>
+                    <t t-name="card" class="row g-0">
+                        <main class="col-12">
+                            <field name="name" class="fs-5 fw-bold"/>
+                            <div class="text-muted">
+                                <i class="fa fa-calendar" title="Revaluation date"/>
+                                <field name="revaluation_date"/>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <span class="text-success">
+                                    +<field name="total_gain"
+                                           widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                </span>
+                                <span class="text-danger">
+                                    -<field name="total_loss"
+                                           widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                </span>
+                            </div>
+                            <div class="mt-1 fw-bold">
+                                Net:
+                                <field name="net_adjustment"
+                                       widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                            </div>
+                            <div class="text-muted small mt-1">
+                                <field name="line_count"/> line(s)
+                            </div>
+                            <footer class="d-flex justify-content-end mt-2">
+                                <field name="company_id"
+                                       groups="base.group_multi_company"/>
+                            </footer>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Graph -->
+    <record id="eh_account_fx_revaluation_run_view_graph" model="ir.ui.view">
+        <field name="name">eh.fx.revaluation.run.graph</field>
+        <field name="model">eh.fx.revaluation.run</field>
+        <field name="arch" type="xml">
+            <graph string="FX Revaluation" type="bar" sample="1">
+                <field name="revaluation_date" interval="month"/>
+                <field name="net_adjustment" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pivot -->
+    <record id="eh_account_fx_revaluation_run_view_pivot" model="ir.ui.view">
+        <field name="name">eh.fx.revaluation.run.pivot</field>
+        <field name="model">eh.fx.revaluation.run</field>
+        <field name="arch" type="xml">
+            <pivot string="FX Revaluation" sample="1">
+                <field name="revaluation_date" interval="month" type="row"/>
+                <field name="state" type="col"/>
+                <field name="total_gain" type="measure"/>
+                <field name="total_loss" type="measure"/>
+                <field name="net_adjustment" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_fx_revaluation_run" model="ir.actions.act_window">
+        <field name="name">FX Revaluation Runs</field>
+        <field name="res_model">eh.fx.revaluation.run</field>
+        <field name="view_mode">kanban,list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_fx_revaluation_run_search"/>
+        <field name="context">{'search_default_state_draft': 1, 'search_default_state_computed': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first FX revaluation run</p>
+            <p>Revalue open foreign-currency balances at period-end rates and post the gain or loss. Use New to build a run for a date, then compute and post it.</p>
+        </field>
+    </record>
+
+</odoo>

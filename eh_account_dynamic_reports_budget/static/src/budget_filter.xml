@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <!-- Add a Budget selector to the P&L report's filter row. Shown only for
+         the profit_and_loss report; writes options.budget_id which the
+         budget-column compute path reads. -->
+    <t t-inherit="eh_account_dynamic_reports.DynamicReportViewer"
+       t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('eh_dr_filters')]" position="inside">
+            <label class="eh_dr_filter" t-if="state.budgetSupported">
+                <span>Budget lifecycle</span>
+                <select t-on-change="onBudgetStateFilterChange">
+                    <option value="live"
+                            t-att-selected="state.options.budget_state_filter === 'live'">
+                        <t t-esc="liveBudgetLabel"/>
+                    </option>
+                    <option value="all"
+                            t-att-selected="state.options.budget_state_filter === 'all'">
+                        <t t-esc="allBudgetStatesLabel"/>
+                    </option>
+                </select>
+            </label>
+            <label class="eh_dr_filter" t-if="state.budgetSupported">
+                <span>Budget</span>
+                <select t-on-change="onBudgetChange">
+                    <option value=""><t t-esc="noBudgetLabel"/></option>
+                    <t t-foreach="state.budgetChoices" t-as="b" t-key="b.id">
+                        <option t-att-value="b.id"
+                                t-att-selected="state.options.budget_id === b.id">
+                            <t t-esc="b.label"/>
+                        </option>
+                    </t>
+                </select>
+            </label>
+            <label class="eh_dr_filter"
+                   t-if="state.budgetSupported &amp;&amp; state.options.budget_id">
+                <span>Budget allocation</span>
+                <select t-on-change="onBudgetApportionmentChange">
+                    <option value="daily"
+                            t-att-selected="state.options.budget_apportionment === 'daily'">
+                        <t t-esc="dailyBudgetLabel"/>
+                    </option>
+                    <option value="period_exact"
+                            t-att-selected="state.options.budget_apportionment === 'period_exact'">
+                        <t t-esc="exactBudgetLabel"/>
+                    </option>
+                </select>
+            </label>
+        </xpath>
+    </t>
+
+</templates>

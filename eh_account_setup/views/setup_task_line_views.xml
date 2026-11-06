@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_eh_account_setup_line_kanban" model="ir.ui.view">
+        <field name="name">eh.account.setup.task.line.kanban</field>
+        <field name="model">eh.account.setup.task.line</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="category"
+                    class="o_kanban_dashboard"
+                    records_draggable="false"
+                    group_create="false"
+                    group_edit="false"
+                    group_delete="false">
+                <field name="state"/>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="icon"/>
+                <field name="company_id"/>
+                <field name="completed_at"/>
+                <field name="completed_by_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click p-2">
+                            <div class="o_kanban_record_top mb-2">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <i t-if="record.icon.raw_value"
+                                           t-attf-class="fa fa-#{record.icon.raw_value} me-2"
+                                           t-att-title="record.name.value"/>
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                                <field name="state" widget="label_selection"
+                                       options="{'classes': {'todo': 'default', 'done': 'success', 'skipped': 'muted'}}"/>
+                            </div>
+                            <div class="o_kanban_record_body small text-muted mb-2">
+                                <field name="description"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <button name="action_open" type="object"
+                                        class="btn btn-primary btn-sm me-1">
+                                    Open
+                                </button>
+                                <button name="action_mark_done" type="object"
+                                        class="btn btn-secondary btn-sm me-1"
+                                        invisible="state == 'done'">
+                                    Mark done
+                                </button>
+                                <button name="action_mark_skipped" type="object"
+                                        class="btn btn-link btn-sm"
+                                        invisible="state != 'todo'">
+                                    Skip
+                                </button>
+                                <button name="action_reset" type="object"
+                                        class="btn btn-link btn-sm"
+                                        invisible="state == 'todo'">
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_eh_account_setup_line_list" model="ir.ui.view">
+        <field name="name">eh.account.setup.task.line.list</field>
+        <field name="model">eh.account.setup.task.line</field>
+        <field name="arch" type="xml">
+            <list string="Setup tasks"
+                  default_order="category, sequence"
+                  decoration-success="state == 'done'"
+                  decoration-muted="state == 'skipped'">
+                <field name="category"/>
+                <field name="name"/>
+                <field name="company_id" optional="show"/>
+                <field name="state"/>
+                <field name="completed_at" optional="hide"/>
+                <field name="completed_by_id" optional="hide"/>
+                <field name="is_relevant" optional="hide" string="Relevant"/>
+                <field name="required_modules" optional="hide"/>
+                <field name="action_xmlid" optional="hide"/>
+                <button name="action_open" type="object"
+                        string="Open" icon="fa-external-link"/>
+                <button name="action_mark_done" type="object"
+                        string="Mark done" icon="fa-check"
+                        invisible="state == 'done'"/>
+                <button name="action_mark_skipped" type="object"
+                        string="Skip" icon="fa-ban"
+                        invisible="state != 'todo'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_account_setup_line_form" model="ir.ui.view">
+        <field name="name">eh.account.setup.task.line.form</field>
+        <field name="model">eh.account.setup.task.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_open" type="object"
+                            string="Open setup screen"
+                            class="oe_highlight"/>
+                    <button name="action_mark_done" type="object"
+                            string="Mark done"
+                            invisible="state == 'done'"/>
+                    <button name="action_mark_skipped" type="object"
+                            string="Skip"
+                            invisible="state != 'todo'"/>
+                    <button name="action_reset" type="object"
+                            string="Reset"
+                            invisible="state == 'todo'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="todo,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_company_lines"
+                                icon="fa-building-o">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="company_done_count"/>
+                                    <span> / </span>
+                                    <field name="company_total_count"/>
+                                </span>
+                                <span class="o_stat_text">in this company</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_task_lines"
+                                icon="fa-tasks">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="task_done_count"/>
+                                    <span> / </span>
+                                    <field name="task_total_count"/>
+                                </span>
+                                <span class="o_stat_text">on this task</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group string="Progress">
+                        <group>
+                            <field name="company_id" readonly="1"/>
+                            <field name="category" readonly="1"/>
+                            <field name="task_id" readonly="1"/>
+                            <field name="is_relevant" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="completed_at" readonly="1"/>
+                            <field name="completed_by_id" readonly="1"/>
+                            <field name="action_xmlid" readonly="1"/>
+                            <field name="required_modules" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="What this task achieves">
+                        <field name="description" readonly="1" nolabel="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Other companies on this task" name="siblings">
+                            <field name="sibling_line_ids" mode="kanban,list" nolabel="1" readonly="1">
+                                <kanban default_group_by="state"
+                                        records_draggable="false"
+                                        group_create="false"
+                                        group_edit="false"
+                                        group_delete="false">
+                                    <field name="state"/>
+                                    <field name="company_id"/>
+                                    <field name="completed_at"/>
+                                    <field name="completed_by_id"/>
+                                    <field name="is_relevant"/>
+                                    <templates>
+                                        <t t-name="card">
+                                            <div class="oe_kanban_card oe_kanban_global_click p-2">
+                                                <div class="o_kanban_record_top mb-1">
+                                                    <strong>
+                                                        <field name="company_id"/>
+                                                    </strong>
+                                                    <field name="state" widget="label_selection"
+                                                           options="{'classes': {'todo': 'default', 'done': 'success', 'skipped': 'muted'}}"/>
+                                                </div>
+                                                <div class="o_kanban_record_body small text-muted">
+                                                    <div t-if="record.completed_at.raw_value">
+                                                        <field name="completed_at" widget="date"/>
+                                                    </div>
+                                                    <div t-if="record.completed_by_id.raw_value">
+                                                        by <field name="completed_by_id"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <list default_order="state, company_id">
+                                    <field name="company_id"/>
+                                    <field name="state"/>
+                                    <field name="completed_at"/>
+                                    <field name="completed_by_id"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Other tasks here in this category" name="peers">
+                            <field name="peer_line_ids" mode="kanban,list" nolabel="1" readonly="1">
+                                <kanban default_group_by="state"
+                                        records_draggable="false"
+                                        group_create="false"
+                                        group_edit="false"
+                                        group_delete="false">
+                                    <field name="state"/>
+                                    <field name="name"/>
+                                    <field name="icon"/>
+                                    <field name="completed_at"/>
+                                    <templates>
+                                        <t t-name="card">
+                                            <div class="oe_kanban_card oe_kanban_global_click p-2">
+                                                <div class="o_kanban_record_top mb-1">
+                                                    <strong>
+                                                        <i t-if="record.icon.raw_value"
+                                                           t-attf-class="fa fa-#{record.icon.raw_value} me-2"
+                                                           t-att-title="record.name.value"/>
+                                                        <field name="name"/>
+                                                    </strong>
+                                                    <field name="state" widget="label_selection"
+                                                           options="{'classes': {'todo': 'default', 'done': 'success', 'skipped': 'muted'}}"/>
+                                                </div>
+                                                <div t-if="record.completed_at.raw_value"
+                                                     class="o_kanban_record_body small text-muted">
+                                                    <field name="completed_at" widget="date"/>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <list default_order="sequence, id">
+                                    <field name="name"/>
+                                    <field name="state"/>
+                                    <field name="completed_at"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" nolabel="1"
+                                   placeholder="Anything the next reviewer should know about this task on this company."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_account_setup_line_search" model="ir.ui.view">
+        <field name="name">eh.account.setup.task.line.search</field>
+        <field name="model">eh.account.setup.task.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Search"
+                       filter_domain="['|', '|', '|', '|', ('name', 'ilike', self), ('description', 'ilike', self), ('task_id.key', 'ilike', self), ('action_xmlid', 'ilike', self), ('notes', 'ilike', self)]"/>
+                <field name="task_id"/>
+                <field name="company_id"/>
+                <field name="completed_by_id"/>
+                <field name="state"/>
+                <field name="category"/>
+                <field name="action_xmlid"/>
+                <field name="required_modules"/>
+                <field name="completed_at"/>
+
+                <filter name="filter_todo" string="To do"
+                        domain="[('state', '=', 'todo')]"/>
+                <filter name="filter_done" string="Done"
+                        domain="[('state', '=', 'done')]"/>
+                <filter name="filter_skipped" string="Skipped"
+                        domain="[('state', '=', 'skipped')]"/>
+                <filter name="filter_open" string="Open (todo or skipped)"
+                        domain="[('state', 'in', ['todo', 'skipped'])]"/>
+                <filter name="filter_closed" string="Closed (done or skipped)"
+                        domain="[('state', 'in', ['done', 'skipped'])]"/>
+
+                <separator/>
+
+                <filter name="filter_relevant" string="Available for installed modules"
+                        domain="[('is_relevant', '=', True)]"/>
+                <filter name="filter_irrelevant" string="Hidden, modules not installed"
+                        domain="[('is_relevant', '=', False)]"/>
+
+                <separator/>
+
+                <filter name="cat_foundations" string="Foundations"
+                        domain="[('category', '=', 'foundations')]"/>
+                <filter name="cat_currencies" string="Currencies"
+                        domain="[('category', '=', 'currencies')]"/>
+                <filter name="cat_receivables" string="Receivables"
+                        domain="[('category', '=', 'receivables')]"/>
+                <filter name="cat_payables" string="Payables"
+                        domain="[('category', '=', 'payables')]"/>
+                <filter name="cat_approvals" string="Approvals"
+                        domain="[('category', '=', 'approvals')]"/>
+                <filter name="cat_reporting" string="Reporting"
+                        domain="[('category', '=', 'reporting')]"/>
+                <filter name="cat_close" string="Period Close"
+                        domain="[('category', '=', 'close')]"/>
+
+                <separator/>
+
+                <filter name="filter_my_company" string="My current company"
+                        domain="[('company_id', '=', allowed_company_ids[0])]"/>
+
+                <separator/>
+
+                <filter name="filter_mine" string="Completed by me"
+                        domain="[('completed_by_id', '=', uid)]"/>
+                <filter name="filter_others" string="Completed by someone else"
+                        domain="['&amp;', ('completed_by_id', '!=', False), ('completed_by_id', '!=', uid)]"/>
+                <filter name="filter_unattended" string="Completed by no one"
+                        domain="[('completed_by_id', '=', False)]"/>
+
+                <separator/>
+
+                <filter name="filter_completed_today" string="Completed today"
+                        domain="[('completed_at', '&gt;=', 'today'), ('completed_at', '&lt;', 'today +1d')]"/>
+                <filter name="filter_completed_7d" string="Completed in last 7 days"
+                        domain="[('completed_at', '&gt;=', (context_today() + relativedelta(days=-7)).strftime('%Y-%m-%d'))]"/>
+                <filter name="filter_completed_30d" string="Completed in last 30 days"
+                        domain="[('completed_at', '&gt;=', (context_today() + relativedelta(days=-30)).strftime('%Y-%m-%d'))]"/>
+                <filter name="filter_completed_90d" string="Completed in last 90 days"
+                        domain="[('completed_at', '&gt;=', (context_today() + relativedelta(days=-90)).strftime('%Y-%m-%d'))]"/>
+                <filter name="filter_completed_month" string="Completed this month"
+                        domain="[('completed_at', '&gt;=', (context_today() + relativedelta(day=1)).strftime('%Y-%m-%d'))]"/>
+                <filter name="filter_completed_year" string="Completed this year"
+                        domain="[('completed_at', '&gt;=', (context_today() + relativedelta(month=1, day=1)).strftime('%Y-%m-%d'))]"/>
+
+                <separator/>
+
+                <filter name="filter_stale_todo" string="To do for over 30 days"
+                        domain="['&amp;', ('state', '=', 'todo'), ('create_date', '&lt;', (context_today() + relativedelta(days=-30)).strftime('%Y-%m-%d'))]"/>
+                <filter name="filter_stale_todo_90" string="To do for over 90 days"
+                        domain="['&amp;', ('state', '=', 'todo'), ('create_date', '&lt;', (context_today() + relativedelta(days=-90)).strftime('%Y-%m-%d'))]"/>
+                <filter name="filter_no_notes_todo" string="To do without notes"
+                        domain="['&amp;', ('state', '=', 'todo'), '|', ('notes', '=', False), ('notes', '=', '')]"/>
+
+                <separator/>
+                <filter name="group_category" string="Category"
+                        context="{'group_by': 'category'}"/>
+                <filter name="group_state" string="State"
+                        context="{'group_by': 'state'}"/>
+                <filter name="group_company" string="Company"
+                        context="{'group_by': 'company_id'}"/>
+                <filter name="group_completed_by" string="Completed by"
+                        context="{'group_by': 'completed_by_id'}"/>
+                <filter name="group_task" string="Task"
+                        context="{'group_by': 'task_id'}"/>
+                <filter name="group_required_modules" string="Required modules"
+                        context="{'group_by': 'required_modules'}"/>
+                <filter name="group_completed_day" string="Completion day"
+                        context="{'group_by': 'completed_at:day'}"/>
+                <filter name="group_completed_week" string="Completion week"
+                        context="{'group_by': 'completed_at:week'}"/>
+                <filter name="group_completed_month" string="Completion month"
+                        context="{'group_by': 'completed_at:month'}"/>
+                <filter name="group_completed_year" string="Completion year"
+                        context="{'group_by': 'completed_at:year'}"/>
+            </search>
+        </field>
+    </record>
+
+</odoo>

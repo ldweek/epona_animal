@@ -1,0 +1,2343 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_collections
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Swedish\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/reminder_wizard.py:0
+msgid "%s has no mobile or phone number for SMS."
+msgstr "%s har inget mobil- eller telefonnummer för SMS."
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.email_template_eh_dunning_friendly
+msgid ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #C9A372;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                A friendly reminder\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#6c757d;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;\">\n"
+"                                <t t-out=\"object.company_id.name\"/>\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Dear <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            We noticed that an open balance of\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> is showing on your account.\n"
+"                            The oldest invoice dates back to\n"
+"                            <strong t-out=\"object.oldest_overdue_date and object.oldest_overdue_date.strftime('%Y-%m-%d') or ''\"/>.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            If payment has been issued in the last few days,\n"
+"                            please ignore this message — our records may\n"
+"                            simply be a couple of days behind. Otherwise,\n"
+"                            we'd appreciate it if you could settle the\n"
+"                            balance at your earliest convenience.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            Thank you,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #C9A372;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                En vänlig påminnelse\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#6c757d;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;\">\n"
+"                                <t t-out=\"object.company_id.name\"/>\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Bäste <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Vi har noterat att ett öppet saldo på\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> visas på ditt konto. Den äldsta fakturan är daterad\n"
+"                            <strong t-out=\"object.oldest_overdue_date and object.oldest_overdue_date.strftime('%Y-%m-%d') or ''\"/>.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Om betalningen har gjorts under de senaste dagarna kan du bortse från detta meddelande — våra register kan helt enkelt ligga ett par dagar efter. Annars vore vi tacksamma om du kunde reglera saldot så snart som möjligt.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            Tack,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.email_template_eh_dunning_final
+msgid ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #dc3545;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                Final notice\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#721c24;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;font-weight:700;\">\n"
+"                                Before external referral\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Dear <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Despite our prior reminders, the balance of\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> remains\n"
+"                            unpaid and is now\n"
+"                            <strong t-out=\"object.days_overdue_max or 0\"/> days overdue.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            This is our final notice before we refer the\n"
+"                            matter externally for collection. We strongly\n"
+"                            encourage you to settle this balance, or to\n"
+"                            contact us within 7 days to make alternative\n"
+"                            arrangements.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            Sincerely,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #dc3545;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                Sista påminnelse\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#721c24;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;font-weight:700;\">\n"
+"                                Före extern överlämning\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Bäste <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Trots våra tidigare påminnelser är saldot på\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> fortfarande obetalt och är nu\n"
+"                            <strong t-out=\"object.days_overdue_max or 0\"/> dagar försenat.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Detta är vår sista påminnelse innan vi överlämnar ärendet externt för inkasso. Vi uppmanar dig starkt att reglera detta saldo, eller att kontakta oss inom 7 dagar för att komma överens om en alternativ lösning.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            Med vänlig hälsning,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.email_template_eh_dunning_firm
+msgid ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #ffc107;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                Action required\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#856404;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;font-weight:600;\">\n"
+"                                Overdue balance\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Dear <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Our previous reminder appears to have gone\n"
+"                            unanswered. The balance of\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> is now\n"
+"                            <strong t-out=\"object.days_overdue_max or 0\"/> days past due.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Please arrange payment or contact us to discuss\n"
+"                            a payment plan within the next 7 days. Continued\n"
+"                            non-payment may result in late fees and could\n"
+"                            affect future credit terms.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            Sincerely,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div style=\"margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;\">\n"
+"                    <div style=\"max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;\">\n"
+"                        <div style=\"border-top:3px solid #ffc107;padding-top:18px;\">\n"
+"                            <h1 style=\"margin:0 0 6px 0;font-size:20px;color:#1A2C3D;\">\n"
+"                                Åtgärd krävs\n"
+"                            </h1>\n"
+"                            <p style=\"margin:0 0 18px 0;color:#856404;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;font-weight:600;\">\n"
+"                                Förfallet saldo\n"
+"                            </p>\n"
+"                        </div>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Bäste <strong t-out=\"object.partner_id.name\"/>,\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Vår tidigare påminnelse verkar ha förblivit obesvarad. Saldot på\n"
+"                            <strong t-out=\"'{:,.2f}'.format(object.total_overdue_amount or 0.0)\"/>\n"
+"                            <t t-out=\"object.currency_id.symbol or ''\"/> är nu\n"
+"                            <strong t-out=\"object.days_overdue_max or 0\"/> dagar försenat.\n"
+"                        </p>\n"
+"                        <p style=\"margin:0 0 14px 0;font-size:15px;line-height:1.55;\">\n"
+"                            Vänligen ordna betalning eller kontakta oss för att diskutera en avbetalningsplan inom de närmaste 7 dagarna. Fortsatt utebliven betalning kan medföra dröjsmålsavgifter och påverka framtida kreditvillkor.\n"
+"                        </p>\n"
+"                        <p style=\"margin:18px 0 0 0;font-size:15px;line-height:1.55;\">\n"
+"                            Med vänlig hälsning,<br/>\n"
+"                            <strong t-out=\"object.company_id.name\"/>\n"
+"                        </p>\n"
+"                        <div style=\"margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;\">\n"
+"                            ERP Heritage Accounting Suite\n"
+"                        </div>\n"
+"                    </div>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.mail_template_followup_final
+msgid ""
+"<div>\n"
+"                    <p>Dear <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        Despite previous reminders, the balance of\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>\n"
+"                        on your account remains unpaid. The oldest item\n"
+"                        has been outstanding since\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        This is the final notice before the case is\n"
+"                        escalated for collection. Please contact us\n"
+"                        within seven days to settle the balance or\n"
+"                        agree a payment plan.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Regards,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div>\n"
+"                    <p>Bäste <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        Trots tidigare påminnelser är saldot på\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>\n"
+"                        på ditt konto fortfarande obetalt. Den äldsta posten har varit obetald sedan\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Detta är den sista påminnelsen innan ärendet överlämnas till inkasso. Kontakta oss inom sju dagar för att reglera saldot eller komma överens om en avbetalningsplan.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Med vänliga hälsningar,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.mail_template_followup_reminder_2
+msgid ""
+"<div>\n"
+"                    <p>Hi <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        We have not received payment on outstanding\n"
+"                        invoices totalling\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>.\n"
+"                        The oldest item has been due since\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>\n"
+"                        (<t t-out=\"object.days_overdue_max\"/> days overdue).\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Please settle the balance within the next seven\n"
+"                        days, or reply to this email to arrange a\n"
+"                        payment plan if you are facing difficulty.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Kind regards,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div>\n"
+"                    <p>Hej <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        Vi har inte mottagit betalning för obetalda fakturor på totalt\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>.\n"
+"                        Den äldsta posten har förfallit sedan\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>\n"
+"                        (<t t-out=\"object.days_overdue_max\"/> dagar försenad).\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Reglera saldot inom de närmaste sju dagarna, eller svara på detta e-postmeddelande för att ordna en avbetalningsplan om du har svårigheter.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Med vänliga hälsningar,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model:mail.template,body_html:eh_account_collections.mail_template_followup_reminder_1
+msgid ""
+"<div>\n"
+"                    <p>Hi <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        We notice an outstanding balance of\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>\n"
+"                        on your account, with the oldest item due on\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        If you have already settled the balance, please\n"
+"                        ignore this note. Otherwise, please arrange\n"
+"                        payment at your earliest convenience or reply to\n"
+"                        this email if you have any questions.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Kind regards,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div>\n"
+"                    <p>Hej <t t-out=\"object.partner_id.name\"/>,</p>\n"
+"                    <p>\n"
+"                        Vi noterar ett obetalt saldo på\n"
+"                        <strong>\n"
+"                            <t t-out=\"format_amount(object.total_overdue_amount, object.currency_id)\"/>\n"
+"                        </strong>\n"
+"                        på ditt konto, där den äldsta posten förfaller den\n"
+"                        <t t-out=\"format_date(object.oldest_overdue_date)\"/>.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Om du redan har reglerat saldot kan du bortse från detta meddelande. Annars ber vi dig ordna betalning så snart som möjligt, eller svara på detta e-postmeddelande om du har frågor.\n"
+"                    </p>\n"
+"                    <p>\n"
+"                        Med vänliga hälsningar,<br/>\n"
+"                        <t t-out=\"object.collector_id.name or object.company_id.name\"/>\n"
+"                    </p>\n"
+"                </div>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_kanban
+msgid ""
+"<i class=\"fa fa-comment-o\" title=\"Actions logged\" aria-label=\"Actions "
+"logged\"/>"
+msgstr ""
+"<i class=\"fa fa-comment-o\" title=\"Loggade åtgärder\" aria-label=\"Loggade"
+" åtgärder\"/>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "<span class=\"o_stat_text\">Invoices</span>"
+msgstr "<span class=\"o_stat_text\">Fakturor</span>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "<strong>Company:</strong>"
+msgstr "<strong>Företag:</strong>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "<strong>Generated:</strong>"
+msgstr "<strong>Genererad:</strong>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "<strong>Reference:</strong>"
+msgstr "<strong>Referens:</strong>"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "<strong>Stage:</strong>"
+msgstr "<strong>Steg:</strong>"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__responsible_type__account_manager
+msgid "Accounting manager"
+msgstr "Redovisningschef"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__action_ids
+msgid "Action"
+msgstr "Åtgärd"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__action_count
+msgid "Action Count"
+msgstr "Åtgärdsräkning"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__action_date
+msgid "Action Date"
+msgstr "Åtgärdsdatum"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Action History"
+msgstr "Åtgärdshistorik"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+#: model:ir.actions.act_window,name:eh_account_collections.action_eh_collections_action
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_collections_action_log
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_form
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_tree
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Action Log"
+msgstr "Åtgärdslogg"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_needaction
+msgid "Action Needed"
+msgstr "Åtgärd krävs"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__action_type
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__last_action_type
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__action_type
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_search
+msgid "Action Type"
+msgstr "Åtgärdstyp"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.email_template_eh_dunning_firm
+msgid "Action required: overdue balance — {{ object.partner_id.name }}"
+msgstr "Åtgärd krävs: förfallet saldo — {{ object.partner_id.name }}"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Actions"
+msgstr "Åtgärder"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__active
+msgid "Active"
+msgstr "Aktiv"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_partner_form_collections
+msgid "Active Collections"
+msgstr "Aktiva inkasseringar"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_ids
+msgid "Activities"
+msgstr "Aktiviteter"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid "Activity"
+msgstr "Verksamhet"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Undantagsaktiviteter dekoration"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__activity_offset_days
+msgid "Activity Offset Days"
+msgstr "Aktivitetens förskjutningsdagar"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_state
+msgid "Activity State"
+msgstr "Aktivitetsstatus"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__activity_summary
+msgid "Activity Summary"
+msgstr "Aktivitetssammanfattning"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__activity_type_id
+msgid "Activity Type"
+msgstr "Aktivitetstyp"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Ikon för aktivitetstyp"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__responsible_type
+msgid "Activity responsible"
+msgstr "Ansvarig för aktivitet"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__activity_type_id
+msgid ""
+"Activity type to schedule when action_type involves an activity. Defaults to"
+" 'Call' when not set."
+msgstr ""
+"Aktivitetstyp att schemalägga när action_type omfattar en aktivitet. "
+"Standard 'Call' om inte angivet."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__also_send_sms
+msgid "Also send SMS"
+msgstr "Skicka även SMS"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_attachment_count
+msgid "Attachment Count"
+msgstr "Antal bilagor"
+
+#. module: eh_account_collections
+#: model:ir.actions.server,name:eh_account_collections.action_eh_collections_auto_create
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_collections_auto_create
+msgid "Auto Create Cases"
+msgstr "Skapa ärenden automatiskt"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__auto_post
+msgid "Auto Post"
+msgstr "Bokför automatiskt"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__name
+msgid "Auto computed from partner and company."
+msgstr "Beräknas automatiskt utifrån partner och företag."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__body
+msgid "Body"
+msgstr "Brödtext"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_form
+msgid "Brief summary"
+msgstr "Kort sammanfattning"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__broken_promise
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Broken Promise"
+msgstr "Brutet löfte"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid ""
+"Broken promise detected. Promised %(amount).2f by %(date)s; case escalated."
+msgstr ""
+"Brutet löfte upptäckt. Utlovade %(amount).2f senast %(date)s; ärendet "
+"eskalerat."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Broken promise: amount %(amount).2f, due %(date)s"
+msgstr "Brutet löfte: belopp %(amount).2f, förfaller %(date)s"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid ""
+"Bump priority, escalate the stage, and fire the next follow-up. Continue?"
+msgstr ""
+"Höj prioritet, eskalera steget och utlös nästa uppföljning. Fortsätta?"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "By"
+msgstr "Av"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__call
+msgid "Call"
+msgstr "Samtal"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,activity_summary:eh_account_collections.followup_level_2
+msgid "Call the customer about outstanding balance"
+msgstr "Ring kunden om utestående saldo"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_late_fee_wizard_form
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_reminder_wizard_form
+msgid "Cancel"
+msgstr "Avbryt"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__case_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__case_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__case_id
+msgid "Case"
+msgstr "Ärende"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Case %s does not have a broken promise to handle."
+msgstr "Ärende %s har inget brutet löfte att hantera."
+
+#. module: eh_account_collections
+#: model:ir.actions.report,name:eh_account_collections.action_report_case_statement
+msgid "Case Statement"
+msgstr "Case-sats"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__responsible_type__collector
+msgid "Case collector"
+msgstr "Ärendesamlare"
+
+#. module: eh_account_collections
+#. odoo-javascript
+#: code:addons/eh_account_collections/static/src/js/tours/collections_tour.js:0
+msgid ""
+"Cases <b>auto-create</b> from overdue customer AR via the nightly cron. You "
+"almost never create a case manually — the system opens one when a partner "
+"crosses the configured grace days, and closes it when the AR clears."
+msgstr ""
+"Ärenden <b>skapas automatiskt</b> från förfallna kundfordringar (AR) via det"
+" nattliga cron-jobbet. Du skapar nästan aldrig ett ärende manuellt — "
+"systemet öppnar ett när en partner passerar de konfigurerade respitdagarna "
+"och stänger det när AR regleras."
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_new
+msgid "Cases that have not yet been contacted."
+msgstr "Ärenden som ännu inte har kontaktats."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__channel
+msgid "Channel"
+msgstr "Kanal"
+
+#. module: eh_account_collections
+#. odoo-javascript
+#: code:addons/eh_account_collections/static/src/js/tours/collections_tour.js:0
+msgid ""
+"Click <b>Late Fee</b> on any case to issue a customer invoice for the "
+"configured fee — flat or percentage of the overdue. The wizard posts a real "
+"invoice, not a memo entry, so your AR balances stay correct."
+msgstr ""
+"Klicka på <b>Late Fee</b> i valfritt ärende för att utfärda en kundfaktura "
+"för den konfigurerade avgiften — fast belopp eller en procentandel av det "
+"förfallna. Guiden bokför en riktig faktura, inte en minnesnotering, så att "
+"dina AR-saldon förblir korrekta."
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_written_off
+msgid "Closed as bad debt; no further action."
+msgstr "Stängd som osäker fordran; inga ytterligare åtgärder."
+
+#. module: eh_account_collections
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_collections_stage
+msgid "Collection Stages"
+msgstr "Inkasseringsfaser"
+
+#. module: eh_account_collections
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_collections_root
+msgid "Collections"
+msgstr "Samlingar"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Collections Case"
+msgstr "Inkassoärende"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_tree
+msgid "Collections Cases"
+msgstr "Inkassoärenden"
+
+#. module: eh_account_collections
+#: model:ir.actions.act_window,name:eh_account_collections.action_eh_collections_stage
+msgid "Collections Stages"
+msgstr "Inkassofaser"
+
+#. module: eh_account_collections
+#: model:ir.actions.act_window,name:eh_account_collections.action_eh_collections_case
+msgid "Collections Workbench"
+msgstr "Inkassoarbetsbänk"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/action.py:0
+msgid "Collections action log rows are append-only."
+msgstr "Rader i inkassoåtgärdsloggen kan endast läggas till."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/action.py:0
+msgid "Collections action log rows cannot be deleted."
+msgstr "Rader i inkassoåtgärdsloggen kan inte tas bort."
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_case
+msgid "Collections case"
+msgstr "Inkassoärende"
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_action
+msgid "Collections case action log"
+msgstr "Åtgärdslogg för inkassoärende"
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_stage
+msgid "Collections case stage"
+msgstr "Fas för inkassoärende"
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_followup_level
+msgid "Collections follow-up level"
+msgstr "Uppföljningsnivå för inkasso"
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_reminder_wizard
+msgid "Collections manual reminder"
+msgstr "Manuell inkassopåminnelse"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.mail_template_followup_final
+msgid "Collections: Final Notice"
+msgstr "Inkasso: sista påminnelse"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.mail_template_followup_reminder_1
+msgid "Collections: Reminder 1"
+msgstr "Inkasso: påminnelse 1"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.mail_template_followup_reminder_2
+msgid "Collections: Reminder 2"
+msgstr "Inkasso: påminnelse 2"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__collector_id
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Collector"
+msgstr "Inkasserare"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__color
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__color
+msgid "Color"
+msgstr "Färg"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__color
+msgid "Color tag used by the kanban card decoration."
+msgstr "Färgetikett som används av kanban-kortets dekoration."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__company_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__company_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__company_id
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Company"
+msgstr "Företag"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__computed_fee
+msgid "Computed Fee"
+msgstr "Beräknad avgift"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid ""
+"Computed fee is zero or negative; adjust the rate or the overdue cut-off and"
+" try again."
+msgstr ""
+"Den beräknade avgiften är noll eller negativ; justera satsen eller "
+"förfallogränsen och försök igen."
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__contact_made
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_search
+msgid "Contact Made"
+msgstr "Kontakt tagen"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_contacted
+msgid "Contacted"
+msgstr "Kontaktad"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Created Month"
+msgstr "Skapad månad"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__create_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__create_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__create_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__create_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__create_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__create_uid
+msgid "Created by"
+msgstr "Skapad av"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__create_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__create_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__create_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__create_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__create_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__create_date
+msgid "Created on"
+msgstr "Skapad den"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__currency_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__currency_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__currency_id
+msgid "Currency"
+msgstr "Valuta"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__current_followup_level_id
+msgid "Current Followup Level"
+msgstr "Aktuell påminnelsenivå"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Customer"
+msgstr "Kund"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__responsible_type__salesperson
+msgid "Customer salesperson"
+msgstr "Kundens säljare"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Date"
+msgstr "Datum"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__next_followup_date
+msgid ""
+"Date on which the next follow-up becomes due, derived from "
+"last_followup_sent_at plus the current level's delay_days. Indexed via the "
+"cron's domain filter."
+msgstr ""
+"Datum då nästa uppföljning förfaller, härlett från last_followup_sent_at "
+"plus den aktuella nivåns delay_days. Indexerat via cronens domänfilter."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_action__promise_date
+msgid "Date the partner promised to pay by."
+msgstr "Datum då partnern lovade att betala senast."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__days_overdue
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__days_overdue
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Days Overdue"
+msgstr "Dagar försenad"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__days_overdue_max
+msgid "Days Overdue Max"
+msgstr "Max dagar försenad"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__days_overdue_max
+msgid "Days between today and oldest_overdue_date."
+msgstr "Antal dagar mellan idag och oldest_overdue_date."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__activity_offset_days
+msgid ""
+"Days from today to set the activity due date. 0 means today; 2 means the day"
+" after tomorrow."
+msgstr ""
+"Antal dagar från idag för att ange aktivitetens förfallodatum. 0 betyder "
+"idag; 2 betyder i övermorgon."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Days overdue"
+msgstr "Dagar försenad"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__delay_days
+msgid ""
+"Days to wait after this level fires before advancing to the next level. Used"
+" to compute the case's next_followup_date."
+msgstr ""
+"Antal dagar att vänta efter att denna nivå utlösts innan man går vidare till"
+" nästa nivå. Används för att beräkna ärendets next_followup_date."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__activity_summary
+msgid "Default summary for the scheduled activity."
+msgstr "Standardsammanfattning för den schemalagda aktiviteten."
+
+#. module: eh_account_collections
+#: model_terms:ir.actions.act_window,help:eh_account_collections.action_eh_followup_level
+msgid ""
+"Define an escalation ladder once. The cron picks the highest applicable "
+"level for each overdue case and applies it (send email, schedule call, "
+"escalate stage). Common shape: Reminder 1 at 7 days, Reminder 2 at 30, Final"
+" Notice at 60, Legal at 90."
+msgstr ""
+"Definiera en eskaleringstrappa en gång. Cron-jobbet väljer den högsta "
+"tillämpliga nivån för varje förfallet ärende och tillämpar den (skicka "
+"e-post, boka samtal, eskalera steg). Vanlig form: Påminnelse 1 vid 7 dagar, "
+"Påminnelse 2 vid 30, Sista avisering vid 60, Juridiskt vid 90."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__delay_days
+msgid "Delay Days"
+msgstr "Fördröjningsdagar"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__description
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__description
+msgid "Description"
+msgstr "Beskrivning"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__detail
+msgid "Detail"
+msgstr "Detalj"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_form
+msgid "Detail of the conversation, email content, etc."
+msgstr "Detaljer om konversationen, e-postinnehåll osv."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_action__contact_made
+msgid ""
+"Did we actually reach the partner? Voicemails, undelivered emails, and "
+"unanswered calls should be False."
+msgstr ""
+"Nådde vi faktiskt partnern? Röstmeddelanden, ej levererade e-postmeddelanden"
+" och obesvarade samtal ska vara False."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__display_name
+#: model:ir.model.fields,field_description:eh_account_collections.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Visningsnamn"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_disputed
+msgid "Disputed"
+msgstr "Bestridd"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__sequence
+msgid "Drag to reorder. Lower numbers fire first."
+msgstr "Dra för att ändra ordning. Lägre nummer körs först."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Due"
+msgstr "Att betala"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.email_template_eh_dunning_final
+msgid "EH Dunning — Final Notice"
+msgstr "EH Påminnelse — Sista påminnelse"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.email_template_eh_dunning_firm
+msgid "EH Dunning — Firm Follow-Up"
+msgstr "EH Påminnelse — Bestämd uppföljning"
+
+#. module: eh_account_collections
+#: model:mail.template,name:eh_account_collections.email_template_eh_dunning_friendly
+msgid "EH Dunning — Friendly Reminder"
+msgstr "EH Påminnelse — Vänlig påminnelse"
+
+#. module: eh_account_collections
+#: model:ir.actions.server,name:eh_account_collections.cron_eh_collections_auto_create_ir_actions_server
+msgid "ERP Heritage: Auto create collections cases"
+msgstr "ERP Heritage: Skapa inkassoärenden automatiskt"
+
+#. module: eh_account_collections
+#: model:ir.actions.server,name:eh_account_collections.cron_eh_collections_handle_broken_promises_ir_actions_server
+msgid "ERP Heritage: Handle broken collections promises"
+msgstr "ERP Heritage: Hantera brutna inkassolöften"
+
+#. module: eh_account_collections
+#: model:ir.actions.server,name:eh_account_collections.cron_eh_collections_refresh_open_ir_actions_server
+msgid "ERP Heritage: Refresh aging on open collections cases"
+msgstr "ERP Heritage: Uppdatera åldersanalys för öppna inkassoärenden"
+
+#. module: eh_account_collections
+#: model:ir.actions.server,name:eh_account_collections.cron_eh_collections_send_followups_ir_actions_server
+msgid "ERP Heritage: Send collections follow-ups"
+msgstr "ERP Heritage: Skicka inkassopåminnelser"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__oldest_overdue_date
+msgid "Earliest due date among the open receivables for this partner."
+msgstr ""
+"Tidigaste förfallodatum bland de öppna fordringarna för denna partner."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_res_partner__eh_active_collections_count
+#: model:ir.model.fields,field_description:eh_account_collections.field_res_users__eh_active_collections_count
+msgid "Eh Active Collections Count"
+msgstr "Eh Antal aktiva inkasseringar"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__email
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_reminder_wizard__channel__email
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid "Email"
+msgstr "E-post"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_reminder_wizard__channel__both
+msgid "Email and SMS"
+msgstr "E-post och SMS"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Escalate"
+msgstr "Eskalera"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__escalate_to_stage_id
+msgid "Escalate To Stage"
+msgstr "Eskalera till steg"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,name:eh_account_collections.followup_level_4_escalate
+msgid "Escalate to legal (90 days)"
+msgstr "Eskalera till juridisk avdelning (90 dagar)"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_escalated
+msgid "Escalated"
+msgstr "Eskalerad"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_escalated
+msgid "Escalated to manager or legal."
+msgstr "Eskalerad till chef eller juridisk avdelning."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__fee_mode
+msgid "Fee Mode"
+msgstr "Avgiftsläge"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_late_fee_wizard_form
+msgid "Fee policy"
+msgstr "Avgiftspolicy"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,activity_summary:eh_account_collections.followup_level_3
+msgid "Final follow-up call before escalation"
+msgstr "Sista uppföljningssamtalet före eskalering"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,name:eh_account_collections.followup_level_3
+msgid "Final notice (60 days)"
+msgstr "Sista påminnelse (60 dagar)"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.mail_template_followup_final
+msgid "Final notice before escalation"
+msgstr "Sista påminnelsen före eskalering"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.email_template_eh_dunning_final
+msgid "Final notice before referral — {{ object.partner_id.name }}"
+msgstr "Sista påminnelse före hänvisning — {{ object.partner_id.name }}"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_contacted
+msgid "First contact made; awaiting response."
+msgstr "Första kontakten tagen; inväntar svar."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__flat_amount
+msgid "Flat Amount"
+msgstr "Fast belopp"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_late_fee_wizard__fee_mode__flat
+msgid "Flat amount"
+msgstr "Fast belopp"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__fold
+msgid "Fold"
+msgstr "Vik ihop"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__fold
+msgid "Fold this stage's column on the kanban view by default."
+msgstr "Fäll ihop den här etappens kolumn i kanban-vyn som standard."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid "Follow-up Level"
+msgstr "Uppföljningsnivå"
+
+#. module: eh_account_collections
+#: model:ir.actions.act_window,name:eh_account_collections.action_eh_followup_level
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_followup_level
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_list
+msgid "Follow-up Levels"
+msgstr "Uppföljningsnivåer"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Follow-up applied: %(name)s (level %(seq)s). Source: %(src)s."
+msgstr "Påminnelse tillämpad: %(name)s (nivå %(seq)s). Källa: %(src)s."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Follow-up call"
+msgstr "Uppföljningssamtal"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Follow-up engine"
+msgstr "Påminnelsemotor"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Follow-up level"
+msgstr "Påminnelsenivå"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Follow-up: %s"
+msgstr "Påminnelse: %s"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_follower_ids
+msgid "Followers"
+msgstr "Följare"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Följare (Partners)"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__followup_count
+msgid "Followup Count"
+msgstr "Antal påminnelser"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__followup_paused
+msgid "Followup Paused"
+msgstr "Påminnelse pausad"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font Awesome-ikon t.ex. fa-tasks"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.email_template_eh_dunning_friendly
+msgid "Friendly reminder: outstanding balance — {{ object.partner_id.name }}"
+msgstr "Vänlig påminnelse: utestående saldo — {{ object.partner_id.name }}"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.mail_template_followup_reminder_1
+msgid "Friendly reminder: outstanding invoices"
+msgstr "Vänlig påminnelse: utestående fakturor"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Handle Broken Promise"
+msgstr "Hantera brutet löfte"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__has_active_promise
+msgid "Has Active Promise"
+msgstr "Har aktivt löfte"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__has_message
+msgid "Has Message"
+msgstr "Har meddelande"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_case__priority__2
+msgid "High"
+msgstr "Hög"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "High Priority"
+msgstr "Hög Prioritet"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__id
+#: model:ir.model.fields,field_description:eh_account_collections.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_exception_icon
+msgid "Icon"
+msgstr "Ikon"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Ikon för att indikera en undantagsaktivitet."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+"Om ikryssad, så finns det nya meddelanden som kräver din uppmärksamhet."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__message_has_error
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Om ikryssad, så finns det meddelanden med leveransfel."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__income_account_id
+msgid "Income Account"
+msgstr "Intäktskonto"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_late_fee_wizard__income_account_id
+msgid "Income account where the late fee lands."
+msgstr "Intäktskonto där förseningsavgiften bokförs."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Invoice"
+msgstr "Faktura"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__is_default
+msgid "Is Default"
+msgstr "Är standard"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__is_disputed
+msgid "Is Disputed"
+msgstr "Är omtvistad"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__is_escalated
+msgid "Is Escalated"
+msgstr "Är eskalerad"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_is_follower
+msgid "Is Follower"
+msgstr "Är Följare"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__is_resolved
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__is_resolved
+msgid "Is Resolved"
+msgstr "Är löst"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__is_terminal
+msgid "Is Terminal"
+msgstr "Är terminal"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_late_fee_wizard_form
+msgid "Issue invoice"
+msgstr "Utfärda faktura"
+
+#. module: eh_account_collections
+#: model:ir.actions.act_window,name:eh_account_collections.action_eh_collections_late_fee_wizard
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_late_fee_wizard_form
+msgid "Issue late-fee invoice"
+msgstr "Utfärda faktura för förseningsavgift"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__journal_id
+msgid "Journal"
+msgstr "Bokföringsjournal"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__last_action_at
+msgid "Last Action At"
+msgstr "Senaste åtgärd den"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__last_broken_promise_handled_at
+msgid "Last Broken Promise Handled At"
+msgstr "Senaste brutna löfte hanterat den"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__last_followup_sent_at
+msgid "Last Followup Sent At"
+msgstr "Senaste påminnelse skickad den"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__write_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__write_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__write_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__write_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__write_uid
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__write_uid
+msgid "Last Updated by"
+msgstr "Senast uppdaterad av"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__write_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__write_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__write_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__write_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__write_date
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__write_date
+msgid "Last Updated on"
+msgstr "Senast uppdaterad den"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid "Late-fee invoice"
+msgstr "Faktura för förseningsavgift"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid "Late-fee invoice %(ref)s issued for %(amount).2f (state: %(state)s)."
+msgstr ""
+"Faktura för förseningsavgift %(ref)s utfärdad för %(amount).2f (status: "
+"%(state)s)."
+
+#. module: eh_account_collections
+#: model:ir.model,name:eh_account_collections.model_eh_collections_late_fee_wizard
+msgid "Late-fee invoicing wizard"
+msgstr "Guide för fakturering av förseningsavgifter"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid ""
+"Late-payment fee on overdue %(amt).2f, %(days)s days overdue, %(mode)s."
+msgstr ""
+"Förseningsavgift på förfallet belopp %(amt).2f, %(days)s dagar försenat, "
+"%(mode)s."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__letter
+msgid "Letter"
+msgstr "Brev"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/followup_level.py:0
+msgid "Level %(name)s sends email but has no mail_template_id configured."
+msgstr ""
+"Nivå %(name)s skickar e-post men har inget mail_template_id konfigurerat."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/followup_level.py:0
+msgid ""
+"Level %(name)s template must target eh.collections.case (got %(model)r)."
+msgstr ""
+"Mallen för nivå %(name)s måste rikta in sig på eh.collections.case (fick "
+"%(model)r)."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Level %s has no mail_template_id configured."
+msgstr "Nivå %s har inget mail_template_id konfigurerat."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "Log Action"
+msgstr "Logga åtgärd"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Log Call"
+msgstr "Logga samtal"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Log Email"
+msgstr "Logga e-post"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Log SMS"
+msgstr "Logga SMS"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_case__priority__0
+msgid "Low"
+msgstr "Låg"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__mail_template_id
+msgid "Mail Template"
+msgstr "E-postmall"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__mail_template_id
+msgid ""
+"Mail template used when action_type involves email. Templates must be bound "
+"to eh.collections.case so {{ object.* }} expressions resolve to the case."
+msgstr ""
+"E-postmall som används när action_type omfattar e-post. Mallar måste vara "
+"bundna till eh.collections.case så att {{ object.* }}-uttryck löses upp till"
+" ärendet."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/reminder_wizard.py:0
+msgid "Manual reminder (%s)"
+msgstr "Manuell påminnelse (%s)"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__next_action_date
+msgid "Manually set next follow up date for this case."
+msgstr "Ange manuellt nästa uppföljningsdatum för detta ärende."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__is_disputed
+msgid "Mark cases in this stage as disputed for downstream filtering."
+msgstr "Markera ärenden i detta steg som bestridda för nedströms filtrering."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__is_terminal
+msgid ""
+"Mark the last level in the chain. Cases on a terminal level are not auto-"
+"advanced; the cron stops sending follow-ups for them and a collector must "
+"intervene."
+msgstr ""
+"Markera den sista nivån i kedjan. Ärenden på en slutnivå flyttas inte fram "
+"automatiskt; cron slutar skicka uppföljningar för dem och en indrivare måste"
+" ingripa."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_case__priority__1
+msgid "Medium"
+msgstr "Medel"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__meeting
+msgid "Meeting"
+msgstr "Möte"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_has_error
+msgid "Message Delivery error"
+msgstr "Leveransfel för meddelanden"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_ids
+msgid "Messages"
+msgstr "Meddelanden"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__action_type__escalate
+msgid "Move case to Escalated stage (no email)"
+msgstr "Flytta ärende till steget Eskalerat (inget e-postmeddelande)"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Tidsgräns för mina aktiviteter"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "My Cases"
+msgstr "Mina ärenden"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__name
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__name
+msgid "Name"
+msgstr "Namn"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_new
+msgid "New"
+msgstr "Ny"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__next_action_date
+msgid "Next Action Date"
+msgstr "Datum för nästa åtgärd"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Nästa aktivitetshändelse i kalendern"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Nästa tidsgräns för en aktivitet"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_summary
+msgid "Next Activity Summary"
+msgstr "Nästa aktivitetssammanfattning"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_type_id
+msgid "Next Activity Type"
+msgstr "Nästa aktivitetstyp"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__next_followup_date
+msgid "Next Followup Date"
+msgstr "Datum för nästa uppföljning"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Next action"
+msgstr "Nästa åtgärd"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_kanban
+msgid "Next action:"
+msgstr "Nästa åtgärd:"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "No actions recorded yet."
+msgstr "Inga åtgärder har registrerats ännu."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid ""
+"No applicable follow-up level for case %s. Either the case is not overdue "
+"enough, the chain is exhausted (terminal level), or there are no levels "
+"configured for this company."
+msgstr ""
+"Ingen tillämplig uppföljningsnivå för ärende %s. Antingen är ärendet inte "
+"tillräckligt försenat, kedjan är uttömd (slutnivå), eller så finns inga "
+"nivåer konfigurerade för detta företag."
+
+#. module: eh_account_collections
+#: model_terms:ir.actions.act_window,help:eh_account_collections.action_eh_collections_case
+msgid "No cases yet."
+msgstr "Inga ärenden ännu."
+
+#. module: eh_account_collections
+#: model_terms:ir.actions.act_window,help:eh_account_collections.action_eh_followup_level
+msgid "No follow-up levels yet."
+msgstr "Inga påminnelsenivåer ännu."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid "No income account is configured for company %s; cannot post the fee."
+msgstr ""
+"Inget intäktskonto är konfigurerat för företag %s; avgiften kan inte "
+"bokföras."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "No open invoices on the account."
+msgstr "Inga öppna fakturor på kontot."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+msgid "No resolved stage configured. Add one with is_resolved=True."
+msgstr "Ingen löst-fas konfigurerad. Lägg till en med is_resolved=True."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid ""
+"No sales journal is configured for company %s; cannot issue a late-fee "
+"invoice."
+msgstr ""
+"Ingen försäljningsjournal är konfigurerad för företaget %s; kan inte utfärda"
+" en faktura för förseningsavgift."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__note
+msgid "Note"
+msgstr "Anteckning"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__notes
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__notes
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid "Notes"
+msgstr "Anteckningar"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Antal åtgärder"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_has_error_counter
+msgid "Number of errors"
+msgstr "Antal fel"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Antal meddelanden som kräver åtgärder"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Antal meddelanden med leveransfel"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_res_partner__eh_active_collections_count
+#: model:ir.model.fields,help:eh_account_collections.field_res_users__eh_active_collections_count
+msgid ""
+"Number of non-resolved collections cases on this partner. Refreshed on form "
+"load; the auto-creator cron and the manual refresh action update the "
+"underlying case totals."
+msgstr ""
+"Antal olösta inkassoärenden hos denna partner. Uppdateras vid formulärets "
+"laddning; auto-skapar-cron och den manuella uppdateringsåtgärden uppdaterar "
+"de underliggande ärendetotalerna."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__oldest_overdue_date
+msgid "Oldest Overdue Date"
+msgstr "Äldsta förfallna datum"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Oldest due date"
+msgstr "Äldsta förfallodatum"
+
+#. module: eh_account_collections
+#. odoo-javascript
+#: code:addons/eh_account_collections/static/src/js/tours/collections_tour.js:0
+msgid ""
+"On each case, the <b>Action History</b> log is the audit trail: every email "
+"sent, every phone-call logged, every promise-to-pay captured, every late-fee"
+" invoice issued. Filter the case list by Last Action to find stale follow-"
+"ups."
+msgstr ""
+"I varje ärende utgör loggen <b>Action History</b> revisionsspåret: varje "
+"skickat e-postmeddelande, varje loggat telefonsamtal, varje registrerat "
+"betalningslöfte, varje utfärdad faktura med förseningsavgift. Filtrera "
+"ärendelistan efter Senaste åtgärd för att hitta inaktuella uppföljningar."
+
+#. module: eh_account_collections
+#: model:ir.model.constraint,message:eh_account_collections.constraint_eh_collections_case_open_case_per_partner_company
+msgid "Only one open case per partner per company."
+msgstr "Endast ett öppet ärende per partner per företag."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Open"
+msgstr "Öppna"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Open Invoices"
+msgstr "Öppna fakturor"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Over 60 Days"
+msgstr "Över 60 dagar"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Over 90 Days"
+msgstr "Över 90 dagar"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__overdue_amount
+msgid "Overdue Amount"
+msgstr "Förfallet belopp"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Overdue position"
+msgstr "Förfallen position"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_resolved
+msgid "Paid in full. Closed."
+msgstr "Betald i sin helhet. Stängd."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__partner_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__partner_id
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/late_fee_wizard.py:0
+msgid "Partner %s has no overdue receivable; nothing to charge a late fee on."
+msgstr ""
+"Partnern %s har ingen förfallen fordran; det finns inget att ta ut en "
+"förseningsavgift på."
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_promise
+msgid "Partner committed to a promised amount and date."
+msgstr "Partnern har åtagit sig ett utlovat belopp och datum."
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,description:eh_account_collections.stage_disputed
+msgid "Partner disputes the invoice or amount."
+msgstr "Partnern bestrider fakturan eller beloppet."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Pause Follow-ups"
+msgstr "Pausa uppföljningar"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__followup_paused
+msgid ""
+"Pause auto follow-ups on this case (for example while negotiating a payment "
+"plan). The cron skips paused cases; manual sends are still permitted."
+msgstr ""
+"Pausa automatiska uppföljningar för det här ärendet (till exempel under "
+"förhandling av en avbetalningsplan). Cron hoppar över pausade ärenden; "
+"manuella utskick tillåts fortfarande."
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/wizards/reminder_wizard.py:0
+msgid "Payment reminder"
+msgstr "Betalningspåminnelse"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__percent_per_month
+msgid "Percent Per Month"
+msgstr "Procent per månad"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_late_fee_wizard__fee_mode__percent
+msgid "Percent of overdue per month"
+msgstr "Procent förfallet per månad"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__priority
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Priority"
+msgstr "Prioritet"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__promise_amount
+msgid "Promise Amount"
+msgstr "Utlovat belopp"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__promise_date
+msgid "Promise Date"
+msgstr "Utlovat datum"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_promise
+msgid "Promise to Pay"
+msgstr "Betalningslöfte"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Promise to pay"
+msgstr "Betalningslöfte"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_kanban
+msgid "Promise:"
+msgstr "Löfte:"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Promised"
+msgstr "Utlovad"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__promised_amount
+msgid "Promised Amount"
+msgstr "Utlovat belopp"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__promised_date
+msgid "Promised Date"
+msgstr "Utlovat datum"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__rating_ids
+msgid "Ratings"
+msgstr "Omdömen"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Refresh Overdue"
+msgstr "Uppdatera förfallna"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid "Reminder 1"
+msgstr "Påminnelse 1"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,name:eh_account_collections.followup_level_1
+msgid "Reminder 1 (7 days)"
+msgstr "Påminnelse 1 (7 dagar)"
+
+#. module: eh_account_collections
+#: model:eh.collections.followup.level,name:eh_account_collections.followup_level_2
+msgid "Reminder 2 (30 days)"
+msgstr "Påminnelse 2 (30 dagar)"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_reminder_wizard_form
+msgid "Reminder message..."
+msgstr "Påminnelsemeddelande..."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Residual"
+msgstr "Kvarvarande"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Resolve"
+msgstr "Lös"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_resolved
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "Resolved"
+msgstr "Löst"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__activity_user_id
+msgid "Responsible User"
+msgstr "Ansvarig användare"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Resume Follow-ups"
+msgstr "Återuppta uppföljningar"
+
+#. module: eh_account_collections
+#: model_terms:ir.actions.act_window,help:eh_account_collections.action_eh_collections_case
+msgid ""
+"Run the auto creator (or wait for the daily cron) to populate cases from "
+"your overdue receivables. Each open partner gets one case; the cron "
+"refreshes the totals daily."
+msgstr ""
+"Kör den automatiska skaparen (eller vänta på den dagliga cron) för att fylla"
+" ärenden från dina förfallna fordringar. Varje öppen partner får ett ärende;"
+" cron uppdaterar summorna dagligen."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_action__action_type__sms
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_reminder_wizard__channel__sms
+msgid "SMS"
+msgstr ""
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Leveransfel för SMS"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__sms_template_id
+msgid ""
+"SMS template used when 'Also send SMS' is on. Bound to eh.collections.case "
+"so {{ object.* }} resolves to the case."
+msgstr ""
+"SMS-mall som används när 'Also send SMS' är aktiverat. Bunden till "
+"eh.collections.case så att {{ object.* }} matchar ärendet."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_late_fee_wizard__journal_id
+msgid "Sales journal that issues the late-fee invoice."
+msgstr "Försäljningsjournal som utfärdar fakturan för förseningsavgiften."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__action_type__activity
+msgid "Schedule a call activity (no email)"
+msgstr "Schemalägg en samtalsaktivitet (ingen e-post)"
+
+#. module: eh_account_collections
+#: model:mail.template,subject:eh_account_collections.mail_template_followup_reminder_2
+msgid "Second reminder: invoices past due"
+msgstr "Andra påminnelsen: förfallna fakturor"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_reminder_wizard_form
+msgid "Send"
+msgstr "Skicka"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Send Follow-up"
+msgstr "Skicka uppföljning"
+
+#. module: eh_account_collections
+#. odoo-python
+#: code:addons/eh_account_collections/models/case.py:0
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Send Reminder"
+msgstr "Skicka påminnelse"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__action_type__email_and_activity
+msgid "Send email and schedule a call activity"
+msgstr "Skicka e-post och schemalägg en samtalsaktivitet"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_reminder_wizard_form
+msgid "Send reminder"
+msgstr "Skicka påminnelse"
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_followup_level__action_type__email
+msgid "Send templated email"
+msgstr "Skicka mall-e-post"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_form
+msgid "Send the next follow-up email and advance the level. Continue?"
+msgstr "Skicka nästa uppföljningsmejl och avancera nivån. Fortsätta?"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__sequence
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_stage__sequence
+msgid "Sequence"
+msgstr "Sekvens"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_followup_level__sms_template_id
+msgid "Sms Template"
+msgstr "Mall för sms"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__stage_id
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_stage_form
+msgid "Stage"
+msgstr "Läge"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__is_escalated
+msgid ""
+"Stage to which the broken-promise cron escalates cases. When no stage "
+"carries this flag, the cron leaves the stage unchanged and only bumps "
+"priority."
+msgstr ""
+"Steg som cron för brutna löften eskalerar ärenden till. När inget steg bär "
+"denna flagga lämnar cron steget oförändrat och höjer endast prioriteten."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_stage_tree
+msgid "Stages"
+msgstr "Stadier"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Statement of Account"
+msgstr "Kontoutdrag"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Status baserad på aktiviteter\n"
+"Försenade: Leveranstidpunkten har passerat\n"
+"Idag: Aktivitetsdatum är idag\n"
+"Kommande: Framtida aktiviteter."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_reminder_wizard__subject
+msgid "Subject"
+msgstr "Ämne"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__total_overdue_amount
+msgid ""
+"Sum of amount_residual on overdue receivable AML for this partner. Refreshed"
+" by the auto creator and on demand."
+msgstr ""
+"Summan av amount_residual på förfallna kundfordrings-AML för denna partner. "
+"Uppdateras av den automatiska skaparen och på begäran."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__summary
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Summary"
+msgstr "Sammanfattning"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__is_resolved
+msgid ""
+"Terminal state. Cases here are considered closed; the auto creator does not "
+"refresh or duplicate them."
+msgstr ""
+"Sluttillstånd. Ärenden här anses vara stängda; den automatiska skaparen "
+"uppdaterar eller duplicerar dem inte."
+
+#. module: eh_account_collections
+#. odoo-javascript
+#: code:addons/eh_account_collections/static/src/js/tours/collections_tour.js:0
+msgid ""
+"The Configuration menu has <b>Stages</b> and <b>Follow-up Levels</b>. Stages"
+" drive the kanban columns; follow-up levels schedule recurring reminder "
+"emails based on days overdue."
+msgstr ""
+"Menyn Konfiguration har <b>Steg</b> och <b>Uppföljningsnivåer</b>. Steg styr"
+" kanban-kolumnerna; uppföljningsnivåer schemalägger återkommande "
+"påminnelsemejl baserat på antal dagar för sent."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_followup_level_form
+msgid ""
+"The mail template must target eh.collections.case so {{ object.* }} "
+"expressions resolve to the case record. Create or edit templates from "
+"Settings &gt; Technical &gt; Email Templates."
+msgstr ""
+"E-postmallen måste rikta sig mot eh.collections.case så att {{ object.* "
+"}}-uttryck löses till ärenderaden. Skapa eller redigera mallar från Settings"
+" &gt; Technical &gt; Email Templates."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__current_followup_level_id
+msgid ""
+"The most recent follow-up level applied to this case. The next cron pass "
+"picks the next applicable level above this one whose days_overdue threshold "
+"is met."
+msgstr ""
+"Den senaste uppföljningsnivån som tillämpats på detta ärende. Nästa cron-"
+"körning väljer nästa tillämpliga nivå ovanför denna vars days_overdue-"
+"tröskel är uppnådd."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__collector_id
+msgid "The user responsible for following up on this case."
+msgstr "Användaren som ansvarar för uppföljningen av detta ärende."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__last_followup_sent_at
+msgid "Timestamp of the most recent follow-up email sent on this case."
+msgstr ""
+"Tidsstämpel för det senaste uppföljningsmejlet som skickats i detta ärende."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_late_fee_wizard__today
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_search
+msgid "Today"
+msgstr "Idag"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_tree
+msgid "Total"
+msgstr "Totalt"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__total_overdue_amount
+msgid "Total Overdue Amount"
+msgstr "Total förfallet belopp"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__followup_count
+msgid "Total follow-up messages sent across this case's lifetime."
+msgstr ""
+"Totalt antal uppföljningsmeddelanden som skickats under detta ärendes "
+"livstid."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Total open"
+msgstr "Totalt öppet"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Total overdue"
+msgstr "Totalt förfallet"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__days_overdue
+msgid ""
+"Trigger this level when the case's days_overdue_max is at least this many "
+"days. Levels fire in ascending order; a case at 45 days overdue with levels "
+"at 7 / 30 / 60 sits on the 30 level until it crosses 60."
+msgstr ""
+"Utlös denna nivå när ärendets days_overdue_max är minst så här många dagar. "
+"Nivåer utlöses i stigande ordning; ett ärende som är 45 dagar försenat med "
+"nivåer på 7 / 30 / 60 stannar på nivå 30 tills det passerar 60."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__is_resolved
+msgid "True when the case is in a terminal stage."
+msgstr "True när ärendet befinner sig i ett slutskede."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__broken_promise
+msgid ""
+"True when the latest promise to pay has lapsed (promise date is in the past)"
+" and the case has not been resolved. The broken-promise cron escalates these"
+" cases."
+msgstr ""
+"True när det senaste betalningslöftet har löpt ut (löftesdatumet ligger i "
+"det förflutna) och ärendet inte har lösts. Cron-jobbet för brutna löften "
+"eskalerar dessa ärenden."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+msgid "Type"
+msgstr "Typ"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Typ av undantagsaktivitet som har registrerats."
+
+#. module: eh_account_collections
+#: model:ir.model.fields.selection,name:eh_account_collections.selection__eh_collections_case__priority__3
+msgid "Urgent"
+msgstr "Brådskande"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_stage__is_default
+msgid ""
+"Used by the auto creator to place new cases. Only one stage should carry "
+"this flag at any given time."
+msgstr ""
+"Används av den automatiska skaparen för att placera nya ärenden. Endast ett "
+"steg får ha denna flagga vid en given tidpunkt."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_late_fee_wizard__flat_amount
+msgid "Used when fee_mode = 'flat'."
+msgstr "Används när fee_mode = 'flat'."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_late_fee_wizard__percent_per_month
+msgid ""
+"Used when fee_mode = 'percent'. Applied to the overdue amount, prorated by "
+"days_overdue / 30."
+msgstr ""
+"Används när fee_mode = 'percent'. Tillämpas på det förfallna beloppet, "
+"proportionerligt efter days_overdue / 30."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_action__user_id
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.report_case_statement
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_search
+msgid "User"
+msgstr "Användare"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,field_description:eh_account_collections.field_eh_collections_case__website_message_ids
+msgid "Website Messages"
+msgstr "Hemsidesmeddelanden"
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__website_message_ids
+msgid "Website communication history"
+msgstr "Hemsidans kommunikationshistorik"
+
+#. module: eh_account_collections
+#. odoo-javascript
+#: code:addons/eh_account_collections/static/src/js/tours/collections_tour.js:0
+msgid ""
+"Welcome to <b>Collections Workbench</b>. This walkthrough shows what the "
+"workbench does differently from a follow-up list, and how to use it day-to-"
+"day."
+msgstr ""
+"Välkommen till <b>Collections Workbench</b>. Den här genomgången visar vad "
+"arbetsbänken gör annorlunda än en uppföljningslista och hur du använder den "
+"dagligen."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_late_fee_wizard__auto_post
+msgid ""
+"When True, the fee invoice is posted immediately. Off by default so the "
+"collector can review the draft first."
+msgstr ""
+"Vid True bokförs avgiftsfakturan omedelbart. Av som standard så att "
+"indrivaren först kan granska utkastet."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__escalate_to_stage_id
+msgid ""
+"When action_type is 'escalate', the case moves to this stage. Defaults to "
+"the first stage flagged is_disputed when blank."
+msgstr ""
+"När action_type är 'escalate' flyttas ärendet till detta steg. Standard är "
+"det första steget flaggat is_disputed när det lämnas tomt."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__also_send_sms
+msgid ""
+"When set, an SMS rendered from the SMS template is sent to the partner's "
+"mobile alongside whatever the action type does, giving multi-channel "
+"dunning."
+msgstr ""
+"När det är angivet skickas ett SMS som återges från SMS-mallen till "
+"partnerns mobil utöver vad åtgärdstypen gör, vilket ger "
+"flerkanalspåminnelse."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_case__last_broken_promise_handled_at
+msgid ""
+"When the broken-promise cron last escalated this case. Prevents repeated "
+"escalation on the same broken promise."
+msgstr ""
+"När cron-jobbet för brutna löften senast eskalerade detta ärende. Förhindrar"
+" upprepad eskalering på samma brutna löfte."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_action__promise_amount
+msgid ""
+"When this action results in a promise to pay, record the amount here. The "
+"case's promise tracking pulls from the most recent action that has a non "
+"zero promise_amount."
+msgstr ""
+"När den här åtgärden resulterar i ett betalningslöfte, registrera beloppet "
+"här. Ärendets löftesspårning hämtar från den senaste åtgärden som har ett "
+"promise_amount skilt från noll."
+
+#. module: eh_account_collections
+#: model:ir.model.fields,help:eh_account_collections.field_eh_collections_followup_level__responsible_type
+msgid ""
+"Who the scheduled follow-up activity is assigned to: the case collector, the"
+" customer's salesperson, or an accounting manager."
+msgstr ""
+"Vem den schemalagda uppföljningsaktiviteten tilldelas: ärendets indrivare, "
+"kundens säljare eller en redovisningschef."
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_search
+msgid "With Active Promise"
+msgstr "Med aktivt löfte"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_action_search
+msgid "With Promise"
+msgstr "Med löfte"
+
+#. module: eh_account_collections
+#: model:ir.ui.menu,name:eh_account_collections.menu_eh_collections_workbench
+msgid "Workbench"
+msgstr "Arbetsbänk"
+
+#. module: eh_account_collections
+#: model:eh.collections.stage,name:eh_account_collections.stage_written_off
+msgid "Written Off"
+msgstr "Avskriven"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_kanban
+msgid "by"
+msgstr "av"
+
+#. module: eh_account_collections
+#: model_terms:ir.ui.view,arch_db:eh_account_collections.view_eh_collections_case_kanban
+msgid "days overdue"
+msgstr "dagar försenad"
+
+#. module: eh_account_collections
+#: model:ir.model.constraint,message:eh_account_collections.constraint_eh_collections_followup_level_check_days_non_negative
+msgid "days_overdue cannot be negative."
+msgstr "days_overdue kan inte vara negativt."
+
+#. module: eh_account_collections
+#: model:ir.model.constraint,message:eh_account_collections.constraint_eh_collections_followup_level_check_delay_non_negative
+msgid "delay_days cannot be negative."
+msgstr "delay_days kan inte vara negativt."

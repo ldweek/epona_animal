@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_purchase_order_form_budget_commitments" model="ir.ui.view">
+        <field name="name">purchase.order.form.budget.commitments</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_eh_view_commitments"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-book"
+                        groups="eh_account_base.group_eh_user"
+                        invisible="eh_budget_commitment_count == 0">
+                    <field name="eh_budget_commitment_count"
+                           widget="statinfo"
+                           string="Budget Commitments"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

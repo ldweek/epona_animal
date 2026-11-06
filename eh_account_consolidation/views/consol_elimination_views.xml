@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_consol_elimination_tree" model="ir.ui.view">
+        <field name="name">eh.consol.elimination.list</field>
+        <field name="model">eh.consol.elimination</field>
+        <field name="arch" type="xml">
+            <list string="Eliminations"
+                  decoration-info="state == 'posted'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="run_id"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'posted'"
+                       decoration-muted="state in ('draft', 'cancelled')"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_consol_elimination_search" model="ir.ui.view">
+        <field name="name">eh.consol.elimination.search</field>
+        <field name="model">eh.consol.elimination</field>
+        <field name="arch" type="xml">
+            <search string="Eliminations">
+                <field name="name"/>
+                <field name="run_id"/>
+                <filter name="state_draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="state_posted" string="Posted"
+                        domain="[('state', '=', 'posted')]"/>
+                <filter name="state_cancelled" string="Cancelled"
+                        domain="[('state', '=', 'cancelled')]"/>
+                <group>
+                    <filter name="group_run" string="Run"
+                            context="{'group_by': 'run_id'}"/>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_consol_elimination_form" model="ir.ui.view">
+        <field name="name">eh.consol.elimination.form</field>
+        <field name="model">eh.consol.elimination</field>
+        <field name="arch" type="xml">
+            <form string="Elimination">
+                <header>
+                    <button name="action_post"
+                            type="object" string="Post"
+                            class="btn-primary"
+                            invisible="state != 'draft'"
+                            confirm="Post this elimination? Lines must balance (debit = credit)."/>
+                    <button name="action_cancel"
+                            type="object" string="Cancel"
+                            invisible="state != 'posted'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reset_to_draft"
+                            type="object" string="Reset to draft"
+                            invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,posted,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="state != 'draft'"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="run_id"
+                                   options="{'no_create': True}"
+                                   readonly="state != 'draft'"/>
+                            <field name="sequence" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="posted_at" readonly="1"/>
+                            <field name="posted_by_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <field name="description"
+                           placeholder="Why this elimination exists..."
+                           readonly="state != 'draft'"/>
+                    <field name="line_ids" readonly="state != 'draft'">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="account_id"/>
+                            <field name="debit" widget="monetary"/>
+                            <field name="credit" widget="monetary"/>
+                            <field name="amount" widget="monetary" sum="Net" readonly="1"/>
+                            <field name="note"/>
+                            <field name="presentation_currency_id" column_invisible="1"/>
+                        </list>
+                    </field>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_consol_elimination" model="ir.actions.act_window">
+        <field name="name">Eliminations</field>
+        <field name="res_model">eh.consol.elimination</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_consol_elimination_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first elimination entry</p>
+            <p>Eliminations remove intra-group balances and transactions so the group is presented as a single reporting entity. Add an entry against a consolidation run, then post it to feed the consolidated set.</p>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_partner_form_collections" model="ir.ui.view">
+        <field name="name">eh.account.collections.res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_eh_active_collections"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-phone"
+                        groups="eh_account_base.group_eh_user"
+                        invisible="eh_active_collections_count == 0">
+                    <field name="eh_active_collections_count"
+                           widget="statinfo"
+                           string="Active Collections"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

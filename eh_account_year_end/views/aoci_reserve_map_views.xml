@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_aoci_reserve_map_list" model="ir.ui.view">
+        <field name="name">eh.aoci.reserve.map.list</field>
+        <field name="model">eh.aoci.reserve.map</field>
+        <field name="arch" type="xml">
+            <list string="AOCI Sub-Reserve Mapping" editable="bottom">
+                <field name="company_id"/>
+                <field name="kind"/>
+                <field name="source_account_ids" widget="many2many_tags"
+                       options="{'no_create': True}"/>
+                <field name="reserve_account_id"
+                       options="{'no_create': True}"/>
+                <field name="is_complete" widget="boolean"
+                       string="Complete"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_aoci_reserve_map_form" model="ir.ui.view">
+        <field name="name">eh.aoci.reserve.map.form</field>
+        <field name="model">eh.aoci.reserve.map</field>
+        <field name="arch" type="xml">
+            <form string="AOCI Sub-Reserve Mapping">
+                <sheet>
+                    <group>
+                        <group string="Component">
+                            <field name="company_id"/>
+                            <field name="kind"/>
+                            <field name="is_complete"/>
+                        </group>
+                        <group string="Accounts">
+                            <field name="reserve_account_id"
+                                   options="{'no_create': True}"/>
+                            <field name="source_account_ids"
+                                   widget="many2many_tags"
+                                   options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-info" role="status">
+                        The year-end close reclassifies each OCI flow
+                        account's net period movement into the sub-reserve
+                        account, so equity carries per-component
+                        accumulated OCI (IAS 1.106). Rows without a
+                        sub-reserve account are incomplete: their sources
+                        appear on the year-end run's unmapped-OCI warning
+                        list.
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_aoci_reserve_map" model="ir.actions.act_window">
+        <field name="name">AOCI Sub-Reserve Mapping</field>
+        <field name="res_model">eh.aoci.reserve.map</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No AOCI sub-reserve mapping yet.</p>
+            <p>Map each OCI component's flow accounts to a dedicated
+               accumulated-OCI sub-reserve equity account. The year-end
+               close then reclassifies each component's net period
+               movement into its own reserve instead of leaving OCI
+               commingled in equity. Use "Discover OCI Reserves" on a
+               year-end run to seed rows from the installed modules.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_eh_aoci_reserve_map"
+              name="AOCI Sub-Reserves"
+              parent="eh_account_base.menu_eh_config_operations"
+              action="action_eh_aoci_reserve_map"
+              sequence="55"
+              groups="eh_account_base.group_eh_manager"/>
+
+</odoo>

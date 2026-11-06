@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_budget_form_ai" model="ir.ui.view">
+        <field name="name">eh.budget.budget.form.ai</field>
+        <field name="model">eh.budget.budget</field>
+        <field name="inherit_id"
+               ref="eh_account_budget_pro.view_eh_budget_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_eh_ai_refresh_commentary"
+                        type="object"
+                        string="Refresh AI commentary"
+                        confirm="This calls the configured AI provider and may incur usage charges. Continue?"
+                        invisible="not eh_ai_live_provider_configured"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="AI Commentary" name="ai_commentary">
+                    <field name="eh_ai_live_provider_configured" invisible="1"/>
+                    <p class="text-muted">
+                        Deterministic budget-vs-actual narrative for the
+                        close pack, generated on every read with no
+                        network access.
+                    </p>
+                    <field name="eh_ai_variance_commentary"
+                           widget="text"
+                           nolabel="1"
+                           readonly="1"/>
+                    <p class="text-muted">
+                        Configure an AI provider on the company and press
+                        Refresh AI commentary to generate the enriched
+                        narrative below. It is produced only on that
+                        explicit press, never on read.
+                    </p>
+                    <field name="eh_ai_variance_narrative"
+                           widget="text"
+                           nolabel="1"
+                           readonly="1"
+                           invisible="not eh_ai_variance_narrative"/>
+                    <group invisible="not eh_ai_variance_narrative">
+                        <field name="eh_ai_narrative_generated_at"/>
+                        <field name="eh_ai_narrative_generated_by_id"/>
+                        <field name="eh_ai_narrative_provider_key"/>
+                        <field name="eh_ai_narrative_fingerprint"/>
+                        <field name="eh_ai_narrative_stale"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

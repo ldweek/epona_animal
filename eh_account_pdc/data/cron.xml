@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="ir_cron_auto_present_cheques" model="ir.cron">
+            <field name="name">EH Account PDC: auto present cheques on value date</field>
+            <field name="model_id" ref="model_eh_cheque"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_auto_present()</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active">True</field>
+        </record>
+
+        <record id="seq_eh_cheque" model="ir.sequence">
+            <field name="name">EH Cheque Reference</field>
+            <field name="code">eh.cheque</field>
+            <field name="prefix">CHQ/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

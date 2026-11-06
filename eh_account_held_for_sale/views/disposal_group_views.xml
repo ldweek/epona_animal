@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_disposal_group_list" model="ir.ui.view">
+        <field name="name">eh.disposal.group.list</field>
+        <field name="model">eh.disposal.group</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="overdue_12m">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="classification_date"/>
+                <field name="carrying_amount" widget="monetary"/>
+                <field name="fair_value_less_costs" widget="monetary"/>
+                <field name="writedown" widget="monetary" optional="show"/>
+                <field name="overdue_12m" optional="show"/>
+                <field name="is_discontinued" optional="show"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'held'"
+                       decoration-success="state == 'sold'"
+                       decoration-muted="state == 'cancelled'"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="eh_account_held_for_sale_disposal_group_view_graph" model="ir.ui.view">
+        <field name="name">eh.disposal.group.graph</field>
+        <field name="model">eh.disposal.group</field>
+        <field name="arch" type="xml">
+            <graph string="Disposal Groups" type="bar">
+                <field name="classification_date" interval="month"/>
+                <field name="carrying_amount" type="measure"/>
+                <field name="writedown" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_held_for_sale_disposal_group_view_pivot" model="ir.ui.view">
+        <field name="name">eh.disposal.group.pivot</field>
+        <field name="model">eh.disposal.group</field>
+        <field name="arch" type="xml">
+            <pivot string="Disposal Groups">
+                <field name="state" type="row"/>
+                <field name="classification_date" interval="month" type="col"/>
+                <field name="carrying_amount" type="measure"/>
+                <field name="fair_value_less_costs" type="measure"/>
+                <field name="writedown" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_eh_disposal_group_search" model="ir.ui.view">
+        <field name="name">eh.disposal.group.search</field>
+        <field name="model">eh.disposal.group</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <filter name="filter_held" string="Held for Sale"
+                        domain="[('state', '=', 'held')]"/>
+                <filter name="filter_overdue_12m"
+                        string="Overdue (12 Months)"
+                        domain="[('overdue_12m', '=', True)]"/>
+                <filter name="filter_discontinued"
+                        string="Discontinued Operations"
+                        domain="[('is_discontinued', '=', True)]"/>
+                <group>
+                    <filter name="group_by_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_by_company" string="Company"
+                            context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_disposal_group_form" model="ir.ui.view">
+        <field name="name">eh.disposal.group.form</field>
+        <field name="model">eh.disposal.group</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_classify" type="object"
+                            string="Classify as Held for Sale"
+                            class="btn-primary"
+                            invisible="state != 'draft'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_remeasure" type="object"
+                            string="Remeasure"
+                            invisible="state != 'held'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_sell" type="object"
+                            string="Record Sale" class="btn-primary"
+                            invisible="state != 'held'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_tag_discontinued" type="object"
+                            string="Seal Discontinued Scope"
+                            invisible="not is_discontinued"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_remediate_asset_reclassification"
+                            type="object" string="Remediate IFRS 5.38"
+                            class="btn-primary"
+                            invisible="state != 'held' or not asset_reclassification_quarantined"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('sold', 'cancelled')"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,held,sold" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_moves" type="object"
+                                class="oe_stat_button" icon="fa-book">
+                            <field name="move_count" widget="statinfo"
+                                   string="Entries"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="description"/>
+                            <field name="classification_date"
+                                   readonly="state != 'draft'"/>
+                            <field name="remeasurement_date"
+                                   invisible="state != 'held'"/>
+                            <field name="sale_date"
+                                   invisible="state not in ('held', 'sold')"
+                                   readonly="state == 'sold'"/>
+                            <field name="extension_12m"/>
+                            <field name="overdue_12m"/>
+                            <field name="is_discontinued"
+                                   readonly="discontinued_tag_id"/>
+                            <field name="discontinued_tag_id"
+                                   invisible="not discontinued_tag_id"/>
+                            <field name="discontinued_evidence_account_ids"
+                                   widget="many2many_tags" readonly="1"
+                                   invisible="not discontinued_tag_id"/>
+                            <field name="discontinued_candidate_move_line_ids"
+                                   widget="many2many_tags"
+                                   invisible="not is_discontinued"
+                                   domain="[('company_id', '=', company_id), ('parent_state', '=', 'posted'), ('account_id.account_type', 'in', ['income', 'income_other', 'expense', 'expense_depreciation', 'expense_direct_cost'])]"/>
+                            <field name="discontinued_evidence_move_line_ids"
+                                   widget="many2many_tags" readonly="1"
+                                   invisible="not discontinued_tag_id"/>
+                            <field name="discontinued_scope_quarantined"
+                                   invisible="1"/>
+                            <field name="depreciation_ceased" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="carrying_amount" widget="monetary"/>
+                            <field name="fair_value_less_costs"
+                                   widget="monetary"
+                                   readonly="state in ('sold', 'cancelled')"/>
+                            <field name="writedown" widget="monetary"
+                                   readonly="1"/>
+                            <field name="cumulative_writedown"
+                                   widget="monetary" readonly="1"
+                                   invisible="state == 'draft'"/>
+                            <field name="proceeds" widget="monetary"
+                                   invisible="state != 'held'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Members" name="members">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="company_id"
+                                           column_invisible="1"/>
+                                    <field name="currency_id"
+                                           column_invisible="1"/>
+                                    <field name="name"/>
+                                    <field name="asset_id"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="is_liability"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="is_goodwill"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="in_scope"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="carrying_amount"
+                                           widget="monetary"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="fair_value_floor"
+                                           widget="monetary" optional="show"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="account_id"
+                                           optional="show"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="pl_account_id"
+                                           optional="hide"
+                                           readonly="parent.state != 'draft' or parent.discontinued_tag_id"/>
+                                    <field name="allocated_writedown"
+                                           widget="monetary" readonly="1"
+                                           optional="show"/>
+                                    <field name="cumulative_writedown"
+                                           widget="monetary" readonly="1"
+                                           optional="show"/>
+                                    <field name="preclassification_carrying_amount"
+                                           widget="monetary" readonly="1"
+                                           optional="hide"/>
+                                    <field name="declassification_adjusted_carrying_amount"
+                                           widget="monetary"
+                                           readonly="parent.state != 'held'"
+                                           optional="hide"/>
+                                    <field name="declassification_recoverable_amount"
+                                           widget="monetary"
+                                           readonly="parent.state != 'held'"
+                                           optional="hide"/>
+                                    <field name="declassification_measurement_completed"
+                                           readonly="parent.state != 'held'"
+                                           optional="hide"/>
+                                    <field name="declassification_target_amount"
+                                           widget="monetary" readonly="1"
+                                           optional="hide"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="IFRS 5.27 Cease Classification"
+                              name="declassification"
+                              invisible="state not in ('held', 'cancelled')">
+                            <group>
+                                <group>
+                                    <field name="declassification_date"
+                                           readonly="state == 'cancelled'"/>
+                                    <field name="declassification_move_ids"
+                                           widget="many2many_tags" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="declassified_by_id" readonly="1"/>
+                                    <field name="declassified_at" readonly="1"/>
+                                    <field name="declassification_evidence_quarantined"
+                                           readonly="1"/>
+                                </group>
+                                <field name="declassification_basis" colspan="2"
+                                       readonly="state == 'cancelled'"/>
+                                <field name="declassification_evidence_quarantine_note"
+                                       colspan="2" readonly="1"
+                                       invisible="not declassification_evidence_quarantined"/>
+                            </group>
+                        </page>
+                        <page string="IFRS 5.38 Presentation"
+                              name="asset_reclassification"
+                              invisible="not asset_reclassification_move_id and not asset_reclassification_quarantined">
+                            <group>
+                                <group>
+                                    <field name="asset_reclassification_move_id"
+                                           readonly="1"/>
+                                    <field name="asset_reclassification_reversal_move_id"
+                                           readonly="1"/>
+                                    <field name="asset_reclassification_quarantined"
+                                           readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="asset_reclassification_correction_date"
+                                           readonly="not asset_reclassification_quarantined"/>
+                                    <field name="asset_reclassification_correction_basis"
+                                           readonly="not asset_reclassification_quarantined"/>
+                                </group>
+                                <field name="asset_reclassification_quarantine_note"
+                                       colspan="2" readonly="1"
+                                       invisible="not asset_reclassification_quarantined"/>
+                            </group>
+                        </page>
+                        <page string="Accounts" name="accounts">
+                            <group>
+                                <group>
+                                    <field name="asset_account_id"
+                                           readonly="state != 'draft'"/>
+                                    <field name="impairment_account_id"
+                                           readonly="state != 'draft'"/>
+                                </group>
+                                <group>
+                                    <field name="proceeds_account_id"
+                                           readonly="state != 'draft'"/>
+                                    <field name="gain_loss_account_id"
+                                           readonly="state != 'draft'"/>
+                                    <field name="journal_id"
+                                           readonly="state != 'draft'"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_disposal_group" model="ir.actions.act_window">
+        <field name="name">Disposal Groups</field>
+        <field name="res_model">eh.disposal.group</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_disposal_group_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first disposal group</p>
+            <p>Group assets and their directly associated liabilities to be sold together under IFRS 5, measured as a whole with the write-down allocated across members. Create a group, add member lines with their carrying amounts, then use Classify as Held for Sale.</p>
+        </field>
+    </record>
+
+</odoo>

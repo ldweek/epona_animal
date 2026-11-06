@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_partner_form_eh_au_abn" model="ir.ui.view">
+        <field name="name">res.partner.form.eh.au.abn</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="eh_au_abn"
+                       placeholder="11 digits"/>
+                <field name="eh_au_gst_registered"/>
+                <field name="eh_au_abn_valid"
+                       invisible="not eh_au_abn"
+                       widget="boolean_toggle"
+                       readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_approval_policy_list" model="ir.ui.view">
+        <field name="name">eh.approval.policy.list</field>
+        <field name="model">eh.approval.policy</field>
+        <field name="arch" type="xml">
+            <list string="Approval Policies" default_order="company_id, sequence">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="document_type"/>
+                <field name="entry_origin" optional="hide"/>
+                <field name="rule_count"/>
+                <field name="re_approval_threshold_pct"/>
+                <field name="active" widget="boolean_toggle"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_approval_policy_form" model="ir.ui.view">
+        <field name="name">eh.approval.policy.form</field>
+        <field name="model">eh.approval.policy</field>
+        <field name="arch" type="xml">
+            <form string="Approval Policy">
+                <sheet>
+                    <h1>
+                        <field name="name" placeholder="Vendor bills above 1000"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="document_type"/>
+                            <field name="entry_origin"
+                                   invisible="document_type != 'entry'"/>
+                            <field name="journal_ids" widget="many2many_tags"
+                                   invisible="document_type != 'entry'"/>
+                            <field name="active"/>
+                            <field name="sequence"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="re_approval_threshold_pct"/>
+                            <field name="re_approval_threshold_abs"/>
+                            <field name="allow_self_approval"/>
+                        </group>
+                    </group>
+                    <separator string="Rules"/>
+                    <field name="rule_ids">
+                        <list>
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="min_amount"/>
+                            <field name="max_amount"/>
+                            <field name="approver_summary"/>
+                            <field name="approver_count" optional="show"/>
+                            <field name="sla_hours" optional="show"/>
+                            <field name="reminder_after_hours"
+                                   optional="hide"/>
+                            <field name="escalate_after_hours"
+                                   optional="hide"/>
+                            <field name="escalate_to_group_id"
+                                   optional="hide"/>
+                        </list>
+                        <form string="Approval Rule">
+                            <group>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="sequence"/>
+                                    <field name="min_amount"/>
+                                    <field name="max_amount"/>
+                                </group>
+                                <group>
+                                    <field name="approval_mode"/>
+                                    <field name="sla_hours"/>
+                                    <field name="reminder_after_hours"/>
+                                    <field name="escalate_after_hours"/>
+                                    <field name="escalate_to_group_id"/>
+                                </group>
+                            </group>
+                            <separator string="Approval steps (in order)"/>
+                            <field name="step_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="group_id"/>
+                                    <field name="approver_ids" widget="many2many_tags"
+                                           optional="show"/>
+                                    <field name="approval_minimum"/>
+                                    <field name="required_approver_ids"
+                                           widget="many2many_tags" optional="hide"/>
+                                    <field name="inject_manager"/>
+                                </list>
+                            </field>
+                            <p class="text-muted">
+                                Steps are signed top to bottom. Drag the handle to reorder. Any user in a step's group can sign for that step.
+                            </p>
+                        </form>
+                    </field>
+                    <p class="text-muted">
+                        Rules are evaluated in sequence; the first rule whose amount band matches wins. Use min_amount=0 / max_amount=0 to match any amount. Approver groups are signed in the listed order; any user in the current group can sign for that step.
+                    </p>
+                    <p class="text-muted">
+                        SLA hours sets the deadline from submission to final approval. Reminder hours pings the current approver group at that fraction of the window. Escalation hours forwards a still-unsigned request to the escalation group after the breach.
+                    </p>
+                    <group>
+                        <field name="notes" colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_approval_policy_search" model="ir.ui.view">
+        <field name="name">eh.approval.policy.search</field>
+        <field name="model">eh.approval.policy</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <filter name="filter_in_invoice" string="Vendor bills"
+                        domain="[('document_type', '=', 'in_invoice')]"/>
+                <filter name="filter_in_refund" string="Vendor refunds"
+                        domain="[('document_type', '=', 'in_refund')]"/>
+                <filter name="filter_out_invoice" string="Customer invoices"
+                        domain="[('document_type', '=', 'out_invoice')]"/>
+                <filter name="filter_out_refund" string="Customer refunds"
+                        domain="[('document_type', '=', 'out_refund')]"/>
+                <filter name="filter_entry" string="Journal entries"
+                        domain="[('document_type', '=', 'entry')]"/>
+                <separator/>
+                <filter name="filter_inactive" string="Archived"
+                        domain="[('active', '=', False)]"/>
+                <group>
+                    <filter name="group_document_type" string="Document Type"
+                            context="{'group_by': 'document_type'}"/>
+                    <filter name="group_company" string="Company"
+                            context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_approval_policy" model="ir.actions.act_window">
+        <field name="name">Approval Policies</field>
+        <field name="res_model">eh.approval.policy</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_approval_policy_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No approval policies yet.</p>
+            <p>One policy per (company, document type). Rules within a policy carry an amount band and an ordered list of approver groups. Documents below the lowest band post without approval.</p>
+        </field>
+    </record>
+
+</odoo>

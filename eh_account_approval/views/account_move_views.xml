@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        Surface the approval gate on the account.move form. The
+        Request Approval button only appears when the move is in
+        draft AND a policy applies AND the move is not yet approved.
+        The approval state badge shows the current request status so
+        the user knows whether to wait for an approver or to start
+        the request.
+    -->
+    <record id="view_account_move_form_approval" model="ir.ui.view">
+        <field name="name">account.move.form.approval</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_post']" position="before">
+                <button name="action_eh_request_approval"
+                        type="object"
+                        string="Request Approval"
+                        class="btn-primary"
+                        invisible="state != 'draft' or not eh_requires_approval"/>
+                <field name="eh_requires_approval" invisible="1"/>
+                <field name="eh_active_approval_request_id" invisible="1"/>
+                <field name="eh_approval_state"
+                       widget="badge"
+                       decoration-success="eh_approval_state == 'approved'"
+                       decoration-info="eh_approval_state == 'in_review'"
+                       decoration-warning="eh_approval_state == 'pending'"
+                       decoration-danger="eh_approval_state in ('rejected', 'withdrawn')"
+                       invisible="not eh_active_approval_request_id"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_eh_view_approval_request"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-gavel"
+                        title="Approval request"
+                        invisible="not eh_active_approval_request_id">
+                    <div class="o_stat_info">
+                        <field name="eh_approval_state"
+                               widget="badge"
+                               decoration-success="eh_approval_state == 'approved'"
+                               decoration-info="eh_approval_state == 'in_review'"
+                               decoration-warning="eh_approval_state == 'pending'"
+                               decoration-danger="eh_approval_state in ('rejected', 'withdrawn')"/>
+                        <span class="o_stat_text">Approval</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

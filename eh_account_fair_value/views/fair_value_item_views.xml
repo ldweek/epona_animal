@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_fair_value_item_list" model="ir.ui.view">
+        <field name="name">eh.fair.value.item.list</field>
+        <field name="model">eh.fair.value.item</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="nature"/>
+                <field name="instrument_type" optional="show"/>
+                <field name="ifrs9_classification" optional="show"/>
+                <field name="business_model" optional="hide"/>
+                <field name="sppi_pass" optional="hide"/>
+                <field name="level"/>
+                <field name="valuation_technique" optional="show"/>
+                <field name="prior_carrying" widget="monetary" optional="hide"/>
+                <field name="fair_value" widget="monetary"/>
+                <field name="remeasurement" widget="monetary" optional="show"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'measured'"
+                       decoration-info="state == 'derecognised'"
+                       decoration-muted="state == 'cancelled'"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_fair_value_item_form" model="ir.ui.view">
+        <field name="name">eh.fair.value.item.form</field>
+        <field name="model">eh.fair.value.item</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_remeasure" type="object"
+                            string="Remeasure" class="btn-primary"
+                            invisible="state in ('cancelled', 'derecognised')"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_derecognise" type="object"
+                            string="Derecognise"
+                            invisible="state != 'measured'"
+                            confirm="This posts the disposal entry on the explicit derecognition/accounting date and settles the accumulated OCI reserve according to the IFRS 9 classification. The item is frozen afterwards. Continue?"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reset_to_draft" type="object"
+                            string="Reset to Draft"
+                            invisible="state != 'measured'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reverse_remeasurement" type="object"
+                            string="Reverse Latest Remeasurement"
+                            invisible="state != 'measured' or move_count == 0"
+                            groups="eh_account_base.group_eh_manager"
+                            confirm="Post a sealed counter-entry on the explicit reversal date and reopen the item for correction?"/>
+                    <button name="action_transfer_level" type="object"
+                            string="Record Level Transfer"
+                            invisible="state in ('cancelled', 'derecognised') or not proposed_level"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('cancelled', 'derecognised')"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,measured,derecognised"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_moves" type="object"
+                                class="oe_stat_button" icon="fa-book">
+                            <field name="move_count" widget="statinfo"
+                                   string="Entries"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="company_currency_id" invisible="1"/>
+                            <field name="currency_id"/>
+                            <field name="nature"/>
+                            <field name="level"
+                                   readonly="state != 'draft' or move_count"/>
+                            <field name="valuation_technique"/>
+                            <field name="measurement_date"/>
+                        </group>
+                        <group>
+                            <field name="prior_carrying" widget="monetary"/>
+                            <field name="prior_company_carrying"
+                                   widget="monetary"
+                                   required="currency_id != company_currency_id"
+                                   invisible="currency_id == company_currency_id"/>
+                            <field name="fair_value" widget="monetary"/>
+                            <field name="remeasurement" widget="monetary" readonly="1"/>
+                            <field name="company_fair_value" widget="monetary"
+                                   readonly="1"
+                                   invisible="currency_id == company_currency_id"/>
+                            <field name="company_remeasurement" widget="monetary"
+                                   readonly="1"
+                                   invisible="currency_id == company_currency_id"/>
+                            <field name="fx_remeasurement" widget="monetary"
+                                   readonly="1"
+                                   invisible="ifrs9_classification != 'fvoci_debt' or currency_id == company_currency_id"/>
+                            <field name="non_fx_remeasurement" widget="monetary"
+                                   readonly="1"
+                                   invisible="ifrs9_classification != 'fvoci_debt' or currency_id == company_currency_id"/>
+                            <field name="routing" readonly="ifrs9_classification"/>
+                            <field name="fvoci_classification"
+                                   invisible="ifrs9_classification"/>
+                            <field name="recycled" readonly="1"
+                                   invisible="not fvoci_classification and not ifrs9_classification"/>
+                        </group>
+                    </group>
+                    <group string="IFRS 9 Classification"
+                           invisible="nature not in ('financial_asset', 'financial_liability')">
+                        <group>
+                            <field name="instrument_type"/>
+                            <field name="business_model"
+                                   invisible="instrument_type != 'debt'"/>
+                            <field name="held_for_trading"
+                                   invisible="not instrument_type"/>
+                            <field name="floating_rate"
+                                   invisible="instrument_type != 'debt'"/>
+                            <field name="fvoci_equity_election"
+                                   invisible="instrument_type != 'equity'"/>
+                            <field name="fvtpl_designation"
+                                   invisible="instrument_type != 'debt' or nature != 'financial_asset'"/>
+                            <field name="fvtpl_designation_basis"
+                                   required="fvtpl_designation"
+                                   invisible="not fvtpl_designation"/>
+                            <field name="fvtpl_designation_reason"
+                                   required="fvtpl_designation"
+                                   invisible="not fvtpl_designation"/>
+                            <field name="ifrs9_classification" readonly="1"
+                                   invisible="not instrument_type"/>
+                        </group>
+                        <group string="SPPI Test"
+                               invisible="instrument_type != 'debt'">
+                            <field name="sppi_fixed_dates"/>
+                            <field name="sppi_interest_only"/>
+                            <field name="sppi_no_leverage"/>
+                            <field name="sppi_no_contingent_returns"/>
+                            <field name="sppi_pass" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Accounts">
+                        <group>
+                            <field name="balance_sheet_account_id"/>
+                            <field name="gain_loss_account_id"/>
+                            <field name="oci_account_id"
+                                   invisible="routing != 'oci'"/>
+                        </group>
+                        <group>
+                            <field name="journal_id"/>
+                            <field name="settlement_account_id"/>
+                            <field name="retained_earnings_account_id"
+                                   invisible="ifrs9_classification != 'fvoci_equity' and fvoci_classification != 'fvoci_equity'"/>
+                        </group>
+                    </group>
+                    <group string="Derecognition"
+                           invisible="state not in ('measured', 'derecognised')">
+                        <group>
+                            <field name="disposal_proceeds" widget="monetary"
+                                   readonly="state != 'measured'"/>
+                            <field name="disposal_date"
+                                   required="state == 'measured'"
+                                   readonly="state != 'measured'"/>
+                            <field name="derecognition_date" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="oci_reserve_balance" widget="monetary"
+                                   readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Controlled Corrections and Hierarchy Transfers"
+                           invisible="state in ('cancelled', 'derecognised')">
+                        <group>
+                            <field name="reversal_date"
+                                   invisible="state != 'measured' or move_count == 0"/>
+                            <field name="reversal_reason"
+                                   invisible="state != 'measured' or move_count == 0"/>
+                        </group>
+                        <group>
+                            <field name="proposed_level"/>
+                            <field name="level_transfer_date"
+                                   required="proposed_level"
+                                   invisible="not proposed_level"/>
+                            <field name="level_transfer_reason"
+                                   required="proposed_level"
+                                   invisible="not proposed_level"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Hierarchy Transfers">
+                            <field name="level_transfer_ids" readonly="1">
+                                <list create="0" edit="0" delete="0">
+                                    <field name="transfer_date"/>
+                                    <field name="from_level"/>
+                                    <field name="to_level"/>
+                                    <field name="transfer_amount" widget="monetary"/>
+                                    <field name="recognition_policy"/>
+                                    <field name="reason"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Level 3 Inputs"
+                              invisible="level != '3'">
+                            <field name="unobservable_inputs" nolabel="1"
+                                   colspan="2"
+                                   placeholder="Significant unobservable inputs, valuation model and key assumptions..."/>
+                        </page>
+                        <page string="Level 3 Reconciliation"
+                              invisible="level != '3'">
+                            <group>
+                                <field name="ties_to_fair_value" readonly="1"/>
+                            </group>
+                            <field name="rollforward_ids"
+                                   context="{'default_item_id': id}">
+                                <list editable="bottom"
+                                      decoration-muted="state == 'closed'">
+                                    <field name="period_start"/>
+                                    <field name="period_end"/>
+                                    <field name="opening_balance" widget="monetary"/>
+                                    <field name="gains_losses_in_pl" widget="monetary"/>
+                                    <field name="gains_losses_in_oci" widget="monetary"/>
+                                    <field name="purchases" widget="monetary" optional="show"/>
+                                    <field name="issues" widget="monetary" optional="hide"/>
+                                    <field name="sales" widget="monetary" optional="show"/>
+                                    <field name="settlements" widget="monetary" optional="hide"/>
+                                    <field name="transfers_into_level3" widget="monetary" optional="hide"/>
+                                    <field name="transfers_out_of_level3" widget="monetary" optional="hide"/>
+                                    <field name="closing_balance" widget="monetary"/>
+                                    <field name="state" widget="badge"
+                                           decoration-success="state == 'closed'"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                    <button name="action_pull_ledger" type="object"
+                                            icon="fa-refresh" title="Pull Ledger"
+                                            invisible="state == 'closed'"/>
+                                    <button name="action_close" type="object"
+                                            icon="fa-lock" title="Close (requires tie to fair value)"
+                                            invisible="state == 'closed'"
+                                            groups="eh_account_base.group_eh_manager"/>
+                                    <button name="action_reopen" type="object"
+                                            icon="fa-unlock" title="Reopen"
+                                            invisible="state != 'closed'"
+                                            groups="eh_account_base.group_eh_manager"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Sensitivity (Level 3)"
+                              invisible="level != '3'">
+                            <field name="sensitivity_ids">
+                                <list editable="bottom">
+                                    <field name="input_name"/>
+                                    <field name="shock_pct"/>
+                                    <field name="sensitivity_factor"/>
+                                    <field name="value_delta" widget="monetary"/>
+                                    <field name="notes" optional="show"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" nolabel="1" colspan="2"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="eh_account_fair_value_item_view_graph" model="ir.ui.view">
+        <field name="name">eh.fair.value.item.graph</field>
+        <field name="model">eh.fair.value.item</field>
+        <field name="arch" type="xml">
+            <graph string="Fair Value" type="bar">
+                <field name="measurement_date" interval="month"/>
+                <field name="nature"/>
+                <field name="fair_value" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_fair_value_item_view_pivot" model="ir.ui.view">
+        <field name="name">eh.fair.value.item.pivot</field>
+        <field name="model">eh.fair.value.item</field>
+        <field name="arch" type="xml">
+            <pivot string="Fair Value">
+                <field name="nature" type="row"/>
+                <field name="level" type="col"/>
+                <field name="fair_value" type="measure"/>
+                <field name="remeasurement" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_fair_value_item" model="ir.actions.act_window">
+        <field name="name">Fair Value</field>
+        <field name="res_model">eh.fair.value.item</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Record your first fair-value item</p>
+            <p>Track assets and liabilities measured at fair value under IFRS 13, classify them in the fair-value hierarchy, and post remeasurements to profit or loss or OCI. Click New to add an item, then use Remeasure to record its fair value.</p>
+        </field>
+    </record>
+
+</odoo>

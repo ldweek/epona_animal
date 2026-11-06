@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        Surface anomaly findings on the move form: a scan button in the
+        header and a smart button counting open findings. The scan runs
+        the deterministic detector live; no external service required.
+    -->
+    <record id="view_account_move_form_anomaly" model="ir.ui.view">
+        <field name="name">account.move.form.anomaly</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <field name="eh_anomaly_count" invisible="1"/>
+                <button name="action_eh_view_anomalies"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-exclamation-triangle"
+                        invisible="eh_anomaly_count == 0">
+                    <field name="eh_anomaly_open_count" widget="statinfo"
+                           string="Anomalies"/>
+                </button>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="action_eh_scan_anomalies"
+                        type="object"
+                        string="Scan anomalies"
+                        groups="eh_account_base.group_eh_manager,eh_account_ai_agent.group_eh_ai_scanner"
+                        invisible="state != 'posted'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Scan action on the journal items / moves list. -->
+    <record id="action_eh_scan_anomalies_server" model="ir.actions.server">
+        <field name="name">Scan for anomalies</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_view_types">list</field>
+        <field name="group_ids" eval="[(6, 0, [ref('eh_account_base.group_eh_manager'), ref('eh_account_ai_agent.group_eh_ai_scanner')])]"/>
+        <field name="state">code</field>
+        <field name="code">action = records.action_eh_scan_anomalies()</field>
+    </record>
+
+</odoo>

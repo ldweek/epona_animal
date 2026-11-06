@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_bas_label_tree" model="ir.ui.view">
+        <field name="name">eh.bas.label.list</field>
+        <field name="model">eh.bas.label</field>
+        <field name="arch" type="xml">
+            <list string="BAS labels" default_order="sequence,code">
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="aggregation"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_bas_label_form" model="ir.ui.view">
+        <field name="name">eh.bas.label.form</field>
+        <field name="model">eh.bas.label</field>
+        <field name="arch" type="xml">
+            <form string="BAS label">
+                <sheet>
+                    <group>
+                        <group string="Definition">
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Aggregation">
+                            <field name="aggregation"/>
+                            <field name="tag_ids" widget="many2many_tags"
+                                   options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <field name="description" placeholder="Notes for the operator..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_bas_label_search" model="ir.ui.view">
+        <field name="name">eh.bas.label.search</field>
+        <field name="model">eh.bas.label</field>
+        <field name="arch" type="xml">
+            <search string="BAS labels">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="aggregation"/>
+                <filter name="manual" string="Manual"
+                        domain="[('aggregation', '=', 'manual')]"/>
+                <filter name="automatic" string="Automatic"
+                        domain="[('aggregation', '!=', 'manual')]"/>
+                <separator/>
+                <filter name="active" string="Active"
+                        domain="[('active', '=', True)]"/>
+                <filter name="inactive" string="Archived"
+                        domain="[('active', '=', False)]"/>
+                <group>
+                    <filter name="group_aggregation" string="Aggregation"
+                            context="{'group_by': 'aggregation'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_bas_label" model="ir.actions.act_window">
+        <field name="name">BAS Labels</field>
+        <field name="res_model">eh.bas.label</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_eh_bas_run_line_manual_list" model="ir.ui.view">
+        <field name="name">eh.bas.run.line.manual.list</field>
+        <field name="model">eh.bas.run.line</field>
+        <field name="arch" type="xml">
+            <list string="BAS manual inputs" editable="bottom"
+                  create="false" delete="false">
+                <field name="run_id" readonly="1" optional="hide"/>
+                <field name="run_state" column_invisible="1"/>
+                <field name="label_sequence" column_invisible="1"/>
+                <field name="label_code" readonly="1"/>
+                <field name="label_name" readonly="1"/>
+                <field name="amount" widget="monetary"
+                       readonly="run_state == 'lodged'"/>
+                <field name="notes" readonly="run_state == 'lodged'"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_bas_run_line_manual_form" model="ir.ui.view">
+        <field name="name">eh.bas.run.line.manual.form</field>
+        <field name="model">eh.bas.run.line</field>
+        <field name="arch" type="xml">
+            <form string="BAS manual input" create="false" delete="false">
+                <sheet>
+                    <group>
+                        <field name="run_id" readonly="1"/>
+                        <field name="run_state" readonly="1"/>
+                        <field name="label_code" readonly="1"/>
+                        <field name="label_name" readonly="1"/>
+                        <field name="amount" widget="monetary"
+                               readonly="run_state == 'lodged'"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="notes" readonly="run_state == 'lodged'"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_bas_run_tree" model="ir.ui.view">
+        <field name="name">eh.bas.run.list</field>
+        <field name="model">eh.bas.run</field>
+        <field name="arch" type="xml">
+            <list string="BAS runs" sample="1">
+                <field name="fy_label"/>
+                <field name="quarter"/>
+                <field name="amendment_no" optional="show"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-warning="state == 'computed'"
+                       decoration-success="state == 'lodged'"/>
+                <field name="line_count"/>
+                <field name="lodged_at"/>
+                <field name="company_id"
+                       optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_bas_run_form" model="ir.ui.view">
+        <field name="name">eh.bas.run.form</field>
+        <field name="model">eh.bas.run</field>
+        <field name="arch" type="xml">
+            <form string="BAS run">
+                <header>
+                    <button name="action_compute"
+                            type="object"
+                            string="Compute"
+                            class="btn-primary"
+                            invisible="state == 'lodged'"/>
+                    <button name="action_mark_lodged"
+                            type="object"
+                            string="Mark lodged"
+                            invisible="state != 'computed'"
+                            confirm="Lodged runs become read-only and figures are frozen. Continue?"/>
+                    <button name="action_create_amendment"
+                            type="object"
+                            string="Create Amendment"
+                            invisible="state != 'lodged'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reset_draft"
+                            type="object"
+                            string="Reset to draft"
+                            invisible="state in ('draft', 'lodged')"/>
+                    <button name="action_reconcile_gst_control"
+                            type="object"
+                            string="Reconcile GST control"
+                            invisible="state == 'draft'"/>
+                    <button name="action_open_manual_inputs"
+                            type="object"
+                            string="Edit manual inputs"
+                            invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,computed,lodged"
+                           readonly="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group string="Period">
+                            <field name="fy_label"
+                                   readonly="state != 'draft'"/>
+                            <field name="quarter"
+                                   readonly="state != 'draft'"/>
+                            <field name="amendment_no" readonly="1"/>
+                            <field name="amends_run_id" readonly="1"
+                                   invisible="not amends_run_id"/>
+                            <field name="company_id"
+                                   readonly="state != 'draft'"
+                                   groups="base.group_multi_company"/>
+                            <field name="date_from" readonly="1"/>
+                            <field name="date_to" readonly="1"/>
+                        </group>
+                        <group string="Options">
+                            <field name="reporting_basis"
+                                   readonly="state != 'draft'"/>
+                            <field name="is_simpler_bas"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <group string="Lodgement">
+                            <field name="lodged_at" readonly="1"/>
+                            <field name="lodged_by" readonly="1"/>
+                            <field name="tax_lock_date_snapshot" readonly="1"
+                                   invisible="not tax_lock_date_snapshot"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Labels">
+                            <field name="line_ids" readonly="1">
+                                <list create="false" delete="false">
+                                    <field name="label_sequence" column_invisible="1"/>
+                                    <field name="label_code"/>
+                                    <field name="label_name"/>
+                                    <field name="amount" widget="monetary"/>
+                                    <field name="notes"/>
+                                    <field name="is_lodgeable"
+                                           optional="hide"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                    <chatter/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_bas_run_search" model="ir.ui.view">
+        <field name="name">eh.bas.run.search</field>
+        <field name="model">eh.bas.run</field>
+        <field name="arch" type="xml">
+            <search string="BAS runs">
+                <field name="fy_label"/>
+                <field name="quarter"/>
+                <field name="company_id"
+                       groups="base.group_multi_company"/>
+                <filter name="draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="computed" string="Computed"
+                        domain="[('state', '=', 'computed')]"/>
+                <filter name="lodged" string="Lodged"
+                        domain="[('state', '=', 'lodged')]"/>
+                <separator/>
+                <filter name="q1" string="Q1 (Jul-Sep)"
+                        domain="[('quarter', '=', 'q1')]"/>
+                <filter name="q2" string="Q2 (Oct-Dec)"
+                        domain="[('quarter', '=', 'q2')]"/>
+                <filter name="q3" string="Q3 (Jan-Mar)"
+                        domain="[('quarter', '=', 'q3')]"/>
+                <filter name="q4" string="Q4 (Apr-Jun)"
+                        domain="[('quarter', '=', 'q4')]"/>
+                <group>
+                    <filter name="group_company" string="Company"
+                            context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company"/>
+                    <filter name="group_fy_label" string="Financial year"
+                            context="{'group_by': 'fy_label'}"/>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_bas_run" model="ir.actions.act_window">
+        <field name="name">BAS Runs</field>
+        <field name="res_model">eh.bas.run</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

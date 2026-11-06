@@ -1,0 +1,912 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="eh_account_dynamic_reports.DynamicReportViewer">
+    <div class="eh_dr o_action" t-att-data-eh-theme="state.theme">
+        <div class="eh_dr_topbar">
+            <div class="eh_dr_titlebar">
+                <div class="eh_dr_title_block">
+                    <h2 class="eh_dr_title">
+                        <t t-out="state.reportName"/>
+                    </h2>
+                    <div class="eh_dr_subtitle" t-if="state.payload">
+                        <span class="eh_dr_currency_badge"
+                              t-if="state.payload.currency"
+                              t-att-class="state.payload.currency.multi_currency ? 'eh_dr_currency_badge--multi' : ''">
+                            <t t-if="state.payload.currency.multi_currency">
+                                Multi-currency
+                            </t>
+                            <t t-else="">
+                                <t t-out="state.payload.currency.name"/>
+                                <t t-if="state.payload.currency.symbol">
+                                    (<t t-out="state.payload.currency.symbol"/>)
+                                </t>
+                            </t>
+                        </span>
+                        <span class="eh_dr_period_badge" t-if="state.payload.meta">
+                            <i class="fa fa-calendar me-1"/>
+                            <t t-out="state.payload.meta.date_from"/>
+                            <span class="mx-1">to</span>
+                            <t t-out="state.payload.meta.date_to"/>
+                        </span>
+                    </div>
+                </div>
+                <div class="eh_dr_actions">
+                    <div class="eh_dr_theme_switch"
+                         role="group" aria-label="Report appearance">
+                        <button type="button"
+                                class="eh_dr_theme_choice"
+                                t-att-class="state.theme === 'light' ? 'is-active' : ''"
+                                t-att-aria-pressed="state.theme === 'light' ? 'true' : 'false'"
+                                title="Use light report theme"
+                                t-on-click="() => this.onThemeChange('light')">
+                            <i class="fa fa-sun-o" aria-hidden="true"/>
+                            <span>Light</span>
+                        </button>
+                        <button type="button"
+                                class="eh_dr_theme_choice"
+                                t-att-class="state.theme === 'dark' ? 'is-active' : ''"
+                                t-att-aria-pressed="state.theme === 'dark' ? 'true' : 'false'"
+                                title="Use dark report theme"
+                                t-on-click="() => this.onThemeChange('dark')">
+                            <i class="fa fa-moon-o" aria-hidden="true"/>
+                            <span>Dark</span>
+                        </button>
+                    </div>
+                    <select class="eh_dr_saved_view_select"
+                            t-if="state.savedViews.length"
+                            t-on-change="onSavedViewChange"
+                            t-att-value="state.currentSavedViewId || ''">
+                        <option value="">Saved views...</option>
+                        <t t-foreach="state.savedViews" t-as="v"
+                           t-key="v.id">
+                            <option t-att-value="v.id"
+                                    t-att-selected="state.currentSavedViewId === v.id">
+                                <t t-out="v.name"/>
+                                <t t-if="v.shared">·shared</t>
+                            </option>
+                        </t>
+                    </select>
+                    <button type="button"
+                            class="btn btn-link eh_dr_collapse_toggle"
+                            t-on-click="onToggleFilters">
+                        <i t-att-class="state.filtersExpanded ? 'fa fa-chevron-up' : 'fa fa-sliders'"/>
+                        <span class="ms-1">
+                            <t t-if="state.filtersExpanded">Hide filters</t>
+                            <t t-else="">More filters</t>
+                            <t t-if="activeFilterCount() and !state.filtersExpanded">
+                                · <span class="eh_dr_filter_count">
+                                    <t t-out="activeFilterCount()"/>
+                                </span>
+                            </t>
+                        </span>
+                    </button>
+                    <button class="btn btn-secondary"
+                            t-on-click="onRefresh"
+                            t-att-disabled="state.loading">
+                        <i class="fa fa-refresh me-1"/>
+                        Refresh
+                    </button>
+                    <button class="btn btn-secondary"
+                            t-on-click="onPrintPdf"
+                            t-att-disabled="state.loading">
+                        <i class="fa fa-file-pdf-o me-1"/>
+                        Print PDF
+                    </button>
+                    <button class="btn btn-primary"
+                            t-on-click="onExportXlsx"
+                            t-att-disabled="state.loading">
+                        <i class="fa fa-file-excel-o me-1"/>
+                        Export to Excel
+                    </button>
+                </div>
+            </div>
+            <div class="eh_dr_filters">
+                <label class="eh_dr_filter">
+                    <span>Date mode</span>
+                    <select t-on-change="onDateModeChange"
+                            t-att-value="state.options.date.mode">
+                        <option value="range" t-att-selected="state.options.date.mode === 'range'">Range</option>
+                        <option value="as_of" t-att-selected="state.options.date.mode === 'as_of'">As of</option>
+                        <option value="this_month" t-att-selected="state.options.date.mode === 'this_month'">This month</option>
+                        <option value="this_quarter" t-att-selected="state.options.date.mode === 'this_quarter'">This quarter</option>
+                        <option value="this_year" t-att-selected="state.options.date.mode === 'this_year'">This year</option>
+                        <option value="this_fiscal_quarter" t-att-selected="state.options.date.mode === 'this_fiscal_quarter'">This fiscal quarter</option>
+                        <option value="this_fiscal_year" t-att-selected="state.options.date.mode === 'this_fiscal_year'">This fiscal year</option>
+                        <option value="last_month" t-att-selected="state.options.date.mode === 'last_month'">Last month</option>
+                        <option value="last_quarter" t-att-selected="state.options.date.mode === 'last_quarter'">Last quarter</option>
+                        <option value="last_year" t-att-selected="state.options.date.mode === 'last_year'">Last year</option>
+                    </select>
+                </label>
+                <div class="eh_dr_period_nav" role="group"
+                     aria-label="Move report period">
+                    <button type="button" class="btn btn-link btn-sm"
+                            aria-label="Previous period"
+                            t-on-click="() => this.onShiftPeriod(-1)">
+                        <i class="fa fa-chevron-left" aria-hidden="true"/>
+                    </button>
+                    <button type="button" class="btn btn-link btn-sm"
+                            aria-label="Next period"
+                            t-on-click="() => this.onShiftPeriod(1)">
+                        <i class="fa fa-chevron-right" aria-hidden="true"/>
+                    </button>
+                </div>
+                <label class="eh_dr_filter"
+                       t-if="state.options.date.mode !== 'as_of'">
+                    <span>Date From</span>
+                    <input type="date"
+                           t-att-value="state.options.date.date_from"
+                           t-on-change="onDateFromChange"/>
+                </label>
+                <label class="eh_dr_filter">
+                    <span>
+                        <t t-if="state.options.date.mode === 'as_of'">As of</t>
+                        <t t-else="">Date To</t>
+                    </span>
+                    <input type="date"
+                           t-att-value="state.options.date.date_to"
+                           t-on-change="onDateToChange"/>
+                </label>
+                <label class="eh_dr_filter"
+                       t-if="comparisonControlsAvailable()">
+                    <span>Compare</span>
+                    <select t-on-change="onComparisonChange"
+                            t-att-value="state.options.comparison || 'none'">
+                        <option value="none">No comparison</option>
+                        <option value="previous_period">Previous period</option>
+                        <option value="previous_year">Same period last year</option>
+                        <option value="custom">Custom period</option>
+                    </select>
+                </label>
+                <label class="eh_dr_filter"
+                       t-if="comparisonControlsAvailable() and state.options.comparison === 'custom'">
+                    <span>Comparison From</span>
+                    <input type="date"
+                           t-att-value="state.options.comparison_custom_date_from"
+                           t-on-change="onComparisonCustomDateFromChange"/>
+                </label>
+                <label class="eh_dr_filter"
+                       t-if="comparisonControlsAvailable() and state.options.comparison === 'custom'">
+                    <span>Comparison To</span>
+                    <input type="date"
+                           t-att-value="state.options.comparison_custom_date_to"
+                           t-on-change="onComparisonCustomDateToChange"/>
+                </label>
+                <label class="eh_dr_filter"
+                       t-if="supportsNPeriod() and comparisonNumberMax() > 1 and state.options.comparison !== 'none' and state.options.comparison !== 'custom'">
+                    <span>Comparison periods</span>
+                    <input type="number" min="1"
+                           t-att-max="comparisonNumberMax()" step="1"
+                           class="eh_dr_aging_num"
+                           t-att-value="state.options.comparison_number"
+                           t-on-change="onComparisonNumberChange"/>
+                </label>
+                <label class="eh_dr_filter"
+                       t-if="supportsNPeriod() and comparisonControlsAvailable() and state.options.comparison !== 'none'">
+                    <span>Period order</span>
+                    <select t-on-change="onComparisonOrderChange"
+                            t-att-value="state.options.comparison_order || 'descending'">
+                        <option value="descending">Newest first</option>
+                        <option value="ascending">Oldest first</option>
+                    </select>
+                </label>
+                <label class="eh_dr_filter" t-if="pivotAvailable">
+                    <span>Layout</span>
+                    <select t-on-change="onHorizontalGroupChange"
+                            t-att-value="state.options.horizontal_group_by || 'standard'">
+                        <option value="standard"
+                                t-att-selected="!state.options.horizontal_group_by">Standard</option>
+                        <option value="company"
+                                t-att-selected="state.options.horizontal_group_by === 'company'">By company</option>
+                    </select>
+                </label>
+                <t t-if="isCashFlow">
+                    <label class="eh_dr_filter">
+                        <span>Method</span>
+                        <select t-on-change="onCashFlowMethodChange"
+                                t-att-value="state.options.cash_flow_method || 'direct'">
+                            <option value="direct"
+                                    t-att-selected="state.options.cash_flow_method !== 'indirect'">Direct</option>
+                            <option value="indirect"
+                                    t-att-selected="state.options.cash_flow_method === 'indirect'">Indirect</option>
+                        </select>
+                    </label>
+                    <label class="eh_dr_filter eh_dr_check"
+                           t-if="state.options.cash_flow_method !== 'indirect'">
+                        <input type="checkbox"
+                               t-att-checked="state.options.cash_flow_reconciled"
+                               t-on-change="onCashFlowReconciledToggle"/>
+                        <span>Reconciliation-accurate</span>
+                    </label>
+                    <label class="eh_dr_filter">
+                        <span>Interest paid</span>
+                        <select t-on-change="onCfInterestPaidSectionChange"
+                                t-att-value="state.options.cf_interest_paid_section || ''">
+                            <option value=""
+                                    t-att-selected="!state.options.cf_interest_paid_section">Company policy</option>
+                            <option value="operating"
+                                    t-att-selected="state.options.cf_interest_paid_section === 'operating'">Operating</option>
+                            <option value="financing"
+                                    t-att-selected="state.options.cf_interest_paid_section === 'financing'">Financing</option>
+                        </select>
+                    </label>
+                    <label class="eh_dr_filter">
+                        <span>Dividends paid</span>
+                        <select t-on-change="onCfDividendsPaidSectionChange"
+                                t-att-value="state.options.cf_dividends_paid_section || ''">
+                            <option value=""
+                                    t-att-selected="!state.options.cf_dividends_paid_section">Company policy</option>
+                            <option value="financing"
+                                    t-att-selected="state.options.cf_dividends_paid_section === 'financing'">Financing</option>
+                            <option value="operating"
+                                    t-att-selected="state.options.cf_dividends_paid_section === 'operating'">Operating</option>
+                        </select>
+                    </label>
+                </t>
+                <label class="eh_dr_filter"
+                       t-if="supportsOption('presentation_currency_id')">
+                    <span>Currency</span>
+                    <select t-on-change="onCurrencyChange"
+                            t-att-value="state.options.presentation_currency_id || ''">
+                        <option value="">Company currency</option>
+                        <t t-foreach="state.choices.currencies" t-as="cur" t-key="cur.id">
+                            <option t-att-value="cur.id">
+                                <t t-esc="cur.name"/>
+                                <t t-if="cur.symbol"> (<t t-esc="cur.symbol"/>)</t>
+                            </option>
+                        </t>
+                    </select>
+                </label>
+                <label class="eh_dr_filter eh_dr_check">
+                    <input type="checkbox"
+                           t-att-checked="state.options.posted_only"
+                           t-on-change="onPostedOnlyToggle"/>
+                    <span>Posted entries only</span>
+                </label>
+                <label class="eh_dr_filter eh_dr_check"
+                       t-if="supportsOption('show_zero')">
+                    <input type="checkbox"
+                           t-att-checked="state.options.show_zero"
+                           t-on-change="onShowZeroToggle"/>
+                    <span>Show zero balance accounts</span>
+                </label>
+                <t t-if="isAged">
+                    <label class="eh_dr_filter">
+                        <span>Reconcile state</span>
+                        <select t-on-change="onReconcileStateChange"
+                                t-att-value="state.options.reconcile_state || 'open'">
+                            <option value="open"
+                                    t-att-selected="state.options.reconcile_state === 'open'">Open items only</option>
+                            <option value="all"
+                                    t-att-selected="state.options.reconcile_state === 'all'">All (incl. reconciled)</option>
+                        </select>
+                    </label>
+                    <label class="eh_dr_filter">
+                        <span>Aging basis</span>
+                        <select t-on-change="onAgingBasisChange"
+                                t-att-value="state.options.aging_basis || 'maturity'">
+                            <option value="maturity"
+                                    t-att-selected="state.options.aging_basis === 'maturity'">Due date</option>
+                            <option value="invoice_date"
+                                    t-att-selected="state.options.aging_basis === 'invoice_date'">Invoice date</option>
+                        </select>
+                    </label>
+                    <label class="eh_dr_filter">
+                        <span>Interval (days)</span>
+                        <input type="number" min="1" step="1"
+                               class="eh_dr_aging_num"
+                               t-att-value="state.options.aging_interval"
+                               t-on-change="onAgingIntervalChange"/>
+                    </label>
+                    <label class="eh_dr_filter">
+                        <span>Buckets</span>
+                        <input type="number" min="1" max="12" step="1"
+                               class="eh_dr_aging_num"
+                               t-att-value="state.options.aging_bucket_count"
+                               t-on-change="onAgingBucketCountChange"/>
+                    </label>
+                </t>
+            </div>
+            <div class="eh_dr_filters_advanced" t-if="state.filtersExpanded">
+                <div class="eh_dr_filter_group">
+                    <label class="eh_dr_filter eh_dr_filter_wide">
+                        <span>Companies</span>
+                        <select multiple="multiple" size="3"
+                                t-on-change="(e) => this.onMultiSelectChange(e, 'company_ids')">
+                            <t t-foreach="state.choices.companies" t-as="c"
+                               t-key="c.id">
+                                <option t-att-value="c.id"
+                                        t-att-selected="state.options.company_ids.includes(c.id)">
+                                    <t t-out="c.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </label>
+                    <label class="eh_dr_filter eh_dr_filter_wide"
+                           t-if="supportsOption('journal_ids')">
+                        <span>Journals</span>
+                        <select multiple="multiple" size="3"
+                                t-on-change="(e) => this.onMultiSelectChange(e, 'journal_ids')">
+                            <t t-foreach="state.choices.journals" t-as="j"
+                               t-key="j.id">
+                                <option t-att-value="j.id"
+                                        t-att-selected="state.options.journal_ids.includes(j.id)">
+                                    <t t-out="j.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </label>
+                    <label class="eh_dr_filter eh_dr_filter_wide"
+                           t-if="supportsAccountTypes()">
+                        <span>Account types</span>
+                        <select multiple="multiple" size="3"
+                                t-on-change="(e) => this.onMultiSelectChangeStr(e, 'account_type_ids')">
+                            <t t-foreach="state.choices.accountTypes" t-as="t"
+                               t-key="t.code">
+                                <option t-att-value="t.code"
+                                        t-att-selected="(state.options.account_type_ids || []).includes(t.code)">
+                                    <t t-out="t.label"/>
+                                </option>
+                            </t>
+                        </select>
+                    </label>
+                </div>
+                <div class="eh_dr_filter_group">
+                    <label class="eh_dr_filter eh_dr_filter_wide"
+                           t-if="supportsOption('partner_ids')">
+                        <span>Partners</span>
+                        <select multiple="multiple" size="3"
+                                t-on-change="(e) => this.onMultiSelectChange(e, 'partner_ids')">
+                            <t t-foreach="state.choices.partners" t-as="p"
+                               t-key="p.id">
+                                <option t-att-value="p.id"
+                                        t-att-selected="state.options.partner_ids.includes(p.id)">
+                                    <t t-out="p.name"/>
+                                </option>
+                            </t>
+                        </select>
+                        <button class="btn btn-link p-0 mt-1 eh_dr_more_btn"
+                                t-on-click="() => this.openManyToManyPicker('res.partner', 'partner_ids', 'Partners')">
+                            <i class="fa fa-plus me-1"/>Pick more...
+                        </button>
+                    </label>
+                    <label class="eh_dr_filter eh_dr_filter_wide"
+                           t-if="supportsOption('account_ids')">
+                        <span>Accounts</span>
+                        <input type="search" class="eh_dr_filter_search"
+                               placeholder="Search code or name, e.g. 401005"
+                               t-on-input="(e) => this.onAccountSearch(e)"/>
+                        <select multiple="multiple" size="3"
+                                t-on-change="(e) => this.onMultiSelectChange(e, 'account_ids')">
+                            <t t-foreach="state.choices.accounts" t-as="a"
+                               t-key="a.id">
+                                <option t-att-value="a.id"
+                                        t-att-selected="state.options.account_ids.includes(a.id)">
+                                    <t t-out="a.code"/> <t t-out="a.name"/>
+                                </option>
+                            </t>
+                        </select>
+                        <button class="btn btn-link p-0 mt-1 eh_dr_more_btn"
+                                t-on-click="() => this.openManyToManyPicker('account.account', 'account_ids', 'Accounts')">
+                            <i class="fa fa-plus me-1"/>Pick more...
+                        </button>
+                    </label>
+                </div>
+                <div class="eh_dr_filter_group"
+                     t-if="state.choices.analyticPlans.length &amp;&amp; (supportsOption('analytic_plan_ids') || supportsOption('analytic_account_ids'))">
+                    <label class="eh_dr_filter eh_dr_filter_wide"
+                           t-if="supportsOption('analytic_plan_ids')">
+                        <span>Analytic plans</span>
+                        <select multiple="multiple" size="3"
+                                t-on-change="(e) => this.onMultiSelectChange(e, 'analytic_plan_ids')">
+                            <t t-foreach="state.choices.analyticPlans" t-as="p"
+                               t-key="p.id">
+                                <option t-att-value="p.id"
+                                        t-att-selected="state.options.analytic_plan_ids.includes(p.id)">
+                                    <t t-out="p.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </label>
+                    <label class="eh_dr_filter eh_dr_filter_wide"
+                           t-if="supportsOption('analytic_account_ids')">
+                        <span>Analytic accounts</span>
+                        <select multiple="multiple" size="3"
+                                t-on-change="(e) => this.onMultiSelectChange(e, 'analytic_account_ids')">
+                            <t t-foreach="state.choices.analyticAccounts" t-as="a"
+                               t-key="a.id">
+                                <option t-att-value="a.id"
+                                        t-att-selected="state.options.analytic_account_ids.includes(a.id)">
+                                    <t t-out="a.name"/>
+                                </option>
+                            </t>
+                        </select>
+                        <button class="btn btn-link p-0 mt-1 eh_dr_more_btn"
+                                t-on-click="() => this.openManyToManyPicker('account.analytic.account', 'analytic_account_ids', 'Analytic Accounts')">
+                            <i class="fa fa-plus me-1"/>Pick more...
+                        </button>
+                    </label>
+                </div>
+                <div class="eh_dr_filter_group eh_dr_axis_filters"
+                     t-if="supportsAnalyticColumns() and (state.choices.analyticPlans.length or state.choices.analyticAccounts.length)">
+                    <div class="eh_dr_axis_heading">
+                        <strong>Analytic columns</strong>
+                        <span>Up to <t t-out="analyticColumnMax()"/> selected groups; Total stays independent.</span>
+                    </div>
+                    <label class="eh_dr_filter eh_dr_filter_wide"
+                           t-if="state.choices.analyticPlans.length">
+                        <span>Plans as columns</span>
+                        <select multiple="multiple" size="3"
+                                t-on-change="(e) => this.onAnalyticColumnSelectChange(e, 'analytic_column_plan_ids')">
+                            <t t-foreach="state.choices.analyticPlans" t-as="p"
+                               t-key="p.id">
+                                <option t-att-value="p.id"
+                                        t-att-selected="state.options.analytic_column_plan_ids.includes(p.id)">
+                                    <t t-out="p.name"/>
+                                </option>
+                            </t>
+                        </select>
+                        <button class="btn btn-link p-0 mt-1 eh_dr_more_btn"
+                                t-on-click="() => this.openManyToManyPicker('account.analytic.plan', 'analytic_column_plan_ids', 'Analytic column plans')">
+                            <i class="fa fa-plus me-1"/>Pick more...
+                        </button>
+                    </label>
+                    <label class="eh_dr_filter eh_dr_filter_wide"
+                           t-if="state.choices.analyticAccounts.length">
+                        <span>Accounts as columns</span>
+                        <select multiple="multiple" size="3"
+                                t-on-change="(e) => this.onAnalyticColumnSelectChange(e, 'analytic_column_account_ids')">
+                            <t t-foreach="state.choices.analyticAccounts" t-as="a"
+                               t-key="a.id">
+                                <option t-att-value="a.id"
+                                        t-att-selected="state.options.analytic_column_account_ids.includes(a.id)">
+                                    <t t-out="a.name"/>
+                                </option>
+                            </t>
+                        </select>
+                        <button class="btn btn-link p-0 mt-1 eh_dr_more_btn"
+                                t-on-click="() => this.openManyToManyPicker('account.analytic.account', 'analytic_column_account_ids', 'Analytic column accounts')">
+                            <i class="fa fa-plus me-1"/>Pick more...
+                        </button>
+                    </label>
+                </div>
+                <div class="eh_dr_filter_actions">
+                    <button class="btn btn-link p-0 me-3"
+                            t-on-click="onClearAllFilters">
+                        <i class="fa fa-times me-1"/>Clear all
+                    </button>
+                    <button class="btn btn-link p-0"
+                            t-on-click="onSaveCurrentView">
+                        <i class="fa fa-bookmark me-1"/>Save current view
+                    </button>
+                    <button class="btn btn-link p-0 ms-3 text-danger"
+                            t-if="state.currentSavedViewId"
+                            t-on-click="onDeleteSavedView">
+                        <i class="fa fa-trash me-1"/>Delete view
+                    </button>
+                </div>
+            </div>
+            <div class="eh_dr_chips" t-if="activeChips().length">
+                <span class="eh_dr_chips_label">Active filters:</span>
+                <t t-foreach="activeChips()" t-as="chip" t-key="chip_index">
+                    <span class="eh_dr_chip">
+                        <t t-out="chip.label"/>
+                        <button class="eh_dr_chip_x"
+                                t-on-click="() => this.onRemoveChip(chip)">
+                            ×
+                        </button>
+                    </span>
+                </t>
+            </div>
+        </div>
+
+        <t t-if="state.savedViewDialog">
+            <div class="eh_dr_dialog_backdrop"
+                 t-on-click="onCloseSavedViewDialog"/>
+            <section class="eh_dr_dialog" role="dialog" aria-modal="true"
+                     aria-labelledby="eh-dr-saved-view-title"
+                     t-on-click.stop="">
+                <h3 id="eh-dr-saved-view-title" class="eh_dr_dialog_title">
+                    <t t-if="state.savedViewDialog === 'save'">Save report view</t>
+                    <t t-else="">Delete saved view</t>
+                </h3>
+                <t t-if="state.savedViewDialog === 'save'">
+                    <label class="eh_dr_dialog_field">
+                        <span>View name</span>
+                        <input type="text" autofocus="autofocus"
+                               t-att-value="state.savedViewName"
+                               t-on-input="onSavedViewNameInput"
+                               t-on-keydown="(e) => e.key === 'Enter' and this.onConfirmSaveCurrentView()"/>
+                    </label>
+                    <label class="eh_dr_dialog_check">
+                        <input type="checkbox"
+                               t-att-checked="state.savedViewShared"
+                               t-on-change="onSavedViewSharedToggle"/>
+                        <span>Share with everyone in this company</span>
+                    </label>
+                </t>
+                <p t-else="">Delete this saved view? This cannot be undone.</p>
+                <div class="eh_dr_dialog_actions">
+                    <button type="button" class="btn btn-secondary"
+                            t-on-click="onCloseSavedViewDialog">Cancel</button>
+                    <button t-if="state.savedViewDialog === 'save'"
+                            type="button" class="btn btn-primary"
+                            t-att-disabled="!state.savedViewName.trim()"
+                            t-on-click="onConfirmSaveCurrentView">Save view</button>
+                    <button t-else="" type="button" class="btn btn-danger"
+                            t-on-click="onConfirmDeleteSavedView">Delete view</button>
+                </div>
+            </section>
+        </t>
+
+        <t t-if="state.analyticDrilldown">
+            <div class="eh_dr_allocated_backdrop"
+                 t-on-click="onCloseAnalyticDrilldown"/>
+            <section class="eh_dr_allocated_dialog" role="dialog"
+                     aria-modal="true"
+                     aria-labelledby="eh-dr-allocated-title"
+                     t-on-click.stop="">
+                <header class="eh_dr_allocated_header">
+                    <div>
+                        <h3 id="eh-dr-allocated-title">
+                            <t t-out="state.analyticDrilldown.title"/>
+                        </h3>
+                        <span t-out="state.analyticDrilldown.columnName"/>
+                    </div>
+                    <button type="button" class="eh_dr_allocated_close"
+                            aria-label="Close allocated detail"
+                            t-on-click="onCloseAnalyticDrilldown">×</button>
+                </header>
+                <div class="eh_dr_allocated_body">
+                    <div class="alert alert-danger m-0"
+                         t-if="state.analyticDrilldown.error" role="alert">
+                        <t t-out="state.analyticDrilldown.error"/>
+                    </div>
+                    <div class="eh_dr_allocated_loading"
+                         t-elif="state.analyticDrilldown.loading and !state.analyticDrilldown.rows.length">
+                        <i class="fa fa-spinner fa-spin me-2"/>
+                        Loading allocated journal items...
+                    </div>
+                    <div class="eh_dr_allocated_table_wrap"
+                         t-elif="state.analyticDrilldown.columns.length">
+                        <table class="eh_dr_allocated_table">
+                            <thead>
+                                <tr>
+                                    <th t-foreach="state.analyticDrilldown.columns"
+                                        t-as="detailColumn"
+                                        t-key="detailColumn.key"
+                                        t-att-class="detailColumn.figure_type === 'monetary' ? 'text-end' : ''">
+                                        <t t-out="detailColumn.name"/>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="state.analyticDrilldown.rows"
+                                    t-as="detailRow" t-key="detailRow.id">
+                                    <td t-foreach="state.analyticDrilldown.columns"
+                                        t-as="detailColumn"
+                                        t-key="detailColumn.key"
+                                        t-att-class="detailColumn.figure_type === 'monetary' ? 'text-end eh_dr_num' : ''">
+                                        <button t-if="detailColumn.key === 'move'"
+                                                type="button"
+                                                class="eh_dr_allocated_move"
+                                                t-on-click="() => this.onOpenAnalyticDrilldownMove(detailRow)">
+                                            <t t-out="analyticDrilldownCellValue(detailRow, detailColumn)"/>
+                                        </button>
+                                        <t t-else=""
+                                           t-out="analyticDrilldownCellValue(detailRow, detailColumn)"/>
+                                    </td>
+                                </tr>
+                                <tr t-if="!state.analyticDrilldown.rows.length">
+                                    <td t-att-colspan="state.analyticDrilldown.columns.length"
+                                        class="text-center text-muted">
+                                        No allocated journal items for this cell.
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th t-att-colspan="state.analyticDrilldown.columns.length - 1"
+                                        class="text-end">Allocated total</th>
+                                    <th class="text-end eh_dr_num">
+                                        <t t-out="analyticDrilldownTotal()"/>
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <footer class="eh_dr_allocated_footer">
+                    <span>
+                        Showing <t t-out="state.analyticDrilldown.rows.length"/>
+                        of <t t-out="state.analyticDrilldown.totalCount"/>
+                    </span>
+                    <div>
+                        <button type="button" class="btn btn-secondary"
+                                t-if="state.analyticDrilldown.hasMore"
+                                t-att-disabled="state.analyticDrilldown.loading"
+                                t-on-click="onLoadMoreAnalyticDrilldown">
+                            <i t-if="state.analyticDrilldown.loading"
+                               class="fa fa-spinner fa-spin me-1"/>
+                            Load more
+                        </button>
+                        <button type="button" class="btn btn-primary ms-2"
+                                t-on-click="onCloseAnalyticDrilldown">
+                            Close
+                        </button>
+                    </div>
+                </footer>
+            </section>
+        </t>
+
+        <div class="eh_dr_body" t-ref="body" t-on-scroll="onBodyScroll">
+            <t t-if="state.error">
+                <div class="alert alert-danger m-3" role="alert">
+                    <strong>Error:</strong>
+                    <span class="eh_dr_error_text" t-out="state.error"/>
+                </div>
+            </t>
+            <t t-elif="state.loading">
+                <div class="eh_dr_loading">
+                    <i class="fa fa-spinner fa-spin me-2"/>
+                    Loading report...
+                </div>
+            </t>
+            <t t-elif="state.payload">
+                <div class="eh_dr_meta_bar">
+                    <span class="eh_dr_meta" t-if="state.payload.from_cache">
+                        <i class="fa fa-bolt me-1"/>
+                        Served from cache (execution
+                        <t t-out="state.payload.execution_id"/>)
+                    </span>
+                    <span class="eh_dr_meta">
+                        <i class="fa fa-list-ol me-1"/>
+                        <t t-if="state.tableQuery.trim() or visibleCount &lt; totalRowCount">
+                            showing <t t-out="visibleCount"/> of
+                            <t t-out="totalRowCount"/> rows
+                        </t>
+                        <t t-else="">
+                            <t t-out="totalRowCount"/> rows
+                        </t>
+                    </span>
+                    <label class="eh_dr_search">
+                        <i class="fa fa-search"/>
+                        <input type="search" placeholder="Filter rows..."
+                               t-att-value="state.tableQuery"
+                               t-on-input="onTableSearch"/>
+                    </label>
+                    <button class="btn btn-link btn-sm p-0 ms-auto"
+                            t-if="hasHierarchy()"
+                            t-on-click="onCollapseAll">
+                        <i class="fa fa-compress me-1"/>Collapse all
+                    </button>
+                    <button class="btn btn-link btn-sm p-0 ms-2"
+                            t-if="hasHierarchy()"
+                            t-on-click="onExpandAll">
+                        <i class="fa fa-expand me-1"/>Expand all
+                    </button>
+                </div>
+                <table class="eh_dr_table table table-sm">
+                    <thead>
+                        <t t-set="headerRows" t-value="columnHeaderRows()"/>
+                        <t t-if="headerRows">
+                            <tr t-foreach="headerRows" t-as="headerRow"
+                                t-key="headerRow_index">
+                                <th t-foreach="headerRow" t-as="headerCell"
+                                    t-key="headerCell.key"
+                                    t-att-colspan="headerCell.colspan"
+                                    t-att-rowspan="headerCell.rowspan"
+                                    t-attf-style="top: calc(var(--eh-dr-header-row-height) * {{headerRow_index}});"
+                                    t-att-class="headerCell.start === 0 ? 'eh_dr_axis_label' : 'eh_dr_axis_group'">
+                                    <t t-out="headerCell.name"/>
+                                </th>
+                            </tr>
+                        </t>
+                        <tr t-else="">
+                            <t t-foreach="state.payload.columns" t-as="col"
+                               t-key="col_index">
+                                <th t-att-class="['monetary', 'integer', 'float', 'percentage'].includes(col.figure_type) ? 'text-end' : ''">
+                                    <t t-out="col.name"/>
+                                    <small class="eh_dr_col_unit"
+                                           t-if="col.figure_type === 'monetary'
+                                               and state.payload.currency
+                                               and state.payload.currency.symbol
+                                               and !state.payload.currency.multi_currency">
+                                        (<t t-out="state.payload.currency.symbol"/>)
+                                    </small>
+                                </th>
+                            </t>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- WS5 virtual scroll: windowedLines() is evaluated
+                             ONCE here so this._window is populated before the
+                             spacer getters read it. Only the rows intersecting
+                             the viewport (plus overscan) are in the DOM; the
+                             top/bottom spacer <tr>s reproduce the height of the
+                             non-rendered rows so the scrollbar matches the full
+                             list. Falls back to the full visible list when the
+                             row-height math degrades (see _computeWindow). -->
+                        <t t-set="rows" t-value="windowedLines()"/>
+                        <tr t-if="windowTopPad"
+                            class="eh_dr_spacer_row" aria-hidden="true">
+                            <td t-att-colspan="state.payload.columns.length"
+                                t-attf-style="height:{{windowTopPad}}px; padding:0; border:0;"/>
+                        </tr>
+                        <t t-foreach="rows" t-as="line"
+                           t-key="line_index + '-' + line.id">
+                            <t t-if="line.meta and line.meta.kind === 'load_more'">
+                                <tr class="eh_dr_data_row eh_dr_load_more">
+                                    <td t-att-style="nameStyle(line)"
+                                        t-att-colspan="state.payload.columns.length"
+                                        class="text-muted">
+                                        <t t-if="line.meta.loading">
+                                            <i class="fa fa-spinner fa-spin"/> Loading...
+                                        </t>
+                                        <t t-else="">
+                                            <button type="button"
+                                                    class="btn btn-link btn-sm"
+                                                    t-on-click="() => this.onSentinelClick(line)">
+                                                <i class="fa fa-angle-double-down"/>
+                                                Load more
+                                                <t t-if="line.meta.total_count">
+                                                    (<t t-out="line.meta.total_count"/> total)
+                                                </t>
+                                            </button>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-else="">
+                                <tr t-att-class="rowClass(line)">
+                                    <td t-att-style="nameStyle(line)"
+                                        t-att-class="(line.level === 0 ? 'fw-bold ' : '') + 'eh_dr_name_cell'">
+                                        <button type="button"
+                                              class="eh_dr_unfold_caret"
+                                              t-if="line.unfoldable"
+                                              t-att-aria-expanded="isExpanded(line) ? 'true' : 'false'"
+                                              t-att-aria-label="isExpanded(line) ? 'Collapse row' : 'Expand row'"
+                                              t-on-click.stop="() => this.onToggleLine(line)">
+                                            <i t-att-class="isExpanded(line) ? 'fa fa-caret-down' : 'fa fa-caret-right'"/>
+                                        </button>
+                                        <EhCellEllipsis text="line.name || ''" maxChars="60"
+                                                          theme="state.theme"/>
+                                        <button class="eh_dr_note_btn"
+                                                t-att-class="hasAnnotation(line, false) ? 'eh_dr_note_btn--has' : ''"
+                                                t-on-click.stop="() => this.onOpenAnnotation(line, false)"
+                                                title="Notes">
+                                            <i t-att-class="hasAnnotation(line, false) ? 'fa fa-comment' : 'fa fa-comment-o'"/>
+                                            <span class="eh_dr_note_badge"
+                                                  t-if="annotationsFor(line, false).length">
+                                                <t t-out="annotationsFor(line, false).length"/>
+                                            </span>
+                                        </button>
+                                        <t t-if="isAnnotationOpen(line, false)">
+                                            <t t-call="eh_account_dynamic_reports.AnnotationPopover">
+                                                <t t-set="popLine" t-value="line"/>
+                                                <t t-set="popCol" t-value="false"/>
+                                            </t>
+                                        </t>
+                                    </td>
+                                    <t t-foreach="valueColumnDefs()" t-as="col"
+                                       t-key="col_index">
+                                        <td t-att-class="cellClass(line, col_index) + ' eh_dr_amount_cell eh_dr_value_cell'">
+                                            <span class="eh_dr_value_text"
+                                                  t-att-class="isDrillableColumn(line, col) ? 'eh_dr_value_text--drillable' : ''"
+                                                  t-att-role="isDrillableColumn(line, col) ? 'button' : false"
+                                                  t-att-tabindex="isDrillableColumn(line, col) ? '0' : false"
+                                                  t-on-keydown="(e) => this.onInteractiveKeydown(e, () => this.onAmountCellClick(line, col, col_index))"
+                                                  t-on-click="() => this.onAmountCellClick(line, col, col_index)">
+                                                <t t-out="formatLineValue(line, col_index)"/>
+                                            </span>
+                                            <button class="eh_dr_note_btn eh_dr_note_btn--cell"
+                                                    t-att-class="hasAnnotation(line, col) ? 'eh_dr_note_btn--has' : ''"
+                                                    t-on-click.stop="() => this.onOpenAnnotation(line, col)"
+                                                    title="Cell note">
+                                                <i t-att-class="hasAnnotation(line, col) ? 'fa fa-comment' : 'fa fa-comment-o'"/>
+                                                <span class="eh_dr_note_badge"
+                                                      t-if="annotationsFor(line, col).length">
+                                                    <t t-out="annotationsFor(line, col).length"/>
+                                                </span>
+                                            </button>
+                                            <t t-if="isAnnotationOpen(line, col)">
+                                                <t t-call="eh_account_dynamic_reports.AnnotationPopover">
+                                                    <t t-set="popLine" t-value="line"/>
+                                                    <t t-set="popCol" t-value="col"/>
+                                                </t>
+                                            </t>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </t>
+                        <tr t-if="windowBottomPad"
+                            class="eh_dr_spacer_row" aria-hidden="true">
+                            <td t-att-colspan="state.payload.columns.length"
+                                t-attf-style="height:{{windowBottomPad}}px; padding:0; border:0;"/>
+                        </tr>
+                        <t t-if="!state.payload.lines.length">
+                            <tr>
+                                <td t-att-colspan="state.payload.columns.length"
+                                    class="text-center text-muted py-4">
+                                    No data for the selected filters.
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-elif="searchHasNoMatch">
+                            <tr>
+                                <td t-att-colspan="state.payload.columns.length"
+                                    class="text-center text-muted py-4 eh_dr_search_empty">
+                                    <i class="fa fa-search me-1"/>
+                                    No rows match
+                                    "<t t-out="state.tableQuery.trim()"/>".
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </t>
+        </div>
+
+        <div class="eh_dr_brand_footer">
+            Made with <span class="eh_dr_heart">🤍</span> from Melbourne by
+            <strong>ERP Heritage</strong>
+        </div>
+    </div>
+</t>
+
+<!-- Annotation popover: lists existing notes (text, author, date) with a
+     manager-only delete, plus a textarea + Add to pin a new note. Called
+     with popLine (the report line) and popCol (a column def for a cell
+     note, or false for a row note). Absolute-positioned inside the
+     name/value cell so it travels with the row; a backdrop closes it. -->
+<t t-name="eh_account_dynamic_reports.AnnotationPopover">
+    <div class="eh_dr_note_backdrop" t-on-click.stop="() => this.onCloseAnnotation()"/>
+    <div class="eh_dr_note_popover" t-on-click.stop="">
+        <div class="eh_dr_note_pop_head">
+            <span class="eh_dr_note_pop_title">
+                <t t-if="popCol and popCol.expression_label">
+                    Cell note · <t t-out="popCol.name"/>
+                </t>
+                <t t-else="">Notes</t>
+            </span>
+            <button class="eh_dr_note_pop_close"
+                    t-on-click.stop="() => this.onCloseAnnotation()">×</button>
+        </div>
+        <div class="eh_dr_note_list">
+            <t t-foreach="annotationsFor(popLine, popCol)" t-as="note"
+               t-key="note.id">
+                <div class="eh_dr_note_item">
+                    <div class="eh_dr_note_text"><t t-out="note.text"/></div>
+                    <div class="eh_dr_note_meta">
+                        <span class="eh_dr_note_author"><t t-out="note.author"/></span>
+                        <span class="eh_dr_note_date" t-if="note.date">
+                            · <t t-out="note.date.slice(0, 10)"/>
+                        </span>
+                        <button class="eh_dr_note_del"
+                                t-if="note.can_delete"
+                                title="Delete note"
+                                t-on-click.stop="() => this.onDeleteAnnotation(note.id)">×</button>
+                    </div>
+                </div>
+            </t>
+            <div class="eh_dr_note_empty"
+                 t-if="!annotationsFor(popLine, popCol).length">
+                No notes yet.
+            </div>
+        </div>
+        <div class="eh_dr_note_add">
+            <textarea class="eh_dr_note_textarea" rows="2"
+                      placeholder="Add a note..."
+                      t-att-value="state.annotationDraft"
+                      t-on-input="onAnnotationDraftInput"/>
+            <button class="btn btn-primary btn-sm eh_dr_note_add_btn"
+                    t-att-disabled="!state.annotationDraft.trim()"
+                    t-on-click.stop="() => this.onCreateAnnotation()">
+                <i class="fa fa-plus me-1"/>Add
+            </button>
+        </div>
+    </div>
+</t>
+
+</templates>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_account_report_wizard_form" model="ir.ui.view">
+        <field name="name">eh.account.report.wizard.form</field>
+        <field name="model">eh.account.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Run Report">
+                <sheet>
+                    <field name="report_code" invisible="1"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="report_id" readonly="1"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="period_preset" widget="radio"
+                                   options="{'horizontal': true}"/>
+                            <field name="date_from"
+                                   readonly="period_preset != 'custom'"/>
+                            <field name="date_to"
+                                   readonly="period_preset != 'custom'"/>
+                        </group>
+                        <group>
+                            <field name="posted_only"/>
+                            <field name="show_zero"/>
+                            <field name="hierarchical_groups"
+                                   invisible="report_code not in ('balance_sheet', 'profit_and_loss', 'trial_balance')"/>
+                            <field name="cash_flow_method"
+                                   invisible="report_code != 'cash_flow'"/>
+                        </group>
+                    </group>
+                    <group string="Filters">
+                        <field name="company_ids" widget="many2many_tags"
+                               domain="[('id', 'in', context.get('allowed_company_ids', []))]"
+                               options="{'no_create': True}"/>
+                        <field name="journal_ids" widget="many2many_tags"
+                               options="{'no_create': True}"/>
+                        <field name="partner_ids" widget="many2many_tags"
+                               options="{'no_create': True}"/>
+                        <field name="account_ids" widget="many2many_tags"
+                               options="{'no_create': True}"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_export_xlsx"
+                            type="object"
+                            string="Export to Excel"
+                            class="btn-primary"/>
+                    <button special="cancel"
+                            string="Cancel"
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_account_report_wizard" model="ir.actions.act_window">
+        <field name="name">Run Accounting Report</field>
+        <field name="res_model">eh.account.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_eh_account_report_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

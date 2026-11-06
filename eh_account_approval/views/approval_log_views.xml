@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    eh.approval.log: read-only audit list of every approval action.
+    The model itself refuses write/unlink at the framework level; this
+    view simply makes the rows visible to users in the Auditor role.
+-->
+<odoo>
+
+    <record id="view_eh_approval_log_list" model="ir.ui.view">
+        <field name="name">eh.approval.log.list</field>
+        <field name="model">eh.approval.log</field>
+        <field name="arch" type="xml">
+            <list string="Approval Decisions" create="false" delete="false" edit="false">
+                <field name="create_date"/>
+                <field name="request_id"/>
+                <field name="action"/>
+                <field name="step"/>
+                <field name="user_id"/>
+                <field name="comment"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_approval_log_search" model="ir.ui.view">
+        <field name="name">eh.approval.log.search</field>
+        <field name="model">eh.approval.log</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="request_id"/>
+                <field name="user_id"/>
+                <field name="action"/>
+                <filter name="filter_approved" string="Approved"
+                        domain="[('action', '=', 'approved')]"/>
+                <filter name="filter_rejected" string="Rejected"
+                        domain="[('action', '=', 'rejected')]"/>
+                <filter name="filter_withdrawn" string="Withdrawn"
+                        domain="[('action', '=', 'withdrawn')]"/>
+                <separator/>
+                <filter name="group_by_action" string="Action"
+                        context="{'group_by': 'action'}"/>
+                <filter name="group_by_user" string="User"
+                        context="{'group_by': 'user_id'}"/>
+                <filter name="group_by_request" string="Request"
+                        context="{'group_by': 'request_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_approval_log" model="ir.actions.act_window">
+        <field name="name">Approval Decisions</field>
+        <field name="res_model">eh.approval.log</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="view_eh_approval_log_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No approval decisions yet.</p>
+            <p>Every approval, rejection, withdrawal, and override appears here. Rows are append-only; the table refuses write and unlink at the framework level.</p>
+        </field>
+    </record>
+
+</odoo>

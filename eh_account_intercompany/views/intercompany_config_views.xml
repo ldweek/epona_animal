@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_intercompany_config_list" model="ir.ui.view">
+        <field name="name">eh.intercompany.config.list</field>
+        <field name="model">eh.intercompany.config</field>
+        <field name="arch" type="xml">
+            <list string="Inter-company Configurations">
+                <field name="company_id"/>
+                <field name="sale_journal_id"/>
+                <field name="purchase_journal_id"/>
+                <field name="auto_post_mirror"/>
+                <field name="enabled" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_intercompany_config_search" model="ir.ui.view">
+        <field name="name">eh.intercompany.config.search</field>
+        <field name="model">eh.intercompany.config</field>
+        <field name="arch" type="xml">
+            <search string="Inter-company Configurations">
+                <field name="company_id"/>
+                <field name="sale_journal_id"/>
+                <field name="purchase_journal_id"/>
+                <filter name="enabled"
+                        string="Enabled"
+                        domain="[('enabled', '=', True)]"/>
+                <filter name="disabled"
+                        string="Disabled"
+                        domain="[('enabled', '=', False)]"/>
+                <separator/>
+                <filter name="auto_post"
+                        string="Auto-post mirror"
+                        domain="[('auto_post_mirror', '=', True)]"/>
+                <group>
+                    <filter name="group_company"
+                            string="Company"
+                            context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_intercompany_config_form" model="ir.ui.view">
+        <field name="name">eh.intercompany.config.form</field>
+        <field name="model">eh.intercompany.config</field>
+        <field name="arch" type="xml">
+            <form string="Inter-company Configuration">
+                <sheet>
+                    <h1>
+                        <field name="company_id"
+                               options="{'no_create': True}"/>
+                    </h1>
+                    <group string="Mirroring">
+                        <group>
+                            <field name="enabled"/>
+                            <field name="auto_post_mirror"/>
+                            <field name="restrict_ic_partners"/>
+                            <field name="intercompany_user_id"
+                                   options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="sale_journal_id"
+                                   options="{'no_create': True}"/>
+                            <field name="purchase_journal_id"
+                                   options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <group string="Elimination (IFRS 10.B86)">
+                        <group>
+                            <field name="elimination_company_id"
+                                   options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="elimination_journal_id"
+                                   options="{'no_create': True}"/>
+                            <field name="unrealised_inventory_account_id"
+                                   options="{'no_create': True}"/>
+                            <field name="unrealised_cogs_account_id"
+                                   options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <group string="Fallback accounts (used when product accounts are unset)">
+                        <field name="fallback_revenue_account_id"
+                               options="{'no_create': True}"/>
+                        <field name="fallback_expense_account_id"
+                               options="{'no_create': True}"/>
+                    </group>
+                    <p class="text-muted">
+                        Configure once per company. When a partner that
+                        represents another company is invoiced here, the
+                        mirror invoice posts (or stays draft) in that
+                        other company's appropriate journal. Fallback
+                        accounts are used only when the product has no
+                        income/expense account set in this company.
+                    </p>
+                    <group string="Notes">
+                        <field name="notes" widget="text" nolabel="1"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_intercompany_config" model="ir.actions.act_window">
+        <field name="name">Inter-company Configurations</field>
+        <field name="res_model">eh.intercompany.config</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_intercompany_config_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No inter-company configurations yet.</p>
+            <p>Add one config per company. The trigger only fires for companies that have an enabled config; companies without one continue to operate as if this module were not installed.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_eh_intercompany_config"
+              name="Inter-company Configurations"
+              parent="eh_account_base.menu_eh_config_operations"
+              action="action_eh_intercompany_config"
+              sequence="80"
+              groups="eh_account_base.group_eh_manager"/>
+
+</odoo>

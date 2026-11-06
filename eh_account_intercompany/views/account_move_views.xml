@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        Inter-company state column on the invoice list and a dedicated
+        operations view that filters straight to pairs needing review.
+
+        The state computes from the source/mirror pairing so the column
+        is meaningful only on source moves; the legacy origin link is
+        already exposed in the form for trace.
+
+        The Operations action is for the inter-company supervisor: it
+        opens the move list pre-filtered to the three risky states
+        (No mirror, Mirror draft, Amount mismatch) so a quick scan
+        gives the day's review queue without manual filtering.
+    -->
+
+    <record id="view_eh_intercompany_move_list" model="ir.ui.view">
+        <field name="name">eh.intercompany.account.move.list</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <!--
+                Anchor against status_in_payment because Odoo 19's
+                core invoice tree (view_invoice_tree) replaced the bare
+                `state` field with the richer `status_in_payment` widget.
+                Inheriting after `state` would fail at validation since
+                the field is no longer in the parent arch.
+            -->
+            <field name="status_in_payment" position="after">
+                <field name="eh_intercompany_state"
+                       optional="hide"
+                       widget="badge"
+                       decoration-success="eh_intercompany_state == 'matched'"
+                       decoration-warning="eh_intercompany_state in ('mirror_draft', 'amount_mismatch')"
+                       decoration-danger="eh_intercompany_state in ('unmatched', 'orphan_mirror')"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_eh_intercompany_move_search" model="ir.ui.view">
+        <field name="name">eh.intercompany.account.move.search</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <filter name="late" position="after">
+                <separator/>
+                <filter name="eh_ic_unmatched"
+                        string="IC: no mirror"
+                        domain="[('eh_intercompany_state', '=', 'unmatched')]"/>
+                <filter name="eh_ic_mirror_draft"
+                        string="IC: mirror draft"
+                        domain="[('eh_intercompany_state', '=', 'mirror_draft')]"/>
+                <filter name="eh_ic_amount_mismatch"
+                        string="IC: amount mismatch"
+                        domain="[('eh_intercompany_state', '=', 'amount_mismatch')]"/>
+                <filter name="eh_ic_orphan_mirror"
+                        string="IC: orphan posted mirror"
+                        domain="[('eh_intercompany_state', '=', 'orphan_mirror')]"/>
+                <filter name="eh_ic_matched"
+                        string="IC: matched"
+                        domain="[('eh_intercompany_state', '=', 'matched')]"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_account_move_form_intercompany" model="ir.ui.view">
+        <field name="name">account.move.form.intercompany</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_eh_view_intercompany_mirror"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-exchange"
+                        title="Inter-company counterpart"
+                        aria-label="Inter-company counterpart"
+                        invisible="not eh_intercompany_mirror_id and not eh_intercompany_origin_id">
+                    <div class="o_stat_info">
+                        <field name="eh_intercompany_state"
+                               widget="badge"
+                               decoration-success="eh_intercompany_state == 'matched'"
+                               decoration-warning="eh_intercompany_state in ('mirror_draft', 'amount_mismatch')"
+                               decoration-danger="eh_intercompany_state in ('unmatched', 'orphan_mirror')"/>
+                        <span class="o_stat_text">IC mirror</span>
+                    </div>
+                </button>
+                <field name="eh_intercompany_mirror_id" invisible="1"/>
+                <field name="eh_intercompany_origin_id" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_eh_intercompany_review" model="ir.actions.act_window">
+        <field name="name">Inter-company review</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('eh_intercompany_state', 'in',
+            ('unmatched', 'mirror_draft', 'amount_mismatch', 'orphan_mirror'))]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Inter-company review queue is empty.
+            </p>
+            <p>
+                This list surfaces moves whose mirror is missing,
+                still in draft, or whose totals diverge from the
+                mirror. Open each move and either post the mirror,
+                or fix the mismatch on the side that drifted.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_eh_intercompany_review"
+              name="Inter-company review"
+              parent="eh_account_base.menu_eh_operations"
+              action="action_eh_intercompany_review"
+              sequence="75"
+              groups="eh_account_base.group_eh_user"/>
+
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+    <record id="task_au_bas_onboarding" model="eh.account.setup.task">
+        <field name="key">suite_au_bas</field>
+        <field name="name">Configure Australian BAS reporting</field>
+        <field name="description">For Australian reporting entities, map GST tax grids and control accounts, confirm cash or accrual basis, and review the 33-label BAS worksheet. The suite install hook pre-skips this task for non-Australian companies.</field>
+        <field name="sequence">90</field>
+        <field name="category">reporting</field>
+        <field name="required_modules">eh_account_l10n_au_bas</field>
+        <field name="action_xmlid">eh_account_l10n_au_bas.action_eh_bas_run</field>
+        <field name="icon">file-text-o</field>
+    </record>
+</odoo>

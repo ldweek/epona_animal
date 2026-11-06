@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_collections_stage_tree" model="ir.ui.view">
+        <field name="name">eh.collections.stage.list</field>
+        <field name="model">eh.collections.stage</field>
+        <field name="arch" type="xml">
+            <list string="Stages" default_order="sequence">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="is_default" widget="boolean_toggle"/>
+                <field name="is_resolved" widget="boolean_toggle"/>
+                <field name="is_disputed" widget="boolean_toggle"/>
+                <field name="is_escalated" widget="boolean_toggle"/>
+                <field name="fold" widget="boolean_toggle"/>
+                <field name="color" widget="color_picker"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_collections_stage_form" model="ir.ui.view">
+        <field name="name">eh.collections.stage.form</field>
+        <field name="model">eh.collections.stage</field>
+        <field name="arch" type="xml">
+            <form string="Stage">
+                <sheet>
+                    <h1><field name="name"/></h1>
+                    <group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="color" widget="color_picker"/>
+                        </group>
+                        <group>
+                            <field name="is_default"/>
+                            <field name="is_resolved"/>
+                            <field name="is_disputed"/>
+                            <field name="is_escalated"/>
+                            <field name="fold"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_collections_stage" model="ir.actions.act_window">
+        <field name="name">Collections Stages</field>
+        <field name="res_model">eh.collections.stage</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first collections stage</p>
+            <p>Stages are the kanban columns cases move through, from first contact to resolution. Click New to add a stage and set its sequence and resolved flag.</p>
+        </field>
+    </record>
+
+</odoo>

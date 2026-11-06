@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_fx_revaluation_line_tree" model="ir.ui.view">
+        <field name="name">eh.fx.revaluation.line.list</field>
+        <field name="model">eh.fx.revaluation.line</field>
+        <field name="arch" type="xml">
+            <list string="FX Revaluation Lines" sample="1">
+                <field name="run_id"/>
+                <field name="account_id"/>
+                <field name="partner_id"/>
+                <field name="foreign_currency_id"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="balance_foreign"/>
+                <field name="balance_company"/>
+                <field name="closing_rate"/>
+                <field name="new_balance_company"/>
+                <field name="adjustment" sum="Net"/>
+                <field name="nature"
+                       widget="badge"
+                       decoration-success="nature == 'gain'"
+                       decoration-danger="nature == 'loss'"
+                       decoration-muted="nature == 'flat'"/>
+                <field name="is_realized" optional="show"/>
+                <field name="source_line_count"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_fx_revaluation_line_form" model="ir.ui.view">
+        <field name="name">eh.fx.revaluation.line.form</field>
+        <field name="model">eh.fx.revaluation.line</field>
+        <field name="arch" type="xml">
+            <form string="FX Revaluation Line">
+                <sheet>
+                    <group string="Position">
+                        <group>
+                            <field name="run_id"/>
+                            <field name="account_id"/>
+                            <field name="partner_id"/>
+                            <field name="foreign_currency_id"/>
+                        </group>
+                        <group>
+                            <field name="nature" widget="badge"
+                                   decoration-success="nature == 'gain'"
+                                   decoration-danger="nature == 'loss'"
+                                   decoration-muted="nature == 'flat'"/>
+                            <field name="source_line_count"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group string="Revaluation">
+                        <group>
+                            <field name="balance_foreign"/>
+                            <field name="balance_company"/>
+                        </group>
+                        <group>
+                            <field name="closing_rate"/>
+                            <field name="new_balance_company"/>
+                            <field name="adjustment"/>
+                        </group>
+                    </group>
+                    <field name="currency_id" invisible="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_fx_revaluation_line_search" model="ir.ui.view">
+        <field name="name">eh.fx.revaluation.line.search</field>
+        <field name="model">eh.fx.revaluation.line</field>
+        <field name="arch" type="xml">
+            <search string="FX Revaluation Lines">
+                <field name="run_id"/>
+                <field name="account_id"/>
+                <field name="partner_id"/>
+                <field name="foreign_currency_id"/>
+                <filter string="Gains" name="filter_gain"
+                        domain="[('nature', '=', 'gain')]"/>
+                <filter string="Losses" name="filter_loss"
+                        domain="[('nature', '=', 'loss')]"/>
+                <separator/>
+                <filter string="Sources Settled" name="filter_realized"
+                        domain="[('is_realized', '=', True)]"/>
+                <filter string="Sources Open" name="filter_unrealized"
+                        domain="[('is_realized', '=', False)]"/>
+                <group>
+                    <filter string="Run" name="group_run"
+                            context="{'group_by': 'run_id'}"/>
+                    <filter string="Account" name="group_account"
+                            context="{'group_by': 'account_id'}"/>
+                    <filter string="Currency" name="group_currency"
+                            context="{'group_by': 'foreign_currency_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_fx_revaluation_line" model="ir.actions.act_window">
+        <field name="name">FX Revaluation Lines</field>
+        <field name="res_model">eh.fx.revaluation.line</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_fx_revaluation_line_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No revaluation lines yet</p>
+            <p>Each line shows the per-account gain or loss for a currency at a period-end rate. Lines appear once you compute a revaluation run.</p>
+        </field>
+    </record>
+
+</odoo>

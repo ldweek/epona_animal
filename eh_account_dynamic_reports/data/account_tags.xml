@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    ERP Heritage
+    Copyright (C) 2026 (https://www.erpheritage.com.au/)
+
+    IAS 7 account tags for the Cash Flow Statement.
+
+    Two families:
+
+    * EH Non-Cash ... tags mark P&L accounts whose charge or credit never
+      moves cash (depreciation, impairment, provisions to non-current
+      liabilities, unrealised FX, fair value adjustments). The indirect
+      method resolves its add-back lines from these tags: for every
+      non-cash journal entry carrying a tagged P&L line, the entry's
+      non-current balance-sheet movement is added back to profit.
+
+    * EH Interest / Dividends / Income Tax tags mark the accounts through
+      which the IAS 7.31-35 disclosed flows travel: the interest expense /
+      income accounts for flows settled directly in cash, plus any
+      dedicated accrual clearing account (interest payable, dividends
+      payable, income tax payable) for flows settled through an accrual.
+      Tag both sides where an accrual account is used; the report reads
+      the tagged lines of cash-affecting entries to measure the amount
+      actually paid or received, and excludes tagged current accounts
+      from the working-capital delta lines so nothing is counted twice.
+
+    noupdate: operators may retarget applicability notes without a module
+    upgrade reverting them; the auto-tag helper only ever adds tags.
+-->
+<odoo>
+    <data noupdate="1">
+
+        <record id="account_tag_noncash_depreciation" model="account.account.tag">
+            <field name="name">EH Non-Cash Depreciation/Amortisation</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <record id="account_tag_noncash_impairment" model="account.account.tag">
+            <field name="name">EH Non-Cash Impairment</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <record id="account_tag_noncash_provisions" model="account.account.tag">
+            <field name="name">EH Non-Cash Provisions</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <record id="account_tag_noncash_fx" model="account.account.tag">
+            <field name="name">EH Non-Cash FX</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <record id="account_tag_noncash_fair_value" model="account.account.tag">
+            <field name="name">EH Non-Cash Fair Value</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <record id="account_tag_interest_paid" model="account.account.tag">
+            <field name="name">EH Interest Paid</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <record id="account_tag_interest_received" model="account.account.tag">
+            <field name="name">EH Interest Received</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <record id="account_tag_dividends_paid" model="account.account.tag">
+            <field name="name">EH Dividends Paid</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <record id="account_tag_dividends_received" model="account.account.tag">
+            <field name="name">EH Dividends Received</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+        <record id="account_tag_income_tax_paid" model="account.account.tag">
+            <field name="name">EH Income Tax Paid</field>
+            <field name="applicability">accounts</field>
+        </record>
+
+    </data>
+</odoo>

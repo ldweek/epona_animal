@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!-- Auditors do not imply EH Accounting User.  Add the read-only
+             group to the shared IFRS parent so the permitted child menus
+             below are actually reachable. -->
+        <menuitem id="eh_account_base.menu_eh_ifrs"
+                  name="IFRS Standards"
+                  parent="account.menu_finance_entries"
+                  sequence="34"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_benefit_plan"
+                  name="Benefit Plans"
+                  parent="eh_account_base.menu_eh_ifrs"
+                  action="action_eh_benefit_plan"
+                  sequence="40"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_benefit_valuation"
+                  name="Benefit Valuations"
+                  parent="eh_account_base.menu_eh_ifrs"
+                  action="action_eh_benefit_valuation"
+                  sequence="42"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_benefit_dc_accrual"
+                  name="DC Contribution Accruals"
+                  parent="eh_account_base.menu_eh_ifrs"
+                  action="action_eh_benefit_dc_accrual"
+                  sequence="44"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+    </data>
+</odoo>

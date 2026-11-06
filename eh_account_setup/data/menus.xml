@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_setup_guide" model="ir.actions.act_window">
+        <field name="name">Setup Guide</field>
+        <field name="res_model">eh.account.setup.task.line</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('is_relevant', '=', True)]</field>
+        <field name="context">{'search_default_filter_todo': 1, 'search_default_group_category': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No setup tasks for this company yet</p>
+            <p>If this list is empty after install, reinstall the module so the post init hook can seed the lines for your company.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_setup_guide"
+              name="Setup Guide"
+              parent="eh_account_base.menu_eh_operations"
+              action="action_setup_guide"
+              groups="eh_account_base.group_eh_user"
+              sequence="7"/>
+
+</odoo>

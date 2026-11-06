@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        QWeb template that backs every PDF export from the dynamic
+        reports viewer (Trial Balance, Profit & Loss, Balance Sheet,
+        General Ledger, Aged Receivables / Payables, Cash Flow,
+        Customer Statement, Partner Ledger, Tax Summary, etc.).
+
+        Renders one page per `r in rendered`; each `r` carries the
+        report doc and the cached payload (columns + lines + meta +
+        currency).
+
+        Visual identity starts with the suite stylesheet at
+        `eh_account_base.eh_report_styles`. `eh_clean_layout` owns the fixed
+        page footer; keeping it outside the flowing report body prevents a
+        duplicate footer and trailing blank page. The paperformat sets a
+        compact top margin because eh_clean_layout renders the report header
+        inside the body and does not use web.external_layout's header band.
+    -->
+
+    <template id="report_dynamic_pdf_template">
+        <t t-call="web.html_container">
+            <t t-foreach="rendered" t-as="r">
+                <t t-set="company" t-value="r.get('company')"/>
+                <t t-call="eh_account_base.eh_clean_layout">
+                    <t t-call="eh_account_base.eh_report_styles"/>
+                    <style type="text/css">
+                        .eh_pdf_table tr.eh_pdf_section_row td,
+                        .eh_pdf_table tr.eh_pdf_account_header td,
+                        .eh_pdf_table tr.eh_pdf_partner_header td {
+                            background: #e9ecef;
+                            font-weight: 700;
+                            border-top: 1pt solid #495057;
+                        }
+                        .eh_pdf_table tr.eh_pdf_account_total td,
+                        .eh_pdf_table tr.eh_pdf_partner_total td,
+                        .eh_pdf_table tr.eh_pdf_computed td,
+                        .eh_pdf_table tr.eh_pdf_cash_balance td {
+                            background: #f1f3f5;
+                            font-weight: 700;
+                            border-top: 0.8pt solid #6c757d;
+                        }
+                        .eh_pdf_table tr.eh_pdf_balance_check td {
+                            background: #fff3cd;
+                            font-weight: 700;
+                            border-top: 1pt solid #ffc107;
+                            border-bottom: 1pt solid #ffc107;
+                        }
+                        .eh_pdf_table tr.eh_pdf_opening td {
+                            color: #495057;
+                            font-style: italic;
+                            background: #f8f9fa;
+                        }
+                        .eh_pdf_table thead tr:not(:last-child) th {
+                            background: #dde6e1;
+                            color: #1a2332;
+                            text-align: center;
+                            border-right: 0.4pt solid #adb5bd;
+                        }
+                        .eh_pdf_table thead th.eh_pdf_axis_label {
+                            text-align: left;
+                            vertical-align: middle;
+                        }
+                        .eh_pdf_column_chunk {
+                            page-break-inside: auto;
+                        }
+                        .eh_pdf_column_chunk_break {
+                            page-break-before: always;
+                        }
+                        .eh_pdf_column_chunk_caption {
+                            color: #495057;
+                            font-size: 8.5pt;
+                            margin: 0 0 5pt 0;
+                            page-break-after: avoid;
+                        }
+                        .eh_pdf_column_chunk_compact .eh_pdf_table {
+                            table-layout: fixed;
+                            font-size: 8.5pt;
+                        }
+                        .eh_pdf_column_chunk_compact .eh_pdf_table th:first-child,
+                        .eh_pdf_column_chunk_compact .eh_pdf_table td:first-child {
+                            width: 26%;
+                        }
+                        .eh_pdf_column_chunk_compact .eh_pdf_table thead th {
+                            font-size: 7.5pt;
+                            line-height: 1.2;
+                            overflow-wrap: break-word;
+                            padding: 5pt 4pt;
+                        }
+                        .eh_pdf_column_chunk_compact .eh_pdf_table tbody td {
+                            font-size: 8.5pt;
+                            line-height: 1.25;
+                            padding: 5pt 4pt;
+                        }
+                    </style>
+                    <div class="page eh_pdf_page">
+
+                        <t t-call="eh_account_base.eh_report_header">
+                            <t t-set="title" t-value="r.get('doc').name"/>
+                        </t>
+
+                        <div class="eh_pdf_meta">
+                            <t t-set="meta" t-value="r.get('payload').get('meta', {})"/>
+                            <t t-if="meta.get('date_from') and meta.get('date_to')">
+                                <span class="eh_pdf_meta_field"><strong>Period:</strong>
+                                    <t t-out="meta.get('date_from')"/> to
+                                    <t t-out="meta.get('date_to')"/>
+                                </span>
+                                <span class="eh_pdf_meta_sep">|</span>
+                            </t>
+                            <t t-elif="meta.get('date_to')">
+                                <span class="eh_pdf_meta_field"><strong>As at:</strong>
+                                    <t t-out="meta.get('date_to')"/>
+                                </span>
+                                <span class="eh_pdf_meta_sep">|</span>
+                            </t>
+                            <span class="eh_pdf_meta_field"><strong>Posted only:</strong>
+                                <t t-out="'Yes' if meta.get('posted_only') else 'No'"/>
+                            </span>
+                            <t t-if="len(r.get('companies') or []) &gt; 1">
+                                <span class="eh_pdf_meta_sep">|</span>
+                                <span class="eh_pdf_meta_field">
+                                    <strong>Companies:</strong>
+                                    <t t-out="r.get('company_scope_label')"/>
+                                </span>
+                            </t>
+                            <t t-set="curr" t-value="r.get('payload').get('currency') or {}"/>
+                            <t t-if="curr">
+                                <span class="eh_pdf_meta_sep">|</span>
+                                <span class="eh_pdf_meta_field">
+                                    <strong>Currency:</strong>
+                                    <t t-if="curr.get('multi_currency')">Multi-currency</t>
+                                    <t t-else="">
+                                        <t t-out="curr.get('name', '')"/>
+                                        <t t-if="curr.get('symbol')">
+                                            (<t t-out="curr.get('symbol')"/>)
+                                        </t>
+                                    </t>
+                                </span>
+                            </t>
+                            <span class="eh_pdf_meta_sep">|</span>
+                            <span class="eh_pdf_meta_field"><strong>Generated:</strong>
+                                <t t-out="r.get('payload').get('generated_at', '')"/>
+                            </span>
+                        </div>
+
+                        <div t-foreach="r.get('table_chunks') or []"
+                             t-as="chunk"
+                             t-attf-class="eh_pdf_column_chunk {{'eh_pdf_column_chunk_compact' if chunk.get('count', 1) > 1 else ''}} {{'eh_pdf_column_chunk_break' if chunk.get('index') else ''}}">
+                            <div class="eh_pdf_column_chunk_caption"
+                                 t-if="chunk.get('count', 1) &gt; 1">
+                                <strong><t t-out="r.get('doc').name"/></strong>
+                                — value columns
+                                <t t-out="chunk.get('value_from')"/>–<t t-out="chunk.get('value_to')"/>
+                                of <t t-out="chunk.get('value_count')"/>
+                            </div>
+                            <table class="eh_pdf_table">
+                                <thead>
+                                    <t t-if="chunk.get('column_header_rows')">
+                                        <tr t-foreach="chunk.get('column_header_rows')"
+                                            t-as="header_row">
+                                            <th t-foreach="header_row" t-as="header_cell"
+                                                t-att-colspan="header_cell.get('colspan')"
+                                                t-att-rowspan="header_cell.get('rowspan')"
+                                                t-att-class="'eh_pdf_axis_label' if header_cell.get('is_label') else 'text-center'">
+                                                <t t-out="header_cell.get('name')"/>
+                                            </th>
+                                        </tr>
+                                    </t>
+                                    <tr t-else="">
+                                        <t t-foreach="chunk.get('columns') or []"
+                                           t-as="col">
+                                            <th t-att-class="'text-end' if col.get('figure_type') in ('monetary', 'integer', 'float', 'percentage') else ''">
+                                                <t t-out="col.get('name')"/>
+                                            </th>
+                                        </t>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="chunk.get('lines') or []"
+                                       t-as="line">
+                                        <tr t-att-class="line.get('css_class')">
+                                            <td t-att-style="'padding-left: %sem;' % str((line.get('level') or 0) * 1.0)">
+                                                <t t-out="line.get('name')"/>
+                                            </td>
+                                            <t t-foreach="line.get('cells') or []"
+                                               t-as="cell">
+                                                <td t-att-class="'text-end' if cell.get('align_right') else ''">
+                                                    <t t-out="cell.get('display')"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                    <t t-if="not chunk.get('lines')">
+                                        <tr>
+                                            <td t-att-colspan="len(chunk.get('columns') or []) or 1"
+                                                class="text-center text-muted"
+                                                style="padding: 20pt;">
+                                                No data for the selected filters.
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!--
+                            eh_clean_layout already renders company identity
+                            in the fixed wkhtmltopdf footer band.  A second,
+                            flow-layout footer here can spill onto an otherwise
+                            empty trailing page when a compact report (notably
+                            Trial Balance) ends near the printable boundary.
+                        -->
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

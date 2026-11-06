@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        Partner form button: Print Statement.
+        Customer button shows for any non-supplier (or both kinds when a
+        partner is both); vendor button shows for partners marked as
+        suppliers via supplier_rank. Both buttons land on the same PDF
+        pipeline (eh.account.dynamic.report.handler.customer_statement
+        and its vendor sibling) so the look and feel match.
+    -->
+    <record id="view_partner_statement_buttons" model="ir.ui.view">
+        <field name="name">res.partner.form.statement.buttons</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <field name="customer_rank" invisible="1"/>
+                <field name="supplier_rank" invisible="1"/>
+                <button name="action_print_customer_statement"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-file-text-o"
+                        title="Print Customer Statement"
+                        invisible="customer_rank == 0"
+                        groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor">
+                    <span>Customer Statement</span>
+                </button>
+                <button name="action_print_vendor_statement"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-file-text-o"
+                        title="Print Vendor Statement"
+                        invisible="supplier_rank == 0"
+                        groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor">
+                    <span>Vendor Statement</span>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

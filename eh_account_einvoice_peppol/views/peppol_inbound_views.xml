@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_peppol_inbound_tree" model="ir.ui.view">
+        <field name="name">eh.peppol.inbound.list</field>
+        <field name="model">eh.peppol.inbound</field>
+        <field name="arch" type="xml">
+            <list string="Peppol inbound" sample="1"
+                  default_order="received_at desc"
+                  decoration-success="state == 'posted'"
+                  decoration-info="state in ('parsed', 'matched')"
+                  decoration-warning="state == 'exception'"
+                  decoration-danger="(duplicate_inbound_id != False or duplicate_move_id != False) and state != 'posted'"
+                  decoration-muted="state == 'rejected'">
+                <field name="name"/>
+                <field name="received_at"/>
+                <field name="supplier_name"/>
+                <field name="invoice_number"/>
+                <field name="issue_date"/>
+                <field name="currency_code"/>
+                <field name="partner_id"/>
+                <field name="purchase_order_id" optional="show"/>
+                <field name="duplicate_inbound_id" optional="hide"/>
+                <field name="duplicate_move_id" optional="hide"/>
+                <field name="state" widget="badge"
+                       decoration-info="state in ('parsed', 'matched')"
+                       decoration-success="state == 'posted'"
+                       decoration-warning="state == 'exception'"
+                       decoration-muted="state in ('received', 'rejected')"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_peppol_inbound_form" model="ir.ui.view">
+        <field name="name">eh.peppol.inbound.form</field>
+        <field name="model">eh.peppol.inbound</field>
+        <field name="arch" type="xml">
+            <form string="Peppol inbound">
+                <header>
+                    <button name="action_parse"
+                            type="object"
+                            string="Parse"
+                            class="btn-primary"
+                            invisible="state != 'received'"/>
+                    <button name="action_match"
+                            type="object"
+                            string="Match"
+                            class="btn-primary"
+                            invisible="state not in ('parsed', 'exception')"/>
+                    <button name="action_post"
+                            type="object"
+                            string="Post bill"
+                            class="btn-success"
+                            invisible="state != 'matched'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reject"
+                            type="object"
+                            string="Reject"
+                            class="btn-warning"
+                            invisible="state in ('posted', 'rejected')"
+                            confirm="Reject this inbound record?"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="received,parsed,matched,posted"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                        <h3>
+                            <field name="invoice_number"
+                                   placeholder="Vendor invoice number"
+                                   readonly="1"/>
+                        </h3>
+                    </div>
+                    <group>
+                        <group string="Document">
+                            <field name="document_type" readonly="1"/>
+                            <field name="issue_date" readonly="1"/>
+                            <field name="due_date" readonly="1"/>
+                            <field name="currency_code" readonly="1"/>
+                            <field name="received_at" readonly="1"/>
+                            <field name="company_id" readonly="1"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Resolution">
+                            <field name="partner_id"
+                                   readonly="state in ('matched', 'posted', 'rejected')"/>
+                            <field name="purchase_order_id"
+                                   readonly="state in ('matched', 'posted', 'rejected')"/>
+                            <field name="move_id" readonly="1"/>
+                            <field name="access_point_key" readonly="1"/>
+                            <field name="transmission_id" readonly="1"/>
+                            <field name="file_hash" readonly="1"/>
+                            <field name="rejection_reason"
+                                   placeholder="Required before Reject"
+                                   readonly="state == 'rejected'"/>
+                        </group>
+                    </group>
+                    <group string="Duplicate detection"
+                           invisible="not duplicate_inbound_id and not duplicate_move_id">
+                        <field name="duplicate_inbound_id" readonly="1"
+                               invisible="not duplicate_inbound_id"/>
+                        <field name="duplicate_move_id" readonly="1"
+                               invisible="not duplicate_move_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Source XML">
+                            <field name="xml_attachment_id"
+                                   readonly="state != 'received' or xml_attachment_id"/>
+                        </page>
+                        <page string="Supplier (parsed)">
+                            <group>
+                                <field name="supplier_name" readonly="1"/>
+                                <field name="supplier_endpoint_id" readonly="1"/>
+                                <field name="supplier_endpoint_scheme" readonly="1"/>
+                                <field name="supplier_vat_id" readonly="1"/>
+                                <field name="supplier_legal_id" readonly="1"/>
+                                <field name="order_reference" readonly="1"/>
+                                <field name="buyer_reference" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Buyer (parsed)">
+                            <group>
+                                <field name="buyer_name" readonly="1"/>
+                                <field name="buyer_endpoint_id" readonly="1"/>
+                                <field name="buyer_endpoint_scheme" readonly="1"/>
+                                <field name="buyer_vat_id" readonly="1"/>
+                                <field name="buyer_legal_id" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Note">
+                            <field name="note" readonly="1"/>
+                        </page>
+                    </notebook>
+                    <field name="currency_id" invisible="1"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_peppol_inbound_search" model="ir.ui.view">
+        <field name="name">eh.peppol.inbound.search</field>
+        <field name="model">eh.peppol.inbound</field>
+        <field name="arch" type="xml">
+            <search string="Peppol inbound">
+                <field name="name"/>
+                <field name="invoice_number"/>
+                <field name="supplier_name"/>
+                <field name="partner_id"/>
+                <field name="order_reference"/>
+                <filter name="received" string="Received"
+                        domain="[('state', '=', 'received')]"/>
+                <filter name="parsed" string="Parsed"
+                        domain="[('state', '=', 'parsed')]"/>
+                <filter name="matched" string="Matched"
+                        domain="[('state', '=', 'matched')]"/>
+                <filter name="posted" string="Posted"
+                        domain="[('state', '=', 'posted')]"/>
+                <filter name="exception" string="Exception"
+                        domain="[('state', '=', 'exception')]"/>
+                <filter name="rejected" string="Rejected"
+                        domain="[('state', '=', 'rejected')]"/>
+                <separator/>
+                <filter name="duplicates" string="Duplicates"
+                        domain="['|', ('duplicate_inbound_id', '!=', False), ('duplicate_move_id', '!=', False)]"/>
+                <separator/>
+                <filter name="unresolved" string="Unresolved supplier"
+                        domain="[('partner_id', '=', False)]"/>
+                <group>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_partner" string="Supplier"
+                            context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_document_type" string="Document type"
+                            context="{'group_by': 'document_type'}"/>
+                    <filter name="group_company" string="Company"
+                            context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company"/>
+                    <filter name="group_received" string="Received date"
+                            context="{'group_by': 'received_at:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_peppol_inbound" model="ir.actions.act_window">
+        <field name="name">Peppol inbound</field>
+        <field name="res_model">eh.peppol.inbound</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_peppol_inbound_search"/>
+    </record>
+
+    <record id="view_eh_peppol_inbound_upload_form" model="ir.ui.view">
+        <field name="name">eh.peppol.inbound.upload.form</field>
+        <field name="model">eh.peppol.inbound.upload</field>
+        <field name="arch" type="xml">
+            <form string="Upload Peppol UBL XML">
+                <group>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="xml_file" filename="filename"/>
+                    <field name="filename" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="action_upload" type="object"
+                            string="Upload" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_peppol_inbound_upload" model="ir.actions.act_window">
+        <field name="name">Upload Peppol XML</field>
+        <field name="res_model">eh.peppol.inbound.upload</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_eh_peppol_root"
+              name="Peppol"
+              parent="account.menu_finance"
+              sequence="90"/>
+
+    <menuitem id="menu_eh_peppol_inbound"
+              name="Inbound"
+              parent="menu_eh_peppol_root"
+              action="action_eh_peppol_inbound"
+              sequence="10"/>
+
+    <menuitem id="menu_eh_peppol_inbound_upload"
+              name="Upload XML"
+              parent="menu_eh_peppol_root"
+              action="action_eh_peppol_inbound_upload"
+              sequence="20"
+              groups="eh_account_base.group_eh_user"/>
+
+</odoo>

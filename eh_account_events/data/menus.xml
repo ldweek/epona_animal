@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!-- Auditors have read ACLs but do not imply EH Accounting User.
+             Add their group to the IFRS parent so these read-only children
+             are reachable without broadening any model permission. -->
+        <menuitem id="eh_account_base.menu_eh_ifrs"
+                  name="IFRS Standards"
+                  parent="account.menu_finance_entries"
+                  sequence="34"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_accounting_change"
+                  name="Accounting Changes"
+                  parent="eh_account_base.menu_eh_ifrs"
+                  action="action_eh_accounting_change"
+                  sequence="20"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_subsequent_event"
+                  name="Subsequent Events"
+                  parent="eh_account_base.menu_eh_ifrs"
+                  action="action_eh_subsequent_event"
+                  sequence="22"
+                  groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+    </data>
+</odoo>

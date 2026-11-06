@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_account_move_form_pdc" model="ir.ui.view">
+        <field name="name">account.move.form.pdc</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_eh_cheques"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-money"
+                        groups="eh_account_base.group_eh_user"
+                        title="Cheques"
+                        invisible="eh_cheque_count == 0">
+                    <field name="eh_cheque_count"
+                           widget="statinfo"
+                           string="Cheques"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

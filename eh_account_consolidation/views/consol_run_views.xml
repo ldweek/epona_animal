@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_consol_run_tree" model="ir.ui.view">
+        <field name="name">eh.consol.run.list</field>
+        <field name="model">eh.consol.run</field>
+        <field name="arch" type="xml">
+            <list string="Consolidation runs"
+                  default_order="period_to desc"
+                  decoration-info="state == 'computed'"
+                  decoration-success="state == 'reviewed'"
+                  decoration-muted="state == 'closed'">
+                <field name="name"/>
+                <field name="entity_id"/>
+                <field name="period_from"/>
+                <field name="period_to"/>
+                <field name="presentation_currency_id"/>
+                <field name="line_count" optional="show"/>
+                <field name="elimination_count" optional="show"/>
+                <field name="cta_amount" widget="monetary" optional="show"/>
+                <field name="nci_amount" widget="monetary" optional="show"/>
+                <field name="nci_period_comprehensive_income_amount"
+                       widget="monetary" optional="hide"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'computed'"
+                       decoration-success="state in ('reviewed', 'closed')"
+                       decoration-muted="state == 'draft'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_consol_run_search" model="ir.ui.view">
+        <field name="name">eh.consol.run.search</field>
+        <field name="model">eh.consol.run</field>
+        <field name="arch" type="xml">
+            <search string="Consolidation runs">
+                <field name="name"/>
+                <field name="entity_id"/>
+                <field name="period_from"/>
+                <field name="period_to"/>
+                <filter name="state_draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="state_computed" string="Computed"
+                        domain="[('state', '=', 'computed')]"/>
+                <filter name="state_reviewed" string="Reviewed"
+                        domain="[('state', '=', 'reviewed')]"/>
+                <filter name="state_closed" string="Closed"
+                        domain="[('state', '=', 'closed')]"/>
+                <separator/>
+                <filter name="period_from" string="Period start"
+                        date="period_from"/>
+                <filter name="period_to" string="Period end"
+                        date="period_to"/>
+                <group>
+                    <filter name="group_entity" string="Entity"
+                            context="{'group_by': 'entity_id'}"/>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_consol_run_form" model="ir.ui.view">
+        <field name="name">eh.consol.run.form</field>
+        <field name="model">eh.consol.run</field>
+        <field name="arch" type="xml">
+            <form string="Consolidation run">
+                <header>
+                    <button name="action_compute"
+                            type="object" string="Compute"
+                            class="btn-primary"
+                            invisible="state != 'draft'"
+                            confirm="Compute the consolidated trial balance? This pulls each member's balances, translates to presentation currency, applies eliminations, and computes CTA + NCI."/>
+                    <button name="action_review"
+                            type="object" string="Mark reviewed"
+                            invisible="state != 'computed'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_impair_goodwill"
+                            type="object" string="Test Goodwill Impairment"
+                            invisible="state not in ('computed', 'reviewed')"
+                            confirm="Confirm that the displayed recoverable amount has been independently determined for this run. The test may book a balanced IAS 36 impairment charge, including a full write-off when a zero amount is explicitly confirmed. Continue?"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_post_move"
+                            type="object" string="Post Consolidation Move"
+                            class="btn-primary"
+                            invisible="not consolidation_company_id or state not in ('computed', 'reviewed') or move_state == 'posted'"
+                            confirm="Post the consolidated result as a single balanced, immutable journal entry in the consolidation ledger company? Reopening or resetting the run later reverses it."
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_close"
+                            type="object" string="Close"
+                            class="btn-success"
+                            invisible="state != 'reviewed'"
+                            confirm="Closed runs are read-only and cited in audit. Continue?"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reopen"
+                            type="object" string="Reopen"
+                            class="btn-warning"
+                            invisible="state != 'closed'"
+                            confirm="Reopen this closed run for correction? This is recorded in the audit trail and unlocks the frozen lines."
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reset_to_draft"
+                            type="object" string="Reset to draft"
+                            class="btn-secondary"
+                            invisible="state == 'draft' or state == 'closed'"
+                            confirm="Reset to draft? All computed lines are dropped."
+                            groups="eh_account_base.group_eh_manager"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,computed,reviewed,closed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_lines"
+                                type="object" class="oe_stat_button"
+                                icon="fa-list">
+                            <field name="line_count"
+                                   widget="statinfo" string="Lines"/>
+                        </button>
+                        <button name="action_view_trial_balance"
+                                type="object" class="oe_stat_button"
+                                icon="fa-balance-scale">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Trial Balance</span>
+                                <span class="o_stat_text">by Account</span>
+                            </div>
+                        </button>
+                        <button name="action_view_eliminations"
+                                type="object" class="oe_stat_button"
+                                icon="fa-cut">
+                            <field name="elimination_count"
+                                   widget="statinfo" string="Eliminations"/>
+                        </button>
+                        <button name="action_view_move"
+                                type="object" class="oe_stat_button"
+                                icon="fa-book"
+                                invisible="not move_id">
+                            <div class="o_stat_info">
+                                <field name="move_state" widget="label_selection"
+                                       options="{'classes': {'posted': 'success'}}"/>
+                                <span class="o_stat_text">Consol Move</span>
+                            </div>
+                        </button>
+                    </div>
+                    <field name="consolidation_company_id" invisible="1"/>
+                    <field name="move_id" invisible="1"/>
+                    <field name="move_state" invisible="1"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="not consolidation_warning">
+                        <field name="consolidation_warning" readonly="1"
+                               nolabel="1"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="entity_id"
+                                   readonly="state != 'draft'"
+                                   options="{'no_create': True}"/>
+                            <field name="presentation_currency_id" readonly="1"/>
+                            <field name="period_from"
+                                   readonly="state != 'draft'"/>
+                            <field name="period_to"
+                                   readonly="state != 'draft'"/>
+                            <field name="override_policy_checks"
+                                   readonly="state != 'draft'"
+                                   groups="eh_account_base.group_eh_manager"/>
+                            <field name="override_policy_reason"
+                                   readonly="state != 'draft'"
+                                   invisible="not override_policy_checks"
+                                   groups="eh_account_base.group_eh_manager"/>
+                        </group>
+                        <group>
+                            <field name="cta_amount" widget="monetary" readonly="1"/>
+                            <field name="nci_amount" widget="monetary" readonly="1"/>
+                            <field name="goodwill_recoverable_amount"
+                                   widget="monetary"
+                                   readonly="state not in ('computed', 'reviewed')"
+                                   groups="eh_account_base.group_eh_manager"/>
+                            <field name="goodwill_recoverable_confirmed"
+                                   readonly="state not in ('computed', 'reviewed')"
+                                   groups="eh_account_base.group_eh_manager"/>
+                            <field name="goodwill_impairment_account_id"
+                                   options="{'no_create': True}"
+                                   readonly="state not in ('computed', 'reviewed')"
+                                   groups="eh_account_base.group_eh_manager"/>
+                            <field name="goodwill_impairment_amount"
+                                   widget="monetary" readonly="1"
+                                   invisible="not goodwill_impairment_amount"/>
+                            <field name="computed_at" readonly="1"/>
+                            <field name="computed_by_id" readonly="1"/>
+                            <field name="reviewed_at" readonly="1"/>
+                            <field name="reviewed_by_id" readonly="1"/>
+                            <field name="closed_at" readonly="1"/>
+                            <field name="closed_by_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="NCI period attribution (IAS 1)">
+                        <group>
+                            <field name="nci_period_profit_input"
+                                   widget="monetary"
+                                   readonly="state != 'computed'"
+                                   groups="eh_account_base.group_eh_manager"/>
+                            <field name="nci_period_oci_input"
+                                   widget="monetary"
+                                   readonly="state != 'computed'"
+                                   groups="eh_account_base.group_eh_manager"/>
+                            <field name="nci_period_flow_confirmed"
+                                   readonly="state != 'computed'"
+                                   groups="eh_account_base.group_eh_manager"/>
+                            <field name="nci_period_flow_basis"
+                                   readonly="state != 'computed'"
+                                   groups="eh_account_base.group_eh_manager"/>
+                        </group>
+                        <group>
+                            <field name="nci_period_flow_available"
+                                   readonly="1"/>
+                            <field name="nci_period_profit_amount"
+                                   widget="monetary" readonly="1"/>
+                            <field name="nci_period_oci_amount"
+                                   widget="monetary" readonly="1"/>
+                            <field name="nci_period_comprehensive_income_amount"
+                                   widget="monetary" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Run lines">
+                            <field name="line_ids" readonly="1">
+                                <list>
+                                    <field name="account_code"/>
+                                    <field name="account_name"/>
+                                    <field name="account_type"/>
+                                    <field name="kind"/>
+                                    <field name="company_id" optional="show"/>
+                                    <field name="member_id" optional="hide"/>
+                                    <field name="elimination_id" optional="hide"/>
+                                    <field name="cta_position_id" optional="hide"/>
+                                    <field name="notes" optional="hide"/>
+                                    <field name="amount" widget="monetary" sum="Total"/>
+                                    <field name="presentation_currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Eliminations">
+                            <field name="elimination_ids"
+                                   readonly="state != 'draft'">
+                                <list>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Unrealised profit">
+                            <field name="unrealised_profit_ids"
+                                   readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="unrealised_amount"
+                                           widget="monetary" sum="Total"/>
+                                    <field name="cogs_or_re_account_id"/>
+                                    <field name="inventory_account_id"/>
+                                    <field name="sale_direction"/>
+                                    <field name="seller_member_id"
+                                           invisible="sale_direction != 'upstream'"/>
+                                    <field name="notes" optional="hide"/>
+                                    <field name="presentation_currency_id"
+                                           column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Equity method">
+                            <field name="equity_rollforward_ids"
+                                   readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="member_id"/>
+                                    <field name="dividends_received"
+                                           widget="monetary"/>
+                                    <field name="dividend_income_account_id"
+                                           optional="show"/>
+                                    <field name="oci_share" widget="monetary"/>
+                                    <field name="oci_account_id" optional="show"/>
+                                    <field name="foreign_exchange_adjustment"
+                                           widget="monetary"/>
+                                    <field name="foreign_exchange_confirmed"/>
+                                    <field name="basis" optional="show"/>
+                                    <field name="presentation_currency_id"
+                                           column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Disposal events">
+                            <field name="disposal_event_ids" readonly="1">
+                                <list>
+                                    <field name="event_at"/>
+                                    <field name="event_by_id"/>
+                                    <field name="member_id"/>
+                                    <field name="disposal_pct"/>
+                                    <field name="effective_pct"/>
+                                    <field name="treatment"/>
+                                    <field name="reclass_amount" widget="monetary"/>
+                                    <field name="reserve_account_id" optional="hide"/>
+                                    <field name="counterpart_account_id" optional="hide"/>
+                                    <field name="presentation_currency_id"
+                                           column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" readonly="state != 'draft'"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_consol_trial_balance_tree" model="ir.ui.view">
+        <field name="name">eh.consol.trial.balance.list</field>
+        <field name="model">eh.consol.trial.balance</field>
+        <field name="arch" type="xml">
+            <list string="Consolidated trial balance"
+                  create="0" edit="0" delete="0">
+                <field name="run_id" optional="hide"/>
+                <field name="account_code"/>
+                <field name="account_name"/>
+                <field name="account_type" optional="show"/>
+                <field name="parent_amount" widget="monetary" sum="Parent"/>
+                <field name="subsidiary_amount" widget="monetary" sum="Members"/>
+                <field name="elimination_amount" widget="monetary" sum="Eliminations"/>
+                <field name="nci_amount" widget="monetary" sum="NCI"/>
+                <field name="cta_amount" widget="monetary" sum="CTA"/>
+                <field name="other_amount" widget="monetary" sum="Other"/>
+                <field name="total_amount" widget="monetary" sum="Consolidated"/>
+                <field name="presentation_currency_id" column_invisible="1"/>
+                <button name="action_drilldown" type="object" icon="fa-search-plus"
+                        title="Open source-tagged run lines"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_consol_trial_balance_pivot" model="ir.ui.view">
+        <field name="name">eh.consol.trial.balance.pivot</field>
+        <field name="model">eh.consol.trial.balance</field>
+        <field name="arch" type="xml">
+            <pivot string="Consolidated trial balance">
+                <field name="account_type" type="row"/>
+                <field name="account_id" type="row"/>
+                <field name="total_amount" type="measure"/>
+                <field name="parent_amount" type="measure"/>
+                <field name="subsidiary_amount" type="measure"/>
+                <field name="elimination_amount" type="measure"/>
+                <field name="nci_amount" type="measure"/>
+                <field name="cta_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="eh_account_consolidation_consol_run_view_graph" model="ir.ui.view">
+        <field name="name">eh.consol.run.graph</field>
+        <field name="model">eh.consol.run</field>
+        <field name="arch" type="xml">
+            <graph string="Consolidation runs" sample="1">
+                <field name="entity_id"/>
+                <field name="cta_amount" type="measure"/>
+                <field name="nci_amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_consolidation_consol_run_view_pivot" model="ir.ui.view">
+        <field name="name">eh.consol.run.pivot</field>
+        <field name="model">eh.consol.run</field>
+        <field name="arch" type="xml">
+            <pivot string="Consolidation runs" sample="1">
+                <field name="entity_id" type="row"/>
+                <field name="period_to" type="col" interval="year"/>
+                <field name="cta_amount" type="measure"/>
+                <field name="nci_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_consol_run" model="ir.actions.act_window">
+        <field name="name">Consolidation runs</field>
+        <field name="res_model">eh.consol.run</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_consol_run_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first consolidation run</p>
+            <p>A consolidation run combines the members of an entity for a period and produces the group set with IAS 21 translation and non-controlling interest. Pick an entity and a period, then compute the run.</p>
+        </field>
+    </record>
+
+</odoo>

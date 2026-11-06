@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="0">
+    <data>
+
+        <record id="rule_eh_cost_card_company" model="ir.rule">
+            <field name="name">eh.cost.card: company isolation</field>
+            <field name="model_id" ref="model_eh_cost_card"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_cost_card_line_company" model="ir.rule">
+            <field name="name">eh.cost.card.line: company isolation</field>
+            <field name="model_id" ref="model_eh_cost_card_line"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_cost_actual_company" model="ir.rule">
+            <field name="name">eh.cost.actual: company isolation</field>
+            <field name="model_id" ref="model_eh_cost_actual"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_cost_actual_line_company" model="ir.rule">
+            <field name="name">eh.cost.actual.line: company isolation</field>
+            <field name="model_id" ref="model_eh_cost_actual_line"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_cost_variance_run_company" model="ir.rule">
+            <field name="name">eh.cost.variance.run: company isolation</field>
+            <field name="model_id" ref="model_eh_cost_variance_run"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_cost_variance_line_company" model="ir.rule">
+            <field name="name">eh.cost.variance.line: company isolation</field>
+            <field name="model_id" ref="model_eh_cost_variance_line"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_contribution_report_company" model="ir.rule">
+            <field name="name">eh.contribution.report: company isolation</field>
+            <field name="model_id" ref="model_eh_contribution_report"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_contribution_report_line_company" model="ir.rule">
+            <field name="name">eh.contribution.report.line: company isolation</field>
+            <field name="model_id" ref="model_eh_contribution_report_line"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

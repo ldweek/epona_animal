@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <!--
+            Daily FX rate fetch.
+
+            Runs once daily from the installation-generated nextcall.
+            Each enabled config is fetched in turn;
+            failures are caught per-config so a single provider
+            outage does not block the others.
+
+            Operators with a manual workflow leave the config row's
+            provider on 'manual' or untick `enabled`; the cron skips
+            those rows. There is no cost to keeping the cron active
+            even when no companies opt in.
+        -->
+
+        <record id="cron_eh_fx_rate_fetch_daily" model="ir.cron">
+            <field name="name">EH FX: daily rate fetch</field>
+            <field name="model_id" ref="model_eh_fx_rate_config"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_fetch_daily()</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="active" eval="True"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+        </record>
+
+    </data>
+</odoo>

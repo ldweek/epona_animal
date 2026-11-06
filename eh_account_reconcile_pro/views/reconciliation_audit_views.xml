@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_reconciliation_audit_tree" model="ir.ui.view">
+        <field name="name">eh.reconciliation.audit.list</field>
+        <field name="model">eh.reconciliation.audit</field>
+        <field name="arch" type="xml">
+            <list string="Reconciliation Decisions"
+                  default_order="decided_at desc"
+                  create="0"
+                  edit="0"
+                  sample="1">
+                <field name="decided_at"/>
+                <field name="user_id"/>
+                <field name="statement_line_id"/>
+                <field name="aml_id"/>
+                <field name="decision" widget="badge"
+                       decoration-success="decision == 'match'"
+                       decoration-warning="decision == 'write_off'"
+                       decoration-info="decision == 'skip'"
+                       decoration-danger="decision == 'undo'"/>
+                <field name="source"/>
+                <field name="confidence" widget="percentage"/>
+                <field name="rules_fired"/>
+                <field name="decision_group" optional="hide"/>
+                <field name="adjusting_move_id" optional="hide"/>
+                <field name="reversal_move_id" optional="hide"/>
+                <field name="session_id" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_reconciliation_audit_form" model="ir.ui.view">
+        <field name="name">eh.reconciliation.audit.form</field>
+        <field name="model">eh.reconciliation.audit</field>
+        <field name="arch" type="xml">
+            <form string="Reconciliation Decision" create="0" edit="0">
+                <header>
+                    <button name="action_open_undo_wizard"
+                            type="object"
+                            string="Controlled Undo"
+                            class="btn-primary"
+                            invisible="decision not in ('match', 'write_off') or not decision_group"
+                            groups="eh_account_base.group_eh_manager"/>
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="display_name" readonly="1"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="decided_at"/>
+                            <field name="user_id"/>
+                            <field name="session_id"/>
+                            <field name="decision"/>
+                            <field name="source"/>
+                        </group>
+                        <group>
+                            <field name="statement_line_id"/>
+                            <field name="aml_id"/>
+                            <field name="confidence" widget="percentage"/>
+                            <field name="rules_fired"/>
+                            <field name="decision_group"/>
+                            <field name="adjusting_move_id"/>
+                            <field name="original_audit_id"/>
+                            <field name="reversal_move_id"/>
+                            <field name="reversal_date"/>
+                        </group>
+                    </group>
+                    <group string="Undo evidence" invisible="decision != 'undo'">
+                        <field name="undo_reason"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_reconciliation_audit_search" model="ir.ui.view">
+        <field name="name">eh.reconciliation.audit.search</field>
+        <field name="model">eh.reconciliation.audit</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id"/>
+                <field name="statement_line_id"/>
+                <field name="aml_id"/>
+                <field name="rules_fired"/>
+                <filter name="filter_match" string="Matched"
+                        domain="[('decision', '=', 'match')]"/>
+                <filter name="filter_write_off" string="Written Off"
+                        domain="[('decision', '=', 'write_off')]"/>
+                <filter name="filter_skip" string="Skipped"
+                        domain="[('decision', '=', 'skip')]"/>
+                <filter name="filter_undo" string="Controlled Undo"
+                        domain="[('decision', '=', 'undo')]"/>
+                <separator/>
+                <filter name="filter_suggestion" string="From Suggestions"
+                        domain="[('source', '=', 'suggestion')]"/>
+                <filter name="filter_manual" string="Manual"
+                        domain="[('source', '=', 'manual')]"/>
+                <group>
+                    <filter name="group_user" string="User"
+                            context="{'group_by': 'user_id'}"/>
+                    <filter name="group_decision" string="Decision"
+                            context="{'group_by': 'decision'}"/>
+                    <filter name="group_source" string="Source"
+                            context="{'group_by': 'source'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_reconciliation_audit" model="ir.actions.act_window">
+        <field name="name">Reconciliation Decisions</field>
+        <field name="res_model">eh.reconciliation.audit</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id"
+               ref="view_eh_reconciliation_audit_search"/>
+    </record>
+
+</odoo>

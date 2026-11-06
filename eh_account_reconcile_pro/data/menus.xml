@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <menuitem id="menu_eh_reconcile_root"
+                  name="Bank Reconciliation"
+                  parent="eh_account_base.menu_eh_operations"
+                  sequence="40"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <record id="action_eh_reconcile_workspace" model="ir.actions.client">
+            <field name="name">Bank Reconciliation</field>
+            <field name="tag">eh_reconcile_workspace</field>
+        </record>
+
+        <menuitem id="menu_eh_reconcile_workspace"
+                  name="Workspace"
+                  parent="menu_eh_reconcile_root"
+                  action="action_eh_reconcile_workspace"
+                  sequence="5"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <menuitem id="menu_eh_reconciliation_session"
+                  name="Sessions"
+                  parent="menu_eh_reconcile_root"
+                  action="action_eh_reconciliation_session"
+                  sequence="10"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <menuitem id="menu_eh_reconciliation_rule"
+                  name="Reconciliation Rules"
+                  parent="eh_account_base.menu_eh_config_operations"
+                  action="action_eh_reconciliation_rule"
+                  sequence="70"
+                  groups="eh_account_base.group_eh_manager"/>
+
+        <menuitem id="menu_eh_reconciliation_audit"
+                  name="Reconciliation Decisions"
+                  parent="eh_account_base.menu_eh_config_audit"
+                  action="action_eh_reconciliation_audit"
+                  sequence="40"
+                  groups="eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_reconciliation_exception"
+                  name="Exception Report"
+                  parent="menu_eh_reconcile_root"
+                  action="action_eh_reconciliation_exception_wizard"
+                  sequence="80"
+                  groups="eh_account_base.group_eh_user"/>
+
+    </data>
+</odoo>

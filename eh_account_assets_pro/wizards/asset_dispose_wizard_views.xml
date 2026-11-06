@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_asset_dispose_wizard_form" model="ir.ui.view">
+        <field name="name">eh.asset.dispose.wizard.form</field>
+        <field name="model">eh.asset.dispose.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Dispose Asset">
+                <sheet>
+                    <group>
+                        <field name="asset_id" readonly="1"/>
+                        <field name="disposal_date"/>
+                        <field name="sale_invoice_line_id"
+                               options="{'no_create': True}"/>
+                        <field name="proceeds"
+                               readonly="sale_invoice_line_id"/>
+                        <field name="partner_id"
+                               readonly="sale_invoice_line_id"/>
+                        <field name="cash_account_id"
+                               required="proceeds > 0 and not sale_invoice_line_id"
+                               invisible="proceeds == 0 or sale_invoice_line_id"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="company_id" invisible="1"/>
+                        <field name="revaluation_surplus" readonly="1"
+                               invisible="revaluation_surplus == 0"/>
+                        <field name="revaluation_reserve_account_id"
+                               required="revaluation_surplus != 0"
+                               invisible="revaluation_surplus == 0"/>
+                        <field name="retained_earnings_account_id"
+                               required="revaluation_surplus != 0"
+                               invisible="revaluation_surplus == 0"/>
+                        <field name="nbv" readonly="1"/>
+                        <field name="expected_gain_loss" readonly="1"/>
+                        <field name="notes" placeholder="Internal notes" colspan="2"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_dispose"
+                            type="object"
+                            string="Dispose"
+                            class="btn-warning"
+                            confirm="Post the disposal entry and close the asset?"/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_asset_dispose_wizard" model="ir.actions.act_window">
+        <field name="name">Dispose Asset</field>
+        <field name="res_model">eh.asset.dispose.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

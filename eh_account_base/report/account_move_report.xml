@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        Branded Journal Entry print report for any account.move record.
+
+        Adds a "Print Journal Entry" action under the form-view print
+        menu on account.move. Renders a branded A4 portrait PDF for
+        any move_type (entry, in/out invoice/refund, opening) so the
+        same button can attach a clean accounting record to any audit
+        or review request, distinct from the standard customer
+        invoice / vendor bill prints.
+
+        The styling pulls from the suite stylesheet (eh_report_styles)
+        so a re-brand is a one-file change and every report stays
+        visually aligned with the suite's charcoal-navy + parchment +
+        amber palette.
+    -->
+
+    <record id="action_report_eh_account_move" model="ir.actions.report">
+        <field name="name">Journal Entry</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">eh_account_base.report_eh_account_move</field>
+        <field name="report_file">eh_account_base.report_eh_account_move</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="eh_account_base.paperformat_eh_portrait"/>
+    </record>
+
+    <template id="report_eh_account_move_styles">
+        <style type="text/css">
+            .eh_je_header {
+                margin-bottom: 18pt;
+                padding-bottom: 12pt;
+                border-bottom: 1pt solid #C9A372;
+            }
+            .eh_je_eyebrow {
+                font-size: 8.5pt;
+                font-weight: 700;
+                color: #C9A372;
+                letter-spacing: 0.16em;
+                text-transform: uppercase;
+                margin-bottom: 4pt;
+            }
+            .eh_je_meta_grid {
+                width: 100%;
+                margin-top: 10pt;
+                font-size: 9.5pt;
+            }
+            .eh_je_meta_grid td {
+                padding: 4pt 12pt 4pt 0;
+                vertical-align: top;
+            }
+            .eh_je_meta_grid .label {
+                color: #6c757d;
+                text-transform: uppercase;
+                font-size: 7.5pt;
+                letter-spacing: 0.08em;
+                margin-bottom: 2pt;
+                font-weight: 700;
+            }
+            .eh_je_meta_grid .value {
+                color: #1a2332;
+                font-size: 10.5pt;
+                font-weight: 600;
+            }
+            .eh_je_meta_grid .sub {
+                color: #6c757d;
+                font-size: 8.5pt;
+                margin-top: 1pt;
+            }
+            .eh_je_status {
+                display: inline-block;
+                padding: 3pt 10pt;
+                border-radius: 10pt;
+                font-size: 8pt;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+            }
+            .eh_je_status.posted { background: #d4edda; color: #155724; }
+            .eh_je_status.draft  { background: #fff3cd; color: #856404; }
+            .eh_je_status.cancel { background: #f8d7da; color: #721c24; }
+
+            .eh_je_table .col_account  { width: 18%; }
+            .eh_je_table .col_label    { width: 26%; }
+            .eh_je_table .col_partner  { width: 16%; }
+            .eh_je_table .col_analytic { width: 9%; }
+            .eh_je_table .col_tax      { width: 9%;  text-align: right; }
+            .eh_je_table .col_debit    { width: 11%; text-align: right; }
+            .eh_je_table .col_credit   { width: 11%; text-align: right; }
+
+            .eh_je_table tbody td.amount {
+                font-variant-numeric: tabular-nums;
+                font-feature-settings: "tnum";
+                font-family: "DM Mono", "Menlo", "Consolas", monospace;
+                font-size: 10pt;
+            }
+            .eh_je_table tr.eh_je_total td {
+                background: #1a2332;
+                color: #fdf6e3;
+                font-weight: 700;
+                border-top: 1.5pt solid #C9A372;
+                border-bottom: 1.5pt solid #C9A372;
+                padding: 9pt 9pt;
+                font-size: 10.5pt;
+            }
+            .eh_je_table tr.eh_je_total td.amount {
+                color: #C9A372;
+            }
+
+            .eh_je_account_code {
+                font-weight: 700;
+                color: #1a2332;
+                font-family: "DM Mono", "Menlo", monospace;
+                font-size: 9.5pt;
+            }
+            .eh_je_account_name {
+                color: #6c757d;
+                font-size: 9pt;
+                margin-top: 1pt;
+            }
+
+            .eh_je_narration {
+                margin-top: 18pt;
+                padding: 12pt 14pt;
+                background: #faf6ee;
+                border-left: 3pt solid #C9A372;
+                font-size: 10pt;
+                line-height: 1.5;
+                color: #2c3e50;
+            }
+            .eh_je_narration .label {
+                color: #6c757d;
+                text-transform: uppercase;
+                font-size: 7.5pt;
+                letter-spacing: 0.08em;
+                margin-bottom: 4pt;
+                font-weight: 700;
+            }
+
+            .eh_je_signature_block {
+                margin-top: 32pt;
+                width: 100%;
+            }
+            .eh_je_signature_block td {
+                width: 50%;
+                padding: 0 16pt;
+                vertical-align: top;
+            }
+            .eh_je_signature_line {
+                border-top: 0.5pt solid #495057;
+                margin-top: 28pt;
+                padding-top: 4pt;
+                font-size: 8.5pt;
+                color: #6c757d;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+            }
+        </style>
+    </template>
+
+    <template id="report_eh_account_move">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="move">
+                <t t-call="web.external_layout">
+                    <t t-call="eh_account_base.eh_report_styles"/>
+                    <t t-call="eh_account_base.report_eh_account_move_styles"/>
+                    <div class="page eh_pdf_page" style="padding: 6pt 0;">
+
+                        <!-- Header band -->
+                        <div class="eh_je_header">
+                            <div class="eh_je_eyebrow">Journal Entry</div>
+                            <h1 class="eh_pdf_title">
+                                <t t-out="move.name or 'Draft'"/>
+                            </h1>
+                            <table class="eh_je_meta_grid">
+                                <tr>
+                                    <td style="width: 28%;">
+                                        <div class="label">Journal</div>
+                                        <div class="value">
+                                            <t t-out="move.journal_id.name or '-'"/>
+                                        </div>
+                                        <div t-if="move.journal_id.code" class="sub">
+                                            Code: <t t-out="move.journal_id.code"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 22%;">
+                                        <div class="label">Date</div>
+                                        <div class="value">
+                                            <span t-if="move.date" t-field="move.date"
+                                                  t-options="{'widget': 'date'}"/>
+                                            <t t-else="">-</t>
+                                        </div>
+                                        <div t-if="move.invoice_date_due" class="sub">
+                                            Due <span t-field="move.invoice_date_due"
+                                                      t-options="{'widget': 'date'}"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 25%;">
+                                        <div class="label">Type</div>
+                                        <div class="value">
+                                            <t t-out="move._eh_selection_label('move_type') or 'Entry'"/>
+                                        </div>
+                                        <div t-if="move.ref" class="sub">
+                                            Ref: <t t-out="move.ref"/>
+                                        </div>
+                                    </td>
+                                    <td style="width: 25%;">
+                                        <div class="label">Status</div>
+                                        <div>
+                                            <span t-attf-class="eh_je_status #{move.state}">
+                                                <t t-out="move._eh_selection_label('state')"/>
+                                            </span>
+                                        </div>
+                                        <div class="sub">
+                                            Ledger
+                                            <t t-out="move.company_currency_id.name or ''"/>
+                                            <t t-if="move.currency_id != move.company_currency_id">
+                                                / Document
+                                                <t t-out="move.currency_id.name or ''"/>
+                                            </t>
+                                            <t t-if="move.company_id"> /
+                                                <t t-out="move.company_id.name"/>
+                                            </t>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr t-if="move.partner_id">
+                                    <td colspan="4" style="padding-top: 10pt;">
+                                        <div class="label">Partner</div>
+                                        <div class="value">
+                                            <t t-out="move.partner_id.display_name"/>
+                                            <t t-if="move.partner_id.vat">
+                                                <span class="sub" style="margin-left: 12pt;">
+                                                    VAT <t t-out="move.partner_id.vat"/>
+                                                </span>
+                                            </t>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr t-if="move.eh_sealed or move.eh_legacy_unverified_seal or move.inalterable_hash">
+                                    <td colspan="4" style="padding-top: 10pt;">
+                                        <div class="label">Integrity Evidence</div>
+                                        <div class="value">
+                                            <t t-if="move.eh_sealed">Verified EH seal</t>
+                                            <t t-elif="move.eh_legacy_unverified_seal">Legacy seal - unverified</t>
+                                            <t t-else="">Odoo secure-entry hash</t>
+                                        </div>
+                                        <div t-if="move.secure_sequence_number" class="sub">
+                                            Secure sequence <t t-out="move.secure_sequence_number"/>
+                                        </div>
+                                        <div t-if="move.inalterable_hash" class="sub"
+                                             style="overflow-wrap: anywhere; word-break: break-all;">
+                                            Hash <t t-out="move.inalterable_hash"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- Lines table -->
+                        <h2 class="eh_pdf_subtitle">Journal Items</h2>
+                        <table class="eh_pdf_table eh_je_table">
+                            <thead>
+                                <tr>
+                                    <th class="col_account">Account</th>
+                                    <th class="col_label">Label</th>
+                                    <th class="col_partner">Partner</th>
+                                    <th class="col_analytic">Analytic</th>
+                                    <th class="col_tax">Tax</th>
+                                    <th class="col_debit">Debit</th>
+                                    <th class="col_credit">Credit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="total_debit" t-value="0.0"/>
+                                <t t-set="total_credit" t-value="0.0"/>
+                                <t t-foreach="move.line_ids" t-as="line">
+                                    <t t-set="line_debit"
+                                       t-value="move.company_currency_id.round(line.debit)"/>
+                                    <t t-set="line_credit"
+                                       t-value="move.company_currency_id.round(line.credit)"/>
+                                    <tr>
+                                        <td class="col_account">
+                                            <div class="eh_je_account_code">
+                                                <t t-out="line.account_id.code or ''"/>
+                                            </div>
+                                            <div t-if="line.account_id.name" class="eh_je_account_name">
+                                                <t t-out="line.account_id.name"/>
+                                            </div>
+                                        </td>
+                                        <td class="col_label">
+                                            <t t-out="line.name or ''"/>
+                                        </td>
+                                        <td class="col_partner">
+                                            <t t-out="line.partner_id.display_name or ''"/>
+                                        </td>
+                                        <td class="col_analytic">
+                                            <t t-if="line.analytic_distribution">
+                                                <span style="font-size: 8pt; color: #6c757d;">
+                                                    <t t-out="line._eh_analytic_distribution_display()"/>
+                                                </span>
+                                            </t>
+                                        </td>
+                                        <td class="col_tax">
+                                            <t t-if="line.tax_ids">
+                                                <span style="font-size: 8.5pt;">
+                                                    <t t-out="', '.join(line.tax_ids.mapped('name'))"/>
+                                                </span>
+                                            </t>
+                                        </td>
+                                        <td class="col_debit amount">
+                                            <t t-if="line_debit"
+                                               t-out="line_debit"
+                                               t-options="{'widget': 'monetary', 'display_currency': move.company_currency_id}"/>
+                                        </td>
+                                        <td class="col_credit amount">
+                                            <t t-if="line_credit"
+                                               t-out="line_credit"
+                                               t-options="{'widget': 'monetary', 'display_currency': move.company_currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="total_debit" t-value="total_debit + line_debit"/>
+                                    <t t-set="total_credit" t-value="total_credit + line_credit"/>
+                                </t>
+                                <tr class="eh_je_total">
+                                    <td colspan="5" style="text-align: right;">Totals</td>
+                                    <td class="amount">
+                                        <t t-out="total_debit"
+                                           t-options="{'widget': 'monetary', 'display_currency': move.company_currency_id}"/>
+                                    </td>
+                                    <td class="amount">
+                                        <t t-out="total_credit"
+                                           t-options="{'widget': 'monetary', 'display_currency': move.company_currency_id}"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Narration -->
+                        <div t-if="move.narration" class="eh_je_narration">
+                            <div class="label">Narration</div>
+                            <div>
+                                <t t-out="move.narration"/>
+                            </div>
+                        </div>
+
+                        <!-- Signatures -->
+                        <table class="eh_je_signature_block">
+                            <tr>
+                                <td>
+                                    <div class="eh_je_signature_line">Prepared by</div>
+                                </td>
+                                <td>
+                                    <div class="eh_je_signature_line">Approved by</div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <t t-call="eh_account_base.eh_report_footer"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

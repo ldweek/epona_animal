@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- ===================== eh.benefit.plan ===================== -->
+
+    <record id="view_eh_benefit_plan_list" model="ir.ui.view">
+        <field name="name">eh.benefit.plan.list</field>
+        <field name="model">eh.benefit.plan</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="country_note" optional="show"/>
+                <field name="funded"/>
+                <field name="latest_recognised_position" widget="monetary" optional="show"/>
+                <field name="valuation_count" optional="hide"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'active'"
+                       decoration-muted="state == 'closed'"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_benefit_plan_form" model="ir.ui.view">
+        <field name="name">eh.benefit.plan.form</field>
+        <field name="model">eh.benefit.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_activate" type="object"
+                            string="Activate" class="btn-primary"
+                            invisible="state != 'draft'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_close" type="object"
+                            string="Close"
+                            invisible="state != 'active'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reopen" type="object"
+                            string="Reopen"
+                            invisible="state != 'closed'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_print_disclosure" type="object"
+                            string="IAS 19 Disclosure"
+                            groups="eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,active,closed" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_valuations" type="object"
+                                class="oe_stat_button" icon="fa-calendar">
+                            <field name="valuation_count" widget="statinfo"
+                                   string="Valuations"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="e.g. Group Pension Plan"/></h1>
+                    </div>
+                    <group>
+                        <group string="Plan">
+                            <field name="country_note"/>
+                            <field name="funded"/>
+                            <field name="contributions_posted_elsewhere"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Latest Posted Position">
+                            <field name="latest_closing_dbo" widget="monetary" readonly="1"/>
+                            <field name="latest_closing_assets" widget="monetary" readonly="1"/>
+                            <field name="latest_net_liability" widget="monetary" readonly="1"/>
+                            <field name="latest_recognised_position" widget="monetary" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Accounts">
+                        <group>
+                            <field name="service_cost_account_id"/>
+                            <field name="net_interest_account_id"/>
+                            <field name="oci_account_id"/>
+                            <field name="journal_id"/>
+                        </group>
+                        <group>
+                            <field name="dbo_account_id"/>
+                            <field name="plan_asset_account_id"
+                                   invisible="not funded"/>
+                            <field name="contribution_account_id"
+                                   invisible="not funded or not contributions_posted_elsewhere"/>
+                            <field name="contribution_cash_account_id"
+                                   invisible="not funded or contributions_posted_elsewhere"/>
+                            <field name="benefit_payment_account_id"
+                                   invisible="funded"/>
+                        </group>
+                    </group>
+                    <group string="Valuation Rollforward (IAS 19.140-141)">
+                        <field name="valuation_ids" nolabel="1" colspan="2" readonly="1">
+                            <list>
+                                <field name="period_end"/>
+                                <field name="opening_dbo" widget="monetary"/>
+                                <field name="closing_dbo" widget="monetary"/>
+                                <field name="opening_assets" widget="monetary"/>
+                                <field name="closing_assets" widget="monetary"/>
+                                <field name="oci_remeasurement" widget="monetary"/>
+                                <field name="pnl_total" widget="monetary"/>
+                                <field name="recognised_net_position" widget="monetary"/>
+                                <field name="currency_id" column_invisible="1"/>
+                                <field name="state" widget="badge"
+                                       decoration-success="state == 'posted'"
+                                       decoration-muted="state == 'reversed'"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group>
+                        <field name="notes" nolabel="1" colspan="2"
+                               placeholder="Plan terms, actuary, valuation cadence..."/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_benefit_plan_search" model="ir.ui.view">
+        <field name="name">eh.benefit.plan.search</field>
+        <field name="model">eh.benefit.plan</field>
+        <field name="arch" type="xml">
+            <search string="Benefit Plans">
+                <field name="name"/>
+                <field name="country_note"/>
+                <field name="company_id"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="active" string="Active" domain="[('state', '=', 'active')]"/>
+                <filter name="closed" string="Closed" domain="[('state', '=', 'closed')]"/>
+                <filter name="funded" string="Funded" domain="[('funded', '=', True)]"/>
+                <group>
+                    <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+                    <filter name="group_company" string="Company" context="{'group_by': 'company_id'}"/>
+                    <filter name="group_funded" string="Funding" context="{'group_by': 'funded'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_benefit_plan" model="ir.actions.act_window">
+        <field name="name">Benefit Plans</field>
+        <field name="res_model">eh.benefit.plan</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_benefit_plan_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first benefit plan</p>
+            <p>Set up a defined benefit or funded plan here, wire its accounts and journal, then record valuations against it to track the IAS 19 net position.</p>
+        </field>
+    </record>
+
+    <record id="view_eh_benefit_valuation_search" model="ir.ui.view">
+        <field name="name">eh.benefit.valuation.search</field>
+        <field name="model">eh.benefit.valuation</field>
+        <field name="arch" type="xml">
+            <search string="Benefit Valuations">
+                <field name="name"/>
+                <field name="plan_id"/>
+                <field name="period_end"/>
+                <field name="company_id"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="posted" string="Posted" domain="[('state', '=', 'posted')]"/>
+                <filter name="reversed" string="Reversed" domain="[('state', '=', 'reversed')]"/>
+                <group>
+                    <filter name="group_plan" string="Plan" context="{'group_by': 'plan_id'}"/>
+                    <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+                    <filter name="group_period" string="Period Year" context="{'group_by': 'period_end:year'}"/>
+                    <filter name="group_company" string="Company" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ===================== eh.benefit.valuation ===================== -->
+
+    <record id="view_eh_benefit_valuation_list" model="ir.ui.view">
+        <field name="name">eh.benefit.valuation.list</field>
+        <field name="model">eh.benefit.valuation</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="plan_id"/>
+                <field name="period_end"/>
+                <field name="opening_dbo" widget="monetary" optional="hide"/>
+                <field name="closing_dbo" widget="monetary" optional="show"/>
+                <field name="closing_assets" widget="monetary" optional="show"/>
+                <field name="oci_remeasurement" widget="monetary" optional="show"/>
+                <field name="pnl_total" widget="monetary" optional="show"/>
+                <field name="recognised_net_position" widget="monetary" optional="hide"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'posted'"
+                       decoration-muted="state == 'reversed'"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_benefit_valuation_form" model="ir.ui.view">
+        <field name="name">eh.benefit.valuation.form</field>
+        <field name="model">eh.benefit.valuation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_post" type="object"
+                            string="Post" class="btn-primary"
+                            invisible="state != 'draft'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reverse" type="object"
+                            string="Reverse"
+                            invisible="state != 'posted'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,posted" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not provenance_quarantined">
+                        <field name="provenance_quarantined" invisible="1"/>
+                        <strong>Legacy provenance quarantine:</strong>
+                        <field name="provenance_quarantine_note"
+                               readonly="1" nolabel="1"/>
+                        <field name="provenance_remediation_reference"
+                               placeholder="Manager/auditor review reference"/>
+                        <field name="reversal_date"/>
+                        <button name="action_remediate_provenance"
+                                type="object"
+                                string="Neutralise Quarantined Evidence"
+                                class="btn-secondary"
+                                groups="eh_account_base.group_eh_manager"/>
+                    </div>
+                    <group string="Legacy Evidence Remediation"
+                           invisible="not provenance_remediated_at">
+                        <field name="provenance_remediated_by_id" readonly="1"/>
+                        <field name="provenance_remediated_at" readonly="1"/>
+                        <field name="provenance_quarantine_note" readonly="1"/>
+                    </group>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_moves" type="object"
+                                class="oe_stat_button" icon="fa-book">
+                            <field name="move_count" widget="statinfo"
+                                   string="Entries"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Period">
+                            <field name="plan_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="plan_funded" invisible="1"/>
+                            <field name="period_end"
+                                   readonly="state != 'draft'"/>
+                            <field name="discount_rate"
+                                   readonly="state != 'draft'"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Opening Position">
+                            <field name="opening_dbo" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="opening_assets" widget="monetary"
+                                   readonly="state != 'draft'"
+                                   invisible="not plan_funded"/>
+                            <field name="opening_ceiling_effect" widget="monetary"
+                                   readonly="state != 'draft'"
+                                   invisible="not plan_funded"/>
+                        </group>
+                    </group>
+                    <group string="Actuarial Inputs (imported, never computed here)">
+                        <group>
+                            <field name="current_service_cost" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="past_service_cost" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="benefits_paid" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="contributions_employer" widget="monetary"
+                                   readonly="state != 'draft'"
+                                   invisible="not plan_funded"/>
+                        </group>
+                        <group>
+                            <field name="actuarial_gain_loss_dbo" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="return_on_assets_excess" widget="monetary"
+                                   readonly="state != 'draft'"
+                                   invisible="not plan_funded"/>
+                        </group>
+                    </group>
+                    <group string="Settlements (IAS 19.109-112)">
+                        <group>
+                            <field name="settlement_dbo_released" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="settlement_payment" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="settlement_gain_loss" widget="monetary"
+                                   readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Asset Ceiling (IAS 19.64)"
+                           invisible="not plan_funded">
+                        <group>
+                            <field name="apply_asset_ceiling"
+                                   readonly="state != 'draft'"/>
+                            <field name="asset_ceiling" widget="monetary"
+                                   readonly="state != 'draft'"
+                                   invisible="not apply_asset_ceiling"/>
+                        </group>
+                        <group>
+                            <field name="ceiling_effect" widget="monetary" readonly="1"/>
+                            <field name="ceiling_effect_delta" widget="monetary" readonly="1"/>
+                            <field name="recognised_asset" widget="monetary" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Computed Mechanics">
+                        <group>
+                            <field name="interest_cost" widget="monetary" readonly="1"/>
+                            <field name="interest_income" widget="monetary" readonly="1"
+                                   invisible="not plan_funded"/>
+                            <field name="net_interest" widget="monetary" readonly="1"/>
+                            <field name="service_cost_total" widget="monetary" readonly="1"/>
+                            <field name="pnl_total" widget="monetary" readonly="1"/>
+                            <field name="oci_remeasurement" widget="monetary" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="closing_dbo" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="closing_assets" widget="monetary"
+                                   readonly="state != 'draft'"
+                                   invisible="not plan_funded"/>
+                            <field name="reversal_date"
+                                   invisible="state != 'posted' or provenance_quarantined"/>
+                            <field name="net_liability" widget="monetary" readonly="1"/>
+                            <field name="recognised_net_position" widget="monetary" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes" nolabel="1" colspan="2"
+                               placeholder="Actuary report reference, assumptions summary, source of the discount rate..."/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="eh_account_employee_benefits_benefit_valuation_view_graph" model="ir.ui.view">
+        <field name="name">eh.benefit.valuation.graph</field>
+        <field name="model">eh.benefit.valuation</field>
+        <field name="arch" type="xml">
+            <graph string="Benefit Valuations" sample="1">
+                <field name="period_end" interval="year"/>
+                <field name="plan_id"/>
+                <field name="pnl_total" type="measure"/>
+                <field name="oci_remeasurement" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_employee_benefits_benefit_valuation_view_pivot" model="ir.ui.view">
+        <field name="name">eh.benefit.valuation.pivot</field>
+        <field name="model">eh.benefit.valuation</field>
+        <field name="arch" type="xml">
+            <pivot string="Benefit Valuations" sample="1">
+                <field name="plan_id" type="row"/>
+                <field name="period_end" interval="year" type="col"/>
+                <field name="pnl_total" type="measure"/>
+                <field name="oci_remeasurement" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_benefit_valuation" model="ir.actions.act_window">
+        <field name="name">Benefit Valuations</field>
+        <field name="res_model">eh.benefit.valuation</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_benefit_valuation_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Record your first valuation</p>
+            <p>Capture a period-end actuarial position for a benefit plan, then post it to book the service cost, net interest, and OCI remeasurement under IAS 19.</p>
+        </field>
+    </record>
+
+    <record id="view_eh_benefit_dc_accrual_search" model="ir.ui.view">
+        <field name="name">eh.benefit.dc.accrual.search</field>
+        <field name="model">eh.benefit.dc.accrual</field>
+        <field name="arch" type="xml">
+            <search string="DC Contribution Accruals">
+                <field name="name"/>
+                <field name="period_date"/>
+                <field name="company_id"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="posted" string="Posted" domain="[('state', '=', 'posted')]"/>
+                <filter name="reversed" string="Reversed" domain="[('state', '=', 'reversed')]"/>
+                <group>
+                    <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+                    <filter name="group_period" string="Period Year" context="{'group_by': 'period_date:year'}"/>
+                    <filter name="group_company" string="Company" context="{'group_by': 'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ===================== eh.benefit.dc.accrual ===================== -->
+
+    <record id="view_eh_benefit_dc_accrual_list" model="ir.ui.view">
+        <field name="name">eh.benefit.dc.accrual.list</field>
+        <field name="model">eh.benefit.dc.accrual</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="period_date"/>
+                <field name="amount" widget="monetary"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'posted'"
+                       decoration-muted="state == 'reversed'"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_benefit_dc_accrual_form" model="ir.ui.view">
+        <field name="name">eh.benefit.dc.accrual.form</field>
+        <field name="model">eh.benefit.dc.accrual</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_post" type="object"
+                            string="Post" class="btn-primary"
+                            invisible="state != 'draft'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reverse" type="object"
+                            string="Reverse"
+                            invisible="state != 'posted'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,posted" readonly="1"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not provenance_quarantined">
+                        <field name="provenance_quarantined" invisible="1"/>
+                        <strong>Legacy provenance quarantine:</strong>
+                        <field name="provenance_quarantine_note"
+                               readonly="1" nolabel="1"/>
+                        <field name="provenance_remediation_reference"
+                               placeholder="Manager/auditor review reference"/>
+                        <field name="reversal_date"/>
+                        <button name="action_remediate_provenance"
+                                type="object"
+                                string="Neutralise Quarantined Evidence"
+                                class="btn-secondary"
+                                groups="eh_account_base.group_eh_manager"/>
+                    </div>
+                    <group string="Legacy Evidence Remediation"
+                           invisible="not provenance_remediated_at">
+                        <field name="provenance_remediated_by_id" readonly="1"/>
+                        <field name="provenance_remediated_at" readonly="1"/>
+                        <field name="provenance_quarantine_note" readonly="1"/>
+                    </group>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_moves" type="object"
+                                class="oe_stat_button" icon="fa-book">
+                            <field name="move_count" widget="statinfo"
+                                   string="Entries"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="period_date"
+                                   readonly="state != 'draft'"/>
+                            <field name="amount" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="expense_account_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="payable_account_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="journal_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="reversal_date"
+                                   invisible="state != 'posted' or provenance_quarantined"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes" nolabel="1" colspan="2"
+                               placeholder="Plan, employee population, basis of the contribution..."/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_benefit_dc_accrual" model="ir.actions.act_window">
+        <field name="name">DC Contribution Accruals</field>
+        <field name="res_model">eh.benefit.dc.accrual</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_benefit_dc_accrual_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Record your first contribution accrual</p>
+            <p>Accrue a period defined contribution expense against the payable and expense accounts, then post it to book the journal entry.</p>
+        </field>
+    </record>
+
+</odoo>

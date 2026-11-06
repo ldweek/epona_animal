@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_budget_tree" model="ir.ui.view">
+        <field name="name">eh.budget.budget.list</field>
+        <field name="model">eh.budget.budget</field>
+        <field name="arch" type="xml">
+            <list string="Budgets" sample="1" default_order="date_from desc">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="version_label"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'confirmed'"
+                       decoration-muted="state == 'closed'"/>
+                <field name="total_budgeted" widget="monetary"/>
+                <field name="total_actual" widget="monetary"/>
+<!--
+                    Variance is sign-normalised in _compute_variance: green
+                    means actual exceeds budget in the same economic direction
+                    as the account. Favourable for revenue lines, unfavourable
+                    (overspend) for expense lines; read alongside Budget Type.
+                -->
+                <field name="total_variance" widget="monetary"
+                       decoration-danger="total_variance &lt; 0"
+                       decoration-success="total_variance &gt;= 0"/>
+                <field name="total_variance_pct"
+                       string="Var %"
+                       digits="[8, 2]"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_budget_form" model="ir.ui.view">
+        <field name="name">eh.budget.budget.form</field>
+        <field name="model">eh.budget.budget</field>
+        <field name="arch" type="xml">
+            <form string="Budget">
+                <header>
+                    <button name="action_confirm"
+                            type="object"
+                            string="Confirm"
+                            class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_close"
+                            type="object"
+                            string="Close"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state not in ('confirmed', 'revised')"/>
+                    <button name="action_recompute_actuals"
+                            type="object"
+                            string="Recompute Actuals"/>
+                    <button name="action_open_quantity_actuals"
+                            type="object"
+                            string="Update Quantity Actuals"
+                            groups="eh_account_base.group_eh_user"
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_split_lines_by_month"
+                            type="object"
+                            string="Split lines monthly"
+                            invisible="state != 'draft'"
+                            confirm="This will replace existing lines with monthly slices. Continue?"/>
+                    <button name="action_open_split_wizard"
+                            type="object"
+                            string="Split grid (account x analytic x period)"
+                            invisible="state != 'draft'"/>
+                    <button name="action_seed_from_prior_year"
+                            type="object"
+                            string="Seed from prior year"
+                            invisible="state != 'draft'"
+                            confirm="This will replace existing lines with one line per account based on the prior year's posted income and expense. Continue?"/>
+                    <button name="action_seed_from_forecast"
+                            type="object"
+                            string="Seed from forecast"
+                            invisible="state != 'draft'"
+                            confirm="This will replace lines with monthly projections from Holt-Winters seasonal forecasting on the last 24 months. Continue?"/>
+                    <button name="action_create_version"
+                            type="object"
+                            string="Create New Version"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state in ('draft', 'revised')"/>
+                    <button name="action_reforecast"
+                            type="object"
+                            string="Reforecast"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state not in ('confirmed', 'revised')"
+                            confirm="Store a rolling reforecast snapshot (elapsed months at actuals, remaining months re-projected)? Baseline lines are not changed."/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,confirmed,revised,closed"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not eh_commitment_integrity_review_required">
+                        Legacy commitment provenance requires controlled review.
+                        Create and approve a replacement budget version before
+                        confirming further purchase orders.
+                    </div>
+                    <field name="eh_commitment_integrity_review_required"
+                           invisible="1"/>
+                    <field name="eh_commitment_integrity_review_reason"
+                           invisible="not eh_commitment_integrity_review_required"
+                           readonly="1"/>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not eh_activity_integrity_review_required">
+                        Legacy activity baseline is quarantined. Flexible
+                        results ignore it; create a reviewed replacement.
+                    </div>
+                    <field name="eh_activity_integrity_review_required"
+                           invisible="1"/>
+                    <field name="eh_activity_integrity_review_reason"
+                           invisible="not eh_activity_integrity_review_required"
+                           readonly="1"/>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not eh_version_integrity_review_required">
+                        Legacy version lineage is quarantined and cannot be
+                        extended as trusted evidence.
+                    </div>
+                    <field name="eh_version_integrity_review_required"
+                           invisible="1"/>
+                    <field name="eh_version_integrity_review_reason"
+                           invisible="not eh_version_integrity_review_required"
+                           readonly="1"/>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not eh_basis_integrity_review_required">
+                        Legacy approved header and line basis is quarantined.
+                        It cannot drive commitments or revisions; create a new
+                        independently reviewed budget.
+                    </div>
+                    <field name="eh_basis_integrity_review_required"
+                           invisible="1"/>
+                    <field name="eh_basis_integrity_review_reason"
+                           invisible="not eh_basis_integrity_review_required"
+                           readonly="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_lines"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-list">
+                            <field name="line_count"
+                                   widget="statinfo"
+                                   string="Lines"/>
+                        </button>
+                    </div>
+                    <h1>
+                        <field name="name" placeholder="2026 Annual Budget"
+                               readonly="state != 'draft'"/>
+                    </h1>
+                    <group>
+                        <group string="Identity">
+                            <field name="code" placeholder="annual_2026"
+                                   readonly="state != 'draft' or parent_id"/>
+                            <field name="version_label" readonly="1"/>
+                            <field name="version_root_code" readonly="1"/>
+                            <field name="version_sequence" readonly="1"/>
+                            <field name="parent_id" readonly="1"/>
+                            <field name="company_id"
+                                   readonly="1"
+                                   groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group string="Period &amp; Policy">
+                            <field name="budget_type" readonly="state != 'draft'"/>
+                            <field name="date_from" readonly="state != 'draft'"/>
+                            <field name="date_to" readonly="state != 'draft'"/>
+                            <field name="is_rolling" readonly="state != 'draft'"/>
+                            <field name="overrun_policy" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <group string="Totals">
+                        <group string="Planned">
+                            <field name="total_budgeted" widget="monetary"/>
+                        </group>
+                        <group string="Actual &amp; Variance">
+                            <field name="total_actual" widget="monetary"/>
+                            <field name="total_variance" widget="monetary"/>
+                            <field name="total_variance_pct"
+                                   string="Variance %"
+                                   digits="[8, 2]"/>
+                            <field name="total_flexed" widget="monetary"/>
+                            <field name="total_flexed_variance"
+                                   widget="monetary"/>
+                            <field name="total_volume_variance"
+                                   widget="monetary"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids" readonly="state != 'draft'">
+                                <list editable="bottom" default_order="sequence">
+                                    <field name="company_id" column_invisible="1"/>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="account_id"/>
+                                    <field name="analytic_account_id"
+                                           optional="show"/>
+                                    <field name="period_from"/>
+                                    <field name="period_to"/>
+                                    <field name="budgeted_amount"
+                                           widget="monetary"/>
+                                    <field name="behaviour" optional="show"/>
+                                    <field name="fixed_portion"
+                                           widget="monetary"
+                                           optional="hide"
+                                           readonly="behaviour != 'semi_variable'"/>
+                                    <field name="driver" optional="hide"/>
+                                    <field name="driver_line_id"
+                                           optional="hide"
+                                           domain="[('budget_id', '=', parent.id)]"
+                                           readonly="driver != 'revenue_line'"/>
+                                    <field name="budgeted_qty"
+                                           optional="hide"/>
+                                    <field name="budgeted_unit_price"
+                                           optional="hide"/>
+                                    <field name="actual_qty"
+                                           optional="hide"/>
+                                    <field name="actual_unit_price"
+                                           optional="hide"/>
+                                    <field name="quantity_evidence_provided"
+                                           optional="hide"/>
+                                    <field name="normalised_actual_amount"
+                                           widget="monetary" readonly="1"/>
+                                    <field name="flexed_amount"
+                                           widget="monetary" readonly="1"
+                                           optional="show"/>
+<!--
+                                        Flexed variance is sign-normalised
+                                        like the static variance: positive =
+                                        actual beyond the flexed allowance
+                                        (adverse on expense lines, favourable
+                                        on revenue lines).
+                                    -->
+                                    <field name="flexed_variance"
+                                           widget="monetary" readonly="1"
+                                           optional="show"/>
+                                    <field name="volume_variance"
+                                           widget="monetary" readonly="1"
+                                           optional="show"/>
+                                    <field name="price_variance"
+                                           widget="monetary" readonly="1"
+                                           optional="hide"/>
+                                    <field name="efficiency_variance"
+                                           widget="monetary" readonly="1"
+                                           optional="hide"/>
+                                    <field name="revision_amount"
+                                           widget="monetary" readonly="1"
+                                           optional="hide"/>
+                                    <field name="revision_variance"
+                                           widget="monetary" readonly="1"
+                                           optional="hide"/>
+                                    <field name="committed_amount"
+                                           widget="monetary" readonly="1"
+                                           optional="show"/>
+                                    <field name="available_amount"
+                                           widget="monetary" readonly="1"
+                                           optional="show"
+                                           decoration-danger="available_amount &lt; 0"
+                                           decoration-success="available_amount &gt;= 0"/>
+<!--
+                                        Green = actual exceeds budget after
+                                        sign normalisation, regardless of
+                                        favourability (overspend on expense
+                                        lines, over-earn on revenue lines).
+                                    -->
+                                    <field name="variance_amount"
+                                           widget="monetary" readonly="1"
+                                           decoration-danger="variance_amount &lt; 0"
+                                           decoration-success="variance_amount &gt;= 0"/>
+                                    <field name="variance_pct"
+                                           string="Var %"
+                                           digits="[8, 2]" readonly="1"/>
+                                    <field name="notes" optional="hide"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Activity">
+                            <group>
+                                <group>
+                                    <field name="activity_uom"
+                                           readonly="state != 'draft'"
+                                           placeholder="units"/>
+                                </group>
+                            </group>
+                            <field name="activity_period_ids">
+                                <list editable="bottom">
+                                    <field name="name" optional="show"/>
+                                    <field name="period_from"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="period_to"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="budgeted_activity"
+                                           readonly="parent.state != 'draft'"/>
+                                    <field name="actual_activity"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Reforecasts">
+                            <field name="forecast_revision_ids">
+                                <list create="0" edit="0">
+                                    <field name="name"/>
+                                    <field name="revision_date"/>
+                                    <field name="line_count"/>
+                                    <field name="total_amount"
+                                           widget="monetary"/>
+                                    <field name="currency_id"
+                                           column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                    <chatter/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_budget_search" model="ir.ui.view">
+        <field name="name">eh.budget.budget.search</field>
+        <field name="model">eh.budget.budget</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="version_label"/>
+                <filter name="filter_draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_confirmed" string="Confirmed"
+                        domain="[('state', '=', 'confirmed')]"/>
+                <filter name="filter_closed" string="Closed"
+                        domain="[('state', '=', 'closed')]"/>
+                <separator/>
+                <filter name="filter_rolling" string="Rolling"
+                        domain="[('is_rolling', '=', True)]"/>
+                <group>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_year" string="Year"
+                            context="{'group_by': 'date_from:year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_budget" model="ir.actions.act_window">
+        <field name="name">Budgets</field>
+        <field name="res_model">eh.budget.budget</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_budget_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No budgets yet.</p>
+            <p>Create a budget for a period (date range) and add one line per account / sub period combination. Actuals compute automatically from posted journal items in batch.</p>
+        </field>
+    </record>
+
+    <record id="view_eh_budget_line_tree" model="ir.ui.view">
+        <field name="name">eh.budget.line.list</field>
+        <field name="model">eh.budget.line</field>
+        <field name="arch" type="xml">
+            <list string="Budget Lines" default_order="period_from, sequence" sample="1">
+                <field name="budget_id"/>
+                <field name="account_id"/>
+                <field name="analytic_account_id" optional="show"/>
+                <field name="period_from"/>
+                <field name="period_to"/>
+                <field name="budgeted_amount" widget="monetary"/>
+                <field name="behaviour" optional="show"/>
+                <field name="normalised_actual_amount" widget="monetary"/>
+                <field name="flexed_amount" widget="monetary"
+                       optional="show"/>
+                <field name="flexed_variance" widget="monetary"
+                       optional="show"/>
+                <field name="volume_variance" widget="monetary"
+                       optional="show"/>
+                <field name="price_variance" widget="monetary"
+                       optional="hide"/>
+                <field name="efficiency_variance" widget="monetary"
+                       optional="hide"/>
+                <field name="revision_amount" widget="monetary"
+                       optional="hide"/>
+                <field name="revision_variance" widget="monetary"
+                       optional="hide"/>
+                <field name="variance_amount" widget="monetary"
+                       decoration-danger="variance_amount &lt; 0"
+                       decoration-success="variance_amount &gt;= 0"/>
+                <field name="variance_pct" string="Var %" digits="[8, 2]"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_budget_line_quantity_actuals" model="ir.ui.view">
+        <field name="name">eh.budget.line.quantity.actuals.list</field>
+        <field name="model">eh.budget.line</field>
+        <field name="arch" type="xml">
+            <list string="Update Quantity Actuals" editable="bottom"
+                  create="0" delete="0" default_order="period_from, sequence">
+                <field name="budget_id" readonly="1"/>
+                <field name="account_id" readonly="1"/>
+                <field name="analytic_account_id" readonly="1"
+                       optional="show"/>
+                <field name="period_from" readonly="1"/>
+                <field name="period_to" readonly="1"/>
+                <field name="behaviour" readonly="1"/>
+                <field name="budgeted_qty" readonly="1"/>
+                <field name="budgeted_unit_price" readonly="1"/>
+                <field name="actual_qty"/>
+                <field name="actual_unit_price"/>
+                <field name="quantity_evidence_provided"/>
+                <field name="price_variance" readonly="1"
+                       widget="monetary"/>
+                <field name="efficiency_variance" readonly="1"
+                       widget="monetary"/>
+                <field name="split_residual" readonly="1"
+                       widget="monetary"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_budget_line_form" model="ir.ui.view">
+        <field name="name">eh.budget.line.form</field>
+        <field name="model">eh.budget.line</field>
+        <field name="arch" type="xml">
+            <form string="Budget Line">
+                <field name="company_id" invisible="1"/>
+                <header>
+                    <button name="action_view_actuals"
+                            type="object"
+                            string="View Actuals"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="budget_id"/>
+                            <field name="account_id"/>
+                            <field name="analytic_account_id"/>
+                            <field name="sequence"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="period_from"/>
+                            <field name="period_to"/>
+                            <field name="budgeted_amount" widget="monetary"/>
+                            <field name="normalised_actual_amount" widget="monetary"
+                                   readonly="1"/>
+                            <field name="variance_amount" widget="monetary"
+                                   readonly="1"/>
+                            <field name="variance_pct" digits="[8, 2]"
+                                   readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Flexible Budget">
+                            <field name="behaviour"/>
+                            <field name="fixed_portion" widget="monetary"
+                                   invisible="behaviour != 'semi_variable'"/>
+                            <field name="driver"/>
+                            <field name="driver_line_id"
+                                   invisible="driver != 'revenue_line'"
+                                   domain="[('budget_id', '=', budget_id)]"/>
+                            <field name="budgeted_activity" readonly="1"/>
+                            <field name="actual_activity" readonly="1"/>
+                            <field name="activity_ratio" readonly="1"/>
+                            <field name="flexed_amount" widget="monetary"
+                                   readonly="1"/>
+                            <field name="flexed_variance" widget="monetary"
+                                   readonly="1"/>
+                            <field name="volume_variance" widget="monetary"
+                                   readonly="1"/>
+                        </group>
+                        <group string="Quantity Split (variable lines)">
+                            <field name="budgeted_qty"/>
+                            <field name="budgeted_unit_price"/>
+                            <field name="actual_qty"/>
+                            <field name="actual_unit_price"/>
+                            <field name="quantity_evidence_provided"/>
+                            <field name="flexed_qty" readonly="1"/>
+                            <field name="price_variance" widget="monetary"
+                                   readonly="1"/>
+                            <field name="efficiency_variance"
+                                   widget="monetary" readonly="1"/>
+                            <field name="split_residual" widget="monetary"
+                                   readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Reforecast Comparison">
+                            <field name="revision_amount" widget="monetary"
+                                   readonly="1"/>
+                            <field name="revision_variance" widget="monetary"
+                                   readonly="1"/>
+                        </group>
+                    </group>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_budget_line_graph" model="ir.ui.view">
+        <field name="name">eh.budget.line.graph</field>
+        <field name="model">eh.budget.line</field>
+        <field name="arch" type="xml">
+            <graph string="Budget by Account" type="bar" stacked="0">
+                <field name="account_id" type="row"/>
+                <field name="budgeted_amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_eh_budget_line_pivot" model="ir.ui.view">
+        <field name="name">eh.budget.line.pivot</field>
+        <field name="model">eh.budget.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Budget by Account" sample="1">
+                <field name="account_id" type="row"/>
+                <field name="period_from" interval="month" type="col"/>
+                <field name="budgeted_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_eh_budget_line_search" model="ir.ui.view">
+        <field name="name">eh.budget.line.search</field>
+        <field name="model">eh.budget.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="account_id"/>
+                <field name="analytic_account_id"/>
+                <field name="budget_id"/>
+                <group>
+                    <filter name="group_account" string="Account"
+                            context="{'group_by': 'account_id'}"/>
+                    <filter name="group_analytic" string="Analytic"
+                            context="{'group_by': 'analytic_account_id'}"/>
+                    <filter name="group_budget" string="Budget"
+                            context="{'group_by': 'budget_id'}"/>
+                    <filter name="group_period" string="Month"
+                            context="{'group_by': 'period_from:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_budget_line" model="ir.actions.act_window">
+        <field name="name">Budget vs Actual</field>
+        <field name="res_model">eh.budget.report</field>
+        <field name="view_mode">graph,pivot,list</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No budget lines yet.</p>
+            <p>Create budgets first, then drill into Budget vs Actual analytics here.</p>
+        </field>
+    </record>
+
+    <record id="action_eh_budget_line_analytics" model="ir.actions.act_window">
+        <field name="name">Budget Lines (planned)</field>
+        <field name="res_model">eh.budget.line</field>
+        <field name="view_mode">graph,pivot,list,form</field>
+        <field name="search_view_id" ref="view_eh_budget_line_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No budget lines yet.</p>
+            <p>Slice planned amounts by account, analytic and period. For variance against posted actuals use Budget vs Actual.</p>
+        </field>
+    </record>
+
+    <record id="view_eh_budget_report_graph" model="ir.ui.view">
+        <field name="name">eh.budget.report.graph</field>
+        <field name="model">eh.budget.report</field>
+        <field name="arch" type="xml">
+            <graph string="Budget vs Actual" type="bar" stacked="0" sample="1">
+                <field name="company_id" type="row"/>
+                <field name="account_id" type="row"/>
+                <field name="budgeted_amount" type="measure"/>
+                <field name="actual_amount" type="measure"/>
+                <field name="variance_amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_eh_budget_report_pivot" model="ir.ui.view">
+        <field name="name">eh.budget.report.pivot</field>
+        <field name="model">eh.budget.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Budget vs Actual" sample="1">
+                <field name="company_id" type="row"/>
+                <field name="account_id" type="row"/>
+                <field name="period_from" interval="month" type="col"/>
+                <field name="budgeted_amount" type="measure"/>
+                <field name="actual_amount" type="measure"/>
+                <field name="variance_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_eh_budget_report_list" model="ir.ui.view">
+        <field name="name">eh.budget.report.list</field>
+        <field name="model">eh.budget.report</field>
+        <field name="arch" type="xml">
+            <list string="Budget vs Actual" create="0" delete="0" edit="0">
+                <field name="budget_id"/>
+                <field name="account_id"/>
+                <field name="analytic_account_id" optional="hide"/>
+                <field name="period_from"/>
+                <field name="period_to"/>
+                <field name="budgeted_amount" widget="monetary"/>
+                <field name="actual_amount" widget="monetary"/>
+                <field name="variance_amount" widget="monetary"
+                       decoration-danger="variance_amount &lt; 0"
+                       decoration-success="variance_amount &gt;= 0"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="company_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_budget_report_search" model="ir.ui.view">
+        <field name="name">eh.budget.report.search</field>
+        <field name="model">eh.budget.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="budget_id"/>
+                <field name="account_id"/>
+                <field name="analytic_account_id"/>
+                <group>
+                    <filter name="group_by_budget" string="Budget"
+                            context="{'group_by': 'budget_id'}"/>
+                    <filter name="group_by_account" string="Account"
+                            context="{'group_by': 'account_id'}"/>
+                    <filter name="group_by_period" string="Period"
+                            context="{'group_by': 'period_from'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+</odoo>

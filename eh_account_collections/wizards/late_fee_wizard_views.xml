@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_collections_late_fee_wizard_form" model="ir.ui.view">
+        <field name="name">eh.collections.late_fee.wizard.form</field>
+        <field name="model">eh.collections.late_fee.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Issue late-fee invoice">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="case_id" readonly="1"/>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="company_id" readonly="1"
+                                   groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="today"/>
+                        </group>
+                        <group>
+                            <field name="overdue_amount" readonly="1"/>
+                            <field name="days_overdue" readonly="1"/>
+                        </group>
+                    </group>
+                    <separator string="Fee policy"/>
+                    <group>
+                        <group>
+                            <field name="fee_mode"/>
+                            <field name="flat_amount"
+                                   invisible="fee_mode != 'flat'"/>
+                            <field name="percent_per_month"
+                                   invisible="fee_mode != 'percent'"/>
+                            <field name="computed_fee" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="description" colspan="2"/>
+                            <field name="journal_id"/>
+                            <field name="income_account_id"/>
+                            <field name="tax_ids" widget="many2many_tags"
+                                   options="{'no_create': True}"
+                                   placeholder="Company default sale tax"/>
+                            <field name="auto_post"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_apply"
+                            type="object"
+                            string="Issue invoice"
+                            class="btn-primary"/>
+                    <button special="cancel" string="Cancel"
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_collections_late_fee_wizard" model="ir.actions.act_window">
+        <field name="name">Issue late-fee invoice</field>
+        <field name="res_model">eh.collections.late_fee.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_eh_collections_case"/>
+        <field name="binding_view_types">form</field>
+    </record>
+
+</odoo>

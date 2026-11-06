@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_asset_tree" model="ir.ui.view">
+        <field name="name">eh.asset.list</field>
+        <field name="model">eh.asset</field>
+        <field name="arch" type="xml">
+            <list string="Fixed Assets" sample="1" default_order="in_service_date desc"
+                  decoration-success="state == 'running'"
+                  decoration-info="state == 'fully_depreciated'"
+                  decoration-muted="state in ('disposed', 'paused')">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="asset_class" optional="hide"/>
+                <field name="in_service_date"/>
+                <field name="acquisition_cost" sum="Total Cost"/>
+                <field name="total_depreciated" sum="Total Depreciated"/>
+                <field name="net_book_value" sum="Total NBV"/>
+                <field name="annual_test_overdue" optional="show"
+                       widget="boolean_toggle" readonly="1"
+                       decoration-danger="annual_test_overdue"/>
+                <field name="currency_id" optional="hide"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'running'"
+                       decoration-warning="state == 'paused'"
+                       decoration-muted="state in ('fully_depreciated', 'disposed')"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_asset_kanban" model="ir.ui.view">
+        <field name="name">eh.asset.kanban</field>
+        <field name="model">eh.asset</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" sample="1" class="o_kanban_small_column">
+                <field name="state"/>
+                <field name="category_id"/>
+                <field name="net_book_value"/>
+                <field name="acquisition_cost"/>
+                <field name="currency_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong>
+                                        <field name="code"/>
+                                    </strong>
+                                    <span class="text-muted ms-2">
+                                        <field name="name"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <div>
+                                    <field name="category_id"/>
+                                </div>
+                                <div>
+                                    NBV:
+                                    <field name="net_book_value" widget="monetary"/>
+                                    /
+                                    <field name="acquisition_cost" widget="monetary"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_eh_asset_form" model="ir.ui.view">
+        <field name="name">eh.asset.form</field>
+        <field name="model">eh.asset</field>
+        <field name="arch" type="xml">
+            <form string="Fixed Asset">
+                <header>
+                    <button name="action_compute_schedule"
+                            type="object"
+                            string="Compute Schedule"
+                            class="btn-secondary"
+                            invisible="state != 'draft' or is_under_construction"/>
+                    <button name="action_activate"
+                            type="object"
+                            string="Activate"
+                            class="btn-primary"
+                            invisible="state != 'draft' or is_under_construction"/>
+                    <button name="action_capitalise"
+                            type="object"
+                            string="Capitalise (AUC)"
+                            class="btn-primary"
+                            invisible="not is_under_construction"
+                            confirm="Capitalise this asset? This posts the AUC -> asset transfer JE, sets the in-service date to today, generates the schedule, and activates the asset."/>
+                    <button name="action_pause"
+                            type="object"
+                            string="Pause"
+                            invisible="state != 'running'"/>
+                    <button name="action_resume"
+                            type="object"
+                            string="Resume"
+                            invisible="state != 'paused'"/>
+                    <button name="action_post_due_lines"
+                            type="object"
+                            string="Post Due Lines"
+                            class="btn-secondary"
+                            invisible="state != 'running'"/>
+                    <button name="action_open_revalue_wizard"
+                            type="object"
+                            string="Revalue"
+                            class="btn-secondary"
+                            invisible="state not in ('running', 'paused')"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_open_dispose_wizard"
+                            type="object"
+                            string="Dispose"
+                            class="btn-warning"
+                            invisible="state == 'disposed' or deferred_type != 'asset'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_open_lvp_transfer_wizard"
+                            type="object"
+                            string="Transfer to LVP"
+                            class="btn-secondary"
+                            invisible="lvp_pool_id or deferred_type != 'asset' or is_under_construction or state not in ('draft', 'running', 'paused')"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_set_to_draft"
+                            type="object"
+                            string="Set to Draft"
+                            invisible="state in ('draft', 'disposed')"
+                            confirm="Return this asset to draft? Only allowed if no line is posted."/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,running,fully_depreciated,disposed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_components"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-cubes"
+                                invisible="not component_ids">
+                            <field name="component_count" widget="statinfo"
+                                   string="Components"/>
+                        </button>
+                        <button name="action_view_impairments"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-exclamation-triangle"
+                                invisible="not impairment_ids">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Impairments</span>
+                            </div>
+                        </button>
+                        <button name="action_view_books"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-book"
+                                invisible="not book_ids">
+                            <field name="book_count" widget="statinfo"
+                                   string="Books"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                        <h3>
+                            <field name="code" placeholder="Asset tag"/>
+                        </h3>
+                    </div>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not currency_mismatch_quarantined">
+                        <strong>Currency integrity quarantine:</strong>
+                        this legacy asset has ledger evidence recorded as
+                        company currency although its source currency differs.
+                        Its history was not rewritten; reverse the linked
+                        entries and recreate it in company currency.
+                        <field name="currency_mismatch_note" readonly="1"
+                               nolabel="1"/>
+                    </div>
+                    <field name="currency_mismatch_quarantined" invisible="1"/>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="not origin_source_quarantined">
+                        <strong>Origin-line reversal quarantine:</strong>
+                        the exact vendor-bill line that generated this asset
+                        was credited. Assets with no own ledger evidence can be
+                        discarded; otherwise post a reviewed correction entry,
+                        document the basis, and release the quarantine.
+                        <field name="origin_source_quarantine_note" readonly="1"
+                               nolabel="1"/>
+                        <group>
+                            <field name="origin_reversal_move_id" readonly="1"/>
+                            <field name="origin_correction_move_id"
+                                   options="{'no_create': True}"/>
+                            <field name="origin_resolution_note"
+                                   placeholder="Accounting basis and review evidence..."/>
+                        </group>
+                        <button name="action_resolve_reversed_origin_after_correction"
+                                type="object" string="Resolve Quarantine"
+                                class="btn-primary"
+                                groups="eh_account_base.group_eh_manager"/>
+                        <button name="action_discard_reversed_origin_draft"
+                                type="object" string="Discard Unbooked Asset"
+                                class="btn-secondary"
+                                confirm="Discard this generated asset? This is allowed only when it has no asset-side ledger evidence. The source bill and reversal remain retained."
+                                groups="eh_account_base.group_eh_manager"/>
+                    </div>
+                    <field name="origin_source_quarantined" invisible="1"/>
+                    <group>
+                        <group string="Identification">
+                            <field name="category_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="deferred_type"
+                                   readonly="state != 'draft'"/>
+                            <field name="asset_class"
+                                   readonly="state != 'draft'"/>
+                            <field name="is_indefinite_life"
+                                   readonly="state != 'draft'"
+                                   invisible="asset_class != 'intangible'"/>
+                            <field name="dev_cost_capitalisation"
+                                   readonly="state != 'draft'"
+                                   invisible="asset_class != 'intangible'"/>
+                            <field name="partner_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="invoice_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="acquisition_date"
+                                   readonly="state != 'draft'"/>
+                            <field name="in_service_date"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <group string="Cost &amp; Totals">
+                            <field name="acquisition_cost"
+                                   readonly="state != 'draft'"/>
+                            <field name="salvage_value"
+                                   readonly="state != 'draft'"
+                                   invisible="deferred_type != 'asset'"/>
+                            <field name="currency_id"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="total_depreciated"/>
+                            <field name="net_book_value"/>
+                            <field name="next_post_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Depreciation Method">
+                            <field name="method"
+                                   readonly="state != 'draft'"/>
+                            <field name="useful_life_months"
+                                   readonly="state != 'draft'"
+                                   invisible="is_instant_write_off"/>
+                            <field name="declining_factor"
+                                   invisible="method not in ('reducing_balance', 'diminishing_value')"
+                                   readonly="state != 'draft'"/>
+                            <field name="prorate_first_period"
+                                   readonly="state != 'draft'"
+                                   invisible="is_instant_write_off or prorata_mode"/>
+                            <field name="prorata_mode"
+                                   readonly="state != 'draft'"
+                                   invisible="is_instant_write_off"/>
+                            <field name="is_instant_write_off"
+                                   readonly="state != 'draft'"/>
+                            <field name="is_under_construction"
+                                   readonly="state != 'draft'"/>
+                            <field name="auc_account_id"
+                                   invisible="not is_under_construction"
+                                   readonly="state != 'draft'"/>
+                            <field name="capitalised_at" readonly="1"
+                                   invisible="not capitalised_at"/>
+                            <field name="capitalised_by_id" readonly="1"
+                                   invisible="not capitalised_by_id"/>
+                            <field name="capitalisation_move_id" readonly="1"
+                                   invisible="not capitalisation_move_id"/>
+                            <field name="total_units"
+                                   invisible="method != 'units_of_production'"
+                                   readonly="state != 'draft'"/>
+                            <field name="units_used"
+                                   invisible="method != 'units_of_production'"/>
+                        </group>
+                        <group string="Accounts &amp; Journal">
+                            <field name="asset_account_id" readonly="state != 'draft'"/>
+                            <field name="depreciation_account_id" readonly="state != 'draft'"/>
+                            <field name="accumulated_depreciation_account_id" readonly="state != 'draft'"/>
+                            <field name="disposal_gain_account_id" readonly="state != 'draft'"/>
+                            <field name="disposal_loss_account_id" readonly="state != 'draft'"/>
+                            <field name="revaluation_reserve_account_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="journal_id" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Schedule">
+                            <field name="depreciation_line_ids" readonly="1">
+                                <list>
+                                    <field name="sequence"/>
+                                    <field name="depreciation_date"/>
+                                    <field name="amount" sum="Total"/>
+                                    <field name="accumulated"/>
+                                    <field name="remaining_value"/>
+                                    <field name="is_posted"/>
+                                    <field name="is_event_accrual" optional="hide"/>
+                                    <field name="posted_at" optional="hide"/>
+                                    <field name="move_id" optional="hide"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Components" name="components">
+                            <group>
+                                <group>
+                                    <field name="parent_asset_id"
+                                           readonly="state != 'draft'"
+                                           options="{'no_create': True}"/>
+                                </group>
+                                <group>
+                                    <field name="component_count" readonly="1"/>
+                                    <field name="rolled_up_cost" widget="monetary" readonly="1"/>
+                                    <field name="rolled_up_nbv" widget="monetary" readonly="1"/>
+                                </group>
+                            </group>
+                            <field name="component_ids" readonly="1">
+                                <list>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="acquisition_cost" widget="monetary"/>
+                                    <field name="net_book_value" widget="monetary"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Development Costs (IAS 38)"
+                              name="ias38_dev"
+                              invisible="not dev_cost_capitalisation">
+                            <p class="text-muted">
+                                IAS 38.57 permits capitalising development expenditure only when ALL six criteria below are demonstrated. This asset cannot leave draft until every item is ticked; if any criterion cannot be demonstrated, recognise the expenditure as an expense when incurred.
+                            </p>
+                            <group>
+                                <group string="Feasibility and Intent">
+                                    <field name="dev_technical_feasibility"
+                                           readonly="state != 'draft'"/>
+                                    <field name="dev_intention_complete"
+                                           readonly="state != 'draft'"/>
+                                    <field name="dev_ability_use_sell"
+                                           readonly="state != 'draft'"/>
+                                </group>
+                                <group string="Benefits, Resources, Measurement">
+                                    <field name="dev_probable_benefits"
+                                           readonly="state != 'draft'"/>
+                                    <field name="dev_resources_available"
+                                           readonly="state != 'draft'"/>
+                                    <field name="dev_reliable_measurement"
+                                           readonly="state != 'draft'"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Impairment"
+                              name="impairment">
+                            <group>
+                                <group>
+                                    <field name="accumulated_impairment" widget="monetary" readonly="1"/>
+                                    <field name="cgu_id" readonly="state != 'draft'"/>
+                                    <field name="is_goodwill" readonly="state != 'draft'"/>
+                                    <field name="cgu_impairment_floor"
+                                           readonly="state != 'draft'"/>
+                                    <field name="annual_test_overdue" readonly="1"/>
+                                    <field name="recoverable_amount_latest"
+                                           widget="monetary" readonly="1"/>
+                                    <field name="recoverable_amount_date" readonly="1"/>
+                                </group>
+                                <group>
+                                    <button name="action_open_impairment_wizard"
+                                            type="object"
+                                            string="Record impairment / reversal"
+                                            class="btn-secondary"
+                                            invisible="state not in ('running', 'paused')"/>
+                                </group>
+                            </group>
+                            <field name="impairment_ids" readonly="1">
+                                <list>
+                                    <field name="company_id" column_invisible="1"/>
+                                    <field name="impairment_date"/>
+                                    <field name="amount" widget="monetary"/>
+                                    <field name="is_reversal"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="move_id" optional="hide"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                            <field name="revaluation_move_ids"
+                                   widget="many2many_tags"
+                                   options="{'no_create': True}"
+                                   readonly="1"/>
+                        </page>
+                        <page string="Low-value pool"
+                              name="lvp"
+                              invisible="not lvp_pool_id">
+                            <group>
+                                <field name="lvp_pool_id"
+                                       options="{'no_create': True}"
+                                       readonly="1"/>
+                                <field name="lvp_opening_value" readonly="1"/>
+                                <field name="lvp_allocation_date" readonly="1"/>
+                                <field name="lvp_transfer_move_id" readonly="1"
+                                       invisible="not lvp_transfer_move_id"/>
+                                <field name="lvp_transferred_at" readonly="1"/>
+                                <field name="lvp_transferred_by_id" readonly="1"/>
+                                <p class="text-muted">
+                                    This asset has been transferred to a low-value pool. Individual depreciation is paused; the pool's annual depreciation drives all subsequent NBV movement.
+                                </p>
+                            </group>
+                        </page>
+                        <page string="Books"
+                              name="books">
+                            <p class="text-muted">
+                                Additional depreciation books support parallel tax, IFRS, and management reporting. They never post journal entries: the primary schedule above is the sole General Ledger source of truth.
+                            </p>
+                            <field name="book_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="book_type"/>
+                                    <field name="method"/>
+                                    <field name="useful_life_months"/>
+                                    <field name="salvage_value" widget="monetary"/>
+                                    <field name="declining_factor"
+                                           invisible="method not in ('reducing_balance', 'diminishing_value')"/>
+                                    <field name="prorate_first_period"/>
+                                    <field name="posts_to_gl" optional="hide" readonly="1"/>
+                                    <field name="line_count"/>
+                                    <field name="total_depreciation" widget="monetary"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                                <form string="Asset book">
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="book_type"/>
+                                                <field name="posts_to_gl" readonly="1"
+                                                       invisible="not posts_to_gl"/>
+                                            </group>
+                                            <group>
+                                                <field name="method"/>
+                                                <field name="useful_life_months"/>
+                                                <field name="salvage_value"/>
+                                                <field name="declining_factor"
+                                                       invisible="method not in ('reducing_balance', 'diminishing_value')"/>
+                                                <field name="prorate_first_period"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <button name="action_compute_schedule"
+                                                    type="object"
+                                                    string="Compute schedule"
+                                                    class="btn-primary"/>
+                                            <field name="line_count" readonly="1"/>
+                                            <field name="total_depreciation" widget="monetary" readonly="1"/>
+                                            <field name="final_book_value" widget="monetary" readonly="1"/>
+                                        </group>
+                                        <field name="line_ids" readonly="1">
+                                            <list>
+                                                <field name="sequence"/>
+                                                <field name="depreciation_date"/>
+                                                <field name="amount" sum="Total"/>
+                                                <field name="accumulated"/>
+                                                <field name="remaining_value"/>
+                                                <field name="is_posted"/>
+                                                <field name="move_id" optional="show"/>
+                                                <field name="reversal_move_id" optional="show"/>
+                                                <button name="action_post"
+                                                        type="object"
+                                                        string="Post"
+                                                        groups="eh_account_base.group_eh_manager"
+                                                        invisible="is_posted or move_id"/>
+                                                <button name="action_reverse"
+                                                        type="object"
+                                                        string="Reverse"
+                                                        groups="eh_account_base.group_eh_manager"
+                                                        invisible="not is_posted or reversal_move_id"/>
+                                                <field name="currency_id" column_invisible="1"/>
+                                            </list>
+                                        </field>
+                                        <field name="notes" placeholder="Notes for tax agent or auditor..."/>
+                                        <field name="currency_id" invisible="1"/>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Disposal" invisible="state != 'disposed'">
+                            <group>
+                                <field name="disposal_date"/>
+                                <field name="disposal_proceeds"/>
+                                <field name="disposal_partner_id"/>
+                                <field name="disposal_move_id"/>
+                                <field name="disposal_invoice_id"/>
+                                <field name="disposal_invoice_line_id"/>
+                                <field name="disposed_at"/>
+                                <field name="disposed_by_id"/>
+                            </group>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_asset_search" model="ir.ui.view">
+        <field name="name">eh.asset.search</field>
+        <field name="model">eh.asset</field>
+        <field name="arch" type="xml">
+            <search string="Fixed Assets">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="category_id"/>
+                <field name="partner_id"/>
+                <filter string="Draft" name="state_draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="Running" name="state_running"
+                        domain="[('state', '=', 'running')]"/>
+                <filter string="Paused" name="state_paused"
+                        domain="[('state', '=', 'paused')]"/>
+                <filter string="Fully Depreciated" name="state_fully"
+                        domain="[('state', '=', 'fully_depreciated')]"/>
+                <filter string="Disposed" name="state_disposed"
+                        domain="[('state', '=', 'disposed')]"/>
+                <separator/>
+                <filter string="Intangible (IAS 38)" name="intangible"
+                        domain="[('asset_class', '=', 'intangible')]"/>
+                <filter string="Indefinite Life" name="indefinite_life"
+                        domain="[('is_indefinite_life', '=', True)]"/>
+                <filter string="Goodwill" name="goodwill"
+                        domain="[('is_goodwill', '=', True)]"/>
+                <filter string="Annual Test Overdue" name="annual_test_overdue"
+                        domain="[('annual_test_overdue', '=', True)]"/>
+                <group>
+                    <filter string="Asset Class" name="group_asset_class"
+                            context="{'group_by': 'asset_class'}"/>
+                    <filter string="Category" name="group_category"
+                            context="{'group_by': 'category_id'}"/>
+                    <filter string="State" name="group_state"
+                            context="{'group_by': 'state'}"/>
+                    <filter string="In Service (month)" name="group_in_service"
+                            context="{'group_by': 'in_service_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="eh_account_assets_pro_eh_asset_view_graph" model="ir.ui.view">
+        <field name="name">eh.asset.graph</field>
+        <field name="model">eh.asset</field>
+        <field name="arch" type="xml">
+            <graph string="Fixed Assets" sample="1">
+                <field name="category_id"/>
+                <field name="acquisition_cost" type="measure"/>
+                <field name="net_book_value" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_assets_pro_eh_asset_view_pivot" model="ir.ui.view">
+        <field name="name">eh.asset.pivot</field>
+        <field name="model">eh.asset</field>
+        <field name="arch" type="xml">
+            <pivot string="Fixed Assets" sample="1">
+                <field name="category_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="acquisition_cost" type="measure"/>
+                <field name="net_book_value" type="measure"/>
+                <field name="total_depreciated" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_asset" model="ir.actions.act_window">
+        <field name="name">Fixed Assets</field>
+        <field name="res_model">eh.asset</field>
+        <field name="view_mode">list,kanban,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_asset_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Register your first fixed asset</p>
+            <p>Track acquisition cost, depreciation method and net book value here. Use New to record an asset, then confirm it to generate its persisted depreciation schedule.</p>
+        </field>
+    </record>
+
+</odoo>

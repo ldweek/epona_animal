@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_cheque_bounce_reason_tree" model="ir.ui.view">
+        <field name="name">eh.cheque.bounce.reason.list</field>
+        <field name="model">eh.cheque.bounce.reason</field>
+        <field name="arch" type="xml">
+            <list string="Bounce Reasons" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="is_recoverable" widget="boolean_toggle"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_cheque_bounce_reason_form" model="ir.ui.view">
+        <field name="name">eh.cheque.bounce.reason.form</field>
+        <field name="model">eh.cheque.bounce.reason</field>
+        <field name="arch" type="xml">
+            <form string="Bounce Reason">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="is_recoverable"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description" colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_cheque_bounce_reason_search" model="ir.ui.view">
+        <field name="name">eh.cheque.bounce.reason.search</field>
+        <field name="model">eh.cheque.bounce.reason</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code"/>
+                <field name="name"/>
+                <filter name="filter_recoverable" string="Recoverable"
+                        domain="[('is_recoverable', '=', True)]"/>
+                <filter name="filter_non_recoverable" string="Non Recoverable"
+                        domain="[('is_recoverable', '=', False)]"/>
+                <separator/>
+                <filter name="filter_archived" string="Archived"
+                        domain="[('active', '=', False)]"/>
+                <group>
+                    <filter name="group_recoverable" string="Recoverable"
+                            context="{'group_by': 'is_recoverable'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_cheque_bounce_reason" model="ir.actions.act_window">
+        <field name="name">Bounce Reasons</field>
+        <field name="res_model">eh.cheque.bounce.reason</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_cheque_bounce_reason_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Add your first bounce reason</p>
+            <p>Bounce reasons are the reusable codes for why a cheque was dishonoured. Use the New button to define a reason you can select when recording a bounce.</p>
+        </field>
+    </record>
+
+</odoo>

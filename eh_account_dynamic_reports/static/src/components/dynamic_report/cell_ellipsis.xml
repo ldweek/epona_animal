@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<!-- Long-text cell wrapper. Below the threshold the text renders verbatim
+     (no chrome). Above it, the clipped text plus a "..." reveal button opens
+     a report-themed popover, including when Odoo portals it outside .eh_dr. -->
+<t t-name="eh_account_dynamic_reports.CellEllipsis">
+    <t t-if="!isLong">
+        <t t-out="text"/>
+    </t>
+    <t t-else="">
+        <span class="eh_dr_ellipsis" t-ref="target" t-att-title="text">
+            <span class="eh_dr_ellipsis_text"><t t-out="truncated"/></span><button
+                type="button"
+                class="eh_dr_ellipsis_btn"
+                t-on-click.stop="() => this.onReveal()"
+                aria-label="Show full cell text"
+                title="Show full text">…</button>
+        </span>
+    </t>
+</t>
+
+<!-- Popover body: full text + Copy. Theme class is required because Odoo
+     portals the popover outside the report root and its custom properties. -->
+<t t-name="eh_account_dynamic_reports.CellEllipsisPopover">
+    <div class="eh_dr_ellipsis_pop"
+         t-att-class="props.theme === 'light' ? 'eh_dr_ellipsis_pop--light' : 'eh_dr_ellipsis_pop--dark'">
+        <div class="eh_dr_ellipsis_pop_text">
+            <t t-out="props.text"/>
+        </div>
+        <div class="eh_dr_ellipsis_pop_actions">
+            <button type="button" class="btn btn-sm eh_dr_ellipsis_copy"
+                    t-on-click.stop="() => this.onCopyClick()">
+                <i class="fa fa-copy me-1"/>Copy
+            </button>
+        </div>
+    </div>
+</t>
+
+</templates>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_asset_lvp_transfer_wizard_form" model="ir.ui.view">
+        <field name="name">eh.asset.lvp.transfer.wizard.form</field>
+        <field name="model">eh.asset.lvp.transfer.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Transfer Asset to Low-Value Pool">
+                <sheet>
+                    <group>
+                        <field name="company_id" invisible="1"/>
+                        <field name="pool_id" options="{'no_create': True}"/>
+                        <field name="asset_id" options="{'no_create': True}"/>
+                        <field name="transfer_date"/>
+                        <field name="opening_value" readonly="1"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                    <div class="alert alert-warning" role="alert">
+                        The asset's individual schedule will be frozen. If the
+                        pool has GL accounts, its carrying value will be
+                        reclassified into the pool account on the transfer date.
+                    </div>
+                </sheet>
+                <footer>
+                    <button name="action_transfer"
+                            type="object"
+                            string="Transfer"
+                            class="btn-primary"
+                            confirm="Transfer this asset to the low-value pool? This freezes individual depreciation and may post a carrying-value reclassification."/>
+                    <button string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_asset_lvp_transfer_wizard" model="ir.actions.act_window">
+        <field name="name">Transfer Asset to Low-Value Pool</field>
+        <field name="res_model">eh.asset.lvp.transfer.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,157 @@
+// Colors — Aurora base identity (matches the light palette's chrome).
+
+$theme_color_brand: #1E2B36;
+$theme_color_primary: #4B62E6;
+
+$theme_color_success: #1DC959;
+$theme_color_info: #6AB5FB;
+$theme_color_warning: #FBB56A;
+$theme_color_danger: #FF5757;
+
+// Navbar Colors — Aurora's original navy chrome (navbar / sidebar / app rail).
+$theme_color_navbar_bg: #1F2D3A;
+$theme_color_navbar_text: rgba(255, 255, 255, 0.9);
+
+// Home Screen Colors
+$theme_color_home_app_text: #c8d0dc;
+
+// ============================================================
+//  Dark mode base palette
+//
+//  Odoo 19 Community has no native dark backend (color_scheme()
+//  returns "light" and nothing inverts the core palette — that
+//  is an Enterprise feature). home_theme provides it here.
+//
+//  This file is compiled early in the dark bundle
+//  (web.assets_web_dark), before the core `!default` variables,
+//  so overriding the gray scale and a few base surfaces makes the
+//  whole backend recompile dark and "activates" Odoo's built-in
+//  *.dark.scss component styles.
+//
+//  Gray scale is semantic: 100 = darkest surface, 900 = lightest
+//  text. Derived variables ($o-main-text-color, $o-main-color-muted,
+//  $o-component-active-bg, ...) inherit from these automatically.
+//
+//  NOTE: $o-white / $o-black are NOT defined yet at this point in the
+//  bundle (primary_variables.scss loads later), so use literal colors
+//  (#fff / #000) here, never $o-white / $o-black.
+// ============================================================
+
+// -- Odoo gray scale (inverted for dark) --
+$o-gray-100: #1c2128;
+$o-gray-200: #22272e;
+$o-gray-300: #2d333b;
+$o-gray-400: #444c56;
+$o-gray-500: #768390;
+$o-gray-600: #909dab;
+$o-gray-700: #adbac7;
+$o-gray-800: #cdd9e5;
+$o-gray-900: #e6edf3;
+
+// -- Bootstrap gray scale (mirror) --
+$gray-100: $o-gray-100;
+$gray-200: $o-gray-200;
+$gray-300: $o-gray-300;
+$gray-400: $o-gray-400;
+$gray-500: $o-gray-500;
+$gray-600: $o-gray-600;
+$gray-700: $o-gray-700;
+$gray-800: $o-gray-800;
+$gray-900: $o-gray-900;
+
+// -- Base surfaces & text (literal defaults that don't derive from grays) --
+$o-view-background-color: #22272e;
+$o-main-text-color: #e6edf3;
+$o-main-headings-color: #f0f3f6;
+
+// -- Bootstrap body & borders --
+$body-bg: #1a1e24;
+$body-color: #e6edf3;
+$body-secondary-color: rgba(#e6edf3, 0.72);
+$body-tertiary-color: rgba(#e6edf3, 0.5);
+$body-secondary-bg: #22272e;
+$body-tertiary-bg: #2d333b;
+$border-color: rgba(#e6edf3, 0.16);
+$border-color-translucent: rgba(#e6edf3, 0.16);
+
+// -- Component surfaces that default to white/literal (don't derive from
+//    the gray scale). These are the dropdowns/popovers that stay white and
+//    the panels with no contrast in dark mode. --
+$popover-bg: $o-gray-300;            // popover-based menus (status submenu, etc.)
+$dropdown-bg: $o-gray-200;
+$toast-background-color: rgba($o-gray-200, 0.96);
+$nav-tabs-link-active-bg: $o-gray-200;
+$nav-tabs-link-active-border-color: $o-gray-400;
+$input-placeholder-color: $o-gray-500;
+
+// -- Bootstrap 5.3 "subtle" backgrounds + emphasis text --
+//    Used by alerts, badges and the settings highlight bars (e.g. the POS
+//    "new shop" banner). Defaults are very light tints, so we darken them. --
+$primary-bg-subtle: #16242e;
+$secondary-bg-subtle: $o-gray-200;
+$success-bg-subtle: #122a1b;
+$info-bg-subtle: #112a33;
+$warning-bg-subtle: #2f2611;
+$danger-bg-subtle: #2f1a1a;
+$light-bg-subtle: $o-gray-200;
+$dark-bg-subtle: $o-gray-100;
+
+$primary-text-emphasis: #9ccbe0;
+$secondary-text-emphasis: $o-gray-700;
+$success-text-emphasis: #7ee0a0;
+$info-text-emphasis: #8fd3f4;
+$warning-text-emphasis: #f0c674;
+$danger-text-emphasis: #f1a0a0;
+
+// Override
+
+$o-community-color: $theme_color_brand;
+$o-enterprise-color: $theme_color_brand;
+$o-enterprise-action-color: $theme_color_primary;
+
+$o-brand-odoo: $theme_color_brand;
+$o-brand-primary: $theme_color_primary;
+
+$o-success: $theme_color_success;
+$o-info: $theme_color_info;
+$o-warning: $theme_color_warning;
+$o-danger: $theme_color_danger;
+
+// Navbar Override
+$o-navbar-background: $theme_color_navbar_bg;
+$o-navbar-entry-color: $theme_color_navbar_text;
+$o-navbar-entry-color--hover: $theme_color_navbar_text;
+$o-navbar-brand-color: $theme_color_navbar_text;
+
+$o-theme-text-colors: (
+    // brand navy is unreadable on dark, use the lighter primary for text
+    "primary": $theme_color_primary,
+    "success": $o-success,
+    "info": $o-info,
+    "warning": $o-warning,
+    "danger": $o-danger,
+);
+
+// ============================================================
+//  (B) Text & states that default to black/$o-black.
+//  On dark surfaces they become invisible, so flip them to the
+//  light end of the (inverted) gray scale. Placed at the end so
+//  $o-brand-primary and the gray ramp are already defined.
+// ============================================================
+$o-component-active-color: $o-gray-900;            // text on active components
+$o-list-group-active-color: $o-gray-900;           // selected list row text
+$o-list-group-active-bg: mix($o-brand-primary, $o-gray-100, 22%);
+
+$dropdown-link-color: $o-gray-800;
+$dropdown-link-hover-color: $o-gray-900;
+$dropdown-link-active-color: $o-gray-900;
+$dropdown-link-hover-bg: rgba(#fff, 0.08);
+
+// ============================================================
+//  (C) Contrast traps: light-on-light / dark-on-dark once the
+//  gray scale is inverted.
+// ============================================================
+$tooltip-bg: $o-gray-300;
+$tooltip-color: $o-gray-900;
+$card-cap-bg: rgba(#fff, 0.04);
+$o-list-group-header-color: $o-gray-200;

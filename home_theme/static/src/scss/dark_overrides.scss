@@ -1,0 +1,335 @@
+// ============================================================
+//  Dark mode runtime overrides
+//
+//  Loaded LAST in the dark bundle (web.assets_web_dark), after all
+//  core CSS. Some Bootstrap/OWL components read CSS custom properties
+//  at runtime (e.g. dropdowns use var(--bs-body-bg)) or hardcode light
+//  surfaces, so overriding SCSS variables alone is not enough — we pin
+//  the CSS variables here and force the floating surfaces dark.
+//
+//  $o-gray-* / $o-main-text-color resolve to the dark palette defined
+//  in colors_dark.scss (this file is only in the dark bundle).
+// ============================================================
+
+:root {
+    --bs-body-bg: #{$o-gray-100};
+    --bs-body-color: #{$o-main-text-color};
+    --bs-emphasis-color: #{$o-gray-900};
+    --bs-secondary-color: #{rgba($o-main-text-color, 0.72)};
+    --bs-tertiary-color: #{rgba($o-main-text-color, 0.5)};
+    --bs-secondary-bg: #{$o-gray-200};
+    --bs-tertiary-bg: #{$o-gray-300};
+    --bs-border-color: #{rgba($o-main-text-color, 0.16)};
+    --bs-body-bg-rgb: 28, 33, 40;
+}
+
+// --- Floating menus & popovers (dropdowns were rendering white) ---
+.dropdown-menu,
+.o-dropdown--menu {
+    --bs-dropdown-bg: #{$o-gray-200};
+    --bs-dropdown-link-color: #{$o-main-text-color};
+    --bs-dropdown-link-hover-color: #{$o-gray-900};
+    --bs-dropdown-link-hover-bg: #{$o-gray-300};
+    --bs-dropdown-link-active-color: #{$o-gray-900};
+    --bs-dropdown-link-active-bg: #{$o-gray-300};
+    --bs-dropdown-header-color: #{$o-gray-600};
+    --bs-dropdown-border-color: #{rgba($o-main-text-color, 0.12)};
+    --bs-dropdown-divider-bg: #{rgba($o-main-text-color, 0.12)};
+    background-color: $o-gray-200 !important;
+    color: $o-main-text-color;
+}
+
+.popover,
+.o_popover {
+    --bs-popover-bg: #{$o-gray-200};
+    --bs-popover-border-color: #{rgba($o-main-text-color, 0.12)};
+    --bs-popover-header-bg: #{$o-gray-300};
+    --bs-popover-body-color: #{$o-main-text-color};
+    background-color: $o-gray-200 !important;
+    color: $o-main-text-color;
+}
+
+// --- Generic light-surface utility classes used across the backend ---
+.bg-white,
+.bg-body,
+.bg-light {
+    background-color: $o-gray-200 !important;
+}
+
+// --- Cards / modals / offcanvas (read --bs-body-bg or hardcode white) ---
+.card,
+.modal-content,
+.offcanvas {
+    --bs-card-bg: #{$o-gray-200};
+    background-color: $o-gray-200;
+    color: $o-main-text-color;
+}
+
+// --- Notebook / nav-tabs active tab (was rendering white) ---
+.o_notebook .nav-tabs .nav-link.active,
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-link.active:focus,
+.nav-tabs .nav-link.active:hover {
+    --bs-nav-tabs-link-active-bg: #{$o-gray-200};
+    --bs-nav-tabs-link-active-color: #{$o-main-text-color};
+    --bs-nav-tabs-link-active-border-color: #{rgba($o-main-text-color, 0.14)};
+    background-color: $o-gray-200 !important;
+    color: $o-main-text-color !important;
+    border-bottom-color: $o-gray-200 !important;
+}
+
+// --- Alerts / subtle banners (warning was cream with no contrast) ---
+.alert-primary   { --bs-alert-bg: #16242e; --bs-alert-color: #9ccbe0; --bs-alert-border-color: #{rgba(#9ccbe0, 0.22)}; }
+.alert-secondary { --bs-alert-bg: #{$o-gray-300}; --bs-alert-color: #{$o-gray-800}; --bs-alert-border-color: #{rgba($o-main-text-color, 0.16)}; }
+.alert-success   { --bs-alert-bg: #122a1b; --bs-alert-color: #7ee0a0; --bs-alert-border-color: #{rgba(#7ee0a0, 0.22)}; }
+.alert-info      { --bs-alert-bg: #112a33; --bs-alert-color: #8fd3f4; --bs-alert-border-color: #{rgba(#8fd3f4, 0.22)}; }
+.alert-warning   { --bs-alert-bg: #2f2611; --bs-alert-color: #f0c674; --bs-alert-border-color: #{rgba(#f0c674, 0.22)}; }
+.alert-danger    { --bs-alert-bg: #2f1a1a; --bs-alert-color: #f1a0a0; --bs-alert-border-color: #{rgba(#f1a0a0, 0.22)}; }
+
+.bg-primary-subtle { background-color: #16242e !important; }
+.bg-success-subtle { background-color: #122a1b !important; }
+.bg-info-subtle    { background-color: #112a33 !important; }
+.bg-warning-subtle { background-color: #2f2611 !important; }
+.bg-danger-subtle  { background-color: #2f1a1a !important; }
+
+// --- Boolean toggle / switch unchecked track (was white) ---
+.form-switch .form-check-input:not(:checked) {
+    background-color: $o-gray-300;
+    border-color: rgba($o-main-text-color, 0.2);
+}
+
+// --- Light buttons ($o-btns-bs-override "light" maps to $o-white) ---
+//     e.g. the save/discard status pills next to the breadcrumb. --
+.btn-light {
+    --bs-btn-bg: #{$o-gray-300};
+    --bs-btn-border-color: #{$o-gray-300};
+    --bs-btn-color: #{$o-gray-900};
+    --bs-btn-hover-bg: #{$o-gray-400};
+    --bs-btn-hover-border-color: #{$o-gray-400};
+    --bs-btn-hover-color: #{$o-gray-900};
+    --bs-btn-active-bg: #{$o-gray-400};
+    --bs-btn-active-border-color: #{$o-gray-400};
+    --bs-btn-active-color: #{$o-gray-900};
+    background-color: $o-gray-300 !important;
+    border-color: $o-gray-300 !important;
+    color: $o-gray-900 !important;
+
+    &:hover,
+    &:active,
+    &.active {
+        background-color: $o-gray-400 !important;
+        color: $o-gray-900 !important;
+    }
+}
+
+// --- Field tooltips: technical/debug list was near-black with dim text ---
+.o-tooltip {
+    --bs-tooltip-bg: #{$o-gray-300};
+    --bs-tooltip-color: #{$o-gray-900};
+}
+
+.o-tooltip .o-tooltip--technical,
+.o-tooltip .o-tooltip--technical--title {
+    color: $o-gray-800;
+}
+
+// --- HOVER TEXT FIX ---
+//     The $o-btns-bs-override maps hardcode `hover-color: $o-black` for the
+//     secondary/light buttons, and several menus hardcode black hover text.
+//     On dark surfaces that turns the label black (invisible). Keep it light.
+.btn-secondary,
+.btn-outline-secondary,
+.btn-light {
+    &:hover,
+    &:focus,
+    &:focus-visible,
+    &:active,
+    &.active,
+    &.show {
+        color: $o-gray-900 !important;
+    }
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus,
+.dropdown-item:active,
+.dropdown-item.active,
+.o-dropdown--menu .dropdown-item:hover,
+.o-dropdown--menu .dropdown-item:focus {
+    color: $o-gray-900 !important;
+    background-color: $o-gray-300 !important;
+}
+
+// --- Mobile menus (app menu sidebar + burger/user menu) ---
+//     These full-screen panels render light by default; in dark mode their
+//     (already light) text became invisible on white. Force them dark.
+.o_app_menu_sidebar,
+.o_burger_menu,
+.o_burger_menu_content {
+    background-color: $o-gray-100 !important;
+    color: $o-main-text-color !important;
+}
+
+.o_app_menu_sidebar .o_sidebar_topbar,
+.o_burger_menu .o_sidebar_topbar {
+    background-color: $o-gray-200 !important;
+    color: $o-main-text-color !important;
+}
+
+// --- Search-bar autocomplete: the <a> labels (e.g. "Search Foo for: bar")
+//     inherited a near-black colour on the dark menu. Keep them light; the
+//     searched value keeps its own .text-primary highlight. ---
+.o_searchview_autocomplete a {
+    color: $o-main-text-color !important;
+}
+
+// --- Search bar input itself: the typed text used $input-focus-color and the
+//     box $input-focus-bg — neither is flipped for dark, so you'd type dark text
+//     on the dark search box (invisible while typing). Pin the box to a dark
+//     surface and keep the text + placeholder light. ---
+.o_searchview {
+    --SearchBar-background-color: #{$o-gray-200};
+    color: $o-main-text-color;
+
+    &:focus-within {
+        color: $o-main-text-color;
+    }
+
+    .o_searchview_input {
+        color: $o-main-text-color;
+
+        &::placeholder {
+            color: rgba($o-main-text-color, 0.5);
+        }
+    }
+}
+
+// --- Search panel (left filter sidebar): the SELECTED category value carries a
+//     hardcoded `text-black` class (template), so on the dark panel the active
+//     filter turned black-on-dark — invisible, "no resalta". Flip it to the
+//     brand colour so it stands out and reads clearly (it keeps its bold). ---
+.o_search_panel .text-black,
+.o_search_panel_category_value .text-black,
+.o_search_panel_filter_value .text-black {
+    color: $o-brand-primary !important;
+}
+
+// --- Settings: the section title bars use --settings__title-bg = grays-200,
+//     which in dark blends into the page, so sections lose the "band" look they
+//     have in light. Give them a subtle distinct surface. ---
+.o_base_settings_view .o_form_renderer {
+    --settings__title-bg: #{rgba($o-main-text-color, 0.07)};
+}
+
+// --- Discuss: mail's own discuss.dark.scss tints the navbar / control panel
+//     with 15% white — a grey that clashes with the darker backend. Match our
+//     dark surface so Discuss looks consistent with the rest. ---
+.o_web_client.o_mail_discuss {
+    --mail-Discuss-surface-dark: #{$o-gray-100};
+}
+
+// --- Tour pointer popover: the content box hard-codes `$light` background and
+//     black text, so in dark it became dark text on a grey box (unreadable).
+//     Pin a dark surface + light, readable text (skip link a touch dimmer). ---
+.o_tour_pointer .o_tour_pointer_content {
+    background-color: $o-gray-200 !important;
+    color: $o-main-text-color !important;
+}
+.o_tour_pointer .o_skip_tour {
+    color: rgba($o-main-text-color, 0.6) !important;
+
+    &:hover {
+        color: $o-main-text-color !important;
+    }
+}
+
+// --- Custom Filter / domain editor (and the dashboard widget-builder filter):
+//     the field & value inputs rendered with no contrast in dark — the input
+//     surface/inherited colour didn't adapt. Pin a dark field with light text +
+//     placeholder. (The code-editor textarea uses .text-body and is untouched.) ---
+.o_domain_selector .o_input,
+.o_domain_selector input:not([type="checkbox"]):not([type="radio"]),
+.o_domain_selector .o-autocomplete--input,
+.o_domain_selector select {
+    --o-input-background-color: #{$o-gray-300};
+    background-color: $o-gray-300 !important;
+    color: $o-main-text-color !important;
+}
+.o_domain_selector .o_input::placeholder,
+.o_domain_selector input::placeholder {
+    color: rgba($o-main-text-color, 0.5) !important;
+}
+
+// --- Input text in dark mode: many <input>s don't inherit the panel's light
+//     text, so the typed value rendered near-black — seen in the search-menu
+//     "Save current search" / favourites, the filter & domain editors, m2o
+//     autocompletes, and the spreadsheet-dashboard filter values. Force Odoo
+//     inputs + form controls to light text + placeholder. (Backgrounds are
+//     already dark via --bs-body-bg; invalid fields keep their colour via a more
+//     specific rule.) ---
+.o_input,
+input.form-control,
+textarea.form-control,
+.o-autocomplete--input {
+    color: $o-main-text-color;
+
+    &::placeholder {
+        color: rgba($o-main-text-color, 0.5);
+    }
+}
+
+// --- Grouped list view: the group header ("Sales (9)" …) takes its colour from
+//     color-contrast($gray-200) and its row bg from --table-bg: $gray-200. In
+//     dark the pair lost contrast and the group title vanished. Pin a distinct
+//     dark band + a light, readable title (and its aggregate totals). ---
+.o_list_table_grouped .o_group_header {
+    --table-bg: #{$o-gray-300};
+    color: $o-main-text-color !important;
+
+    th,
+    td,
+    .o_group_name {
+        color: $o-main-text-color !important;
+    }
+}
+
+// --- List-row action icons (the delete trash on list / x2many rows, the drag
+//     handle): they inherit a near-black button colour and vanish on the dark
+//     rows. Muted light at rest, readable danger red on hover for the trash. ---
+.o_data_row .o_list_record_remove button,
+.o_data_row .o_row_handle,
+.o_data_row .o_handle_cell i {
+    color: rgba($o-main-text-color, 0.65) !important;
+}
+.o_data_row .o_list_record_remove button:hover {
+    color: #ff7085 !important;
+}
+
+// --- Discuss thread name (the conversation title in the header — an editable
+//     input with no explicit colour, so it rendered near-black in dark). Light. ---
+.o-mail-DiscussContent-threadName {
+    color: $o-main-text-color !important;
+}
+
+// --- Settings page left tabs: the selected/hover label turned dark on the dark
+//     panel. Match the sidebar look: brand-tinted highlight + brand label. ---
+.settings_tab .tab {
+    color: $o-main-text-color;
+
+    &:hover,
+    &:hover .app_name,
+    &.selected,
+    &.selected .app_name {
+        color: $o-brand-primary !important;
+    }
+    &.selected {
+        background-color: rgba($o-brand-primary, 0.16) !important;
+    }
+}
+
+// Section headers / muted labels inside those panels.
+.o_app_menu_sidebar .text-muted,
+.o_burger_menu .text-muted,
+.o_burger_menu_content .text-muted {
+    color: $o-gray-600 !important;
+}

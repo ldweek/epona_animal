@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_sepa_mandate_list" model="ir.ui.view">
+        <field name="name">eh.sepa.mandate.list</field>
+        <field name="model">eh.sepa.mandate</field>
+        <field name="arch" type="xml">
+            <list string="SEPA Mandates" default_order="state, signature_date desc">
+                <field name="mandate_id"/>
+                <field name="partner_id"/>
+                <field name="creditor_id"/>
+                <field name="local_instrument"/>
+                <field name="signature_date"/>
+                <field name="next_sequence_type"/>
+                <field name="collection_count"/>
+                <field name="last_collection_date" optional="show"/>
+                <field name="expires_on" optional="hide"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'active'"
+                       decoration-info="state == 'draft'"
+                       decoration-warning="state == 'completed'"
+                       decoration-danger="state in ('revoked', 'expired')"/>
+                <field name="is_one_off" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_sepa_mandate_form" model="ir.ui.view">
+        <field name="name">eh.sepa.mandate.form</field>
+        <field name="model">eh.sepa.mandate</field>
+        <field name="arch" type="xml">
+            <form string="SEPA Mandate">
+                <header>
+                    <button name="action_activate"
+                            type="object"
+                            string="Activate"
+                            class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_revoke"
+                            type="object"
+                            string="Revoke"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state in ('completed', 'revoked')"
+                            confirm="Revoking a mandate stops every future collection. Continue?"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,active,completed"/>
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="mandate_id"
+                               readonly="state != 'draft'"
+                               placeholder="MNDT-001"/>
+                    </h1>
+                    <group>
+                        <group string="Mandate">
+                            <field name="partner_id"
+                                   readonly="state != 'draft'"
+                                   options="{'no_create': True}"/>
+                            <field name="debtor_name"/>
+                            <field name="creditor_id"
+                                   readonly="state != 'draft'"
+                                   options="{'no_create': True}"/>
+                            <field name="local_instrument"
+                                   readonly="state != 'draft'"/>
+                            <field name="b2b_bank_confirmed"
+                                   invisible="local_instrument != 'B2B'"
+                                   readonly="state != 'draft'"/>
+                            <field name="signature_date"
+                                   readonly="state != 'draft'"/>
+                            <field name="is_one_off"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <group string="Debtor bank">
+                            <field name="debtor_iban"/>
+                            <field name="debtor_bic"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"
+                                   readonly="1"/>
+                        </group>
+                        <group string="Collection status">
+                            <field name="next_sequence_type" readonly="1"/>
+                            <field name="collection_count" readonly="1"/>
+                            <field name="last_collection_date" readonly="1"/>
+                            <field name="expires_on" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Amendments">
+                            <field name="amendment_ids" readonly="1">
+                                <list>
+                                    <field name="amended_at"/>
+                                    <field name="amended_by_id"/>
+                                    <field name="amendment_type"/>
+                                    <field name="old_value"/>
+                                    <field name="new_value"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_sepa_mandate_search" model="ir.ui.view">
+        <field name="name">eh.sepa.mandate.search</field>
+        <field name="model">eh.sepa.mandate</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="mandate_id"/>
+                <field name="partner_id"/>
+                <field name="creditor_id"/>
+                <field name="debtor_iban"/>
+                <filter name="filter_active" string="Active"
+                        domain="[('state', '=', 'active')]"/>
+                <filter name="filter_draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="filter_completed" string="Completed"
+                        domain="[('state', '=', 'completed')]"/>
+                <filter name="filter_revoked_or_expired" string="Revoked / Expired"
+                        domain="[('state', 'in', ['revoked', 'expired'])]"/>
+                <separator/>
+                <filter name="filter_one_off" string="One-off"
+                        domain="[('is_one_off', '=', True)]"/>
+                <filter name="filter_b2b" string="B2B"
+                        domain="[('local_instrument', '=', 'B2B')]"/>
+                <group>
+                    <filter name="group_state" string="State"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_creditor" string="Creditor"
+                            context="{'group_by': 'creditor_id'}"/>
+                    <filter name="group_local_instrument" string="Scheme"
+                            context="{'group_by': 'local_instrument'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_sepa_mandate" model="ir.actions.act_window">
+        <field name="name">SEPA Mandates</field>
+        <field name="res_model">eh.sepa.mandate</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_sepa_mandate_search"/>
+        <field name="context">{'search_default_filter_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No SEPA mandates yet.</p>
+            <p>Each mandate records a debtor's authorisation to collect via SEPA Direct Debit. Activate a mandate after the debtor signs; the engine will auto-flip it from FRST to RCUR on first use and to expired after 36 months of dormancy.</p>
+        </field>
+    </record>
+
+</odoo>

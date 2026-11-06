@@ -1,0 +1,3728 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_assets_pro
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Japanese\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_revalue_wizard.py:0
+msgid "%(dir)s of %(amt)s posted: %(notes)s"
+msgstr "%(amt)s の %(dir)s を記帳しました: %(notes)s"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_account_account__eh_asset_auto
+msgid ""
+"'Create draft asset' leaves the new asset in draft for review; 'Create and "
+"validate' also generates the schedule and starts depreciation. Requires an "
+"asset category."
+msgstr ""
+"'Create draft asset' は新しい資産をレビュー用にドラフトのままにします。'Create and validate' "
+"はスケジュールも生成し、減価償却を開始します。資産カテゴリが必要です。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+msgid "<span class=\"eh_pdf_status_badge eh_pdf_status_neutral\">Pending</span>"
+msgstr "<span class=\"eh_pdf_status_badge eh_pdf_status_neutral\">保留中</span>"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+msgid "<span class=\"eh_pdf_status_badge eh_pdf_status_ok\">Posted</span>"
+msgstr "<span class=\"eh_pdf_status_badge eh_pdf_status_ok\">記帳済み</span>"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "<span class=\"o_stat_text\">Impairments</span>"
+msgstr "<span class=\"o_stat_text\">減損</span>"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_register
+msgid "<strong>Assets:</strong>"
+msgstr "<strong>資産:</strong>"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+msgid "<strong>Category:</strong>"
+msgstr "<strong>カテゴリ:</strong>"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_register
+msgid "<strong>Company:</strong>"
+msgstr "<strong>会社:</strong>"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_register
+msgid "<strong>Generated:</strong>"
+msgstr "<strong>生成日時:</strong>"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+msgid "<strong>State:</strong>"
+msgstr "<strong>状態：</strong>"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_lvp_pool.py:0
+msgid ""
+"A line already exists for pool %(pool)s in year %(year)s. Cancel that line "
+"before recomputing."
+msgstr "%(year)s 年のプール %(pool)s には既に明細行が存在します。再計算する前にその明細行をキャンセルしてください。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_eh_asset_lvp_pool_line
+msgid "AU LVP annual depreciation line"
+msgstr "AU LVP 年間減価償却明細"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool_line__year
+msgid "AU financial year for this depreciation line."
+msgstr "この減価償却明細の AU 会計年度。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_eh_asset_lvp_pool
+msgid "AU low-value asset pool"
+msgstr "AU 低価値資産プール"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__auc_account_id
+msgid "AUC Holding Account"
+msgstr "AUC 保有勘定"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__amount
+msgid ""
+"Absolute (positive) amount of the impairment charge or reversal. Sign is "
+"implied by is_reversal."
+msgstr "減損費用または戻入の絶対値（正の値）。符号は is_reversal によって決まります。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_account_account
+msgid "Account"
+msgstr "勘定科目"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Accounts & Journal"
+msgstr "勘定科目と仕訳帳"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_register
+msgid "Accum. Depr."
+msgstr "減価償却累計額"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book_line__accumulated
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__accumulated
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+msgid "Accumulated"
+msgstr "累計"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__accumulated_depreciation
+msgid "Accumulated Depreciation"
+msgstr "減価償却累計額"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__accumulated_depreciation_account_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__accumulated_depreciation_account_id
+msgid "Accumulated Depreciation Account"
+msgstr "減価償却累計額勘定"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__accumulated_impairment
+msgid "Accumulated Impairment"
+msgstr "減損損失累計額"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__accumulated_account_id
+msgid "Accumulated Impairment Account"
+msgstr "減損損失累計額勘定"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__accumulated_account_id
+msgid "Accumulated Pool Depreciation"
+msgstr "プール減価償却累計額"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+msgid "Accumulated depreciation"
+msgstr "減価償却累計額"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_depreciation_line.py:0
+msgid "Accumulated depreciation %s"
+msgstr "減価償却累計額 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_dispose_wizard.py:0
+msgid "Accumulated depreciation reversal %s"
+msgstr "減価償却累計額の戻し入れ %s"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_depreciation_line__accumulated
+msgid "Accumulated depreciation up to and including this line."
+msgstr "この明細行までを含む減価償却累計額。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_register
+msgid "Acquired"
+msgstr "取得済み"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__acquisition_cost
+msgid "Acquisition Cost"
+msgstr "取得原価"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__acquisition_date
+msgid "Acquisition Date"
+msgstr "取得日"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+msgid "Acquisition cost"
+msgstr "取得原価"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.constraint,message:eh_account_assets_pro.constraint_eh_asset_check_acquisition_cost
+msgid "Acquisition cost must be positive."
+msgstr "取得原価は正の値である必要があります。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool_line__additions
+msgid "Acquisition cost of assets transferred in during the year."
+msgstr "年度中に移管された資産の取得原価。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__message_needaction
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__message_needaction
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__message_needaction
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__message_needaction
+msgid "Action Needed"
+msgstr "要アクション"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_form
+msgid "Activate"
+msgstr "有効化"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__activated_at
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__activated_at
+msgid "Activated At"
+msgstr "有効化日時"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__activated_by_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__activated_by_id
+msgid "Activated By"
+msgstr "有効化者"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__active
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__active
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_lease_contract__state__active
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_search
+msgid "Active"
+msgstr "有効"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__activity_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__activity_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__activity_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__activity_ids
+msgid "Activities"
+msgstr "活動"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__activity_exception_decoration
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__activity_exception_decoration
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__activity_exception_decoration
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "例外の活動を示す装飾"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__activity_state
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__activity_state
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__activity_state
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__activity_state
+msgid "Activity State"
+msgstr "活動ステータス"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__activity_type_icon
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__activity_type_icon
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__activity_type_icon
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "活動タイプアイコン"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid ""
+"Additional depreciation books for parallel reporting (tax, IFRS, "
+"management). The primary schedule above is the GL source of truth; books "
+"here are reporting-only unless ticked posts_to_gl."
+msgstr ""
+"並行報告（税務、IFRS、管理）用の追加の減価償却台帳。上記の主要スケジュールが GL の信頼できる唯一の情報源です。ここの台帳は "
+"posts_to_gl がチェックされていない限り報告専用です。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool_line__additions
+msgid "Additions"
+msgstr "追加"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book_line__amount
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__amount
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__amount
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool_line__amount
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_revalue_wizard__amount
+msgid "Amount"
+msgstr "金額"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_lease_contract__cadence__annual
+msgid "Annual"
+msgstr "年次"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_lvp_pool_form
+msgid "Annual depreciation"
+msgstr "年間減価償却"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__line_ids
+msgid ""
+"Annual depreciation lines for the pool. One row per year per pool; computed "
+"by action_compute_year."
+msgstr "プールの年間減価償却明細行。プールごとに年ごとに 1 行。action_compute_year によって計算されます。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool_line__amount
+msgid ""
+"Annual depreciation: subsequent_rate% * opening_balance + first_year_rate% *"
+" additions."
+msgstr ""
+"年間減価償却: subsequent_rate% * opening_balance + first_year_rate% * additions。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_lease_contract__incremental_borrowing_rate
+msgid "Annual incremental borrowing rate as a percentage."
+msgstr "年間の追加借入利率（パーセント）。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_modify_wizard_form
+msgid "Apply Modification"
+msgstr "変更を適用"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_category_search
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_lvp_pool_search
+msgid "Archived"
+msgstr "アーカイブ済"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__asset_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book_line__asset_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__asset_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_dispose_wizard__asset_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__asset_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__asset_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_revalue_wizard__asset_id
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_depreciation_line_search
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_impairment_search
+msgid "Asset"
+msgstr "資産"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_lvp_pool.py:0
+msgid ""
+"Asset %(asset)s acquisition cost %(amt).2f exceeds the pool threshold "
+"%(thr).2f. Configure a higher threshold or transfer this asset individually."
+msgstr ""
+"資産 %(asset)s の取得原価 %(amt).2f がプールしきい値 %(thr).2f "
+"を超えています。より高いしきい値を設定するか、この資産を個別に振り替えてください。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_lvp_pool.py:0
+msgid "Asset %(asset)s is already in pool %(pool)s."
+msgstr "資産 %(asset)s はすでにプール %(pool)s にあります。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Asset %(asset)s is missing posting setup: %(missing)s."
+msgstr "資産 %(asset)s に転記設定がありません：%(missing)s。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Asset %s has no carrying amount to capitalise."
+msgstr "資産 %s には資産計上する帳簿価額がありません。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Asset %s is not under construction."
+msgstr "資産 %s は建設中ではありません。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid ""
+"Asset %s is under construction; capitalise it before computing the schedule."
+msgstr "資産 %s は建設中です。スケジュールを計算する前に資産計上してください。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid ""
+"Asset %s is under construction; capitalise it first via action_capitalise."
+msgstr "資産 %s は建設中です。まず action_capitalise で資産計上してください。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__asset_account_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__asset_account_id
+msgid "Asset Account"
+msgstr "資産勘定"
+
+#. module: eh_account_assets_pro
+#: model:ir.actions.report,name:eh_account_assets_pro.action_report_asset_card
+msgid "Asset Card & Schedule"
+msgstr "資産カードとスケジュール"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+msgid "Asset Card —"
+msgstr "資産カード —"
+
+#. module: eh_account_assets_pro
+#: model:ir.actions.act_window,name:eh_account_assets_pro.action_eh_asset_category
+#: model:ir.ui.menu,name:eh_account_assets_pro.menu_eh_asset_category
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_category_search
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_category_tree
+msgid "Asset Categories"
+msgstr "資産カテゴリ"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_account_account__eh_asset_category_id
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_category_form
+msgid "Asset Category"
+msgstr "資産カテゴリ"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__asset_count
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__asset_count
+msgid "Asset Count"
+msgstr "資産数"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_eh_asset_depreciation_line
+msgid "Asset Depreciation Schedule Line"
+msgstr "資産減価償却スケジュール明細"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_eh_asset_dispose_wizard
+msgid "Asset Disposal Wizard"
+msgstr "資産処分ウィザード"
+
+#. module: eh_account_assets_pro
+#: model:ir.ui.menu,name:eh_account_assets_pro.menu_eh_asset_impairment
+msgid "Asset Impairments"
+msgstr "資産の減損"
+
+#. module: eh_account_assets_pro
+#: model:ir.actions.report,name:eh_account_assets_pro.action_report_asset_register
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_register
+msgid "Asset Register"
+msgstr "資産登録簿"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_eh_asset_revalue_wizard
+msgid "Asset Revaluation Wizard"
+msgstr "資産再評価ウィザード"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_account_move_line__eh_asset_id
+msgid "Asset auto-created from this bill line, if any."
+msgstr "この請求書明細から自動作成された資産（存在する場合）。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Asset book"
+msgstr "資産台帳"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_eh_asset_book_line
+msgid "Asset book schedule line"
+msgstr "資産台帳スケジュール明細"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_dispose_wizard.py:0
+msgid "Asset cost reversal %s"
+msgstr "資産原価の戻し %s"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_eh_asset_book
+msgid "Asset depreciation book"
+msgstr "資産減価償却台帳"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_dispose_wizard.py:0
+msgid ""
+"Asset gain on disposal: configure a Disposal Gain account on the asset or "
+"its category."
+msgstr "資産処分益：資産またはそのカテゴリに処分益勘定を設定してください。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_impairment_form
+msgid "Asset impairment"
+msgstr "資産の減損"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_revalue_wizard.py:0
+msgid "Asset impairment %s"
+msgstr "資産の減損 %s"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_eh_asset_impairment
+msgid "Asset impairment / reversal"
+msgstr "資産の減損 / 戻入れ"
+
+#. module: eh_account_assets_pro
+#: model:ir.actions.act_window,name:eh_account_assets_pro.action_eh_asset_impairment
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_impairment_search
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_impairment_tree
+msgid "Asset impairments"
+msgstr "資産の減損"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+#: code:addons/eh_account_assets_pro/wizards/asset_dispose_wizard.py:0
+msgid "Asset is already disposed."
+msgstr "資産はすでに処分されています。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_revalue_wizard.py:0
+msgid "Asset is missing the Asset Account; cannot revalue."
+msgstr "資産に資産勘定がないため、再評価できません。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_dispose_wizard.py:0
+msgid ""
+"Asset is missing the Asset Account; cannot reverse the capitalised cost on "
+"disposal."
+msgstr "資産に資産勘定がないため、処分時に資産計上した原価を戻せません。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_dispose_wizard.py:0
+msgid ""
+"Asset loss on disposal: configure a Disposal Loss account on the asset or "
+"its category."
+msgstr "資産処分損：資産またはそのカテゴリに処分損勘定を設定してください。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_revalue_wizard.py:0
+msgid "Asset reduction %s"
+msgstr "資産の減額 %s"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Asset tag"
+msgstr "資産タグ"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_revalue_wizard.py:0
+msgid "Asset uplift %s"
+msgstr "資産の増額 %s"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__asset_id
+msgid "Asset whose carrying amount is being adjusted."
+msgstr "帳簿価額を調整している資産。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_category_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_partner_form_assets
+msgid "Assets"
+msgstr "資産"
+
+#. module: eh_account_assets_pro
+#: model:ir.ui.menu,name:eh_account_assets_pro.menu_eh_assets_root
+msgid "Assets and Leases"
+msgstr "資産とリース"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_category.py:0
+msgid "Assets in %s"
+msgstr "%s 内の資産"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_lvp_pool_form
+msgid "Assets in pool"
+msgstr "プール内の資産"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__asset_ids
+msgid "Assets transferred into this pool."
+msgstr "このプールに移管された資産。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__message_attachment_count
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__message_attachment_count
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__message_attachment_count
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__message_attachment_count
+msgid "Attachment Count"
+msgstr "添付数"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+msgid "Authorised signatory"
+msgstr "権限を有する署名者"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/account_move.py:0
+msgid "Auto-validation skipped; asset left in draft: %s"
+msgstr "自動検証をスキップしました。資産はドラフトのままです: %s"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_account_account__eh_asset_auto
+msgid "Automatic Asset"
+msgstr "自動資産"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_account_form_eh_asset
+msgid "Automatic Asset Creation"
+msgstr "資産の自動作成"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__auc_account_id
+msgid ""
+"Balance-sheet account that carries the asset's cost while it is under "
+"construction. On capitalisation, the JE debits asset_account_id and credits "
+"this account."
+msgstr "建設中の資産の原価を計上する貸借対照表勘定。資産計上時、仕訳は asset_account_id を借方に、この勘定を貸方に計上します。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__pool_account_id
+msgid ""
+"Balance-sheet account that carries the pool's gross value. Assets "
+"transferred in shift their NBV here."
+msgstr "プールの総額を計上する貸借対照表勘定。移管された資産はその NBV をここに移します。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__accumulated_account_id
+msgid ""
+"Balance-sheet contra account against which the impairment is booked. Falls "
+"back to the asset's accumulated_depreciation_account_id when blank."
+msgstr ""
+"減損を計上する相手側の貸借対照表勘定。空欄の場合は資産の accumulated_depreciation_account_id "
+"にフォールバックします。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__accumulated_account_id
+msgid "Balance-sheet contra account for pool depreciation."
+msgstr "プール減価償却用の相手側貸借対照表勘定。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__book_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book_line__book_id
+msgid "Book"
+msgstr "予約"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_book.py:0
+msgid ""
+"Book %(book)s has %(n)d posted line(s); recompute would corrupt the GL. Mark"
+" the asset as paused, reverse the postings, or create a new book."
+msgstr ""
+"台帳 %(book)s には記帳済みの明細が %(n)d 件あります。再計算すると GL "
+"が破損します。資産を一時停止としてマークするか、記帳を取り消すか、新しい台帳を作成してください。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__book_count
+msgid "Book Count"
+msgstr "台帳数"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__book_type
+msgid "Book Type"
+msgstr "台帳タイプ"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Books"
+msgstr "書籍"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_dispose_wizard__partner_id
+msgid "Buyer / Counterparty"
+msgstr "買い手 / 取引相手"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset__prorata_mode__daily
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_category__prorata_mode__daily
+msgid "By days in service"
+msgstr "稼働日数別"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__cadence
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_search
+msgid "Cadence"
+msgstr "頻度"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_dispose_wizard_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_impairment_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_revalue_wizard_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_modify_wizard_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_terminate_wizard_form
+msgid "Cancel"
+msgstr "キャンセル"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_impairment_form
+msgid ""
+"Cancel this impairment? Posted moves will be set to draft and cancelled."
+msgstr "この減損をキャンセルしますか？記帳済みの仕訳はドラフトに設定され、キャンセルされます。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_impairment__state__cancelled
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_impairment_search
+msgid "Cancelled"
+msgstr "キャンセル済"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Cannot return to draft once any depreciation line has been posted."
+msgstr "いずれかの減価償却明細が計上されると、ドラフトには戻せません。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Capitalisation %s"
+msgstr "資産計上 %s"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Capitalise (AUC)"
+msgstr "資産計上 (AUC)"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid ""
+"Capitalise this asset? This posts the AUC -> asset transfer JE, sets the in-"
+"service date to today, generates the schedule, and activates the asset."
+msgstr ""
+"この資産を資産計上しますか? これにより AUC -> "
+"資産への振替仕訳が計上され、稼働開始日が本日に設定され、スケジュールが生成され、資産が有効化されます。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__capitalised_at
+msgid "Capitalised At"
+msgstr "資産計上日時"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__capitalised_by_id
+msgid "Capitalised By"
+msgstr "資産計上者"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid ""
+"Capitalised on %(date)s. Depreciation schedule generated; the cron will post"
+" due lines from the next pass."
+msgstr "%(date)s に資産計上されました。減価償却スケジュールが生成されました。cron が次回の処理から期限到来分の明細を計上します。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__cash_account_id
+msgid "Cash / Payables Account"
+msgstr "現金／買掛金勘定"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_lease_terminate_wizard__settlement_account_id
+msgid "Cash or payable account for the settlement."
+msgstr "決済のための現金または買掛金勘定。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_lease_terminate_wizard__settlement_amount
+msgid ""
+"Cash paid to or received from the lessor on termination. Positive amount = "
+"paid to lessor."
+msgstr "解約時に賃貸人に支払った、または賃貸人から受け取った現金。正の金額 = 賃貸人への支払い。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__category_id
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_register
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_search
+msgid "Category"
+msgstr "カテゴリー"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.constraint,message:eh_account_assets_pro.constraint_eh_asset_category_uniq_code_company
+msgid "Category code must be unique per company."
+msgstr "カテゴリコードは会社ごとに一意である必要があります。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_category_form
+msgid "Category name"
+msgstr "カテゴリ名"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_impairment_search
+msgid "Charges"
+msgstr "課金"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__component_ids
+msgid "Child components of this asset. Empty for leaf assets."
+msgstr "この資産の子コンポーネント。リーフ資産の場合は空です。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__code
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__code
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_register
+msgid "Code"
+msgstr "コード"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__commencement_date
+msgid "Commencement Date"
+msgstr "開始日"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__company_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__company_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__company_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__company_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_dispose_wizard__company_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__company_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__company_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_revalue_wizard__company_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__company_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__company_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__company_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_terminate_wizard__company_id
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_lvp_pool_search
+msgid "Company"
+msgstr "会社"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__component_count
+msgid "Component Count"
+msgstr "コンポーネント数"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__component_ids
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Components"
+msgstr "構成要素"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_form
+msgid "Compute Schedule"
+msgstr "スケジュールを計算"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Compute schedule"
+msgstr "スケジュールを計算"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_impairment.py:0
+msgid ""
+"Configure the impairment loss and accumulated impairment accounts on the "
+"impairment record or fall back to the asset's accumulated depreciation and "
+"disposal loss accounts before posting."
+msgstr "計上する前に、減損レコードで減損損失勘定と累計減損勘定を構成するか、資産の累計減価償却勘定と処分損失勘定にフォールバックしてください。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_lvp_pool.py:0
+msgid ""
+"Configure the pool's expense, accumulated, and journal accounts before "
+"posting."
+msgstr "計上する前に、プールの費用勘定、累計勘定、仕訳帳勘定を構成してください。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_res_partner
+msgid "Contact"
+msgstr "連絡先"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_category__accumulated_depreciation_account_id
+msgid "Contra asset account on the balance sheet."
+msgstr "貸借対照表上の資産の評価勘定。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_register
+msgid "Cost"
+msgstr "原価"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Cost & Totals"
+msgstr "コストと合計"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_revalue_wizard__counterpart_account_id
+msgid "Counterpart Account"
+msgstr "相手方口座"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_revalue_wizard__counterpart_account_id
+msgid ""
+"Counterpart account: revaluation reserve / income for uplift, impairment "
+"loss for impairment."
+msgstr "相手勘定：評価益の場合は再評価積立金/収益、減損の場合は減損損失。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__account_account__eh_asset_auto__validate
+msgid "Create and validate asset"
+msgstr "資産を作成して検証"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__account_account__eh_asset_auto__draft
+msgid "Create draft asset"
+msgstr "資産のドラフトを作成"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__create_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__create_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book_line__create_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__create_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__create_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_dispose_wizard__create_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__create_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__create_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool_line__create_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_revalue_wizard__create_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__create_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__create_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__create_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_terminate_wizard__create_uid
+msgid "Created by"
+msgstr "作成者"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__create_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__create_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book_line__create_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__create_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__create_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_dispose_wizard__create_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__create_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__create_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool_line__create_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_revalue_wizard__create_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__create_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__create_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__create_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_terminate_wizard__create_date
+msgid "Created on"
+msgstr "作成日"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book_line__accumulated
+msgid ""
+"Cumulative depreciation through the end of this period. Independent of any "
+"other book's accumulator."
+msgstr "当期末までの累計減価償却額。他のいずれの帳簿の累計器からも独立しています。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__units_used
+msgid ""
+"Cumulative units consumed. Drives next depreciation under units of "
+"production method."
+msgstr "累計消費単位数。生産高比例法における次回の減価償却を決定します。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__currency_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__currency_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book_line__currency_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__currency_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_dispose_wizard__currency_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__currency_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__currency_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool_line__currency_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_revalue_wizard__currency_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__currency_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__currency_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__currency_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_terminate_wizard__currency_id
+msgid "Currency"
+msgstr "通貨"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__current_liability
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_terminate_wizard__current_liability
+msgid "Current Liability"
+msgstr "流動負債"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__current_rou
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_terminate_wizard__current_rou
+msgid "Current Rou"
+msgstr "現在の使用権資産"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+msgid "Date"
+msgstr "日付"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_depreciation_line_search
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_impairment_search
+msgid "Date (month)"
+msgstr "日付（月）"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__impairment_date
+msgid ""
+"Date of the impairment event. Drives the journal entry date and the period "
+"in which the loss / reversal hits the P&L."
+msgstr "減損イベントの日付。仕訳の日付と、損失／戻入が損益計算書に反映される期間を決定します。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__in_service_date
+msgid "Date the asset entered service. Drives the schedule start."
+msgstr "資産が使用開始された日付。スケジュールの開始点を決定します。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__declining_factor
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__declining_factor
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__declining_factor
+msgid "Declining Factor"
+msgstr "定率法係数"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_category.py:0
+msgid ""
+"Declining factor must be positive for reducing balance method (category %s)."
+msgstr "定率法では逓減率が正の値である必要があります（カテゴリ %s）。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_category__prorata_mode
+msgid ""
+"Default first-period proration mode seeded onto assets in this category. "
+"When blank, the Prorate First Period switch applies."
+msgstr ""
+"このカテゴリの資産に設定されるデフォルトの初期期間按分モード。空白の場合、Prorate First Period スイッチが適用されます。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_category__salvage_rate
+msgid "Default salvage value as a fraction of acquisition cost."
+msgstr "取得原価に対する割合としての既定の残存価額。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_category__useful_life_months
+msgid "Default useful life used to seed assets in this category."
+msgstr "このカテゴリの資産を初期設定するために使用される既定の耐用年数。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Deferred Revenue Liability Account"
+msgstr "繰延収益負債勘定"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__deferred_type
+msgid "Deferred Type"
+msgstr "繰延タイプ"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset__deferred_type__deferred_expense
+msgid "Deferred expense (recognition over time)"
+msgstr "繰延費用（期間にわたる認識）"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_depreciation_line.py:0
+msgid "Deferred expense release %(asset)s #%(seq)s"
+msgstr "繰延費用の計上 %(asset)s #%(seq)s"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset__deferred_type__deferred_revenue
+msgid "Deferred revenue (recognition over time)"
+msgstr "繰延収益（期間にわたる認識）"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_depreciation_line.py:0
+msgid "Deferred revenue release %(asset)s #%(seq)s"
+msgstr "繰延収益の計上 %(asset)s #%(seq)s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_depreciation_line.py:0
+msgid "Deferred revenue release %s"
+msgstr "繰延収益の計上 %s"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__delta
+msgid "Delta"
+msgstr "差分"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+msgid "Depreciation"
+msgstr "減価償却"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_depreciation_line.py:0
+msgid "Depreciation %(asset)s #%(seq)s"
+msgstr "減価償却 %(asset)s #%(seq)s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_depreciation_line.py:0
+msgid "Depreciation %s"
+msgstr "減価償却 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Depreciation Books"
+msgstr "減価償却簿"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book_line__depreciation_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__depreciation_date
+msgid "Depreciation Date"
+msgstr "減価償却日"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__depreciation_account_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__depreciation_account_id
+msgid "Depreciation Expense Account"
+msgstr "減価償却費勘定"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__journal_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__journal_id
+msgid "Depreciation Journal"
+msgstr "減価償却仕訳帳"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__depreciation_line_ids
+msgid "Depreciation Line"
+msgstr "減価償却明細"
+
+#. module: eh_account_assets_pro
+#: model:ir.actions.act_window,name:eh_account_assets_pro.action_eh_asset_depreciation_line
+#: model:ir.ui.menu,name:eh_account_assets_pro.menu_eh_asset_depreciation_line
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_depreciation_line_search
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_depreciation_line_tree
+msgid "Depreciation Lines"
+msgstr "減価償却明細"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Depreciation Method"
+msgstr "減価償却方法"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.constraint,message:eh_account_assets_pro.constraint_eh_asset_depreciation_line_check_amount_non_negative
+msgid "Depreciation amount cannot be negative."
+msgstr "減価償却額を負の値にすることはできません。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__deferred_type
+msgid ""
+"Depreciation engine flavour. 'asset' is a regular fixed asset whose net book"
+" value declines as accumulated depreciation rises. 'deferred_revenue' "
+"recognises a pre-paid revenue balance into income over the schedule. "
+"'deferred_expense' recognises a pre-paid expense into the P&L over the "
+"schedule. The same schedule generator and lifecycle apply; only the journal "
+"entry posted on each line differs."
+msgstr ""
+"減価償却エンジンの種類。'asset' は累計減価償却が増えるにつれて正味帳簿価額が減少する通常の固定資産です。'deferred_revenue' "
+"は前受収益残高をスケジュールにわたって収益として認識します。'deferred_expense' "
+"は前払費用をスケジュールにわたって損益計算書に認識します。同じスケジュール生成器とライフサイクルが適用され、各行に計上される仕訳のみが異なります。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_depreciation_line.py:0
+msgid "Depreciation line already posted."
+msgstr "減価償却明細はすでに計上されています。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book__method
+msgid ""
+"Depreciation method for this book. Prime Cost is the AU tax straight-line "
+"over the effective life. Diminishing Value is the AU tax reducing-balance "
+"with the 200% factor applied to the prime-cost rate by default."
+msgstr ""
+"この帳簿の減価償却方法。Prime Cost は有効耐用年数にわたるオーストラリア税務の定額法です。Diminishing Value "
+"はオーストラリア税務の定率法で、既定では定額法率に 200% の係数が適用されます。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__first_year_rate
+msgid ""
+"Depreciation rate (%) applied to assets transferred during the year. ATO "
+"default: 18.75%."
+msgstr "年度中に振り替えられた資産に適用される減価償却率 (%)。ATO 既定値: 18.75%。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__subsequent_year_rate
+msgid ""
+"Depreciation rate (%) applied to the opening pool balance each year. ATO "
+"default: 37.5%."
+msgstr "毎年、期首のプール残高に適用される減価償却率 (%)。ATO 既定値: 37.5%。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+msgid "Depreciation schedule"
+msgstr "減価償却スケジュール"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_terminate_wizard_form
+msgid "Derecognise the lease and post the termination entry?"
+msgstr "リースの認識を中止し、終了仕訳を計上しますか?"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset__method__diminishing_value
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_book__method__diminishing_value
+msgid "Diminishing Value (AU tax)"
+msgstr "定率法（AU 税務）"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_revalue_wizard__direction
+msgid "Direction"
+msgstr "方向"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_account_account__display_name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_account_move__display_name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__display_name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__display_name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book_line__display_name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__display_name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__display_name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_dispose_wizard__display_name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__display_name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__display_name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool_line__display_name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_revalue_wizard__display_name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__display_name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__display_name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__display_name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_terminate_wizard__display_name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_res_partner__display_name
+msgid "Display Name"
+msgstr "表示名"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book__name
+msgid ""
+"Display label for the book, e.g. 'AU Tax Book' or 'IFRS book'. Shown on the "
+"asset form and on every schedule line so reports can disambiguate parallel "
+"schedules."
+msgstr ""
+"台帳の表示ラベル（例：'AU Tax Book' または 'IFRS "
+"book'）。資産フォームとすべての予定明細に表示され、レポートが並行する予定表を区別できるようにします。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__name
+msgid ""
+"Display label for the pool. Convention: 'Low-Value Pool <FY>'. Reused across"
+" years; the per-year balance lives in line_ids."
+msgstr ""
+"プールの表示ラベル。規約: 'Low-Value Pool <FY>'。年度をまたいで再利用されます。年度ごとの残高は line_ids にあります。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Disposal"
+msgstr "除却"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_dispose_wizard.py:0
+msgid "Disposal %s"
+msgstr "処分 %s"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__disposal_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_dispose_wizard__disposal_date
+msgid "Disposal Date"
+msgstr "除却日"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__disposal_gain_account_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__disposal_gain_account_id
+msgid "Disposal Gain Account"
+msgstr "処分益勘定"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__disposal_loss_account_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__disposal_loss_account_id
+msgid "Disposal Loss Account"
+msgstr "処分損勘定"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__disposal_move_id
+msgid "Disposal Move"
+msgstr "除却移動"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__disposal_partner_id
+msgid "Disposal Partner"
+msgstr "処分取引先"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__disposal_proceeds
+msgid "Disposal Proceeds"
+msgstr "処分収入"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_dispose_wizard.py:0
+msgid "Disposal notes: %s"
+msgstr "処分メモ: %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_dispose_wizard.py:0
+msgid "Disposal proceeds %s"
+msgstr "処分収入 %s"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_dispose_wizard_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Dispose"
+msgstr "廃棄"
+
+#. module: eh_account_assets_pro
+#: model:ir.actions.act_window,name:eh_account_assets_pro.action_eh_asset_dispose_wizard
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_dispose_wizard_form
+msgid "Dispose Asset"
+msgstr "資産を処分"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset__state__disposed
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_search
+msgid "Disposed"
+msgstr "処分済み"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__disposed_at
+msgid "Disposed At"
+msgstr "処分日時"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__disposed_by_id
+msgid "Disposed By"
+msgstr "処分者"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Disposed assets cannot return to draft."
+msgstr "処分済みの資産はドラフトに戻すことはできません。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__reason
+msgid ""
+"Documented basis for the impairment: indicator of impairment, recoverable-"
+"amount calculation, valuation method, key assumptions. Lands in the audit "
+"trail and in the close run's working papers."
+msgstr "減損の文書化された根拠：減損の兆候、回収可能価額の計算、評価方法、主要な仮定。監査証跡および決算処理の作業調書に記録されます。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset__state__draft
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_impairment__state__draft
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_lease_contract__state__draft
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_impairment_search
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_search
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_search
+msgid "Draft"
+msgstr "ドラフト"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_depreciation_line_search
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_schedule_line_search
+msgid "Due (today or earlier)"
+msgstr "期限到来（本日以前）"
+
+#. module: eh_account_assets_pro
+#: model:ir.actions.server,name:eh_account_assets_pro.ir_cron_post_due_assets_ir_actions_server
+msgid "EH Account Assets Pro: post due asset depreciation"
+msgstr "EH Account Assets Pro: 期日到来の資産減価償却を計上"
+
+#. module: eh_account_assets_pro
+#: model:ir.actions.server,name:eh_account_assets_pro.ir_cron_post_due_leases_ir_actions_server
+msgid "EH Account Assets Pro: post due lease entries"
+msgstr "EH Account Assets Pro: 期日到来のリース仕訳を計上"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book__useful_life_months
+msgid ""
+"Effective life used for this book's schedule. Tax-book lives are dictated by"
+" ATO ruling TR 2025/1 (and successors); statutory book lives reflect the "
+"entity's accounting policy."
+msgstr ""
+"この帳簿のスケジュールに使用される有効耐用年数。税務帳簿の耐用年数は ATO 裁定 TR "
+"2025/1（およびその後継）によって定められます。法定帳簿の耐用年数は事業体の会計方針を反映します。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_res_partner__eh_asset_count
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_res_users__eh_asset_count
+msgid "Eh Asset Count"
+msgstr "Eh 資産件数"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_res_partner__eh_lease_count
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_res_users__eh_lease_count
+msgid "Eh Lease Count"
+msgstr "リース数"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_lease_contract__state__ended
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_search
+msgid "Ended"
+msgstr "終了"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book__salvage_value
+msgid ""
+"Estimated residual value at end of useful life. Salvage for tax-book "
+"purposes is typically zero (write down to zero); statutory salvage may be "
+"non-zero for assets with expected resale value."
+msgstr ""
+"耐用年数終了時の見積残存価額。税務帳簿上の残存価額は通常ゼロです（ゼロまで償却）。予想再販価値のある資産については、法定残存価額がゼロでない場合があります。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_dispose_wizard__expected_gain_loss
+msgid "Expected Gain Loss"
+msgstr "予想損益"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Expense Recognition Account"
+msgstr "費用認識勘定"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_depreciation_line.py:0
+msgid "Expense recognition %s"
+msgstr "費用認識 %s"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_form
+msgid "External lease reference"
+msgstr "外部リース参照"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_lease_contract__reference
+msgid "External lease reference, e.g. landlord contract number."
+msgstr "外部リース参照。例: 貸主の契約番号。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__final_book_value
+msgid "Final Book Value"
+msgstr "最終簿価"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__first_year_rate
+msgid "First Year Rate"
+msgstr "初年度料率"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_eh_asset
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Fixed Asset"
+msgstr "固定資産"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_eh_asset_category
+msgid "Fixed Asset Category"
+msgstr "固定資産カテゴリ"
+
+#. module: eh_account_assets_pro
+#: model:ir.actions.act_window,name:eh_account_assets_pro.action_eh_asset
+#: model:ir.ui.menu,name:eh_account_assets_pro.menu_eh_asset_all
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_search
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_tree
+msgid "Fixed Assets"
+msgstr "固定資産"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset__deferred_type__asset
+msgid "Fixed asset (depreciation)"
+msgstr "固定資産（減価償却）"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_res_partner__eh_asset_count
+#: model:ir.model.fields,help:eh_account_assets_pro.field_res_users__eh_asset_count
+msgid "Fixed assets supplied by this partner (vendor link)."
+msgstr "この取引先が供給する固定資産（仕入先リンク）。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__message_follower_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__message_follower_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__message_follower_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__message_follower_ids
+msgid "Followers"
+msgstr "フォロワー"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__message_partner_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__message_partner_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__message_partner_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "フォロワー (取引先)"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__activity_type_icon
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__activity_type_icon
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__activity_type_icon
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_lease_contract__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font awesomeのアイコン 例. fa-tasks"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset__prorata_mode__none
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_category__prorata_mode__none
+msgid "Full first period"
+msgstr "最初の全期間"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset__state__fully_depreciated
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_search
+msgid "Fully Depreciated"
+msgstr "全額償却済み"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book__book_type
+msgid ""
+"Functional category of the book. Statutory parallel books duplicate the "
+"primary book under a different accounting standard. Tax books drive tax-"
+"return numbers. IFRS / management books drive secondary reporting. The "
+"category is informational; posting behaviour comes from the posts_to_gl "
+"flag."
+msgstr ""
+"帳簿の機能カテゴリ。法定の並行帳簿は、異なる会計基準で主帳簿を複製します。税務帳簿は税務申告の数値を生成します。IFRS / "
+"管理帳簿は補助的な報告を生成します。このカテゴリは情報提供用です。転記の動作は posts_to_gl フラグに基づきます。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_dispose_wizard.py:0
+msgid "Gain on disposal %s"
+msgstr "処分益 %s"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_account_move_line__eh_asset_id
+msgid "Generated Asset"
+msgstr "生成された資産"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book__line_ids
+msgid "Generated schedule lines for this book."
+msgstr "この台帳用に生成されたスケジュール明細。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset__prorata_mode__half
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_category__prorata_mode__half
+msgid "Half first period (mid-period convention)"
+msgstr "初回期間を半分（期央基準）"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__has_message
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__has_message
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__has_message
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__has_message
+msgid "Has Message"
+msgstr "メッセージあり"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__impairment_ids
+msgid ""
+"History of impairment charges and reversals. Each row represents a separate "
+"impairment event with its own JE."
+msgstr "減損損失および戻入の履歴。各行は独自の JE を持つ個別の減損イベントを表します。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__incremental_borrowing_rate
+msgid "IBR (annual %)"
+msgstr "IBR（年率 %）"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_account_account__id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_account_move__id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_account_move_line__id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book_line__id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_dispose_wizard__id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool_line__id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_revalue_wizard__id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_terminate_wizard__id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_res_partner__id
+msgid "ID"
+msgstr ""
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_book__book_type__ifrs
+msgid "IFRS"
+msgstr ""
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_res_partner__eh_lease_count
+#: model:ir.model.fields,help:eh_account_assets_pro.field_res_users__eh_lease_count
+msgid "IFRS-16 lease contracts with this partner as lessor."
+msgstr "このパートナーを貸手とする IFRS-16 リース契約。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__activity_exception_icon
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__activity_exception_icon
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__activity_exception_icon
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__activity_exception_icon
+msgid "Icon"
+msgstr "アイコン"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__activity_exception_icon
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__activity_exception_icon
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__activity_exception_icon
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_lease_contract__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "例外活動を示すアイコン"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Identification"
+msgstr "身元確認"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__message_needaction
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__message_needaction
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__message_needaction
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_lease_contract__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "チェックした場合は、新しいメッセージに注意が必要です。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__message_has_error
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__message_has_sms_error
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__message_has_error
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__message_has_sms_error
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__message_has_error
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__message_has_sms_error
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_lease_contract__message_has_error
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_lease_contract__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "有効にすると、一部のメッセージに配信エラーが発生します。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_category__prorate_first_period
+msgid ""
+"If set, the first period is prorated based on days in service. Otherwise the"
+" first period charges the full amount."
+msgstr "設定されている場合、最初の期間は稼働日数に基づいて日割り計算されます。それ以外の場合、最初の期間は全額を請求します。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__impairment_ids
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_revalue_wizard__direction__impairment
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Impairment"
+msgstr "減損"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_impairment.py:0
+msgid "Impairment %s on %s"
+msgstr "%s の減損（%s）"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__impairment_date
+msgid "Impairment Date"
+msgstr "減損日"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Impairment History"
+msgstr "減損履歴"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__impairment_account_id
+msgid "Impairment Loss Account"
+msgstr "減損損失勘定"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.constraint,message:eh_account_assets_pro.constraint_eh_asset_impairment_check_amount_positive
+msgid "Impairment amount must be positive (sign is implied by is_reversal)."
+msgstr "減損金額は正の値でなければなりません（符号は is_reversal によって暗黙的に決まります）。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Impairment requires a running or paused asset."
+msgstr "減損には、稼働中または一時停止中の資産が必要です。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_lease_contract__payment_timing__advance
+msgid "In Advance"
+msgstr "前払い"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_lease_contract__payment_timing__arrears
+msgid "In Arrears"
+msgstr "後払い"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_register
+msgid "In Service"
+msgstr "在職中"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_search
+msgid "In Service (month)"
+msgstr "在職中（月）"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__in_service_date
+msgid "In Service Date"
+msgstr "在職開始日"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_impairment_form
+msgid ""
+"Indicator of impairment, recoverable amount calculation, valuation method..."
+msgstr "減損の兆候、回収可能価額の計算、評価方法…"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__initial_direct_costs
+msgid "Initial Direct Costs"
+msgstr "当初直接費用"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/lease_contract.py:0
+msgid "Initial direct costs and prepayments %s"
+msgstr "当初直接費用および前払金 %s"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__is_instant_write_off
+msgid "Instant write-off"
+msgstr "即時償却"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__interest
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_schedule_line_tree
+msgid "Interest"
+msgstr "関心"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__interest_expense_account_id
+msgid "Interest Expense Account"
+msgstr "支払利息勘定"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__code
+msgid "Internal asset tag, e.g. ITHW-2026-0001."
+msgstr "内部資産タグ（例: ITHW-2026-0001）。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_dispose_wizard_form
+msgid "Internal notes"
+msgstr "内部メモ"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__message_is_follower
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__message_is_follower
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__message_is_follower
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__message_is_follower
+msgid "Is Follower"
+msgstr "フォロー中"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book_line__is_posted
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__is_posted
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool_line__is_posted
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__is_posted
+msgid "Is Posted"
+msgstr "記帳済みかどうか"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__is_reversal
+msgid "Is Reversal"
+msgstr "赤伝かどうか"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__journal_id
+msgid "Journal"
+msgstr "仕訳帳"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_account_move
+msgid "Journal Entry"
+msgstr "仕訳"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_account_move_line
+msgid "Journal Item"
+msgstr "仕訳明細"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__move_id
+msgid "Journal entry posted for this impairment."
+msgstr "この減損に対して転記された仕訳。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book_line__move_id
+msgid ""
+"Journal entry posted for this line (only set when the book is GL-posting and"
+" the line has been processed)."
+msgstr "この明細に対して転記された仕訳（帳簿が GL 転記を行い、明細が処理された場合にのみ設定されます）。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__journal_id
+msgid ""
+"Journal used to post the impairment entry. Defaults to the asset's "
+"depreciation journal when blank."
+msgstr "減損の仕訳を転記するために使用される仕訳帳。空白の場合は資産の減価償却仕訳帳がデフォルトになります。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__last_modified_at
+msgid "Last Modified At"
+msgstr "最終更新日時"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__write_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__write_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book_line__write_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__write_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__write_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_dispose_wizard__write_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__write_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__write_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool_line__write_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_revalue_wizard__write_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__write_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__write_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__write_uid
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_terminate_wizard__write_uid
+msgid "Last Updated by"
+msgstr "最終更新者"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__write_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__write_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book_line__write_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__write_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__write_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_dispose_wizard__write_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__write_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__write_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool_line__write_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_revalue_wizard__write_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__write_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__write_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__write_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_terminate_wizard__write_date
+msgid "Last Updated on"
+msgstr "最終更新日"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__lease_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__lease_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_terminate_wizard__lease_id
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_schedule_line_search
+msgid "Lease"
+msgstr "リース"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/lease_schedule_line.py:0
+msgid "Lease %(name)s period %(seq)s"
+msgstr "リース %(name)s 期間 %(seq)s"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_eh_lease_schedule_line
+msgid "Lease Amortisation Schedule Line"
+msgstr "リース償却スケジュール明細"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_form
+msgid "Lease Contract"
+msgstr "リース契約"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_eh_lease_contract
+msgid "Lease Contract (IFRS 16)"
+msgstr "リース契約 (IFRS 16)"
+
+#. module: eh_account_assets_pro
+#: model:ir.actions.act_window,name:eh_account_assets_pro.action_eh_lease_contract
+#: model:ir.ui.menu,name:eh_account_assets_pro.menu_eh_lease_contract
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_search
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_tree
+msgid "Lease Contracts"
+msgstr "リース契約"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__journal_id
+msgid "Lease Journal"
+msgstr "リース仕訳帳"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__lease_liability_account_id
+msgid "Lease Liability Account"
+msgstr "リース負債勘定"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_eh_lease_modify_wizard
+msgid "Lease Modification Wizard"
+msgstr "リース変更ウィザード"
+
+#. module: eh_account_assets_pro
+#: model:ir.actions.act_window,name:eh_account_assets_pro.action_eh_lease_schedule_line
+#: model:ir.ui.menu,name:eh_account_assets_pro.menu_eh_lease_schedule_line
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_schedule_line_search
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_schedule_line_tree
+msgid "Lease Schedule Lines"
+msgstr "リーススケジュール明細"
+
+#. module: eh_account_assets_pro
+#: model:ir.model,name:eh_account_assets_pro.model_eh_lease_terminate_wizard
+msgid "Lease Termination Wizard"
+msgstr "リース解約ウィザード"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/lease_schedule_line.py:0
+msgid "Lease interest %s"
+msgstr "リース利息 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/lease_contract.py:0
+msgid "Lease liability opening %s"
+msgstr "リース負債期首 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_modify_wizard.py:0
+msgid "Lease modification %s"
+msgstr "リース変更 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_modify_wizard.py:0
+msgid "Lease modification ROU decrease %s"
+msgstr "リース変更 ROU 減少 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_modify_wizard.py:0
+msgid "Lease modification ROU uplift %s"
+msgstr "リース変更 ROU 増加 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_modify_wizard.py:0
+msgid "Lease modification liability decrease %s"
+msgstr "リース変更 負債減少 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_modify_wizard.py:0
+msgid "Lease modification liability uplift %s"
+msgstr "リース変更 負債増加 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_modify_wizard.py:0
+msgid ""
+"Lease modified at %(date)s: term=%(term)sm, payment=%(pmt)s, IBR=%(ibr)s%%, "
+"delta=%(delta)s. %(notes)s"
+msgstr ""
+"リースは %(date)s に変更されました: "
+"期間=%(term)sm、支払=%(pmt)s、IBR=%(ibr)s%%、差分=%(delta)s。%(notes)s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/lease_contract.py:0
+msgid "Lease opening %s"
+msgstr "リース期首 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/lease_schedule_line.py:0
+msgid "Lease payment %s"
+msgstr "リース支払 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/lease_schedule_line.py:0
+msgid "Lease principal %s"
+msgstr "リース元金 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/lease_schedule_line.py:0
+msgid "Lease schedule line already posted."
+msgstr "リーススケジュール明細はすでに記帳されています。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.constraint,message:eh_account_assets_pro.constraint_eh_lease_contract_check_term_positive
+msgid "Lease term must be greater than zero."
+msgstr "リース期間はゼロより大きくなければなりません。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_terminate_wizard.py:0
+msgid "Lease termination %s"
+msgstr "リース解約 %s"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_partner_form_assets
+msgid "Leases"
+msgstr "リース"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__lessor_id
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_search
+msgid "Lessor"
+msgstr "貸手"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_tree
+msgid "Liability"
+msgstr "負債"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__liability_balance
+msgid "Liability Balance"
+msgstr "負債残高"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__liability_close
+msgid "Liability Close"
+msgstr "負債クローズ"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__liability_initial_value
+msgid "Liability Initial Value"
+msgstr "負債の初期価値"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__liability_open
+msgid "Liability Open"
+msgstr "負債オープン"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_terminate_wizard.py:0
+msgid "Liability derecognition %s"
+msgstr "負債の認識中止 %s"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__accumulated_depreciation
+msgid "Lifetime depreciation posted from the pool's annual runs."
+msgstr "プールの年次実行から記帳された累計減価償却。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__transferred_in_total
+msgid "Lifetime total of opening adjustable values transferred in."
+msgstr "移管された期首の調整可能価値の累計合計。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__line_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__line_ids
+msgid "Line"
+msgstr "ライン"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__line_count
+msgid "Line Count"
+msgstr "明細数"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_dispose_wizard.py:0
+msgid "Loss on disposal %s"
+msgstr "処分損 %s"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__lvp_pool_id
+msgid "Low-Value Pool"
+msgstr "少額資産プール"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_lvp_pool_form
+msgid "Low-Value Pool 2026"
+msgstr "少額資産プール 2026"
+
+#. module: eh_account_assets_pro
+#: model:ir.ui.menu,name:eh_account_assets_pro.menu_eh_asset_lvp_pool
+msgid "Low-Value Pools"
+msgstr "少額資産プール"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_lvp_pool_form
+msgid "Low-value asset pool"
+msgstr "少額資産プール"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_lvp_pool_tree
+msgid "Low-value asset pools"
+msgstr "少額資産プール"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Low-value pool"
+msgstr "少額資産プール"
+
+#. module: eh_account_assets_pro
+#: model:ir.actions.act_window,name:eh_account_assets_pro.action_eh_asset_lvp_pool
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_lvp_pool_search
+msgid "Low-value pools"
+msgstr "少額資産プール"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_book__book_type__mgmt
+msgid "Management"
+msgstr "マネジメント"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset__method__manual
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_book__method__manual
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_category__method__manual
+msgid "Manual"
+msgstr "手動"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__threshold
+msgid ""
+"Maximum cost of an asset eligible for transfer into this pool. AU tax sets "
+"this at AUD 1,000 for general low-value assets; the field is configurable so"
+" the same model can support future threshold changes."
+msgstr ""
+"このプールへの振替対象となる資産の最大取得原価。オーストラリアの税制では一般的な低価値資産についてこれを AUD 1,000 "
+"と定めています。このフィールドは設定可能で、同じモデルで将来のしきい値変更にも対応できます。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__message_has_error
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__message_has_error
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__message_has_error
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__message_has_error
+msgid "Message Delivery error"
+msgstr "メッセージ配信エラー"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__message_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__message_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__message_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__message_ids
+msgid "Messages"
+msgstr "メッセージ"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__method
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__method
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__method
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_register
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_category_search
+msgid "Method"
+msgstr "方法"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__modification_count
+msgid "Modification Count"
+msgstr "変更回数"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__modification_date
+msgid "Modification Date"
+msgstr "変更日"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_form
+msgid "Modifications"
+msgstr "変更"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_lease_contract__state__modified
+msgid "Modified"
+msgstr "変更済"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_form
+msgid "Modify"
+msgstr "変更"
+
+#. module: eh_account_assets_pro
+#: model:ir.actions.act_window,name:eh_account_assets_pro.action_eh_lease_modify_wizard
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_modify_wizard_form
+msgid "Modify Lease"
+msgstr "リースを変更"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_lease_contract__cadence__monthly
+msgid "Monthly"
+msgstr "月次"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book_line__move_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__move_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__move_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool_line__move_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__move_id
+msgid "Move"
+msgstr "仕訳"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_category__declining_factor
+msgid ""
+"Multiplier on the straight line rate when method is reducing balance. 2.0 "
+"yields double declining balance."
+msgstr "方法が定率法の場合の定額法率に対する乗数です。2.0 は倍額定率法になります。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book__declining_factor
+msgid ""
+"Multiplier on the straight-line rate when method is Reducing Balance or "
+"Diminishing Value. Australia uses 200% (factor 2.0) for assets acquired on "
+"or after 10 May 2006; legacy assets use 150% (factor 1.5)."
+msgstr ""
+"方法が定率法または逓減価値の場合の定額法率に対する乗数です。オーストラリアでは 2006 年 5 月 10 日以降に取得した資産に 200%（係数 "
+"2.0）を使用し、旧資産には 150%（係数 1.5）を使用します。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__my_activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__my_activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__my_activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "活動期限"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_kanban
+msgid "NBV:"
+msgstr ""
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__name
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__name
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_register
+msgid "Name"
+msgstr "名称"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_dispose_wizard__nbv
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_revalue_wizard__nbv
+msgid "Nbv"
+msgstr "正味簿価"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__net_book_value
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_register
+msgid "Net Book Value"
+msgstr "正味簿価"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+msgid "Net book value"
+msgstr "正味簿価"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_depreciation_line__remaining_value
+msgid "Net book value after this line is posted."
+msgstr "この行を記帳した後の正味簿価。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book_line__remaining_value
+msgid "Net book value after this period's depreciation."
+msgstr "当期の減価償却後の正味簿価。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book__final_book_value
+msgid ""
+"Net book value at the end of the schedule. Should equal the salvage value; "
+"non-zero divergence is rounding."
+msgstr "スケジュール終了時点の正味簿価。残存価額と等しくなるはずで、ゼロ以外の差異は端数処理によるものです。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_dispose_wizard__nbv
+msgid "Net book value of the asset right now."
+msgstr "現時点でのこの資産の正味簿価。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__accumulated_impairment
+msgid ""
+"Net total of impairment charges minus reversals on this asset. Reduces the "
+"carrying amount used for the NBV computation; cannot exceed the depreciable "
+"base."
+msgstr ""
+"この資産に対する減損費用から戻入額を差し引いた正味合計。NBV 計算に使用される帳簿価額を減少させます。償却可能ベースを超えることはできません。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__new_ibr
+msgid "New IBR (annual %)"
+msgstr "新しい IBR（年率 %）"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__new_liability
+msgid "New Liability"
+msgstr "新規負債"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_revalue_wizard__new_nbv
+msgid "New Nbv"
+msgstr "新しい NBV"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__new_payment_amount
+msgid "New Payment Amount"
+msgstr "新しい支払金額"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__new_term_months
+msgid "New Term Months"
+msgstr "新しい期間（月数）"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__activity_calendar_event_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__activity_calendar_event_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__activity_calendar_event_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "次の活動カレンダーイベント"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__activity_date_deadline
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "次の活動期限"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__activity_summary
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__activity_summary
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__activity_summary
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__activity_summary
+msgid "Next Activity Summary"
+msgstr "次の活動概要"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__activity_type_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__activity_type_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__activity_type_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__activity_type_id
+msgid "Next Activity Type"
+msgstr "次の活動タイプ"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__next_post_date
+msgid "Next Post Date"
+msgstr "次の記帳日"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_register
+msgid "No assets selected."
+msgstr "資産が選択されていません。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__account_account__eh_asset_auto__no
+msgid "No automatic asset"
+msgstr "自動資産なし"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+msgid "No depreciation lines computed yet."
+msgstr "減価償却明細はまだ計算されていません。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_impairment.py:0
+msgid "No journal configured for impairment on %s."
+msgstr "%s に減損用のジャーナルが設定されていません。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_depreciation_line.py:0
+#: code:addons/eh_account_assets_pro/models/lease_schedule_line.py:0
+msgid "No journal entry has been posted yet."
+msgstr "仕訳はまだ計上されていません。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_revalue_wizard.py:0
+msgid "No remaining periods to absorb the revaluation."
+msgstr "再評価を吸収する残り期間がありません。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__notes
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__notes
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_dispose_wizard__notes
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__notes
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_revalue_wizard__notes
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__notes
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_modify_wizard__notes
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_terminate_wizard__notes
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_lvp_pool_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_form
+msgid "Notes"
+msgstr "ノート"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Notes for tax agent or auditor..."
+msgstr "税務代理人または監査人向けのメモ..."
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book__notes
+msgid ""
+"Notes on the book's purpose, regulatory reference, or differences from the "
+"primary book. Visible to the tax agent and the auditor."
+msgstr "帳簿の目的、規制上の参照、または主帳簿との相違に関する備考。税務担当者および監査人に表示されます。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_terminate_wizard.py:0
+msgid "Nothing to derecognise; lease has zero carrying amounts."
+msgstr "認識を中止するものはありません。リースの帳簿価額はゼロです。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__message_needaction_counter
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__message_needaction_counter
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__message_needaction_counter
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__message_needaction_counter
+msgid "Number of Actions"
+msgstr "アクション数"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__book_count
+msgid "Number of additional depreciation books configured."
+msgstr "構成された追加の減価償却帳簿の数。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__component_count
+msgid "Number of direct child components."
+msgstr "直接の子コンポーネントの数。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__message_has_error_counter
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__message_has_error_counter
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__message_has_error_counter
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__message_has_error_counter
+msgid "Number of errors"
+msgstr "エラー数"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__message_needaction_counter
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__message_needaction_counter
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__message_needaction_counter
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_lease_contract__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "対応が必要なメッセージ数"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__message_has_error_counter
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__message_has_error_counter
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__message_has_error_counter
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_lease_contract__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "配信エラーが発生されたメッセージ数"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_dispose_wizard.py:0
+msgid "Only accounting managers can dispose of assets."
+msgstr "資産を処分できるのは経理マネージャーのみです。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_modify_wizard.py:0
+msgid "Only accounting managers can modify leases."
+msgstr "リースを変更できるのは経理マネージャーのみです。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_revalue_wizard.py:0
+msgid "Only accounting managers can revalue assets."
+msgstr "資産を再評価できるのは経理マネージャーのみです。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_terminate_wizard.py:0
+msgid "Only accounting managers can terminate leases."
+msgstr "リースを終了できるのは経理マネージャーのみです。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/lease_contract.py:0
+#: code:addons/eh_account_assets_pro/wizards/lease_modify_wizard.py:0
+msgid "Only active leases can be modified."
+msgstr "アクティブなリースのみ変更できます。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/lease_contract.py:0
+#: code:addons/eh_account_assets_pro/wizards/lease_terminate_wizard.py:0
+msgid "Only active leases can be terminated."
+msgstr "アクティブなリースのみ終了できます。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Only draft assets can be activated."
+msgstr "ドラフトの資産のみ有効化できます。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_impairment.py:0
+msgid "Only draft impairment events can be posted (state is %s)."
+msgstr "ドラフトの減損イベントのみ計上できます（状態は %s）。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/lease_contract.py:0
+msgid "Only draft leases can be activated."
+msgstr "ドラフトのリースのみ有効化できます。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Only paused assets can be resumed."
+msgstr "一時停止された資産のみ再開できます。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Only running assets can be paused."
+msgstr "稼働中の資産のみ一時停止できます。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool_line__opening_balance
+msgid "Opening Balance"
+msgstr "期首残高"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__opening_move_id
+msgid "Opening Move"
+msgstr "期首仕訳"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__invoice_id
+msgid "Origin Bill"
+msgstr "出発地請求書"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__prorata_mode
+msgid ""
+"Overrides the day-based first-period proration when set. 'none' charges a "
+"full first period; 'half' charges half (the mid-period / half-year "
+"convention used by some tax regimes); 'daily' prorates by days in service. "
+"When blank, the Prorate First Period switch applies."
+msgstr ""
+"設定すると、日数ベースの初回期間の按分を上書きします。'none' は初回期間を全額請求します。'half' "
+"は半分を請求します（一部の税制で使用される期中/半期の慣例）。'daily' "
+"はサービス日数に基づいて按分します。空欄の場合は「初回期間を按分」スイッチが適用されます。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__impairment_account_id
+msgid ""
+"P&L account for the impairment loss (typically an expense account named "
+"'Impairment Loss' or similar). Falls back to the company impairment expense "
+"account when blank."
+msgstr ""
+"減損損失用の損益勘定（通常は「Impairment Loss」または類似の名称の費用勘定）。空欄の場合は会社の減損費用勘定にフォールバックします。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_terminate_wizard__pl_account_id
+msgid "P/L Account"
+msgstr "損益勘定"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_category__depreciation_account_id
+msgid "P/L account that the depreciation charge is booked to."
+msgstr "減価償却費が計上される損益勘定。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__book_ids
+msgid ""
+"Parallel depreciation books on this asset (tax, IFRS, management). Each book"
+" has independent method, useful life, salvage, and schedule. By default they"
+" are reporting-only and do not post to the GL; tick posts_to_gl on a book to"
+" also post."
+msgstr ""
+"この資産の並列減価償却簿（税務、IFRS、管理）。各簿は独立した方法、耐用年数、残存価額、スケジュールを持ちます。既定では報告専用で GL "
+"には転記されません。転記も行うには簿の posts_to_gl をオンにします。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__parent_asset_id
+msgid "Parent Asset"
+msgstr "親資産"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book__asset_id
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book_line__asset_id
+msgid "Parent asset this book belongs to."
+msgstr "この簿が属する親資産。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__parent_asset_id
+msgid ""
+"Parent asset this record is a component of. IAS 16 requires entities to "
+"depreciate significant components of an asset separately when their useful "
+"life or depreciation pattern differs from the parent (e.g. an aircraft "
+"engine vs the airframe, an HVAC system vs the building). The parent rolls up"
+" component NBV in display but each component carries its own schedule and "
+"posts its own depreciation."
+msgstr ""
+"このレコードが構成要素となっている親資産。IAS 16 "
+"は、資産の重要な構成要素の耐用年数または減価償却パターンが親と異なる場合、企業がそれらを個別に減価償却することを要求します（例：航空機のエンジンと機体、HVAC"
+" システムと建物）。親は表示上、構成要素の NBV を集計しますが、各構成要素は独自のスケジュールを持ち、独自の減価償却を転記します。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Pause"
+msgstr "一時停止"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset__state__paused
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_search
+msgid "Paused"
+msgstr "停止済"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__payment_amount
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__payment_amount
+msgid "Payment Amount"
+msgstr "支払金額"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__payment_timing
+msgid "Payment Timing"
+msgstr "支払タイミング"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.constraint,message:eh_account_assets_pro.constraint_eh_lease_contract_check_payment_positive
+msgid "Payment amount must be positive."
+msgstr "支払金額は正の値である必要があります。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_schedule_line_tree
+msgid "Payments"
+msgstr "支払"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_depreciation_line_search
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_schedule_line_search
+msgid "Pending"
+msgstr "保留"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_schedule_line_search
+msgid "Period (month)"
+msgstr "期間（月）"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__period_date
+msgid "Period Date"
+msgstr "期間日付"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book_line__amount
+msgid "Period depreciation amount per the book's method."
+msgstr "帳簿の方法に基づく期間の減価償却額。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book_line__depreciation_date
+msgid "Period-end date the depreciation amount falls on."
+msgstr "減価償却額が計上される期末日。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool_line__pool_id
+msgid "Pool"
+msgstr "プール"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__pool_account_id
+msgid "Pool Asset Account"
+msgstr "プール資産勘定"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__pool_balance
+msgid "Pool Balance"
+msgstr "プール残高"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__expense_account_id
+msgid "Pool Depreciation Expense"
+msgstr "プール減価償却費"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__journal_id
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_lvp_pool_search
+msgid "Pool Journal"
+msgstr "プール仕訳帳"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool_line__opening_balance
+msgid ""
+"Pool opening balance at the start of the year (after prior-year "
+"depreciation, before this year's additions)."
+msgstr "年度開始時のプールの期首残高（前年度の減価償却後、本年度の追加前）。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_depreciation_line_tree
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_impairment_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_schedule_line_tree
+msgid "Post"
+msgstr "記帳"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_form
+msgid "Post Due"
+msgstr "期日到来分を記帳"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Post Due Lines"
+msgstr "期日到来明細を記帳"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_dispose_wizard_form
+msgid "Post the disposal entry and close the asset?"
+msgstr "除却仕訳を記帳して資産を締め切りますか?"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_impairment__state__posted
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_depreciation_line_search
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_impairment_search
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_schedule_line_search
+msgid "Posted"
+msgstr "記帳済"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__posted_at
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__posted_at
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__posted_at
+msgid "Posted At"
+msgstr "記帳日時"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__posted_by_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__posted_by_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__posted_by_id
+msgid "Posted By"
+msgstr "記帳者"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__posts_to_gl
+msgid "Posts To Gl"
+msgstr "GL へ記帳"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Prepaid Expense Asset Account"
+msgstr "前払費用資産勘定"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__prepaid_lease_payments
+msgid "Prepaid Lease Payments"
+msgstr "前払リース料"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_depreciation_line.py:0
+msgid "Prepaid asset release %s"
+msgstr "前払資産の振替 %s"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__method
+msgid ""
+"Primary depreciation method posted to the GL. Straight Line and Reducing "
+"Balance are the standard accounting methods. Prime Cost and Diminishing "
+"Value are AU tax-compliant variants (factor 2.0 by default for DV per the "
+"post-2006 AU tax ruling). Use additional books for parallel methods "
+"(statutory + tax + IFRS)."
+msgstr ""
+"GL に転記される主減価償却方法。定額法と定率法が標準の会計方法です。Prime Cost と Diminishing Value は AU "
+"の税務準拠のバリエーションです（2006年以降の AU 税務裁定に基づき、DV は既定で係数 2.0）。並行方法（法定 + 税務 + "
+"IFRS）には追加台帳を使用してください。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset__method__prime_cost
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_book__method__prime_cost
+msgid "Prime Cost (AU tax)"
+msgstr "Prime Cost（AU 税務）"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__principal
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_schedule_line_tree
+msgid "Principal"
+msgstr "元本"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_dispose_wizard__proceeds
+msgid "Proceeds"
+msgstr "収益"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_dispose_wizard__cash_account_id
+msgid "Proceeds Account"
+msgstr "収益勘定"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__prorata_mode
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__prorata_mode
+msgid "Prorata Mode"
+msgstr "日割りモード"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__prorate_first_period
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__prorate_first_period
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__prorate_first_period
+msgid "Prorate First Period"
+msgstr "初回期間を日割りにする"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_dispose_wizard.py:0
+msgid "Provide a proceeds account when proceeds is greater than zero."
+msgstr "収益がゼロより大きい場合は、収益勘定を指定してください。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_terminate_wizard.py:0
+msgid "Provide a settlement account when settlement amount is non zero."
+msgstr "決済金額がゼロ以外の場合は、決済勘定を指定してください。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_lease_contract__cadence__quarterly
+msgid "Quarterly"
+msgstr "四半期毎"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_schedule_line_tree
+msgid "ROU"
+msgstr ""
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__rou_accumulated_depreciation_account_id
+msgid "ROU Accumulated Depreciation"
+msgstr "ROU 減価償却累計額"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__rou_asset_account_id
+msgid "ROU Asset Account"
+msgstr "ROU 資産勘定"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_form
+msgid "ROU Dep"
+msgstr "ROU 減価償却"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__rou_amount
+msgid "ROU Depreciation"
+msgstr "ROU 減価償却"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__rou_depreciation_account_id
+msgid "ROU Depreciation Account"
+msgstr "ROU 減価償却勘定"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/lease_schedule_line.py:0
+#: code:addons/eh_account_assets_pro/wizards/lease_terminate_wizard.py:0
+msgid "ROU accumulated depreciation %s"
+msgstr "ROU 減価償却累計額 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/lease_contract.py:0
+msgid "ROU asset opening %s"
+msgstr "ROU 資産期首 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/lease_schedule_line.py:0
+msgid "ROU depreciation %s"
+msgstr "ROU 減価償却 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_terminate_wizard.py:0
+msgid "ROU derecognition %s"
+msgstr "ROU 認識中止 %s"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__rating_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__rating_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__rating_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__rating_ids
+msgid "Ratings"
+msgstr "評価"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__reason
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_impairment_form
+msgid "Reason"
+msgstr "理由"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_modify_wizard_form
+msgid "Reason for modification"
+msgstr "変更の理由"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_revalue_wizard_form
+msgid "Reason for revaluation"
+msgstr "再評価の理由"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_terminate_wizard_form
+msgid "Reason for termination"
+msgstr "退職の理由"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Record Impairment"
+msgstr "減損を記録"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Record impairment / reversal"
+msgstr "減損 / 戻入を記録"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset__method__reducing_balance
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_book__method__reducing_balance
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_category__method__reducing_balance
+msgid "Reducing Balance"
+msgstr "定率法（残高逓減）"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__reference
+msgid "Reference"
+msgstr "参照"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book_line__remaining_value
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__remaining_value
+msgid "Remaining Value"
+msgstr "残在庫価値"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__activity_user_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__activity_user_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__activity_user_id
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__activity_user_id
+msgid "Responsible User"
+msgstr "担当ユーザ"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Resume"
+msgstr "履歴書"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Return this asset to draft? Only allowed if no line is posted."
+msgstr "この資産を下書きに戻しますか？ 転記済みの明細がない場合のみ許可されます。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_revalue_wizard.py:0
+msgid "Revaluation %s"
+msgstr "再評価 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_revalue_wizard.py:0
+msgid "Revaluation amount must be positive."
+msgstr "再評価額は正の値でなければなりません。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Revaluation requires a running or paused asset."
+msgstr "再評価には実行中または一時停止中の資産が必要です。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_revalue_wizard.py:0
+msgid "Revaluation requires a running, paused or fully depreciated asset."
+msgstr "再評価には実行中、一時停止中、または完全に減価償却された資産が必要です。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_revalue_wizard.py:0
+msgid "Revaluation reserve %s"
+msgstr "再評価積立金 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/asset_revalue_wizard.py:0
+msgid "Revaluation would reduce cost below salvage value."
+msgstr "再評価により取得原価が残存価額を下回ります。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_revalue_wizard_form
+msgid "Revalue"
+msgstr "再評価する"
+
+#. module: eh_account_assets_pro
+#: model:ir.actions.act_window,name:eh_account_assets_pro.action_eh_asset_revalue_wizard
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_revalue_wizard_form
+msgid "Revalue Asset"
+msgstr "資産を再評価する"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_revalue_wizard__revalue_date
+msgid "Revalue Date"
+msgstr "再評価日"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Revenue Recognition Account"
+msgstr "収益認識勘定"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_depreciation_line.py:0
+msgid "Revenue recognition %s"
+msgstr "収益認識 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_impairment.py:0
+msgid ""
+"Reversal of %(amt).2f exceeds the available impairment balance of %(bal).2f "
+"on %(asset)s. IAS 36 caps reversals at the cumulative impairment previously "
+"recognised; reduce the amount or split into multiple events."
+msgstr ""
+"%(amt).2f の戻し入れは、%(asset)s の利用可能な減損残高 %(bal).2f を超えています。IAS 36 "
+"は戻し入れを過去に認識した累計減損額までに制限します。金額を減らすか、複数のイベントに分割してください。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_impairment.py:0
+msgid ""
+"Reversal of %(amt).2f would lift the carrying amount of %(asset)s above its "
+"depreciated historical cost of %(ceiling).2f. IAS 36.117 caps a reversal at "
+"the carrying amount that would have been determined, net of depreciation, "
+"had no impairment been recognised. The maximum reversal permitted here is "
+"%(max).2f."
+msgstr ""
+"%(amt).2f の戻し入れにより、%(asset)s の帳簿価額が減価償却後の取得原価 %(ceiling).2f を上回ることになります。IAS "
+"36.117 は、減損を認識しなかった場合に減価償却控除後に算定されたであろう帳簿価額までに戻し入れを制限します。ここで許容される最大戻し入れ額は "
+"%(max).2f です。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_impairment_search
+msgid "Reversals"
+msgstr "反対仕訳"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_modify_wizard.py:0
+msgid "Revised term must be a whole multiple of the cadence."
+msgstr "改定後の期間は、サイクルの整数倍でなければなりません。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__rolled_up_cost
+msgid "Rolled Up Cost"
+msgstr "集計原価"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__rolled_up_nbv
+msgid "Rolled Up Nbv"
+msgstr "集計正味簿価"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__rou_accumulated
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_terminate_wizard__rou_accumulated
+msgid "Rou Accumulated"
+msgstr "ROU 累計"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__rou_initial_value
+msgid "Rou Initial Value"
+msgstr "ROU 当初価値"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset__state__running
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_search
+msgid "Running"
+msgstr "実行中"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__message_has_sms_error
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__message_has_sms_error
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__message_has_sms_error
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS配信エラー"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__salvage_rate
+msgid "Salvage Rate (0-1)"
+msgstr "残存価額率 (0-1)"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__salvage_value
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__salvage_value
+msgid "Salvage Value"
+msgstr "残存価額"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.constraint,message:eh_account_assets_pro.constraint_eh_asset_category_check_salvage_rate_range
+msgid "Salvage rate must be in [0, 1)."
+msgstr "残存価額率は [0, 1) の範囲内である必要があります。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+msgid "Salvage value"
+msgstr "残存価額"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.constraint,message:eh_account_assets_pro.constraint_eh_asset_book_check_salvage
+#: model:ir.model.constraint,message:eh_account_assets_pro.constraint_eh_asset_check_salvage_le_cost
+msgid "Salvage value cannot be negative."
+msgstr "残存価額を負の値にすることはできません。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Salvage value cannot exceed acquisition cost."
+msgstr "残存価額は取得原価を超えることはできません。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_book.py:0
+msgid ""
+"Salvage value on book %(book)s exceeds the asset's acquisition cost. Lower "
+"the salvage or revise the asset cost first."
+msgstr "帳簿 %(book)s の残存価額が資産の取得原価を超えています。先に残存価額を下げるか、資産原価を修正してください。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_form
+msgid "Schedule"
+msgstr "スケジュール"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__schedule_line_ids
+msgid "Schedule Line"
+msgstr "スケジュール明細"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid "Schedule can only be (re)generated while the asset is in draft state."
+msgstr "スケジュールは、資産がドラフト状態のときにのみ（再）生成できます。"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/lease_contract.py:0
+msgid "Schedule can only be computed in draft state."
+msgstr "スケジュールはドラフト状態でのみ計算できます。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_lease_contract__cadence__semi_annual
+msgid "Semi Annual"
+msgstr "半年ごと"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book_line__sequence
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_depreciation_line__sequence
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_schedule_line__sequence
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_card
+msgid "Sequence"
+msgstr "シーケンス"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.constraint,message:eh_account_assets_pro.constraint_eh_lease_schedule_line_uniq_lease_sequence
+msgid "Sequence must be unique within a lease."
+msgstr "シーケンスはリース内で一意である必要があります。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.constraint,message:eh_account_assets_pro.constraint_eh_asset_depreciation_line_uniq_asset_sequence
+msgid "Sequence must be unique within an asset."
+msgstr "シーケンスは資産内で一意である必要があります。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid "Set to Draft"
+msgstr "ドラフトとして設定"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_terminate_wizard__settlement_account_id
+msgid "Settlement Account"
+msgstr "決済勘定"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_terminate_wizard__settlement_amount
+msgid "Settlement Amount"
+msgstr "決済金額"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_category__code
+msgid "Short internal code, e.g. ITHW for IT Hardware."
+msgstr "短い内部コード（例: IT ハードウェアの場合は ITHW）。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__active
+msgid ""
+"Soft-archive flag. Inactive pools are hidden from the transfer-into picker "
+"but existing data stays readable."
+msgstr "ソフトアーカイブフラグ。非アクティブなプールは転送先のピッカーから非表示になりますが、既存のデータは引き続き読み取り可能です。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__state
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__state
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__state
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_impairment_search
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_search
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_search
+msgid "State"
+msgstr "ステータス"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_register
+msgid "Status"
+msgstr "ステータス"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__activity_state
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__activity_state
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__activity_state
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_lease_contract__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"活動に基づくステータス\n"
+"期限超過：期限日がすでに過ぎています\n"
+"今日: 活動日は今日です\n"
+"予定: 将来の活動。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_book__book_type__statutory
+msgid "Statutory (parallel)"
+msgstr "法定（並列）"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset__method__straight_line
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_book__method__straight_line
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_category__method__straight_line
+msgid "Straight Line"
+msgstr "定額法"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__subsequent_year_rate
+msgid "Subsequent Year Rate"
+msgstr "翌年以降の税率"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book__total_depreciation
+msgid "Sum of every scheduled depreciation line on this book."
+msgstr "この帳簿上のすべての予定減価償却明細の合計。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__pool_balance
+msgid ""
+"Sum of opening adjustable values of every asset transferred in, less "
+"cumulative pool depreciation. The balance approaches zero as the pool "
+"depreciates each year and grows as new assets transfer in."
+msgstr ""
+"移管された各資産の期首調整可能価額の合計から、累積プール減価償却を差し引いたもの。プールが毎年減価償却されるにつれて残高はゼロに近づき、新しい資産が移管されるにつれて増加します。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_book__book_type__tax
+msgid "Tax"
+msgstr "税"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/lease_contract.py:0
+msgid ""
+"Term (%(term)s months) must be a whole multiple of the cadence (%(months)s "
+"months)."
+msgstr "期間（%(term)s か月）は、周期（%(months)s か月）の整数倍でなければなりません。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__term_months
+msgid "Term Months"
+msgstr "期間（月数）"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_terminate_wizard_form
+msgid "Terminate"
+msgstr "終了"
+
+#. module: eh_account_assets_pro
+#: model:ir.actions.act_window,name:eh_account_assets_pro.action_eh_lease_terminate_wizard
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_terminate_wizard_form
+msgid "Terminate Lease"
+msgstr "リースを終了"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_lease_contract__state__terminated
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_search
+msgid "Terminated"
+msgstr "終了済"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__terminated_at
+msgid "Terminated At"
+msgstr "終了日時"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__terminated_by_id
+msgid "Terminated By"
+msgstr "終了者"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_form
+msgid "Termination"
+msgstr "終了"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__termination_date
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_terminate_wizard__termination_date
+msgid "Termination Date"
+msgstr "終了日"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__termination_move_id
+msgid "Termination Move"
+msgstr "終了仕訳"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_terminate_wizard.py:0
+msgid "Termination gain %s"
+msgstr "終了益 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_terminate_wizard.py:0
+msgid "Termination loss %s"
+msgstr "終了損 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_terminate_wizard.py:0
+msgid "Termination notes: %s"
+msgstr "終了メモ: %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_terminate_wizard.py:0
+msgid "Termination settlement %s"
+msgstr "終了精算 %s"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/wizards/lease_terminate_wizard.py:0
+msgid "Termination settlement (refund) %s"
+msgstr "終了精算（返金）%s"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+msgid ""
+"This asset has been transferred to a low-value pool. Individual depreciation"
+" is paused; the pool's annual depreciation drives all subsequent NBV "
+"movement."
+msgstr ""
+"この資産は少額資産プールに移管されました。個別の減価償却は一時停止され、以降のすべての NBV の変動はプールの年間減価償却によって決まります。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__rolled_up_cost
+msgid ""
+"This asset's acquisition_cost plus the sum of every component's "
+"acquisition_cost. Equals acquisition_cost for assets with no components."
+msgstr ""
+"この資産の acquisition_cost に、各コンポーネントの acquisition_cost "
+"の合計を加えたもの。コンポーネントがない資産の場合は acquisition_cost に等しくなります。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__rolled_up_nbv
+msgid ""
+"This asset's net_book_value plus the sum of every component's "
+"net_book_value. Equals net_book_value for assets with no components."
+msgstr ""
+"この資産の net_book_value に、各コンポーネントの net_book_value の合計を加えたもの。コンポーネントがない資産の場合は "
+"net_book_value に等しくなります。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__threshold
+msgid "Threshold"
+msgstr "しきい値"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__capitalised_at
+msgid "Timestamp when the AUC was capitalised."
+msgstr "AUC が資産計上されたときのタイムスタンプ。"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.report_asset_register
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_depreciation_line_tree
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_impairment_tree
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_lvp_pool_form
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_lvp_pool_tree
+msgid "Total"
+msgstr "合計"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_tree
+msgid "Total Cost"
+msgstr "原価合計"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__total_depreciated
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_tree
+msgid "Total Depreciated"
+msgstr "減価償却累計"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__total_depreciation
+msgid "Total Depreciation"
+msgstr "減価償却総額"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__total_interest
+msgid "Total Interest"
+msgstr "利息合計"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_tree
+msgid "Total NBV"
+msgstr "NBV 合計"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__total_paid
+msgid "Total Paid"
+msgstr "支払合計"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_contract_tree
+msgid "Total Payment"
+msgstr "支払合計"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__total_principal
+msgid "Total Principal"
+msgstr "元本合計"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__total_units
+msgid "Total Units"
+msgstr "単位合計"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_lease_contract__term_months
+msgid "Total lease term in months."
+msgstr "リース期間の合計（月単位）。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__total_units
+msgid "Total units expected over the asset life (units of production method)."
+msgstr "資産の耐用年数にわたって見込まれる合計単位数（生産高比例法）。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__transferred_in_total
+msgid "Transferred In Total"
+msgstr "振替入庫合計"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_lvp_pool.py:0
+msgid ""
+"Transferred to low-value pool %(pool)s on %(date)s. Individual depreciation "
+"paused; pool will depreciate as a unit."
+msgstr ""
+"%(date)s に低価値プール %(pool)s へ振り替えられました。個別減価償却は一時停止され、プールは一単位として減価償却されます。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book_line__is_posted
+msgid ""
+"True when the book is GL-posting (posts_to_gl) and the schedule line has "
+"been booked. Reporting-only books leave this False at all times."
+msgstr ""
+"帳簿が GL 転記（posts_to_gl）を行い、スケジュール行が計上されているときに True になります。レポート専用の帳簿は常にこれを "
+"False のままにします。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__activity_exception_decoration
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__activity_exception_decoration
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__activity_exception_decoration
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_lease_contract__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "記録上の例外活動の種類。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__is_under_construction
+msgid "Under construction"
+msgstr "作成中"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__units_used
+msgid "Units Used"
+msgstr "使用単位数"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_category__method__units_of_production
+msgid "Units of Production"
+msgstr "生産高比例法"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset__method__units_of_production
+msgid "Units of Production (Preview)"
+msgstr "生産高比例法（プレビュー）"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset.py:0
+msgid ""
+"Units of Production depreciation is a preview method and is not yet "
+"available. Choose Straight Line or Reducing Balance for the primary GL book,"
+" or use an additional book for a parallel method."
+msgstr ""
+"生産高比例法による減価償却はプレビュー方式であり、まだ利用できません。主 GL "
+"帳簿には定額法または定率法を選択するか、並行方式には追加帳簿を使用してください。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields.selection,name:eh_account_assets_pro.selection__eh_asset_revalue_wizard__direction__uplift
+msgid "Uplift (Preview)"
+msgstr "引き上げ（プレビュー）"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__useful_life_months
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_book__useful_life_months
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_category__useful_life_months
+msgid "Useful Life (months)"
+msgstr "耐用年数（月）"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.constraint,message:eh_account_assets_pro.constraint_eh_asset_book_check_useful_life
+msgid "Useful life must be greater than zero on every book."
+msgstr "耐用年数はすべての帳簿でゼロより大きくなければなりません。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.constraint,message:eh_account_assets_pro.constraint_eh_asset_category_check_useful_life_positive
+#: model:ir.model.constraint,message:eh_account_assets_pro.constraint_eh_asset_check_useful_life
+msgid "Useful life must be greater than zero."
+msgstr "耐用年数はゼロより大きくなければなりません。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__partner_id
+msgid "Vendor"
+msgstr "仕入先"
+
+#. module: eh_account_assets_pro
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_asset_depreciation_line_tree
+#: model_terms:ir.ui.view,arch_db:eh_account_assets_pro.view_eh_lease_schedule_line_tree
+msgid "View Move"
+msgstr "仕訳を表示"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset__website_message_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_impairment__website_message_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool__website_message_ids
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_lease_contract__website_message_ids
+msgid "Website Messages"
+msgstr "ウェブサイトメッセージ"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__website_message_ids
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__website_message_ids
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_lvp_pool__website_message_ids
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_lease_contract__website_message_ids
+msgid "Website communication history"
+msgstr "ウェブサイト通信履歴"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_impairment__is_reversal
+msgid ""
+"When False, this row is an impairment charge that reduces the asset's NBV. "
+"When True, it is a reversal that restores carrying amount up to the cap "
+"permitted by IAS 36 (the depreciated cost the asset would have carried had "
+"the original impairment not been recognised). The asset's NBV compute "
+"subtracts charges and adds back reversals."
+msgstr ""
+"False の場合、この行は資産の NBV を減額する減損費用です。True の場合は、IAS 36 "
+"が認める上限（当初の減損が認識されなかった場合に資産が保有していたであろう償却後原価）まで帳簿価額を回復させる戻し入れです。資産の NBV "
+"の計算では費用を減算し、戻し入れを加算し戻します。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_account_account__eh_asset_category_id
+msgid ""
+"When a posted vendor bill books a line to this account, an asset is created "
+"automatically in this category."
+msgstr "記帳済みのベンダー請求書がこの勘定に明細を計上すると、このカテゴリに資産が自動的に作成されます。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__is_under_construction
+msgid ""
+"When set, the asset is treated as work in progress. No depreciation schedule"
+" is generated and no JE posts. Acquisition cost accumulates on the "
+"configured AUC account until action_capitalise transfers the balance to the "
+"asset account, sets the in-service date, and starts depreciation. Use for "
+"projects that capitalise over multiple periods (e.g. a building under "
+"construction, software in development)."
+msgstr ""
+"設定すると、記帳により res.company.fiscalyear_lock_date "
+"が会計年度末まで引き上げられ、前期のエントリを編集できなくなります。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book__posts_to_gl
+msgid ""
+"When set, the book's schedule posts journal entries via the asset's "
+"depreciation journal. By default, additional books are reporting-only and do"
+" not post; the primary schedule on the asset record is the GL source of "
+"truth. Tick this only if your accounting policy requires parallel postings "
+"(uncommon)."
+msgstr ""
+"設定すると、資産は建設仮勘定として扱われます。減価償却スケジュールは生成されず、JE も記帳されません。取得原価は、action_capitalise "
+"が残高を資産勘定に振り替え、稼働開始日を設定し、減価償却を開始するまで、構成された AUC "
+"勘定に累積します。複数期間にわたって資産計上するプロジェクト（例: 建設中の建物、開発中のソフトウェア）に使用します。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_book__prorate_first_period
+msgid ""
+"When set, the first period's depreciation is prorated based on days in "
+"service that month. AU tax usually prorates by days held; statutory "
+"accounting may use either convention."
+msgstr ""
+"設定すると、最初の期間の減価償却は、その月の稼働日数に基づいて日割り計算されます。AU "
+"の税務は通常、保有日数で日割りします。法定会計はどちらの慣行も使用できます。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__is_instant_write_off
+msgid ""
+"When set, the schedule writes off the entire depreciable amount in the first"
+" period regardless of useful life. Used by the AU instant-asset-write-off "
+"(currently AUD 20,000 threshold for small business; check ATO for the "
+"current cap and end date) and similar fast-deduction regimes. Salvage value "
+"is honoured."
+msgstr ""
+"設定すると、耐用年数にかかわらず、スケジュールは最初の期間で減価償却対象額の全額を費用計上します。AU "
+"の即時資産損金算入（現在、小規模事業者向けのしきい値は AUD 20,000。現行の上限と終了日は ATO "
+"で確認してください）や類似の加速控除制度で使用されます。残存価額は尊重されます。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset__lvp_pool_id
+msgid ""
+"When set, this asset has been transferred to a low-value pool and is "
+"depreciated as part of the pool rather than individually. The asset's own "
+"schedule is frozen; the pool's schedule drives all subsequent depreciation. "
+"AU sites use this for assets under the AUD 1,000 low-value threshold."
+msgstr ""
+"設定すると、この資産は低額資産プールに移され、個別ではなくプールの一部として減価償却されます。資産自身のスケジュールは凍結され、以降のすべての減価償却はプールのスケジュールが駆動します。AU"
+" サイトでは、AUD 1,000 の低額しきい値未満の資産にこれを使用します。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_category__asset_account_id
+msgid "Where the asset is capitalised on the balance sheet."
+msgstr "資産が貸借対照表上で資産計上される場所。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_lease_terminate_wizard__pl_account_id
+msgid "Where the termination gain or loss is booked."
+msgstr "終了時の利益または損失が記帳される場所。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,help:eh_account_assets_pro.field_eh_asset_dispose_wizard__cash_account_id
+msgid "Where to debit the proceeds. Required if proceeds > 0."
+msgstr "売却代金の借方計上先。売却代金 > 0 の場合は必須です。"
+
+#. module: eh_account_assets_pro
+#: model:ir.model.fields,field_description:eh_account_assets_pro.field_eh_asset_lvp_pool_line__year
+msgid "Year"
+msgstr "年"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_impairment.py:0
+msgid "charge"
+msgstr "料金"
+
+#. module: eh_account_assets_pro
+#. odoo-python
+#: code:addons/eh_account_assets_pro/models/asset_impairment.py:0
+msgid "reversal"
+msgstr "取消"

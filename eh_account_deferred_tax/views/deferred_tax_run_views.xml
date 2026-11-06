@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_deferred_tax_run_list" model="ir.ui.view">
+        <field name="name">eh.deferred.tax.run.list</field>
+        <field name="model">eh.deferred.tax.run</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="period_end"/>
+                <field name="statutory_rate"/>
+                <field name="offsetting_policy" optional="hide"/>
+                <field name="closing_dta" widget="monetary" optional="show"/>
+                <field name="closing_dtl" widget="monetary" optional="show"/>
+                <field name="pl_movement" widget="monetary" optional="show"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'posted'"
+                       decoration-info="state == 'computed'"
+                       decoration-muted="state in ('cancelled', 'reversed')"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_deferred_tax_run_form" model="ir.ui.view">
+        <field name="name">eh.deferred.tax.run.form</field>
+        <field name="model">eh.deferred.tax.run</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_gather_from_engines" type="object"
+                            string="Gather from Engines"
+                            invisible="state not in ('draft', 'computed')"
+                            help="Pull temporary differences from the IFRS engines (ECL loss allowance, IAS 37 provisions) into this run."/>
+                    <button name="action_compute" type="object"
+                            string="Compute" class="btn-primary"
+                            invisible="state not in ('draft', 'computed')"/>
+                    <button name="action_post" type="object"
+                            string="Post Movement" class="btn-primary"
+                            invisible="state != 'computed'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reverse" type="object"
+                            string="Reverse"
+                            invisible="state != 'posted'"
+                            groups="eh_account_base.group_eh_manager"
+                            confirm="Post a sealed counter-entry on the explicit reversal date?"/>
+                    <button name="%(action_report_eh_deferred_tax_ias12_note)d"
+                            type="action" string="Print IAS 12 Note"
+                            invisible="state == 'draft'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('posted', 'reversed', 'cancelled')"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_set_to_draft" type="object"
+                            string="Set to Draft"
+                            invisible="state != 'cancelled'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,computed,posted"/>
+                </header>
+                <sheet>
+                    <field name="move_id" invisible="1"/>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="not opening_tie_out">
+                        <field name="opening_tie_out" invisible="1"/>
+                        An opening balance does not tie to the prior posted
+                        run's closing position. A keying error in the opening
+                        silently mis-states the period movement. Review the
+                        flagged lines on the Temporary Differences page before
+                        posting.
+                    </div>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="not offsetting_policy_changed">
+                        The offsetting policy differs from the prior posted
+                        period. Document the IAS 12.74 reason and recompute;
+                        posting will include the opening DTA/DTL
+                        reclassification.
+                    </div>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not reconciliation_residual_material">
+                        The unexplained effective-tax-rate reconciliation
+                        residual exceeds the posting materiality. Add
+                        explanatory rows or revise the documented threshold,
+                        then recompute.
+                    </div>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_move" type="object"
+                                class="oe_stat_button" icon="fa-book"
+                                invisible="not move_id">
+                            <span class="o_stat_text">Movement Entry</span>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"
+                                   readonly="state != 'draft'"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="period_end"
+                                   readonly="state != 'draft'"/>
+                            <field name="statutory_rate"
+                                   readonly="state not in ('draft', 'computed')"/>
+                            <field name="offsetting_policy"
+                                   readonly="state not in ('draft', 'computed')"/>
+                            <field name="prior_offsetting_policy" readonly="1"
+                                   invisible="not prior_offsetting_policy"/>
+                            <field name="offsetting_policy_changed" invisible="1"/>
+                            <field name="offsetting_policy_change_reason"
+                                   required="offsetting_policy_changed"
+                                   invisible="not offsetting_policy_changed"
+                                   readonly="state in ('posted', 'reversed')"/>
+                            <field name="reversal_date"
+                                   invisible="state not in ('posted', 'reversed')"
+                                   readonly="state == 'reversed'"
+                                   groups="eh_account_base.group_eh_manager"/>
+                            <field name="reversal_move_id" readonly="1"
+                                   invisible="not reversal_move_id"/>
+                        </group>
+                        <group>
+                            <field name="closing_dta" widget="monetary" readonly="1"/>
+                            <field name="unrecognised_dta" widget="monetary" readonly="1"/>
+                            <field name="closing_dtl" widget="monetary" readonly="1"/>
+                            <field name="net_deferred_tax" widget="monetary" readonly="1"/>
+                            <field name="pl_movement" widget="monetary" readonly="1"/>
+                            <field name="oci_movement" widget="monetary" readonly="1"/>
+                            <field name="rate_change_pl" widget="monetary" readonly="1"/>
+                            <field name="rate_change_oci" widget="monetary" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Accounts">
+                        <group>
+                            <field name="dta_account_id"
+                                   domain="[('account_type', 'in', ['asset_non_current', 'asset_current']), ('company_ids', '=', company_id)]"
+                                   readonly="state in ('posted', 'reversed')"/>
+                            <field name="dtl_account_id"
+                                   domain="[('account_type', 'in', ['liability_non_current', 'liability_current']), ('company_ids', '=', company_id)]"
+                                   readonly="state in ('posted', 'reversed')"/>
+                            <field name="deferred_tax_expense_account_id"
+                                   domain="[('account_type', 'in', ['expense', 'income_other']), ('company_ids', '=', company_id)]"
+                                   readonly="state in ('posted', 'reversed')"/>
+                        </group>
+                        <group>
+                            <field name="oci_account_id"
+                                   domain="[('account_type', '=', 'equity'), ('company_ids', '=', company_id)]"
+                                   readonly="state in ('posted', 'reversed')"/>
+                            <field name="journal_id"
+                                   readonly="state in ('posted', 'reversed')"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Temporary Differences">
+                            <field name="line_ids"
+                                   readonly="state in ('posted', 'reversed', 'cancelled')">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="eh_auto_gathered" optional="show"
+                                           readonly="1"/>
+                                    <field name="source_model" optional="hide"/>
+                                    <field name="source_key" optional="hide"/>
+                                    <field name="category"/>
+                                    <field name="nature"/>
+                                    <field name="company_id" column_invisible="1"/>
+                                    <field name="jurisdiction_id" optional="show"
+                                           domain="[('company_id', '=', company_id)]"/>
+                                    <field name="carrying_amount" widget="monetary"/>
+                                    <field name="tax_base" widget="monetary"/>
+                                    <field name="temp_diff" widget="monetary" readonly="1"/>
+                                    <field name="tax_rate"/>
+                                    <field name="manual_rate" optional="hide"/>
+                                    <field name="manual_rate_reason" optional="hide"/>
+                                    <field name="recoverable"/>
+                                    <field name="recoverable_amount" widget="monetary"
+                                           optional="show"/>
+                                    <field name="expiry_date" optional="hide"/>
+                                    <field name="through_oci"/>
+                                    <field name="opening_dta" widget="monetary" optional="hide"
+                                           decoration-danger="opening_tie_out"/>
+                                    <field name="opening_dtl" widget="monetary" optional="hide"
+                                           decoration-danger="opening_tie_out"/>
+                                    <field name="opening_rate" optional="hide"/>
+                                    <field name="closing_rate" readonly="1" optional="hide"/>
+                                    <field name="expected_opening_dta" widget="monetary"
+                                           readonly="1" optional="hide"/>
+                                    <field name="expected_opening_dtl" widget="monetary"
+                                           readonly="1" optional="hide"/>
+                                    <field name="opening_tie_out" optional="hide"/>
+                                    <field name="closing_dta" widget="monetary" readonly="1"/>
+                                    <field name="line_level_closing_dta" widget="monetary"
+                                           readonly="1" optional="hide"/>
+                                    <field name="unrecognised_dta" widget="monetary"
+                                           readonly="1" optional="hide"/>
+                                    <field name="run_level_unrecognised_dta"
+                                           widget="monetary" readonly="1"
+                                           optional="hide"/>
+                                    <field name="closing_dtl" widget="monetary" readonly="1"/>
+                                    <field name="rate_change_effect" widget="monetary"
+                                           readonly="1" optional="show"/>
+                                    <field name="origination_effect" widget="monetary"
+                                           readonly="1" optional="hide"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Tax Reconciliation">
+                            <group>
+                                <group>
+                                    <field name="accounting_profit" widget="monetary"
+                                           readonly="state in ('posted', 'reversed')"/>
+                                    <field name="expected_tax" widget="monetary" readonly="1"/>
+                                    <field name="permanent_diff_tax" widget="monetary"
+                                           readonly="state in ('posted', 'reversed')"/>
+                                </group>
+                                <group>
+                                    <field name="current_tax_expense" widget="monetary"
+                                           readonly="state in ('posted', 'reversed')"/>
+                                    <field name="total_tax_expense" widget="monetary" readonly="1"/>
+                                    <field name="effective_rate" readonly="1"/>
+                                    <field name="reconciliation_residual" widget="monetary" readonly="1"/>
+                                    <field name="unexplained_reconciliation_residual"
+                                           widget="monetary" readonly="1"/>
+                                    <field name="reconciliation_materiality"
+                                           widget="monetary"
+                                           readonly="state in ('posted', 'reversed')"/>
+                                    <field name="reconciliation_residual_material"
+                                           readonly="1"/>
+                                </group>
+                            </group>
+                            <separator string="Reconciling Items (IAS 12.81(c))"/>
+                            <field name="recon_line_ids"
+                                   readonly="state in ('posted', 'reversed', 'cancelled')">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="kind" readonly="is_auto"/>
+                                    <field name="name" readonly="is_auto"/>
+                                    <field name="amount" widget="monetary"
+                                           readonly="is_auto"/>
+                                    <field name="is_auto"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Recoverability">
+                            <group>
+                                <group>
+                                    <field name="projected_taxable_profit" widget="monetary"
+                                           readonly="state in ('posted', 'reversed')"/>
+                                    <field name="dta_ceiling" widget="monetary" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="opening_unrecognised_dta" widget="monetary"
+                                           readonly="state in ('posted', 'reversed')"/>
+                                    <field name="run_level_unrecognised_dta" widget="monetary"
+                                           readonly="1"/>
+                                </group>
+                            </group>
+                            <group string="Recoverability Memo">
+                                <field name="recoverability_memo" nolabel="1" colspan="2"
+                                       placeholder="Evidence for the projected taxable profit: forecasts, reversal of existing taxable differences, tax-planning opportunities (IAS 12.28-31)."/>
+                            </group>
+                        </page>
+                        <page string="Presentation">
+                            <group>
+                                <group>
+                                    <field name="net_dta_presented" widget="monetary" readonly="1"/>
+                                    <field name="net_dtl_presented" widget="monetary" readonly="1"/>
+                                </group>
+                                <group/>
+                            </group>
+                            <group string="Balance Sheet Note">
+                                <field name="offsetting_note" nolabel="1" colspan="2" readonly="1"/>
+                            </group>
+                            <separator string="IAS 12.81(e)/(g) Disclosure"/>
+                            <field name="disclosure_note_html" nolabel="1"
+                                   colspan="2" readonly="1" widget="html"/>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" nolabel="1" colspan="2"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_deferred_tax_run_search" model="ir.ui.view">
+        <field name="name">eh.deferred.tax.run.search</field>
+        <field name="model">eh.deferred.tax.run</field>
+        <field name="arch" type="xml">
+            <search string="Deferred Tax Runs">
+                <field name="name"/>
+                <field name="period_end"/>
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <filter name="draft_or_computed" string="Needs Posting"
+                        domain="[('state', 'in', ('draft', 'computed'))]"/>
+                <filter name="posted" string="Posted"
+                        domain="[('state', '=', 'posted')]"/>
+                <filter name="material_residual" string="Material Residual"
+                        domain="[('reconciliation_residual_material', '=', True)]"/>
+                <separator/>
+                <filter name="group_company" string="Company"
+                        context="{'group_by': 'company_id'}"/>
+                <filter name="group_state" string="Status"
+                        context="{'group_by': 'state'}"/>
+                <filter name="group_year" string="Reporting Year"
+                        context="{'group_by': 'period_end:year'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="eh_account_deferred_tax_run_view_graph" model="ir.ui.view">
+        <field name="name">eh.deferred.tax.run.graph</field>
+        <field name="model">eh.deferred.tax.run</field>
+        <field name="arch" type="xml">
+            <graph string="Deferred Tax Movement" type="bar" sample="1">
+                <field name="period_end" interval="month"/>
+                <field name="pl_movement" type="measure"/>
+                <field name="closing_dta" type="measure"/>
+                <field name="closing_dtl" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_deferred_tax_run_view_pivot" model="ir.ui.view">
+        <field name="name">eh.deferred.tax.run.pivot</field>
+        <field name="model">eh.deferred.tax.run</field>
+        <field name="arch" type="xml">
+            <pivot string="Deferred Tax Movement" sample="1">
+                <field name="period_end" interval="month" type="row"/>
+                <field name="state" type="col"/>
+                <field name="closing_dta" type="measure"/>
+                <field name="closing_dtl" type="measure"/>
+                <field name="net_deferred_tax" type="measure"/>
+                <field name="pl_movement" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_deferred_tax_run" model="ir.actions.act_window">
+        <field name="name">Deferred Tax</field>
+        <field name="res_model">eh.deferred.tax.run</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_deferred_tax_run_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first deferred tax run
+            </p>
+            <p>
+                Each run measures the deferred tax asset and liability at a
+                reporting date, splits the movement into origination and
+                enacted-rate remeasurement (IAS 12.60(b)), and posts the period
+                movement to one balanced journal entry. Use New to set the
+                reporting date and temporary differences, then Compute.
+            </p>
+        </field>
+    </record>
+
+</odoo>

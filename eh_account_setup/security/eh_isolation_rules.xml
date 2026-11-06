@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="rule_setup_task_line_company" model="ir.rule">
+        <field name="name">eh.account.setup.task.line: company isolation</field>
+        <field name="model_id" ref="model_eh_account_setup_task_line"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="global" eval="True"/>
+    </record>
+
+</odoo>

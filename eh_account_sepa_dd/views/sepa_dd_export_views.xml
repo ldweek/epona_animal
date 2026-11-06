@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_sepa_dd_export_list" model="ir.ui.view">
+        <field name="name">eh.sepa.dd.export.list</field>
+        <field name="model">eh.sepa.dd.export</field>
+        <field name="arch" type="xml">
+            <list string="SEPA DD Exports" default_order="generated_at desc"
+                  create="0">
+                <field name="generated_at"/>
+                <field name="batch_id"/>
+                <field name="message_id"/>
+                <field name="sequence_type"/>
+                <field name="local_instrument"/>
+                <field name="transaction_count"/>
+                <field name="control_sum"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'downloaded'"
+                       decoration-info="state == 'generated'"
+                       decoration-muted="state == 'superseded'"/>
+                <field name="generated_by_id"/>
+                <field name="file_hash" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_sepa_dd_export_form" model="ir.ui.view">
+        <field name="name">eh.sepa.dd.export.form</field>
+        <field name="model">eh.sepa.dd.export</field>
+        <field name="arch" type="xml">
+            <form string="SEPA DD Export" create="0">
+                <header>
+                    <button name="action_download"
+                            type="object"
+                            string="Download"
+                            class="btn-primary"
+                            invisible="not attachment_id or state == 'superseded'"/>
+                    <button name="action_void_for_recut"
+                            type="object"
+                            string="Void for re-cut"
+                            invisible="state == 'superseded'"
+                            confirm="Void this SEPA Direct Debit file so the batch can be re-collected? Do this ONLY if the file was not submitted to the bank."/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="generated,downloaded"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="batch_id" readonly="1"/>
+                            <field name="message_id" readonly="1"/>
+                            <field name="sequence_type" readonly="1"/>
+                            <field name="local_instrument" readonly="1"/>
+                            <field name="generated_at" readonly="1"/>
+                            <field name="generated_by_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="transaction_count" readonly="1"/>
+                            <field name="control_sum" readonly="1"/>
+                            <field name="file_hash" readonly="1"/>
+                            <field name="attachment_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes" colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_sepa_dd_export_kanban" model="ir.ui.view">
+        <field name="name">eh.sepa.dd.export.kanban</field>
+        <field name="model">eh.sepa.dd.export</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state"
+                    quick_create="false"
+                    records_draggable="false"
+                    class="o_kanban_small_column"
+                    sample="1">
+                <field name="message_id"/>
+                <field name="batch_id"/>
+                <field name="sequence_type"/>
+                <field name="local_instrument"/>
+                <field name="state"/>
+                <field name="generated_at"/>
+                <field name="transaction_count"/>
+                <field name="control_sum"/>
+                <field name="company_id"/>
+                <templates>
+                    <t t-name="card" class="row g-0">
+                        <main class="col-12">
+                            <field name="message_id" class="fs-5 fw-bold"/>
+                            <div class="text-muted">
+                                <field name="batch_id"/>
+                                <span class="badge text-bg-info ms-2">
+                                    <field name="sequence_type"/>
+                                    <field name="local_instrument"/>
+                                </span>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <span>
+                                    <field name="control_sum"/>
+                                </span>
+                                <span class="badge text-bg-secondary">
+                                    <field name="transaction_count"/> txns
+                                </span>
+                            </div>
+                            <div class="text-muted small mt-1">
+                                <i class="fa fa-clock-o" title="Generated at" role="img" aria-label="Generated at"/>
+                                <field name="generated_at"/>
+                            </div>
+                            <footer class="d-flex justify-content-end mt-2">
+                                <field name="company_id"
+                                       groups="base.group_multi_company"/>
+                            </footer>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_eh_sepa_dd_export_search" model="ir.ui.view">
+        <field name="name">eh.sepa.dd.export.search</field>
+        <field name="model">eh.sepa.dd.export</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="message_id"/>
+                <field name="batch_id"/>
+                <field name="local_instrument"/>
+                <filter name="filter_generated" string="Generated"
+                        domain="[('state', '=', 'generated')]"/>
+                <filter name="filter_downloaded" string="Downloaded"
+                        domain="[('state', '=', 'downloaded')]"/>
+                <filter name="filter_superseded" string="Superseded"
+                        domain="[('state', '=', 'superseded')]"/>
+                <group>
+                    <filter name="group_state" string="State"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_batch" string="Batch"
+                            context="{'group_by': 'batch_id'}"/>
+                    <filter name="group_sequence" string="Sequence type"
+                            context="{'group_by': 'sequence_type'}"/>
+                    <filter name="group_instrument" string="Local instrument"
+                            context="{'group_by': 'local_instrument'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_sepa_dd_export" model="ir.actions.act_window">
+        <field name="name">SEPA DD Exports</field>
+        <field name="res_model">eh.sepa.dd.export</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="view_eh_sepa_dd_export_search"/>
+        <field name="context">{'search_default_filter_generated': 1, 'search_default_filter_downloaded': 1}</field>
+    </record>
+
+</odoo>

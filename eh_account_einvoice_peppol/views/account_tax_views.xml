@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_tax_form_eh_edi_category" model="ir.ui.view">
+        <field name="name">account.tax.form.eh.edi.category</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+            <!-- type_tax_use is present on the tax form across Odoo 16-19,
+                 so it is a stable anchor for the EN 16931 category fields. -->
+            <field name="type_tax_use" position="after">
+                <field name="eh_edi_tax_category"/>
+                <field name="eh_edi_tax_exemption_reason"
+                       invisible="eh_edi_tax_category not in ('E', 'AE', 'G', 'O')"
+                       required="eh_edi_tax_category in ('E', 'AE', 'G', 'O')"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

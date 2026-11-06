@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_ecl_run_list" model="ir.ui.view">
+        <field name="name">eh.ecl.run.list</field>
+        <field name="model">eh.ecl.run</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="reporting_date"/>
+                <field name="total_gross" widget="monetary" optional="show"/>
+                <field name="closing_allowance" widget="monetary" optional="show"/>
+                <field name="movement" widget="monetary" optional="show"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'posted'"
+                       decoration-info="state == 'computed'"
+                       decoration-muted="state in ('cancelled', 'reversed')"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_ecl_run_search" model="ir.ui.view">
+        <field name="name">eh.ecl.run.search</field>
+        <field name="model">eh.ecl.run</field>
+        <field name="arch" type="xml">
+            <search string="Expected Credit Loss Runs">
+                <field name="name"/>
+                <field name="reporting_date"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="measurement_approach"/>
+                <filter name="draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="computed" string="Computed"
+                        domain="[('state', '=', 'computed')]"/>
+                <filter name="posted" string="Posted"
+                        domain="[('state', '=', 'posted')]"/>
+                <separator/>
+                <filter name="reporting_year" string="Reporting Year"
+                        date="reporting_date"/>
+                <separator/>
+                <filter name="group_company" string="Group by Company"
+                        context="{'group_by': 'company_id'}"/>
+                <filter name="group_state" string="Group by Status"
+                        context="{'group_by': 'state'}"/>
+                <filter name="group_approach" string="Group by Approach"
+                        context="{'group_by': 'measurement_approach'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_ecl_run_form" model="ir.ui.view">
+        <field name="name">eh.ecl.run.form</field>
+        <field name="model">eh.ecl.run</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_populate_from_receivables" type="object"
+                            string="Populate from Receivables"
+                            invisible="state not in ('draft', 'computed')"/>
+                    <button name="action_populate_from_exposures" type="object"
+                            string="Populate incl. Exposures"
+                            invisible="state not in ('draft', 'computed') or not has_exposure_providers"/>
+                    <button name="action_stage_from_ageing" type="object"
+                            string="Stage from Ageing"
+                            invisible="state not in ('draft', 'computed') or measurement_approach == 'general'"/>
+                    <button name="action_apply_stage_engine" type="object"
+                            string="Apply Stage Engine"
+                            invisible="state not in ('draft', 'computed') or measurement_approach != 'general'"/>
+                    <button name="action_stage_from_risk" type="object"
+                            string="Stage from Risk"
+                            invisible="state not in ('draft', 'computed') or measurement_approach != 'general'"/>
+                    <button name="action_roll_forward_opening" type="object"
+                            string="Roll Forward Opening"
+                            invisible="state not in ('draft', 'computed')"/>
+                    <button name="action_open_write_off" type="object"
+                            string="Write Off Receivable"
+                            invisible="state != 'posted'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_compute" type="object"
+                            string="Compute" class="btn-primary"
+                            invisible="state not in ('draft', 'computed')"/>
+                    <button name="action_revise" type="object"
+                            string="Revise Inputs"
+                            invisible="state != 'computed'"/>
+                    <button name="action_post" type="object"
+                            string="Post Movement" class="btn-primary"
+                            invisible="state != 'computed'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reverse" type="object" string="Reverse"
+                            invisible="state != 'posted'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('posted', 'reversed', 'cancelled')"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_set_to_draft" type="object"
+                            string="Set to Draft" invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,computed,posted"/>
+                </header>
+                <sheet>
+                    <field name="move_id" invisible="1"/>
+                    <field name="has_exposure_providers" invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_move" type="object"
+                                class="oe_stat_button" icon="fa-book"
+                                invisible="not move_id">
+                            <span class="o_stat_text">Movement Entry</span>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"
+                                   readonly="state != 'draft'"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="reporting_date"
+                                   readonly="state != 'draft'"/>
+                            <field name="measurement_approach" widget="radio"
+                                   options="{'horizontal': true}"
+                                   readonly="state != 'draft'"/>
+                            <field name="backstop_dpd_stage2"
+                                   invisible="measurement_approach != 'general'"
+                                   readonly="state != 'draft'"/>
+                            <field name="backstop_dpd_stage3"
+                                   invisible="measurement_approach != 'general'"
+                                   readonly="state != 'draft'"/>
+                            <field name="probation_runs"
+                                   invisible="measurement_approach != 'general'"
+                                   readonly="state != 'draft'"/>
+                            <field name="stage3_pd_policy"
+                                   invisible="measurement_approach != 'general'"
+                                   readonly="state != 'draft'"/>
+                            <field name="opening_allowance" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="rolled_opening_allowance"
+                                   widget="monetary" readonly="1"
+                                   invisible="state in ('posted', 'reversed')"/>
+                            <field name="ledger_allowance" widget="monetary"
+                                   readonly="1"
+                                   invisible="not loss_allowance_account_id"/>
+                            <field name="opening_ties_out" invisible="1"/>
+                            <div class="alert alert-warning" role="alert"
+                                 colspan="2"
+                                 invisible="opening_ties_out or state in ('posted', 'reversed') or not loss_allowance_account_id">
+                                The opening allowance does not tie to the
+                                loss-allowance ledger balance carried into this
+                                period. Confirm the roll-forward before posting.
+                            </div>
+                        </group>
+                        <group>
+                            <field name="total_gross" widget="monetary" readonly="1"/>
+                            <field name="closing_allowance" widget="monetary" readonly="1"/>
+                            <field name="movement" widget="monetary" readonly="1"/>
+                            <field name="zero_movement_posted" readonly="1"
+                                   invisible="not zero_movement_posted"/>
+                        </group>
+                    </group>
+                    <group string="Accounts">
+                        <group>
+                            <field name="impairment_expense_account_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="loss_allowance_account_id"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="journal_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="reversal_date"
+                                   invisible="state not in ('posted', 'reversed')"
+                                   readonly="state != 'posted'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Provision Matrix">
+                            <field name="bucket_ids"
+                                   readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="segment_id" optional="hide"/>
+                                    <field name="origin" optional="hide" readonly="1"/>
+                                    <field name="days_from"/>
+                                    <field name="days_to"/>
+                                    <field name="stage"/>
+                                    <field name="stage_prior" optional="hide"/>
+                                    <field name="cure_streak" optional="hide"/>
+                                    <field name="loss_rate"/>
+                                    <field name="discount_rate" optional="hide"/>
+                                    <field name="periods_to_recovery" optional="hide"/>
+                                    <field name="maturity_date" optional="hide"/>
+                                    <field name="periods_effective" optional="hide"/>
+                                    <field name="gross_carrying" widget="monetary"/>
+                                    <field name="exposure_at_default" widget="monetary" optional="hide"/>
+                                    <field name="pd_12m" optional="hide"/>
+                                    <field name="pd_lifetime" optional="hide"/>
+                                    <field name="lgd" optional="hide"/>
+                                    <field name="sicr" optional="hide"/>
+                                    <field name="credit_impaired" optional="hide"/>
+                                    <field name="low_credit_risk" optional="hide"/>
+                                    <field name="poci" optional="hide"/>
+                                    <field name="ecl_undiscounted" widget="monetary"
+                                           readonly="1" optional="hide"/>
+                                    <field name="ecl" widget="monetary" readonly="1"/>
+                                    <field name="ecl_general" widget="monetary"
+                                           readonly="1" optional="hide"/>
+                                    <field name="ecl_effective" widget="monetary"
+                                           readonly="1" optional="hide"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Scenarios"
+                              invisible="measurement_approach != 'general'">
+                            <field name="scenario_ids"
+                                   readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="weight"/>
+                                    <field name="pd_factor"/>
+                                    <field name="lgd_factor"/>
+                                </list>
+                            </field>
+                            <div class="text-muted">
+                                Scenario weights must sum to 1; the run's
+                                ECL is the probability-weighted amount over
+                                the scenarios (IFRS 9.5.5.17(a)). Leave the
+                                table empty to measure on a single base
+                                scenario.
+                            </div>
+                        </page>
+                        <page string="Stage Transfers"
+                              invisible="measurement_approach != 'general'">
+                            <field name="transfer_ids" readonly="1">
+                                <list>
+                                    <field name="bucket_name"/>
+                                    <field name="segment_id" optional="show"/>
+                                    <field name="from_stage"/>
+                                    <field name="to_stage"/>
+                                    <field name="reason"/>
+                                    <field name="amount" widget="monetary"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Reconciliation"
+                              invisible="state not in ('posted', 'reversed')">
+                            <field name="recon_ids" readonly="1">
+                                <list>
+                                    <field name="stage"/>
+                                    <field name="opening" widget="monetary"/>
+                                    <field name="transfers_in" widget="monetary"/>
+                                    <field name="transfers_out" widget="monetary"/>
+                                    <field name="remeasurement" widget="monetary"/>
+                                    <field name="writeoffs" widget="monetary"/>
+                                    <field name="closing" widget="monetary"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                            <div class="text-muted"
+                                 invisible="measurement_approach != 'simplified'">
+                                Simplified provision-matrix runs disclose
+                                aggregate portfolio-mix and ageing changes in
+                                remeasurement. Transfers are shown only when
+                                the auditable exposure-level stage engine
+                                records a movement; they are never fabricated
+                                from aggregate bands.
+                            </div>
+                        </page>
+                        <page string="Write-offs"
+                              invisible="state not in ('posted', 'reversed')">
+                            <field name="writeoff_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="partner_id"/>
+                                    <field name="stage"/>
+                                    <field name="amount" widget="monetary"/>
+                                    <field name="state" widget="badge"
+                                           decoration-success="state == 'posted'"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" nolabel="1" colspan="2"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="eh_account_ecl_run_view_graph" model="ir.ui.view">
+        <field name="name">eh.ecl.run.graph</field>
+        <field name="model">eh.ecl.run</field>
+        <field name="arch" type="xml">
+            <graph string="Expected Credit Loss" sample="1">
+                <field name="reporting_date" interval="month"/>
+                <field name="closing_allowance" type="measure"/>
+                <field name="movement" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_ecl_run_view_pivot" model="ir.ui.view">
+        <field name="name">eh.ecl.run.pivot</field>
+        <field name="model">eh.ecl.run</field>
+        <field name="arch" type="xml">
+            <pivot string="Expected Credit Loss" sample="1">
+                <field name="reporting_date" interval="month" type="row"/>
+                <field name="total_gross" type="measure"/>
+                <field name="closing_allowance" type="measure"/>
+                <field name="movement" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_ecl_run" model="ir.actions.act_window">
+        <field name="name">Expected Credit Loss</field>
+        <field name="res_model">eh.ecl.run</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_ecl_run_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first expected credit loss run</p>
+            <p>Measure IFRS 9 loss allowances for a reporting date, populate exposures, compute the ECL and post the movement to the ledger. Use New to start a run.</p>
+        </field>
+    </record>
+
+</odoo>

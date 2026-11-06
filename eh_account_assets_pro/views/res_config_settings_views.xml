@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Settings mirrors for the IAS 36 annual test month and the IFRS 16
+    low-value threshold, added to the ERP Heritage Assets and Leases
+    block provided by eh_account_base.
+-->
+<odoo>
+
+    <record id="res_config_settings_view_form_eh_assets_pro" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.eh.assets.pro</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="eh_account_base.res_config_settings_view_form_eh"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='eh_block_assets']" position="inside">
+                <setting id="eh_ias36_annual_test_month_setting"
+                         string="IAS 36 Annual Test Month"
+                         help="Month (1-12) of the fiscal year in which the mandatory annual impairment test for goodwill and indefinite-life intangibles falls due.">
+                    <field name="eh_ias36_annual_test_month"/>
+                </setting>
+                <setting id="eh_lease_low_value_threshold_setting"
+                         string="IFRS 16 Low-Value Threshold"
+                         help="Value of the underlying asset when new at or below which a lease qualifies for the low-value recognition exemption.">
+                    <field name="eh_lease_low_value_threshold"/>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

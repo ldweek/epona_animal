@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Multi-company isolation rules for eh_account_deferred_tax.
+    One global ir.rule per concrete model.
+-->
+<odoo noupdate="0">
+    <data>
+
+        <record id="rule_eh_deferred_tax_run_company" model="ir.rule">
+            <field name="name">eh.deferred.tax.run: company isolation</field>
+            <field name="model_id" ref="model_eh_deferred_tax_run"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_deferred_tax_line_company" model="ir.rule">
+            <field name="name">eh.deferred.tax.line: company isolation</field>
+            <field name="model_id" ref="model_eh_deferred_tax_line"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_deferred_tax_recon_line_company" model="ir.rule">
+            <field name="name">eh.deferred.tax.recon.line: company isolation</field>
+            <field name="model_id" ref="model_eh_deferred_tax_recon_line"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_tax_jurisdiction_company" model="ir.rule">
+            <field name="name">eh.tax.jurisdiction: company isolation</field>
+            <field name="model_id" ref="model_eh_tax_jurisdiction"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="rule_eh_tax_rate_company" model="ir.rule">
+            <field name="name">eh.tax.rate: company isolation</field>
+            <field name="model_id" ref="model_eh_tax_rate"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

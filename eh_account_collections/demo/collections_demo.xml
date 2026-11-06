@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <!--
+            Demo collections cases. Each uses a base demo partner so
+            installs without a chart of accounts can still see how the
+            workbench renders. Stages come from data/stages.xml so the
+            kanban groups by them out of the box.
+        -->
+
+        <record id="demo_case_active" model="eh.collections.case">
+            <field name="partner_id" ref="base.res_partner_2"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="stage_id" ref="eh_account_collections.stage_new"/>
+            <field name="priority">2</field>
+            <field name="total_overdue_amount">12450.00</field>
+            <field name="days_overdue_max">42</field>
+            <field name="oldest_overdue_date" eval="(DateTime.today() + relativedelta(days=-42)).strftime('%Y-%m-%d')"/>
+            <field name="notes">Demo case: 3 invoices outstanding past due. First contact attempted last week, awaiting response.</field>
+        </record>
+
+        <record id="demo_case_promise" model="eh.collections.case">
+            <field name="partner_id" ref="base.res_partner_3"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="stage_id" ref="eh_account_collections.stage_promise"/>
+            <field name="priority">1</field>
+            <field name="total_overdue_amount">3870.00</field>
+            <field name="days_overdue_max">14</field>
+            <field name="oldest_overdue_date" eval="(DateTime.today() + relativedelta(days=-14)).strftime('%Y-%m-%d')"/>
+            <field name="notes">Demo case: customer committed to settle by month end after a phone call.</field>
+        </record>
+
+        <record id="demo_action_call" model="eh.collections.action">
+            <field name="case_id" ref="demo_case_active"/>
+            <field name="action_type">call</field>
+            <field name="contact_made">True</field>
+            <field name="summary">Called accounts payable, voicemail left. Will retry tomorrow morning.</field>
+        </record>
+
+        <record id="demo_action_promise" model="eh.collections.action">
+            <field name="case_id" ref="demo_case_promise"/>
+            <field name="action_type">call</field>
+            <field name="contact_made">True</field>
+            <field name="promise_amount">3870.00</field>
+            <field name="promise_date" eval="(DateTime.today() + relativedelta(days=10)).strftime('%Y-%m-%d')"/>
+            <field name="summary">Spoke to AR clerk; partial payment by Wednesday, balance by month end.</field>
+        </record>
+
+    </data>
+</odoo>

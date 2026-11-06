@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="action_report_eh_deferred_tax_ias12_note"
+            model="ir.actions.report">
+        <field name="name">IAS 12 Deferred Tax Note</field>
+        <field name="model">eh.deferred.tax.run</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">eh_account_deferred_tax.report_deferred_tax_ias12_note</field>
+        <field name="report_file">eh_account_deferred_tax.report_deferred_tax_ias12_note</field>
+        <field name="binding_model_id" ref="model_eh_deferred_tax_run"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'IAS 12 Note - %s' % (object.name)</field>
+    </record>
+
+    <template id="report_deferred_tax_ias12_note">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>IAS 12 Deferred Tax Note</h2>
+                        <p>
+                            <strong>Company:</strong>
+                            <span t-field="o.company_id"/>
+                            <br/>
+                            <strong>Reporting date:</strong>
+                            <span t-field="o.period_end"/>
+                            <br/>
+                            <strong>Currency:</strong>
+                            <span t-field="o.currency_id"/>
+                        </p>
+                        <p>
+                            This table discloses temporary differences by type
+                            and expiry band, with both gross amounts and their
+                            recognised or unrecognised tax effects (IAS
+                            12.81(e)/(g)).
+                        </p>
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Expiry band</th>
+                                    <th class="text-end">Gross deductible</th>
+                                    <th class="text-end">Gross taxable</th>
+                                    <th class="text-end">Recognised DTA</th>
+                                    <th class="text-end">Recognised DTL</th>
+                                    <th class="text-end">Unrecognised gross</th>
+                                    <th class="text-end">Unrecognised tax effect</th>
+                                    <th class="text-end">P&amp;L movement</th>
+                                    <th class="text-end">OCI movement</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="rows" t-value="o._ias12_disclosure_rows()"/>
+                                <t t-if="not rows">
+                                    <tr>
+                                        <td colspan="10">No temporary differences.</td>
+                                    </tr>
+                                </t>
+                                <tr t-foreach="rows" t-as="row">
+                                    <td><span t-out="row['category_label']"/></td>
+                                    <td><span t-out="row['expiry_label']"/></td>
+                                    <td class="text-end"><span t-out="'%.2f' % row['gross_deductible']"/></td>
+                                    <td class="text-end"><span t-out="'%.2f' % row['gross_taxable']"/></td>
+                                    <td class="text-end"><span t-out="'%.2f' % row['recognised_dta']"/></td>
+                                    <td class="text-end"><span t-out="'%.2f' % row['recognised_dtl']"/></td>
+                                    <td class="text-end"><span t-out="'%.2f' % row['unrecognised_gross']"/></td>
+                                    <td class="text-end"><span t-out="'%.2f' % row['unrecognised_dta']"/></td>
+                                    <td class="text-end"><span t-out="'%.2f' % row['pl_movement']"/></td>
+                                    <td class="text-end"><span t-out="'%.2f' % row['oci_movement']"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h3>Offsetting presentation</h3>
+                        <pre t-out="o.offsetting_note or ''"/>
+                        <h3>Recoverability evidence</h3>
+                        <p t-out="o.recoverability_memo or 'No memo entered.'"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

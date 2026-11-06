@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_nrv_run_list" model="ir.ui.view">
+        <field name="name">eh.nrv.run.list</field>
+        <field name="model">eh.nrv.run</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="reporting_date"/>
+                <field name="revision" optional="show"/>
+                <field name="supersedes_run_id" optional="hide"/>
+                <field name="assessment_basis" optional="show"/>
+                <field name="total_cost" widget="monetary" optional="show"/>
+                <field name="closing_writedown" widget="monetary" optional="show"/>
+                <field name="gross_writedown" widget="monetary" optional="show"/>
+                <field name="gross_reversal" widget="monetary" optional="show"/>
+                <field name="movement" widget="monetary" optional="show"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'posted'"
+                       decoration-info="state == 'computed'"
+                       decoration-muted="state in ('cancelled', 'reversed')"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_nrv_run_search" model="ir.ui.view">
+        <field name="name">eh.nrv.run.search</field>
+        <field name="model">eh.nrv.run</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="reporting_date"/>
+                <field name="supersedes_run_id"/>
+                <field name="move_id"/>
+                <field name="reversal_move_id"/>
+                <filter name="filter_posted" string="Posted"
+                        domain="[('state', '=', 'posted')]"/>
+                <filter name="filter_reversed" string="Reversed"
+                        domain="[('state', '=', 'reversed')]"/>
+                <filter name="filter_revisions" string="Replacement Revisions"
+                        domain="[('supersedes_run_id', '!=', False)]"/>
+                <filter name="filter_reversal_entries" string="Has Reversal Entry"
+                        domain="[('reversal_move_id', '!=', False)]"/>
+                <group>
+                    <filter name="group_state" string="State"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_company" string="Company"
+                            context="{'group_by': 'company_id'}"/>
+                    <filter name="group_reporting_month" string="Reporting Month"
+                            context="{'group_by': 'reporting_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_nrv_run_form" model="ir.ui.view">
+        <field name="name">eh.nrv.run.form</field>
+        <field name="model">eh.nrv.run</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_compute" type="object"
+                            string="Compute" class="btn-primary"
+                            invisible="state not in ('draft', 'computed')"/>
+                    <button name="action_post" type="object"
+                            string="Post Movement" class="btn-primary"
+                            invisible="state != 'computed'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reverse" type="object" string="Reverse"
+                            invisible="state != 'posted'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('posted', 'reversed', 'cancelled')"/>
+                    <button name="action_set_to_draft" type="object"
+                            string="Set to Draft" invisible="state != 'cancelled'"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,computed,posted"/>
+                </header>
+                <sheet>
+                    <field name="move_id" invisible="1"/>
+                    <field name="reversal_move_id" invisible="1"/>
+                    <field name="supersedes_run_id" invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_move" type="object"
+                                class="oe_stat_button" icon="fa-book"
+                                invisible="not move_id">
+                            <span class="o_stat_text">Movement Entry</span>
+                        </button>
+                        <button name="action_view_reversal_move" type="object"
+                                class="oe_stat_button" icon="fa-undo"
+                                invisible="not reversal_move_id">
+                            <span class="o_stat_text">Reversal Entry</span>
+                        </button>
+                        <button name="action_view_superseded_run" type="object"
+                                class="oe_stat_button" icon="fa-history"
+                                invisible="not supersedes_run_id">
+                            <span class="o_stat_text">Prior Revision</span>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                        <label for="assessment_basis"
+                               string="Assessment Basis (IAS 2.29)"/>
+                        <field name="assessment_basis" widget="radio"
+                               options="{'horizontal': true}"
+                               readonly="state in ('posted', 'reversed')"/>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"
+                                   readonly="state != 'draft'"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="reporting_date"
+                                   readonly="state != 'draft'"/>
+                            <field name="revision"/>
+                            <field name="supersedes_run_id"
+                                   invisible="not supersedes_run_id"/>
+                            <field name="reversal_date"
+                                   invisible="state not in ('posted', 'reversed')"
+                                   readonly="state != 'posted'"/>
+                        </group>
+                        <group>
+                            <field name="total_cost" widget="monetary" readonly="1"/>
+                            <field name="closing_writedown" widget="monetary" readonly="1"/>
+                            <field name="gross_writedown" widget="monetary" readonly="1"/>
+                            <field name="gross_reversal" widget="monetary" readonly="1"/>
+                            <field name="movement" widget="monetary" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Accounts">
+                        <group>
+                            <field name="writedown_expense_account_id"
+                                   readonly="state in ('posted', 'reversed')"/>
+                            <field name="allowance_account_id"
+                                   readonly="state in ('posted', 'reversed')"/>
+                        </group>
+                        <group>
+                            <field name="journal_id"
+                                   readonly="state in ('posted', 'reversed')"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Inventory Lines">
+                            <field name="line_ids"
+                                   readonly="state in ('posted', 'reversed', 'cancelled')">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="product_id" optional="hide"/>
+                                    <field name="product_category_id"
+                                           optional="show"
+                                           required="parent.assessment_basis == 'category'"/>
+                                    <field name="cost" widget="monetary"/>
+                                    <field name="net_realisable_value" widget="monetary"/>
+                                    <field name="opening_writedown" widget="monetary"
+                                           readonly="1"
+                                           decoration-warning="opening_tieout"/>
+                                    <field name="opening_source" widget="badge"
+                                           optional="show"/>
+                                    <field name="opening_writedown_manual"
+                                           optional="hide"
+                                           groups="eh_account_base.group_eh_manager"/>
+                                    <field name="manual_opening_writedown"
+                                           widget="monetary" optional="hide"
+                                           readonly="not opening_writedown_manual"
+                                           groups="eh_account_base.group_eh_manager"/>
+                                    <field name="opening_override_reason"
+                                           optional="hide"
+                                           readonly="not opening_writedown_manual"
+                                           groups="eh_account_base.group_eh_manager"/>
+                                    <field name="opening_override_by_id"
+                                           readonly="1" optional="hide"/>
+                                    <field name="opening_override_at"
+                                           readonly="1" optional="hide"/>
+                                    <field name="prior_closing_writedown" widget="monetary"
+                                           readonly="1" optional="hide"/>
+                                    <field name="opening_tieout" column_invisible="1"/>
+                                    <field name="required_writedown" widget="monetary" readonly="1"/>
+                                    <field name="movement" widget="monetary" readonly="1"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" nolabel="1" colspan="2"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="eh_account_inventory_nrv_run_view_graph" model="ir.ui.view">
+        <field name="name">eh.nrv.run.graph</field>
+        <field name="model">eh.nrv.run</field>
+        <field name="arch" type="xml">
+            <graph string="Inventory NRV" sample="1">
+                <field name="reporting_date" interval="month"/>
+                <field name="closing_writedown" type="measure"/>
+                <field name="gross_writedown" type="measure"/>
+                <field name="gross_reversal" type="measure"/>
+                <field name="movement" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_inventory_nrv_run_view_pivot" model="ir.ui.view">
+        <field name="name">eh.nrv.run.pivot</field>
+        <field name="model">eh.nrv.run</field>
+        <field name="arch" type="xml">
+            <pivot string="Inventory NRV" sample="1">
+                <field name="reporting_date" interval="month" type="row"/>
+                <field name="assessment_basis" type="col"/>
+                <field name="total_cost" type="measure"/>
+                <field name="closing_writedown" type="measure"/>
+                <field name="gross_writedown" type="measure"/>
+                <field name="gross_reversal" type="measure"/>
+                <field name="movement" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_nrv_run" model="ir.actions.act_window">
+        <field name="name">Inventory NRV</field>
+        <field name="res_model">eh.nrv.run</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_nrv_run_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first inventory NRV run</p>
+            <p>Assess inventory at the lower of cost and net realisable value for a period end, then post the write-down movement to the ledger (IAS 2). Use the Compute button to size the write-down before posting.</p>
+        </field>
+    </record>
+
+</odoo>

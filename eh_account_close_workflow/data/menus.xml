@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <menuitem id="menu_eh_close_root"
+                  name="Period Close"
+                  parent="eh_account_base.menu_eh_period_work"
+                  sequence="10"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <menuitem id="menu_eh_close_run"
+                  name="Close Runs"
+                  parent="menu_eh_close_root"
+                  action="action_eh_close_run"
+                  sequence="10"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <menuitem id="menu_eh_close_task"
+                  name="Close Tasks"
+                  parent="menu_eh_close_root"
+                  action="action_eh_close_task"
+                  sequence="20"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <menuitem id="menu_eh_close_checklist"
+                  name="Close Checklists"
+                  parent="eh_account_base.menu_eh_config_operations"
+                  action="action_eh_close_checklist"
+                  sequence="40"
+                  groups="eh_account_base.group_eh_manager"/>
+
+    </data>
+</odoo>

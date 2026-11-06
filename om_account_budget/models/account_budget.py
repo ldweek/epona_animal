@@ -1,0 +1,320 @@
+from collections import defaultdict
+
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
+from odoo.fields import Domain
+
+# computed, non-stored amounts that are aggregated by hand for grouped views
+COMPUTED_AMOUNT_FIELDS = ('practical_amount', 'theoritical_amount', 'percentage')
+
+
+class AccountBudgetPost(models.Model):
+    _name = "account.budget.post"
+    _order = "name"
+    _description = "Budgetary Position"
+
+    name = fields.Char('Name', required=True)
+    account_ids = fields.Many2many(
+        'account.account', 'account_budget_rel', 'budget_id',
+        'account_id', 'Accounts'
+    )
+    company_id = fields.Many2one('res.company', 'Company', required=True, default=lambda self: self.env.company)
+
+    def _check_account_ids(self, vals):
+        # Raise an error to prevent the account.budget.post to have not specified account_ids.
+        # This check is done on create because require=True doesn't work on Many2many fields.
+        if 'account_ids' in vals:
+            account_ids = self.new({'account_ids': vals['account_ids']}, origin=self).account_ids
+        else:
+            account_ids = self.account_ids
+        if not account_ids:
+            raise ValidationError(_('The budget must have at least one account.'))
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            self._check_account_ids(vals)
+        return super(AccountBudgetPost, self).create(vals_list)
+
+    def write(self, vals):
+        self._check_account_ids(vals)
+        return super(AccountBudgetPost, self).write(vals)
+
+
+class CrossoveredBudget(models.Model):
+    _name = "crossovered.budget"
+    _description = "Budget"
+    _inherit = ['mail.thread']
+
+    name = fields.Char('Budget Name', required=True)
+    user_id = fields.Many2one('res.users', 'Responsible', default=lambda self: self.env.user)
+    date_from = fields.Date('Start Date', required=True)
+    date_to = fields.Date('End Date', required=True)
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('cancel', 'Cancelled'),
+        ('confirm', 'Confirmed'),
+        ('validate', 'Validated'),
+        ('done', 'Done')
+        ], 'Status', default='draft', index=True, required=True, readonly=True, copy=False, tracking=True)
+    crossovered_budget_line = fields.One2many(
+        'crossovered.budget.lines', 'crossovered_budget_id',
+        'Budget Lines', copy=True
+    )
+    company_id = fields.Many2one('res.company', 'Company', required=True, default=lambda self: self.env.company)
+
+    def action_budget_confirm(self):
+        self.write({'state': 'confirm'})
+
+    def action_budget_draft(self):
+        self.write({'state': 'draft'})
+
+    def action_budget_validate(self):
+        self.write({'state': 'validate'})
+
+    def action_budget_cancel(self):
+        self.write({'state': 'cancel'})
+
+    def action_budget_done(self):
+        self.write({'state': 'done'})
+
+
+class CrossoveredBudgetLines(models.Model):
+    _name = "crossovered.budget.lines"
+    _description = "Budget Line"
+
+    name = fields.Char(compute='_compute_line_name')
+    crossovered_budget_id = fields.Many2one('crossovered.budget', 'Budget', ondelete='cascade', index=True, required=True)
+    analytic_account_id = fields.Many2one('account.analytic.account', 'Analytic Account')
+    analytic_plan_id = fields.Many2one(related='analytic_account_id.plan_id')
+    general_budget_id = fields.Many2one('account.budget.post', 'Budgetary Position')
+    date_from = fields.Date('Start Date', required=True)
+    date_to = fields.Date('End Date', required=True)
+    paid_date = fields.Date('Paid Date')
+    currency_id = fields.Many2one('res.currency', related='company_id.currency_id', readonly=True)
+    planned_amount = fields.Monetary(
+        'Planned Amount', required=True,
+        help="Amount you plan to earn/spend. Record a positive amount if it is a revenue and a negative amount if it is a cost.")
+    practical_amount = fields.Monetary(
+        compute='_compute_practical_amount', string='Practical Amount', help="Amount really earned/spent.")
+    theoritical_amount = fields.Monetary(
+        compute='_compute_theoritical_amount', string='Theoretical Amount',
+        help="Amount you are supposed to have earned/spent at this date.")
+    percentage = fields.Float(
+        compute='_compute_percentage', string='Achievement',
+        help="Comparison between practical and theoretical amount. This measure tells you if you are below or over budget.")
+    company_id = fields.Many2one(related='crossovered_budget_id.company_id', comodel_name='res.company',
+        string='Company', store=True, readonly=True)
+    is_above_budget = fields.Boolean(compute='_is_above_budget')
+    crossovered_budget_state = fields.Selection(related='crossovered_budget_id.state', string='Budget State', store=True, readonly=True)
+
+    @api.model
+    def fields_get(self, allfields=None, attributes=None):
+        res = super().fields_get(allfields=allfields, attributes=attributes)
+        # practical_amount, theoritical_amount and percentage are computed and not
+        # stored, so the ORM no longer advertises an aggregator for them. Without one
+        # the pivot and graph views refuse them as measures ("No aggregate function
+        # has been provided for the measure ...") and the list view shows no group
+        # totals. They are aggregated by hand below, so tell the client they can be.
+        if attributes is None or 'aggregator' in attributes:
+            for fname in COMPUTED_AMOUNT_FIELDS:
+                if fname in res:
+                    res[fname]['aggregator'] = 'sum'
+        return res
+
+    def _split_computed_aggregates(self, aggregates):
+        """ Split the aggregates on the non-stored computed amounts, which cannot be
+        aggregated in SQL, from the ones the ORM can handle.
+
+        :return: (sql aggregates, {aggregate spec: field name})
+        """
+        computed_specs = {spec: spec.split(':', 1)[0] for spec in aggregates
+                          if spec.split(':', 1)[0] in COMPUTED_AMOUNT_FIELDS}
+        return [spec for spec in aggregates if spec not in computed_specs], computed_specs
+
+    def _fill_computed_aggregates(self, domain, groups, computed_specs):
+        """ Compute the non-stored amount fields manually for each group. """
+        lines_by_group = [
+            self.search(Domain(domain or []) & Domain(group.get('__extra_domain') or []))
+            for group in groups
+        ]
+        for group_line, lines in zip(groups, lines_by_group):
+            practical_amount = sum(lines.mapped('practical_amount'))
+            theoritical_amount = sum(lines.mapped('theoritical_amount'))
+            values = {
+                'practical_amount': practical_amount,
+                'theoritical_amount': theoritical_amount,
+                # same ratio as on the lines, weighted by the theoretical amounts
+                'percentage': practical_amount / theoritical_amount if theoritical_amount else 0.0,
+            }
+            for spec, field_name in computed_specs.items():
+                group_line[spec] = values[field_name]
+
+    @api.model
+    def formatted_read_group(self, domain, groupby=(), aggregates=(), having=(), offset=0, limit=None, order=None):
+        # the web client (list and graph views) goes through this method
+        aggregates, computed_specs = self._split_computed_aggregates(aggregates)
+        result = super().formatted_read_group(domain, groupby, aggregates, having=having,
+                                              offset=offset, limit=limit, order=order)
+        if computed_specs:
+            self._fill_computed_aggregates(domain, result, computed_specs)
+        return result
+
+    @api.model
+    def formatted_read_grouping_sets(self, domain, grouping_sets, aggregates=(), *, order=None):
+        # same as formatted_read_group, used by the pivot view
+        aggregates, computed_specs = self._split_computed_aggregates(aggregates)
+        result = super().formatted_read_grouping_sets(domain, grouping_sets, aggregates, order=order)
+        if computed_specs:
+            for groups in result:
+                self._fill_computed_aggregates(domain, groups, computed_specs)
+        return result
+
+    def _is_above_budget(self):
+        for line in self:
+            if line.theoritical_amount >= 0:
+                line.is_above_budget = line.practical_amount > line.theoritical_amount
+            else:
+                line.is_above_budget = line.practical_amount < line.theoritical_amount
+
+    def _compute_line_name(self):
+        #just in case someone opens the budget line in form view
+        for line in self:
+            computed_name = line.crossovered_budget_id.name
+            if line.general_budget_id:
+                computed_name += ' - ' + line.general_budget_id.name
+            if line.analytic_account_id:
+                computed_name += ' - ' + line.analytic_account_id.name
+            line.name = computed_name
+
+    def _get_practical_amount_key(self):
+        """ Lines with the same key are computed by a single query. """
+        self.ensure_one()
+        accounts = tuple(sorted(self.general_budget_id.account_ids.ids))
+        period = (self.date_from, self.date_to, self.company_id.id)
+        if self.analytic_account_id:
+            # since the analytic plans, each root plan stores its accounts in its own column:
+            # account_id only holds the default plan's ones
+            return ('analytic', self.analytic_account_id.plan_id._column_name(), accounts, *period)
+        return ('journal', accounts, *period)
+
+    def _compute_practical_amount(self):
+        lines_by_key = defaultdict(lambda: self.browse())
+        amounts = {}
+        for line in self:
+            amounts[line] = 0.0
+            if line.date_from and line.date_to and (line.analytic_account_id or line.general_budget_id):
+                lines_by_key[line._get_practical_amount_key()] |= line
+
+        for key, lines in lines_by_key.items():
+            if key[0] == 'analytic':
+                dummy, column, accounts, date_from, date_to, company_id = key
+                domain = [
+                    (column, 'in', lines.analytic_account_id.ids),
+                    ('date', '>=', date_from),
+                    ('date', '<=', date_to),
+                    ('company_id', 'in', [company_id, False]),
+                ]
+                if accounts:
+                    domain.append(('general_account_id', 'in', list(accounts)))
+                totals = dict(self.env['account.analytic.line']._read_group(
+                    domain, groupby=[column], aggregates=['amount:sum']))
+                for line in lines:
+                    amounts[line] = totals.get(line.analytic_account_id, 0.0)
+            else:
+                dummy, accounts, date_from, date_to, company_id = key
+                if not accounts:
+                    continue
+                # the budget belongs to one company and only posted entries have actually
+                # been spent/earned
+                [(credit, debit)] = self.env['account.move.line']._read_group([
+                    ('account_id', 'in', list(accounts)),
+                    ('date', '>=', date_from),
+                    ('date', '<=', date_to),
+                    ('company_id', '=', company_id),
+                    ('parent_state', '=', 'posted'),
+                ], aggregates=['credit:sum', 'debit:sum'])
+                for line in lines:
+                    amounts[line] = (credit or 0.0) - (debit or 0.0)
+
+        for line, amount in amounts.items():
+            line.practical_amount = amount
+
+    def _compute_theoritical_amount(self):
+        # beware: 'today' variable is mocked in the python tests and thus, its implementation matter
+        today = fields.Date.today()
+        for line in self:
+            if line.paid_date:
+                if today <= line.paid_date:
+                    theo_amt = 0.00
+                else:
+                    theo_amt = line.planned_amount
+            else:
+                theo_amt = 0
+                if line.date_to and line.date_from:
+                    line_timedelta = line.date_to - line.date_from
+                    elapsed_timedelta = today - line.date_from
+
+                    if elapsed_timedelta.days < 0:
+                        # If the budget line has not started yet, theoretical amount should be zero
+                        theo_amt = 0.00
+                    elif line_timedelta.days > 0 and today < line.date_to:
+                        # If today is between the budget line date_from and date_to
+                        theo_amt = (elapsed_timedelta.total_seconds() / line_timedelta.total_seconds()) * line.planned_amount
+                    else:
+                        theo_amt = line.planned_amount
+            line.theoritical_amount = theo_amt
+
+    def _compute_percentage(self):
+        for line in self:
+            if line.theoritical_amount != 0.00:
+                line.percentage = float((line.practical_amount or 0.0) / line.theoritical_amount)
+            else:
+                line.percentage = 0.00
+
+    # crossovered_budget_id is in the tuple so the check runs on create: a constraint
+    # only fires for the fields the values carry, and a line created with neither a
+    # position nor an analytic account carries neither of them
+    @api.constrains('general_budget_id', 'analytic_account_id', 'crossovered_budget_id')
+    def _must_have_analytical_or_budgetary_or_both(self):
+        # constraints are called with the whole recordset: never touch a field on self
+        for line in self:
+            if not line.analytic_account_id and not line.general_budget_id:
+                raise ValidationError(
+                    _("You have to enter at least a budgetary position or analytic account on a budget line."))
+
+    def action_open_budget_entries(self):
+        self.ensure_one()
+        if self.analytic_account_id:
+            # if there is an analytic account, then the analytic items are loaded
+            action = self.env['ir.actions.act_window']._for_xml_id('analytic.account_analytic_line_action_entries')
+            analytic_column = self.analytic_account_id.plan_id._column_name()
+            action['domain'] = [(analytic_column, '=', self.analytic_account_id.id),
+                                ('date', '>=', self.date_from),
+                                ('date', '<=', self.date_to)
+                                ]
+            if self.general_budget_id:
+                action['domain'] += [('general_account_id', 'in', self.general_budget_id.account_ids.ids)]
+        else:
+            # otherwise the journal entries booked on the accounts of the budgetary postition are opened
+            action = self.env['ir.actions.act_window']._for_xml_id('account.action_account_moves_all_a')
+            action['domain'] = [('account_id', 'in',
+                                 self.general_budget_id.account_ids.ids),
+                                ('date', '>=', self.date_from),
+                                ('date', '<=', self.date_to)
+                                ]
+        return action
+
+    @api.constrains('date_from', 'date_to')
+    def _line_dates_between_budget_dates(self):
+        for rec in self:
+            budget_date_from = rec.crossovered_budget_id.date_from
+            budget_date_to = rec.crossovered_budget_id.date_to
+            if rec.date_from:
+                date_from = rec.date_from
+                if date_from < budget_date_from or date_from > budget_date_to:
+                    raise ValidationError(_('"Start Date" of the budget line should be included in the Period of the budget'))
+            if rec.date_to:
+                date_to = rec.date_to
+                if date_to < budget_date_from or date_to > budget_date_to:
+                    raise ValidationError(_('"End Date" of the budget line should be included in the Period of the budget'))

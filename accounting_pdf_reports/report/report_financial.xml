@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_financial">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.internal_layout">
+                    <div class="page o_om_report">
+                        <t t-call="accounting_pdf_reports.report_style"/>
+                        <h2 t-out="data['account_report_id'][1]"/>
+
+                        <div id="informations" class="row mb-4">
+                            <div class="col" t-if="data['date_from'] or data['date_to']">
+                                <strong>Period:</strong>
+                                <div>
+                                    <t t-if="data['date_from'] and data['date_to']"><span t-out="data['date_from']" t-options="{'widget': 'date'}"/> - <span t-out="data['date_to']" t-options="{'widget': 'date'}"/></t>
+                                    <t t-elif="data['date_from']">From <span t-out="data['date_from']" t-options="{'widget': 'date'}"/></t>
+                                    <t t-else="">Until <span t-out="data['date_to']" t-options="{'widget': 'date'}"/></t>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <strong>Target Moves:</strong>
+                                <div t-if="data['target_move'] == 'all'">All Entries</div>
+                                <div t-if="data['target_move'] == 'posted'">All Posted Entries</div>
+                            </div>
+                        </div>
+
+                        <table class="table table-sm table-reports" t-if="data['debit_credit'] == 1">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th class="text-end">Debit</th>
+                                    <th class="text-end">Credit</th>
+                                    <th class="text-end">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="get_account_lines" t-as="a" t-if="a['level'] != 0">
+                                    <t t-set="style" t-value="'font-weight: normal;' if int(a.get('level')) &gt; 3 else 'font-weight: bold;'"/>
+                                    <td>
+                                        <span style="color: white;" t-out="'..' * int(a.get('level', 0))"/>
+                                        <span t-att-style="style" t-out="a.get('name')"/>
+                                    </td>
+                                    <td class="text-end text-nowrap">
+                                        <span t-att-style="style" t-out="a.get('debit')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    </td>
+                                    <td class="text-end text-nowrap">
+                                        <span t-att-style="style" t-out="a.get('credit')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    </td>
+                                    <td class="text-end text-nowrap">
+                                        <span t-att-style="style" t-out="a.get('balance')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-sm table-reports" t-if="not data['enable_filter'] and not data['debit_credit']">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th class="text-end">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="get_account_lines" t-as="a" t-if="a['level'] != 0">
+                                    <t t-set="style" t-value="'font-weight: normal;' if int(a.get('level')) &gt; 3 else 'font-weight: bold;'"/>
+                                    <td>
+                                        <span style="color: white;" t-out="'..' * int(a.get('level', 0))"/>
+                                        <span t-att-style="style" t-out="a.get('name')"/>
+                                    </td>
+                                    <td class="text-end text-nowrap"><span t-att-style="style" t-out="a.get('balance')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-sm table-reports" t-if="data['enable_filter'] == 1 and not data['debit_credit']">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th class="text-end">Balance</th>
+                                    <th class="text-end"><span t-out="data['label_filter']"/></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="get_account_lines" t-as="a" t-if="a['level'] != 0">
+                                    <t t-set="style" t-value="'font-weight: normal;' if int(a.get('level')) &gt; 3 else 'font-weight: bold;'"/>
+                                    <td>
+                                        <span style="color: white;" t-out="'..' * int(a.get('level', 0))"/>
+                                        <span t-att-style="style" t-out="a.get('name')"/>
+                                    </td>
+                                    <td class="text-end text-nowrap">
+                                        <span t-att-style="style" t-out="a.get('balance')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    </td>
+                                    <td class="text-end text-nowrap">
+                                        <span t-att-style="style" t-out="a.get('balance_cmp')" t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

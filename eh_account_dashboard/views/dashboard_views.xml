@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_account_dashboard_form" model="ir.ui.view">
+        <field name="name">eh.account.dashboard.form</field>
+        <field name="model">eh.account.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="Financial Dashboard" create="false" delete="false">
+                <header>
+                    <button name="action_refresh"
+                            type="object"
+                            string="Refresh"
+                            class="btn-primary"
+                            title="Refresh dashboard"
+                            icon="fa-refresh"/>
+                </header>
+                <sheet>
+                    <field name="has_approval_module" invisible="1"/>
+                    <field name="has_collections_module" invisible="1"/>
+                    <field name="has_budget_module" invisible="1"/>
+                    <field name="has_credit_limit_module" invisible="1"/>
+                    <field name="has_sepa_dd_module" invisible="1"/>
+                    <field name="has_close_workflow" invisible="1"/>
+                    <field name="has_year_end_module" invisible="1"/>
+                    <field name="has_fx_module" invisible="1"/>
+                    <div class="oe_title">
+                        <h1>Financial Dashboard</h1>
+                        <h3>
+                            <field name="company_id"
+                                   readonly="1"
+                                   groups="base.group_multi_company"/>
+                        </h3>
+                    </div>
+
+                    <group string="Dashboard settings">
+                        <group string="Period">
+                            <field name="period_mode"/>
+                            <field name="period_date_from"
+                                   readonly="period_mode != 'custom'"/>
+                            <field name="period_date_to"
+                                   readonly="period_mode != 'custom'"/>
+                        </group>
+                        <group string="Scope">
+                            <field name="posted_only"/>
+                            <field name="user_id" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <separator string="Liquidity and working capital"/>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 mb-3">
+                            <div class="card border-success">
+                                <div class="card-body">
+                                    <h6 class="text-muted text-uppercase mb-1">
+                                        <i class="fa fa-money me-1" aria-hidden="true"/>
+                                        Cash position
+                                    </h6>
+                                    <h3 class="text-success">
+                                        <field name="cash_position"
+                                               widget="monetary"/>
+                                    </h3>
+                                    <small class="text-muted">
+                                        Across <field name="cash_account_count"/> cash account(s)
+                                    </small>
+                                    <div class="mt-2">
+                                        <button name="action_drilldown_cash"
+                                                type="object"
+                                                string="View cash entries"
+                                                class="btn btn-sm btn-link p-0"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 mb-3">
+                            <div class="card border-primary">
+                                <div class="card-body">
+                                    <h6 class="text-muted text-uppercase mb-1">
+                                        <i class="fa fa-arrow-down me-1" aria-hidden="true"/>
+                                        Receivables
+                                    </h6>
+                                    <h3>
+                                        <field name="receivable_total"
+                                               widget="monetary"/>
+                                    </h3>
+                                    <small class="text-danger fw-bold"
+                                           invisible="not receivable_overdue">
+                                        Overdue:
+                                        <field name="receivable_overdue"
+                                               widget="monetary"/>
+                                        (max
+                                        <field name="receivable_days_overdue_max"/>
+                                        days)
+                                    </small>
+                                    <small class="text-success"
+                                           invisible="receivable_overdue">
+                                        No overdue items.
+                                    </small>
+                                    <div class="mt-2">
+                                        <button name="action_drilldown_receivables"
+                                                type="object"
+                                                string="View open receivables"
+                                                class="btn btn-sm btn-link p-0"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 mb-3">
+                            <div class="card border-warning">
+                                <div class="card-body">
+                                    <h6 class="text-muted text-uppercase mb-1">
+                                        <i class="fa fa-arrow-up me-1" aria-hidden="true"/>
+                                        Payables
+                                    </h6>
+                                    <h3>
+                                        <field name="payable_total"
+                                               widget="monetary"/>
+                                    </h3>
+                                    <small class="text-warning"
+                                           invisible="not payable_overdue">
+                                        Overdue:
+                                        <field name="payable_overdue"
+                                               widget="monetary"/>
+                                    </small>
+                                    <small class="text-success"
+                                           invisible="payable_overdue">
+                                        No overdue bills.
+                                    </small>
+                                    <div class="mt-2">
+                                        <button name="action_drilldown_payables"
+                                                type="object"
+                                                string="View open payables"
+                                                class="btn btn-sm btn-link p-0"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <separator string="Period profit and loss"/>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 mb-3">
+                            <div class="card border-info">
+                                <div class="card-body">
+                                    <h6 class="text-muted text-uppercase mb-1">
+                                        <i class="fa fa-line-chart me-1" aria-hidden="true"/>
+                                        Revenue
+                                    </h6>
+                                    <h3 class="text-info">
+                                        <field name="period_revenue"
+                                               widget="monetary"/>
+                                    </h3>
+                                    <button name="action_drilldown_period_revenue"
+                                            type="object"
+                                            class="btn btn-sm btn-link p-0"
+                                            string="View entries"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 mb-3">
+                            <div class="card border-secondary">
+                                <div class="card-body">
+                                    <h6 class="text-muted text-uppercase mb-1">
+                                        <i class="fa fa-shopping-cart me-1" aria-hidden="true"/>
+                                        Expense
+                                    </h6>
+                                    <h3>
+                                        <field name="period_expense"
+                                               widget="monetary"/>
+                                    </h3>
+                                    <button name="action_drilldown_period_expense"
+                                            type="object"
+                                            class="btn btn-sm btn-link p-0"
+                                            string="View entries"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 mb-3">
+                            <div class="card border-success">
+                                <div class="card-body">
+                                    <h6 class="text-muted text-uppercase mb-1">
+                                        <i class="fa fa-trophy me-1" aria-hidden="true"/>
+                                        Net
+                                    </h6>
+                                    <h3 class="text-success"
+                                        invisible="period_net &lt; 0">
+                                        <field name="period_net"
+                                               widget="monetary"/>
+                                    </h3>
+                                    <h3 class="text-danger"
+                                        invisible="period_net &gt;= 0">
+                                        <field name="period_net"
+                                               widget="monetary"/>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <separator string="Suite operations"
+                               invisible="not has_approval_module and not has_collections_module and not has_budget_module"/>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 mb-3"
+                             invisible="not has_approval_module">
+                            <div class="card border-warning">
+                                <div class="card-body">
+                                    <h6 class="text-muted text-uppercase mb-1">
+                                        <i class="fa fa-check-circle me-1" aria-hidden="true"/>
+                                        Pending approvals
+                                    </h6>
+                                    <h3>
+                                        <field name="pending_approval_count"/>
+                                    </h3>
+                                    <div class="mt-2">
+                                        <button name="action_drilldown_pending_approvals"
+                                                type="object"
+                                                string="Review queue"
+                                                class="btn btn-sm btn-link p-0"
+                                                invisible="not pending_approval_count"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 mb-3"
+                             invisible="not has_collections_module">
+                            <div class="card border-danger">
+                                <div class="card-body">
+                                    <h6 class="text-muted text-uppercase mb-1">
+                                        <i class="fa fa-phone me-1" aria-hidden="true"/>
+                                        Active collections
+                                    </h6>
+                                    <h3>
+                                        <field name="active_collections_count"/>
+                                    </h3>
+                                    <small class="text-muted">
+                                        Total overdue:
+                                        <field name="active_collections_total"
+                                               widget="monetary"/>
+                                    </small>
+                                    <div class="mt-2">
+                                        <button name="action_drilldown_active_collections"
+                                                type="object"
+                                                string="Open workbench"
+                                                class="btn btn-sm btn-link p-0"
+                                                invisible="not active_collections_count"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 mb-3"
+                             invisible="not has_budget_module">
+                            <div class="card border-info">
+                                <div class="card-body">
+                                    <h6 class="text-muted text-uppercase mb-1">
+                                        <i class="fa fa-tachometer me-1" aria-hidden="true"/>
+                                        Active budgets
+                                    </h6>
+                                    <h3>
+                                        <field name="active_budget_count"/>
+                                    </h3>
+                                    <small class="text-danger fw-bold"
+                                           invisible="not overrun_budget_count">
+                                        <field name="overrun_budget_count"/> overrun
+                                    </small>
+                                    <small class="text-success"
+                                           invisible="overrun_budget_count">
+                                        All within budget.
+                                    </small>
+                                    <div class="mt-2">
+                                        <button name="action_drilldown_overrun_budgets"
+                                                type="object"
+                                                string="View budgets"
+                                                class="btn btn-sm btn-link p-0"
+                                                invisible="not active_budget_count"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <separator string="Continuous control monitoring"/>
+                    <div class="alert alert-info" role="alert"
+                         invisible="control_signal_total &gt; 0">
+                        <i class="fa fa-shield me-1" aria-hidden="true"/>
+                        No outstanding control signals: nothing pending, no breach, no dormant mandates.
+                    </div>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="control_signal_total == 0">
+                        <i class="fa fa-exclamation-triangle me-1" title="Warning"/>
+                        <strong><field name="control_signal_total"/></strong>
+                        active control signals across the suite.
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 mb-3"
+                             invisible="not has_credit_limit_module">
+                            <div class="card border-warning">
+                                <div class="card-body">
+                                    <h6 class="text-muted text-uppercase mb-1">
+                                        <i class="fa fa-credit-card me-1" aria-hidden="true"/>
+                                        Credit limit signals
+                                    </h6>
+                                    <h3>
+                                        <field name="credit_limit_breach_count"/>
+                                        <small class="text-muted ms-1">over limit</small>
+                                    </h3>
+                                    <small class="text-muted">
+                                        <field name="credit_limit_override_count_30d"/>
+                                        manager overrides last 30 days
+                                    </small>
+                                    <div class="mt-2">
+                                        <button name="action_drilldown_credit_overrides"
+                                                type="object"
+                                                string="View override log"
+                                                class="btn btn-sm btn-link p-0"
+                                                invisible="not credit_limit_override_count_30d"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 mb-3"
+                             invisible="not has_sepa_dd_module">
+                            <div class="card border-warning">
+                                <div class="card-body">
+                                    <h6 class="text-muted text-uppercase mb-1">
+                                        <i class="fa fa-clock-o me-1" aria-hidden="true"/>
+                                        SEPA dormancy watch
+                                    </h6>
+                                    <h3>
+                                        <field name="dormant_mandate_count"/>
+                                    </h3>
+                                    <small class="text-muted">
+                                        Mandates &gt; 33 months idle (cliff at 36)
+                                    </small>
+                                    <div class="mt-2">
+                                        <button name="action_drilldown_dormant_mandates"
+                                                type="object"
+                                                string="Review mandates"
+                                                class="btn btn-sm btn-link p-0"
+                                                invisible="not dormant_mandate_count"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 mb-3"
+                             invisible="not has_close_workflow">
+                            <div class="card border-info">
+                                <div class="card-body">
+                                    <h6 class="text-muted text-uppercase mb-1">
+                                        <i class="fa fa-tasks me-1" aria-hidden="true"/>
+                                        Period close in progress
+                                    </h6>
+                                    <h3>
+                                        <field name="in_progress_close_count"/>
+                                    </h3>
+                                    <small class="text-muted">
+                                        Open period-close runs
+                                    </small>
+                                    <div class="mt-2">
+                                        <button name="action_drilldown_open_close_runs"
+                                                type="object"
+                                                string="Open runs"
+                                                class="btn btn-sm btn-link p-0"
+                                                invisible="not in_progress_close_count"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 mb-3"
+                             invisible="not has_year_end_module">
+                            <div class="card border-info">
+                                <div class="card-body">
+                                    <h6 class="text-muted text-uppercase mb-1">
+                                        <i class="fa fa-flag-checkered me-1" aria-hidden="true"/>
+                                        Year-end runs
+                                    </h6>
+                                    <h3>
+                                        <field name="open_year_end_run_count"/>
+                                    </h3>
+                                    <small class="text-muted">
+                                        Open or computed but unposted
+                                    </small>
+                                    <div class="mt-2">
+                                        <button name="action_drilldown_open_year_end"
+                                                type="object"
+                                                string="Open runs"
+                                                class="btn btn-sm btn-link p-0"
+                                                invisible="not open_year_end_run_count"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 mb-3"
+                             invisible="not has_fx_module">
+                            <div class="card border-info">
+                                <div class="card-body">
+                                    <h6 class="text-muted text-uppercase mb-1">
+                                        <i class="fa fa-exchange me-1" aria-hidden="true"/>
+                                        FX revaluation pending
+                                    </h6>
+                                    <h3>
+                                        <field name="pending_fx_run_count"/>
+                                    </h3>
+                                    <small class="text-muted">
+                                        Computed but unposted runs
+                                    </small>
+                                    <div class="mt-2">
+                                        <button name="action_drilldown_pending_fx"
+                                                type="object"
+                                                string="Open runs"
+                                                class="btn btn-sm btn-link p-0"
+                                                invisible="not pending_fx_run_count"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="eh_dashboard_brand_footer mt-4 pt-3"
+                         style="text-align: center; border-top: 1px solid #C9A372; color: #6c757d; font-size: 0.78rem; letter-spacing: 0.05em;">
+                        Made with <span style="color: #ffffff; background: #1A2C3D; padding: 0 4px; border-radius: 4px;">🤍</span> from Melbourne by
+                        <strong style="color: #1A2C3D;">ERP Heritage</strong>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_account_dashboard" model="ir.actions.server">
+        <field name="name">Financial Dashboard</field>
+        <field name="model_id" ref="model_eh_account_dashboard"/>
+        <field name="state">code</field>
+        <field name="code">action = model.open_for_current_user()</field>
+    </record>
+
+</odoo>

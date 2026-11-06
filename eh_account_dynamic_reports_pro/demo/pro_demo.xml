@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <!--
+            Demo saved views for the Pro module.
+            Saved views show how a user can pin commonly used filter
+            combinations to the dashboard. Schedules are intentionally not
+            created as module data: immutable schedule ownership must belong
+            to the real user who configures and activates delivery.
+        -->
+
+        <record id="demo_saved_view_tb_qtd" model="eh.account.report.saved_view">
+            <field name="name">Trial Balance, quarter to date</field>
+            <field name="report_code">trial_balance</field>
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="sequence">10</field>
+            <field name="pinned" eval="True"/>
+            <field name="shared" eval="True"/>
+            <field name="notes">Default trial balance view from quarter start to today.</field>
+            <field name="options_json">{"date":{"mode":"range","date_from":"auto_qtd","date_to":"today"},"posted_only":true,"show_zero":false}</field>
+        </record>
+
+        <record id="demo_saved_view_pl_ytd" model="eh.account.report.saved_view">
+            <field name="name">P and L, year to date with comparatives</field>
+            <field name="report_code">profit_and_loss</field>
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="sequence">20</field>
+            <field name="pinned" eval="True"/>
+            <field name="notes">YTD P and L with prior year comparison column.</field>
+            <field name="options_json">{"date":{"mode":"range","date_from":"auto_ytd","date_to":"today"},"posted_only":true,"comparison":"previous_year"}</field>
+        </record>
+
+    </data>
+</odoo>

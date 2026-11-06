@@ -1,0 +1,994 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_einvoice_peppol
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Chinese (Traditional)\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__access_point_key
+msgid "Access Point Key"
+msgstr "存取點金鑰"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__transmission_id
+msgid ""
+"Access-point transmission id, when one is supplied. Used for cross-reference"
+" against the access-point's delivery receipts and the MLR (message level "
+"response) queue."
+msgstr "接取點傳輸 id（如已提供）。用於與接取點的送達回執及 MLR（訊息層級回應）佇列進行交叉參照。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_needaction
+msgid "Action Needed"
+msgstr "需要採取行動"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_ids
+msgid "Activities"
+msgstr "活動"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "活動異常圖示"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_state
+msgid "Activity State"
+msgstr "活動狀態"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "活動類型圖示"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__access_point_key
+msgid ""
+"Adapter key under which the inbound XML arrived (e.g. 'storecove', 'pagero',"
+" 'manual'). Identifies which transport channel the message took; surfaces in"
+" the audit trail. Adapter must be registered via the access_point_registry "
+"before the value will roundtrip into a real submit/poll call."
+msgstr ""
+"入站 XML 到達時所使用的轉接器鍵（例如 "
+"'storecove'、'pagero'、'manual'）。識別訊息所經過的傳輸通道；顯示於稽核軌跡中。轉接器必須先透過 "
+"access_point_registry 註冊，該值才會往返到真實的 submit/poll 呼叫中。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__as4_message_id
+msgid "As4 Message"
+msgstr "AS4 訊息"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_attachment_count
+msgid "Attachment Count"
+msgstr "附件數目"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__buyer_reference
+msgid "Buyer Reference"
+msgstr "買方參考編號"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Cannot create vendor bill without a resolved supplier."
+msgstr "無法在未確定供應商的情況下建立供應商帳單。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model,name:eh_account_einvoice_peppol.model_res_company
+msgid "Companies"
+msgstr "公司"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__company_id
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Company"
+msgstr "公司"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_partner__eh_peppol_legal_id
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_users__eh_peppol_legal_id
+msgid "Company registration number used in PartyLegalEntity/CompanyID."
+msgstr "在 PartyLegalEntity/CompanyID 中使用的公司註冊編號。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model,name:eh_account_einvoice_peppol.model_res_partner
+msgid "Contact"
+msgstr "聯絡人"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Could not parse inbound UBL on %(name)s: %(err)s"
+msgstr "無法解析 %(name)s 上的入站 UBL：%(err)s"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__create_uid
+msgid "Created by"
+msgstr "建立人員"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__create_date
+msgid "Created on"
+msgstr "建立於"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__eh_peppol_inbound__document_type__credit_note
+msgid "Credit note"
+msgstr "貸項通知單"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__currency_id
+msgid "Currency"
+msgstr "貨幣"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__currency_code
+msgid "Currency Code"
+msgstr "貨幣代碼"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__account_move__eh_peppol_transmission_status__delivered
+msgid "Delivered"
+msgstr "已送貨"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__display_name
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__display_name
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_company__display_name
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_partner__display_name
+msgid "Display Name"
+msgstr "顯示名稱"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Document"
+msgstr "文件"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__document_type
+msgid "Document Type"
+msgstr "文件類型"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Document type"
+msgstr "文件類型"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__due_date
+msgid "Due Date"
+msgstr "到期日"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__duplicate_inbound_id
+msgid "Duplicate Inbound"
+msgstr "重複入站"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Duplicate detection"
+msgstr "重複偵測"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid ""
+"Duplicate flag raised: same UBL hash already exists on inbound %(other)s."
+msgstr "已標記重複：相同的 UBL 雜湊值已存在於入站 %(other)s 中。"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Duplicates"
+msgstr "副本"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.actions.server,name:eh_account_einvoice_peppol.cron_eh_peppol_poll_ir_actions_server
+msgid "ERP Heritage: Poll Peppol access points"
+msgstr "ERP Heritage：輪詢 Peppol 接入點"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_ready
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__eh_peppol_ready
+msgid "Eh Peppol Ready"
+msgstr "PEPPOL 就緒"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_sent_at
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__eh_peppol_sent_at
+msgid "Eh Peppol Sent At"
+msgstr "PEPPOL 傳送時間"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_transmission_id
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__eh_peppol_transmission_id
+msgid "Eh Peppol Transmission"
+msgstr "PEPPOL 傳輸"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_transmission_message
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__eh_peppol_transmission_message
+msgid "Eh Peppol Transmission Message"
+msgstr "PEPPOL 傳輸訊息"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_transmission_status
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__eh_peppol_transmission_status
+msgid "Eh Peppol Transmission Status"
+msgstr "PEPPOL 傳輸狀態"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__account_move__eh_peppol_transmission_status__error
+msgid "Error"
+msgstr "錯誤"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__eh_peppol_inbound__state__exception
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Exception"
+msgstr "例外"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_account_move_form_eh_peppol
+msgid "Export Peppol XML"
+msgstr "匯出 PEPPOL XML"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__file_hash
+msgid "File Hash"
+msgstr "檔案雜湊"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_follower_ids
+msgid "Followers"
+msgstr "關注人"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "關注人（業務夥伴）"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font awesome 圖示，例如，fa-task"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__has_message
+msgid "Has Message"
+msgstr "有訊息"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__id
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__id
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_company__id
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_partner__id
+msgid "ID"
+msgstr "識別號"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__currency_code
+msgid "ISO 4217 currency code from the source UBL."
+msgstr "來自來源 UBL 的 ISO 4217 貨幣代碼。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_exception_icon
+msgid "Icon"
+msgstr "圖示"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "用於指示異常活動的圖示。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_company__eh_peppol_access_point_key
+msgid ""
+"Identifier of the access-point adapter the company uses for inbound poll and"
+" outbound submit. Defaults to 'manual', which means the deployment routes "
+"XML by file drop / email / portal upload. Set this to one of the registered "
+"adapter keys to enable live AS4 transport (install the corresponding ERP "
+"Heritage adapter module first)."
+msgstr ""
+"公司用於入站輪詢和出站提交的接入點轉接器的識別碼。預設為 'manual'，即部署透過檔案投放 / 電子郵件 / 入口網站上傳路由 "
+"XML。將其設定為已註冊的轉接器鍵之一，以啟用即時 AS4 傳輸（請先安裝相應的 ERP Heritage 轉接器模組）。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "勾選代表有新訊息需要您留意。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_has_error
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "勾選代表有訊息發生傳送錯誤。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.ui.menu,name:eh_account_einvoice_peppol.menu_eh_peppol_inbound
+msgid "Inbound"
+msgstr "來電"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid ""
+"Inbound %(name)s duplicates %(other)s (same supplier and same file hash). "
+"Reject this record or clear the duplicate flag with a reason before posting."
+msgstr "入站 %(name)s 與 %(other)s 重複（相同供應商和相同檔案雜湊）。請在過帳前拒絕此記錄或附理由清除重複標記。"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Inbound %s has no lines after parse; refusing to post an empty bill."
+msgstr "解析後入站 %s 沒有明細行；拒絕過帳空帳單。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model,name:eh_account_einvoice_peppol.model_eh_peppol_inbound
+msgid "Inbound Peppol invoice"
+msgstr "入站 PEPPOL 發票"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Inbound record %s has no source XML attachment."
+msgstr "入站記錄 %s 沒有來源 XML 附件。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__eh_peppol_inbound__document_type__invoice
+msgid "Invoice"
+msgstr "發票"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__invoice_number
+msgid "Invoice Number"
+msgstr "發票號碼"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_is_follower
+msgid "Is Follower"
+msgstr "是關注人"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__issue_date
+msgid "Issue Date"
+msgstr "簽發日期"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_company__eh_peppol_ap_config
+msgid ""
+"JSON credentials handed to the access-point adapter factory (api_key, "
+"base_url, sender id, signing cert path, etc.). Shape varies per adapter. "
+"Only read by live adapters; the manual file-drop default needs none."
+msgstr ""
+"傳遞給接入點轉接器工廠的 JSON 憑證（api_key、base_url、傳送方 "
+"ID、簽章憑證路徑等）。其結構因轉接器而異。僅由即時轉接器讀取；手動檔案放置的預設方式不需要任何憑證。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model,name:eh_account_einvoice_peppol.model_account_move
+msgid "Journal Entry"
+msgstr "日記賬記項"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__write_uid
+msgid "Last Updated by"
+msgstr "最後更新者"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__write_date
+msgid "Last Updated on"
+msgstr "最後更新於"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Match"
+msgstr "尋找"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Match is only available in parsed or exception state."
+msgstr "配對僅在已解析或例外狀態下可用。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__eh_peppol_inbound__state__matched
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Matched"
+msgstr "已配對"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__matched_at
+msgid "Matched At"
+msgstr "比對時間"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__matched_by_id
+msgid "Matched By"
+msgstr "比對人"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_has_error
+msgid "Message Delivery error"
+msgstr "訊息遞送錯誤"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__mlr_status
+msgid "Message Level Response status from the access point."
+msgstr "來自存取點的訊息層級回應狀態。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_ids
+msgid "Messages"
+msgstr "訊息"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__mlr_status
+msgid "Mlr Status"
+msgstr "Mlr 狀態"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "我的活動截止時間"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__name
+msgid "Name"
+msgstr "名稱"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "下一個活動日曆事件"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "下一活動截止日期"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_summary
+msgid "Next Activity Summary"
+msgstr "下一活動摘要"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_type_id
+msgid "Next Activity Type"
+msgstr "下一活動類型"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid ""
+"No Peppol access-point adapter is registered for key %r. Install the "
+"corresponding ERP Heritage adapter module, or set the company access point "
+"to 'manual'."
+msgstr ""
+"未為金鑰 %r 註冊 Peppol 接入點適配器。請安裝相應的 ERP Heritage 適配器模組，或將公司接入點設定為 'manual'。"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "No purchase journal configured for company %s."
+msgstr "未為公司 %s 設定採購日記帳。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__account_move__eh_peppol_transmission_status__not_sent
+msgid "Not sent"
+msgstr "未傳送"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__note
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Note"
+msgstr "備註"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_needaction_counter
+msgid "Number of Actions"
+msgstr "動作數量"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_has_error_counter
+msgid "Number of errors"
+msgstr "錯誤數量"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "需要採取行動的訊息數目"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "有發送錯誤的郵件數量"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Only accounting managers can post inbound Peppol invoices."
+msgstr "只有會計經理才能過帳傳入的 Peppol 發票。"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Only matched inbound records can be posted (state is %s)."
+msgstr "只有已比對的傳入記錄才能過帳（狀態為 %s）。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_endpoint_scheme
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_account_move__eh_peppol_endpoint_scheme
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_partner__eh_peppol_endpoint_scheme
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_users__eh_peppol_endpoint_scheme
+msgid ""
+"OpenPeppol scheme id for the endpoint. Examples: '0192' Norway organisation "
+"number, '0088' GLN, '0151' Australian Business Number, '9930' German VAT-id."
+msgstr ""
+"端點的 OpenPeppol 方案 id。範例：'0192' 挪威組織編號，'0088' GLN，'0151' 澳洲商業號碼，'9930' 德國 "
+"VAT-id。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_company__eh_peppol_inbox_email
+msgid ""
+"Optional alias the access point forwards inbound XML to. Sites that use "
+"email-as-transport (rather than direct API delivery) configure this and "
+"route the alias to a mail-fetcher that creates eh.peppol.inbound records."
+msgstr ""
+"接入點將入站 XML 轉發到的選用別名。使用電子郵件作為傳輸方式（而非直接 API 投遞）的站台設定此項，並將該別名路由到建立 "
+"eh.peppol.inbound 記錄的郵件擷取器。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__order_reference
+msgid "Order Reference"
+msgstr "訂單關聯"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__xml_attachment_id
+msgid "Original UBL XML the access point delivered."
+msgstr "接入點交付的原始 UBL XML。"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Parse"
+msgstr "解析"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Parse is only available in received or parsed state."
+msgstr "解析僅在「已接收」或「已解析」狀態下可用。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__eh_peppol_inbound__state__parsed
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Parsed"
+msgstr "已解析"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__parsed_at
+msgid "Parsed At"
+msgstr "解析時間"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__parsed_by_id
+msgid "Parsed By"
+msgstr "解析人"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_endpoint_id
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_account_move__eh_peppol_endpoint_id
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_partner__eh_peppol_endpoint_id
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_users__eh_peppol_endpoint_id
+msgid ""
+"Partner's Peppol participant id. Defaults at export time to the partner's "
+"VAT or email."
+msgstr "合作夥伴的 Peppol 參與方 id。匯出時預設為合作夥伴的 VAT 或電子郵件。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.ui.menu,name:eh_account_einvoice_peppol.menu_eh_peppol_root
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_res_company_form_eh_peppol
+msgid "Peppol"
+msgstr ""
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid "Peppol UBL 2.1 XML generated; %s bytes."
+msgstr "已產生 Peppol UBL 2.1 XML；%s 位元組。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_company__eh_peppol_access_point_key
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_res_company_form_eh_peppol
+msgid "Peppol access point"
+msgstr "Peppol 存取點"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_company__eh_peppol_ap_config
+msgid "Peppol access-point credentials (JSON)"
+msgstr "Peppol 存取點憑證 (JSON)"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_endpoint_id
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__eh_peppol_endpoint_id
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_partner__eh_peppol_endpoint_id
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_users__eh_peppol_endpoint_id
+msgid "Peppol endpoint id"
+msgstr "Peppol 端點 id"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_endpoint_scheme
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__eh_peppol_endpoint_scheme
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_partner__eh_peppol_endpoint_scheme
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_users__eh_peppol_endpoint_scheme
+msgid "Peppol endpoint scheme"
+msgstr "Peppol 端點方案"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid ""
+"Peppol export is only defined for customer invoices and credit notes (got "
+"move_type=%s)."
+msgstr "Peppol 匯出僅適用於客戶發票與貸項通知單 (取得 move_type=%s)。"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid "Peppol export requires a posted invoice; the move is %s."
+msgstr "Peppol 匯出需要已過帳的發票；該分錄為 %s。"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid "Peppol generator rejected the input: %s"
+msgstr "Peppol 產生器拒絕了輸入：%s"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid ""
+"Peppol identifier on partner %(partner)s is invalid: %(reason)s. Fix the "
+"participant id on the partner form (scheme + endpoint id) and retry."
+msgstr ""
+"合作夥伴 %(partner)s 上的 Peppol 識別碼無效：%(reason)s。請在合作夥伴表單上修正參與者 id (方案 + 端點 id) "
+"後重試。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.actions.act_window,name:eh_account_einvoice_peppol.action_eh_peppol_inbound
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_tree
+msgid "Peppol inbound"
+msgstr "Peppol 入站"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_company__eh_peppol_inbox_email
+msgid "Peppol inbox email"
+msgstr "Peppol 收件匣電子郵件"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid "Peppol invoice transmitted via %(ap)s (status %(status)s, id %(tid)s)."
+msgstr "Peppol 發票已透過 %(ap)s 傳輸 (狀態 %(status)s，id %(tid)s)。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_partner__eh_peppol_legal_id
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_users__eh_peppol_legal_id
+msgid "Peppol legal entity id"
+msgstr "Peppol 法律實體 id"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid "Peppol transmission failed"
+msgstr "Peppol 傳輸失敗"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid "Peppol transmission failed: %s"
+msgstr "Peppol 傳輸失敗：%s"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid ""
+"Peppol transmission is only defined for customer invoices and credit notes "
+"(got move_type=%s)."
+msgstr "Peppol 傳輸僅適用於客戶發票和貸記單（取得 move_type=%s）。"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid "Peppol transmission requires a posted invoice; the move is %s."
+msgstr "Peppol 傳輸需要已過帳的發票；該分錄為 %s。"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Post bill"
+msgstr "過帳帳單"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__eh_peppol_inbound__state__posted
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Posted"
+msgstr "已過賬"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__posted_at
+msgid "Posted At"
+msgstr "過帳時間"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__posted_by_id
+msgid "Posted By"
+msgstr "過帳人"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__move_id
+msgid "Posted bill"
+msgstr "已過帳帳單"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Posted inbound records cannot be rejected."
+msgstr "已過帳的傳入記錄無法拒絕。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__order_reference
+msgid ""
+"Purchase-order reference carried in the source UBL, when present. Used to "
+"look up purchase.order for the three-way match in the AP automation module."
+msgstr "來源 UBL 中包含的採購訂單參考（如存在）。用於在 AP 自動化模組中查找 purchase.order 以進行三方比對。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__account_move__eh_peppol_transmission_status__queued
+msgid "Queued"
+msgstr "已加入隊列"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__rating_ids
+msgid "Ratings"
+msgstr "評分"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__eh_peppol_inbound__state__received
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Received"
+msgstr "已收款"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__received_at
+msgid "Received At"
+msgstr "收到"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Received date"
+msgstr "接收日期"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Reject"
+msgstr "拒絕"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Reject this inbound record?"
+msgstr "拒絕此入站記錄？"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__eh_peppol_inbound__state__rejected
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Rejected"
+msgstr "已拒絕"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__rejection_reason
+msgid "Rejection Reason"
+msgstr "拒絕原因"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Resolution"
+msgstr "解決方案"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__purchase_order_id
+msgid "Resolved PO"
+msgstr "已匹配的採購訂單"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__partner_id
+msgid "Resolved supplier"
+msgstr "已匹配的供應商"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_user_id
+msgid "Responsible User"
+msgstr "責任使用者"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__file_hash
+msgid ""
+"SHA-256 hex digest of the source XML. Used for the duplicate-detection "
+"check; a re-submission with the same hash from the same supplier in the same"
+" company refuses to post twice."
+msgstr "源 XML 的 SHA-256 十六進位摘要。用於重複偵測檢查；來自同一公司中同一供應商且雜湊值相同的重新提交將拒絕二次過帳。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__smp_discovery_log
+msgid "SMP / NAPTR participant-lookup trace recorded at poll time."
+msgstr "在輪詢時記錄的 SMP / NAPTR 參與者查找追蹤。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "簡訊發送錯誤"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_account_move_form_eh_peppol
+msgid "Send via Peppol"
+msgstr "透過 PEPPOL 傳送"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__account_move__eh_peppol_transmission_status__sent
+msgid "Sent"
+msgstr "發送"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_ap_key
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__eh_peppol_ap_key
+msgid "Sent via access point"
+msgstr "透過存取點傳送"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__name
+msgid "Sequence-assigned reference for the inbound record."
+msgstr "為入站記錄依序列分配的參考號。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__duplicate_inbound_id
+msgid ""
+"Set when another inbound record exists with the same (supplier, file_hash) "
+"tuple in the same company."
+msgstr "當同一公司中存在具有相同 (supplier, file_hash) 元組的另一筆入站記錄時設定。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__smp_discovery_log
+msgid "Smp Discovery Log"
+msgstr "SMP 探索日誌"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__xml_attachment_id
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Source XML"
+msgstr "來源 XML"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__state
+msgid "State"
+msgstr "狀態"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Status"
+msgstr "狀態"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"根據活動的狀態 \n"
+" 逾期：已經超過截止日期 \n"
+" 現今：活動日期是當天 \n"
+" 計劃：未來活動。"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Supplier"
+msgstr "供應商"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Supplier (parsed)"
+msgstr "供應商（已解析）"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__supplier_endpoint_id
+msgid "Supplier Endpoint"
+msgstr "供應商端點"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__supplier_endpoint_scheme
+msgid "Supplier Endpoint Scheme"
+msgstr "供應商端點方案"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__supplier_name
+msgid "Supplier Name"
+msgstr "供應商名稱"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__supplier_vat_id
+msgid "Supplier Vat"
+msgstr "供應商 VAT"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__transmission_id
+msgid "Transmission"
+msgstr "變速器"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_ready
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_account_move__eh_peppol_ready
+msgid ""
+"True when the partner has both a Peppol endpoint id and a scheme set. "
+"Surfaces on the move form so the operator knows whether they can press "
+"Export Peppol."
+msgstr ""
+"當合作夥伴同時設定了 Peppol 端點 id 和方案時為 True。顯示在分錄表單上，使操作員知道是否可以點擊 Export Peppol。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "記錄的異常活動的類型。"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Unresolved supplier"
+msgstr "未解析的供應商"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Vendor invoice number"
+msgstr "供應商發票號碼"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__partner_id
+msgid ""
+"Vendor record matched from the inbound supplier block. Resolution order: "
+"VAT/ABN, Peppol endpoint id, name + country. Strict: ambiguous matches leave"
+" the field empty for manual selection."
+msgstr ""
+"從入站供應商區塊比對的供應商記錄。解析順序:VAT/ABN、Peppol 端點 ID、名稱 + "
+"國家/地區。嚴格模式:模糊比對會將該欄位留空以供手動選取。"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__website_message_ids
+msgid "Website Messages"
+msgstr "網站資訊"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__website_message_ids
+msgid "Website communication history"
+msgstr "網站溝通記錄"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_partner_form_eh_peppol
+msgid "e.g. 0151:12345678901"
+msgstr "例如 0151:12345678901"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__as4_message_id
+msgid "ebMS3 / AS4 MessageId reported by the access point."
+msgstr "接入點回報的 ebMS3 / AS4 MessageId。"

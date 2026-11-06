@@ -1,0 +1,915 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_credit_limit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Thai\n"
+"Language: th\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__excess
+msgid ""
+"(exposure + move_amount) - limit. The amount by which the override exceeds "
+"the limit."
+msgstr "(exposure + move_amount) - limit จำนวนเงินที่การแทนที่เกินขีดจำกัด"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_partner_form_eh_credit_button
+msgid "<span class=\"o_stat_text\">Credit</span>"
+msgstr "<span class=\"o_stat_text\">เครดิต</span>"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_needaction
+msgid "Action Needed"
+msgstr "จำเป็นต้องดำเนินการ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__active
+msgid "Active"
+msgstr "เปิดใช้งาน"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_ids
+msgid "Activities"
+msgstr "กิจกรรม"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "การตกแต่งข้อยกเว้นกิจกรรม"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_state
+msgid "Activity State"
+msgstr "สถานะกิจกรรม"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "ไอคอนประเภทกิจกรรม"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__user_id
+msgid "Actor"
+msgstr "ผู้กระทำ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__move_amount
+msgid "Amount of the move that triggered the override."
+msgstr "จำนวนเงินของรายการเคลื่อนไหวที่ทำให้เกิดการแทนที่"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Archived"
+msgstr "เก็บถาวรแล้ว"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_attachment_count
+msgid "Attachment Count"
+msgstr "จำนวนสิ่งที่แนบมา"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_override_log_id
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_move__eh_credit_override_log_id
+msgid ""
+"Audit row recorded when this move's post bypassed the credit gate. Empty "
+"when no override was needed."
+msgstr ""
+"แถวการตรวจสอบที่บันทึกเมื่อการลงบัญชีของรายการเคลื่อนไหวนี้ข้ามด่านตรวจสอบเครดิต"
+" จะว่างเปล่าเมื่อไม่จำเป็นต้องมีการแทนที่"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_form
+msgid ""
+"Block mode raises a UserError on customer invoice post when exposure exceeds"
+" the limit. The override field on the invoice plus a comment from a manager "
+"records the bypass to the immutable audit log. Warn-only logs the breach to "
+"chatter and lets the post proceed."
+msgstr ""
+"โหมดบล็อกจะแสดง UserError "
+"เมื่อลงบัญชีใบแจ้งหนี้ลูกค้าในกรณีที่ยอดความเสี่ยงเกินขีดจำกัด "
+"ฟิลด์แทนที่บนใบแจ้งหนี้พร้อมกับความคิดเห็นจากผู้จัดการจะบันทึกการข้ามลงในบันทึกการตรวจสอบที่ไม่สามารถแก้ไขได้"
+" "
+"โหมดเตือนอย่างเดียวจะบันทึกการฝ่าฝืนลงในแชตเตอร์และปล่อยให้การลงบัญชีดำเนินต่อไป"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Block on Post"
+msgstr "บล็อกเมื่อลงบัญชี"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__eh_credit_policy__enforcement_mode__block
+msgid "Block on post (override allowed)"
+msgstr "บล็อกเมื่อลงบัญชี (อนุญาตให้แทนที่ได้)"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__comment
+msgid "Comment"
+msgstr "ความคิดเห็น"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__company_id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__company_id
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Company"
+msgstr "บริษัท"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/credit_policy.py:0
+msgid ""
+"Company %(company)s already has a default credit policy (%(name)s). Unset "
+"that one first."
+msgstr ""
+"บริษัท %(company)s มีนโยบายเครดิตเริ่มต้น (%(name)s) อยู่แล้ว "
+"โปรดยกเลิกการตั้งค่านั้นก่อน"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/credit_policy.py:0
+msgid ""
+"Company %(company)s already has a default policy (%(name)s). Saving this "
+"record will fail unless you clear the existing default first."
+msgstr ""
+"บริษัท %(company)s มีนโยบายเริ่มต้น (%(name)s) อยู่แล้ว "
+"การบันทึกเรกคอร์ดนี้จะล้มเหลว เว้นแต่คุณจะล้างค่าเริ่มต้นที่มีอยู่ก่อน"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Company Default"
+msgstr "ค่าเริ่มต้นของบริษัท"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_credit_exposure_currency_id
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_credit_exposure_currency_id
+msgid "Company currency exposure and limit are expressed in."
+msgstr "สกุลเงินที่ใช้แสดงความเสี่ยงและวงเงินของบริษัท"
+
+#. module: eh_account_credit_limit
+#: model:ir.model,name:eh_account_credit_limit.model_res_partner
+msgid "Contact"
+msgstr "ติดต่อ"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.actions.act_window,help:eh_account_credit_limit.action_eh_credit_policy
+msgid ""
+"Create one default policy per company. Mark it 'Company default' so partners"
+" without an override use this limit. Set per-partner overrides on the "
+"partner form when a specific customer needs different terms."
+msgstr ""
+"สร้างนโยบายเริ่มต้นหนึ่งรายการต่อบริษัท ทำเครื่องหมายเป็น "
+"'ค่าเริ่มต้นของบริษัท' เพื่อให้พันธมิตรที่ไม่มีการแทนที่ใช้ขีดจำกัดนี้ "
+"ตั้งค่าการแทนที่ต่อพันธมิตรในแบบฟอร์มพันธมิตรเมื่อลูกค้าเฉพาะรายต้องการเงื่อนไขที่แตกต่างกัน"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__create_uid
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__create_uid
+msgid "Created by"
+msgstr "สร้างโดย"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__create_date
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__create_date
+msgid "Created on"
+msgstr "สร้างเมื่อ"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_form
+msgid "Credit Override"
+msgstr "การแทนที่เครดิต"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_list
+msgid "Credit Override Audit Log"
+msgstr "บันทึกการตรวจสอบการแทนที่เครดิต"
+
+#. module: eh_account_credit_limit
+#: model:ir.actions.act_window,name:eh_account_credit_limit.action_eh_credit_override_log
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Credit Override Log"
+msgstr "บันทึกการแทนที่เครดิต"
+
+#. module: eh_account_credit_limit
+#: model:ir.ui.menu,name:eh_account_credit_limit.menu_eh_credit_override_log
+msgid "Credit Overrides"
+msgstr "การแทนที่เครดิต"
+
+#. module: eh_account_credit_limit
+#: model:ir.actions.act_window,name:eh_account_credit_limit.action_eh_credit_policy
+#: model:ir.ui.menu,name:eh_account_credit_limit.menu_eh_credit_policy
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_list
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Credit Policies"
+msgstr "นโยบายเครดิต"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_form
+msgid "Credit Policy"
+msgstr "นโยบายเครดิต"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid ""
+"Credit limit exceeded for %(partner)s. Posting this invoice would bring "
+"exposure to %(new).2f against a limit of %(limit).2f (excess %(excess).2f). "
+"To proceed, a manager must record the override reason on this invoice before"
+" posting again."
+msgstr ""
+"เกินวงเงินเครดิตสำหรับ %(partner)s "
+"การลงบัญชีใบแจ้งหนี้นี้จะทำให้ความเสี่ยงเพิ่มเป็น %(new).2f เทียบกับวงเงิน "
+"%(limit).2f (ส่วนเกิน %(excess).2f) หากต้องการดำเนินการต่อ "
+"ผู้จัดการต้องบันทึกเหตุผลการแทนที่ในใบแจ้งหนี้นี้ก่อนที่จะลงบัญชีอีกครั้ง"
+
+#. module: eh_account_credit_limit
+#: model:ir.model,name:eh_account_credit_limit.model_eh_credit_override_log
+msgid "Credit override audit log"
+msgstr "บันทึกการตรวจสอบการแทนที่เครดิต"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_move_form_eh_credit
+msgid "Credit override audit row"
+msgstr "แถวการตรวจสอบการแทนที่เครดิต"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_move_form_eh_credit
+msgid "Credit override reason"
+msgstr "เหตุผลการแทนที่เครดิต"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid ""
+"Credit override recorded. Exposure %(exp).2f, limit %(lim).2f, excess "
+"%(exc).2f. Reason: %(reason)s."
+msgstr ""
+"บันทึกการแทนที่เครดิตแล้ว ความเสี่ยง %(exp).2f วงเงิน %(lim).2f ส่วนเกิน "
+"%(exc).2f เหตุผล: %(reason)s"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_partner_form_eh_credit
+msgid "Credit policy"
+msgstr "นโยบายเครดิต"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_partner_form_eh_credit_button
+msgid "Credit status and override history"
+msgstr "สถานะเครดิตและประวัติการแทนที่"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid ""
+"Credit warning: posting this invoice brings %(partner)s to %(new).2f, "
+"exceeding the %(limit).2f limit by %(excess).2f. Posting allowed (warn-only "
+"policy)."
+msgstr ""
+"คำเตือนเครดิต: การลงบัญชีใบแจ้งหนี้นี้ทำให้ %(partner)s เพิ่มเป็น %(new).2f "
+"เกินวงเงิน %(limit).2f อยู่ %(excess).2f อนุญาตให้ลงบัญชีได้ "
+"(นโยบายเตือนเท่านั้น)"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__currency_id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__currency_id
+msgid "Currency"
+msgstr "สกุลเงิน"
+
+#. module: eh_account_credit_limit
+#: model:ir.model,name:eh_account_credit_limit.model_eh_credit_policy
+msgid "Customer credit policy"
+msgstr "นโยบายเครดิตลูกค้า"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__default_credit_limit
+msgid "Default Credit Limit"
+msgstr "วงเงินเครดิตเริ่มต้น"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__default_credit_limit
+msgid ""
+"Default credit limit applied when a partner has no override. Zero means no "
+"enforcement; the gate skips."
+msgstr ""
+"วงเงินสินเชื่อเริ่มต้นที่ใช้เมื่อพันธมิตรไม่มีการแทนที่ "
+"ศูนย์หมายถึงไม่มีการบังคับใช้ ประตูตรวจจะถูกข้าม"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.constraint,message:eh_account_credit_limit.constraint_eh_credit_policy_check_default_limit_non_negative
+msgid "Default credit limit cannot be negative."
+msgstr "วงเงินสินเชื่อเริ่มต้นต้องไม่เป็นค่าลบ"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_form
+msgid "Default policy"
+msgstr "นโยบายเริ่มต้น"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_move__display_name
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__display_name
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__display_name
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__display_name
+msgid "Display Name"
+msgstr "แสดงชื่อ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__limit_at_override
+msgid "Effective credit limit applied to the partner at override time."
+msgstr "วงเงินเครดิตที่มีผลซึ่งใช้กับคู่ค้า ณ เวลาที่แทนที่"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_credit_exposure
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_credit_exposure
+msgid "Eh Credit Exposure"
+msgstr "ความเสี่ยงด้านเครดิต"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_credit_exposure_currency_id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_credit_exposure_currency_id
+msgid "Eh Credit Exposure Currency"
+msgstr "สกุลเงินความเสี่ยงด้านเครดิต"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_credit_limit
+msgid "Eh Credit Limit"
+msgstr "วงเงินสินเชื่อ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_override_log_id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_move__eh_credit_override_log_id
+msgid "Eh Credit Override Log"
+msgstr "บันทึกการแทนที่เครดิต"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_override_reason
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_move__eh_credit_override_reason
+msgid "Eh Credit Override Reason"
+msgstr "เหตุผลการแทนที่เครดิต"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_credit_policy_id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_credit_policy_id
+msgid "Eh Credit Policy"
+msgstr "นโยบายสินเชื่อ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_credit_status
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_credit_status
+msgid "Eh Credit Status"
+msgstr "สถานะสินเชื่อ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_warning
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_move__eh_credit_warning
+msgid "Eh Credit Warning"
+msgstr "คำเตือนสินเชื่อ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__eh_effective_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_users__eh_effective_credit_limit
+msgid "Eh Effective Credit Limit"
+msgstr "วงเงินสินเชื่อที่มีผล"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_form
+msgid "Enforcement"
+msgstr "การบังคับใช้"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__enforcement_mode
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Enforcement Mode"
+msgstr "โหมดการบังคับใช้"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__excess
+msgid "Excess"
+msgstr "ส่วนเกิน"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/credit_policy.py:0
+msgid "Existing default"
+msgstr "ค่าเริ่มต้นที่มีอยู่"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__exposure_at_override
+msgid "Exposure At Override"
+msgstr "ความเสี่ยงเมื่อมีการแทนที่"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_follower_ids
+msgid "Followers"
+msgstr "ผู้ติดตาม"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "ผู้ติดตาม (พาร์ทเนอร์)"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "ไอคอนแบบฟอนต์ที่ยอดเยี่ยมเช่น fa-tasks"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__comment
+msgid ""
+"Free-form note. The only field that stays writable after the row is created."
+msgstr "บันทึกแบบอิสระ ฟิลด์เดียวที่ยังคงเขียนได้หลังจากสร้างแถวแล้ว"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__override_group_id
+msgid ""
+"Group whose members can record an override on a move. Defaults to the EH "
+"Accounting Manager group; deployments that need a separate Credit Officer "
+"cohort point this at their own group."
+msgstr ""
+"กลุ่มที่สมาชิกสามารถบันทึกการแทนที่บนรายการเคลื่อนไหวได้ ค่าเริ่มต้นคือกลุ่ม"
+" EH Accounting Manager "
+"การติดตั้งที่ต้องการกลุ่มเจ้าหน้าที่สินเชื่อแยกต่างหากให้ชี้สิ่งนี้ไปยังกลุ่มของตนเอง"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__has_message
+msgid "Has Message"
+msgstr "มีข้อความ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_account_move__id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__id
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_res_partner__id
+msgid "ID"
+msgstr "ไอดี"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_exception_icon
+msgid "Icon"
+msgstr "ไอคอน"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "ไอคอนเพื่อระบุการยกเว้นกิจกรรม"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "ถ้าเลือก ข้อความใหม่จะต้องการความสนใจจากคุณ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__message_has_error
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "ถ้าเลือก ข้อความบางข้อความมีข้อผิดพลาดในการส่ง"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__include_drafts
+msgid "Include Drafts"
+msgstr "รวมฉบับร่าง"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__include_sale_orders
+msgid "Include Sale Orders"
+msgstr "รวมใบสั่งขาย"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__is_company_default
+msgid "Is Company Default"
+msgstr "เป็นค่าเริ่มต้นของบริษัทหรือไม่"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_is_follower
+msgid "Is Follower"
+msgstr "เป็นผู้ติดตาม"
+
+#. module: eh_account_credit_limit
+#: model:ir.model,name:eh_account_credit_limit.model_account_move
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Journal Entry"
+msgstr "รายการสมุดรายวัน"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Last 30 Days"
+msgstr "30 วันที่ผ่านมา"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__write_uid
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__write_uid
+msgid "Last Updated by"
+msgstr "อัปเดตครั้งล่าสุดโดย"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__write_date
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__write_date
+msgid "Last Updated on"
+msgstr "อัปเดตครั้งล่าสุดเมื่อ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__limit_at_override
+msgid "Limit At Override"
+msgstr "วงเงินเมื่อแทนที่"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_warning
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_move__eh_credit_warning
+msgid ""
+"Live, non-blocking warning shown on a draft customer invoice when posting it"
+" would take the partner over its credit limit. The hard gate still runs at "
+"post time."
+msgstr ""
+"คำเตือนแบบเรียลไทม์ที่ไม่ปิดกั้น "
+"แสดงบนใบแจ้งหนี้ลูกค้าฉบับร่างเมื่อการลงบัญชีจะทำให้พันธมิตรเกินวงเงินเครดิต"
+" การกั้นแบบเข้มยังคงทำงานในเวลาลงบัญชี"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_has_error
+msgid "Message Delivery error"
+msgstr "เกิดข้อผิดพลาดในการส่งข้อความ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_ids
+msgid "Messages"
+msgstr "ข้อความ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__move_id
+msgid "Move"
+msgstr "ย้าย"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__move_amount
+msgid "Move Amount"
+msgstr "จำนวนเงินรายการบัญชี"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "วันครบกำหนดกิจกรรมของฉัน"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__name
+msgid "Name"
+msgstr "ชื่อ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "ปฏิทินอีเวนต์กิจกรรมถัดไป"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "วันครบกำหนดกิจกรรมถัดไป"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_summary
+msgid "Next Activity Summary"
+msgstr "สรุปกิจกรรมถัดไป"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_type_id
+msgid "Next Activity Type"
+msgstr "ประเภทกิจกรรมถัดไป"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.actions.act_window,help:eh_account_credit_limit.action_eh_credit_policy
+msgid "No credit policies yet."
+msgstr "ยังไม่มีนโยบายสินเชื่อ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__res_partner__eh_credit_status__disabled
+msgid "No policy"
+msgstr "ไม่มีนโยบาย"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__notes
+msgid "Notes"
+msgstr "โน้ต"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_needaction_counter
+msgid "Number of Actions"
+msgstr "จํานวนการดําเนินการ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_has_error_counter
+msgid "Number of errors"
+msgstr "จํานวนข้อผิดพลาด"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "จำนวนข้อความที่ต้องดำเนินการ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "จํานวนข้อความที่มีข้อผิดพลาดในการส่ง"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__res_partner__eh_credit_status__ok
+msgid "OK"
+msgstr "โอเค"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_credit_status
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_credit_status
+msgid ""
+"OK: exposure under 80 percent of limit. Warning: between 80 and 100 percent."
+" Over: above the limit. Disabled: no company policy in place."
+msgstr ""
+"OK: ความเสี่ยงต่ำกว่า 80 เปอร์เซ็นต์ของวงเงิน คำเตือน: ระหว่าง 80 ถึง 100 "
+"เปอร์เซ็นต์ เกิน: สูงกว่าวงเงิน ปิดใช้งาน: ไม่มีนโยบายบริษัทที่ใช้อยู่"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__res_partner__eh_credit_status__over
+msgid "Over limit"
+msgstr "เกินวงเงิน"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Override Date"
+msgstr "วันที่แทนที่"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__override_group_id
+msgid "Override Group"
+msgstr "กลุ่มการแทนที่"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__partner_id
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Partner"
+msgstr "พาร์ทเนอร์"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__exposure_at_override
+msgid ""
+"Partner exposure (open AR plus drafts when policy says so) at the moment of "
+"override."
+msgstr ""
+"ยอดความเสี่ยงของพาร์ทเนอร์ (AR ที่ยังเปิดอยู่ "
+"บวกกับฉบับร่างเมื่อนโยบายกำหนด) ณ ขณะที่มีการแทนที่"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_credit_limit
+msgid ""
+"Per-partner credit limit override. Zero means use the company default "
+"policy. Negative values are not allowed."
+msgstr ""
+"การแทนที่วงเงินเครดิตต่อคู่ค้า ศูนย์หมายถึงใช้นโยบายเริ่มต้นของบริษัท "
+"ไม่อนุญาตให้ใช้ค่าติดลบ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_effective_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_effective_credit_limit
+msgid ""
+"Per-partner override if set, else the company default policy's "
+"default_credit_limit. Zero means no enforcement. Expressed in the company "
+"currency to match exposure."
+msgstr ""
+"การแทนที่ต่อคู่ค้าหากตั้งค่าไว้ มิฉะนั้นจะใช้ default_credit_limit "
+"ของนโยบายเริ่มต้นของบริษัท ศูนย์หมายถึงไม่มีการบังคับใช้ "
+"แสดงเป็นสกุลเงินของบริษัทเพื่อให้ตรงกับความเสี่ยง"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_credit_policy_id
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_credit_policy_id
+msgid ""
+"Per-partner policy override. When set, takes precedence over the company "
+"default. Useful for known-risk customers that need stricter enforcement than"
+" the default policy applies."
+msgstr ""
+"การแทนที่นโยบายต่อคู่ค้า เมื่อตั้งค่าไว้ "
+"จะมีความสำคัญเหนือค่าเริ่มต้นของบริษัท "
+"มีประโยชน์สำหรับลูกค้าที่ทราบความเสี่ยงซึ่งต้องการการบังคับใช้ที่เข้มงวดกว่าที่นโยบายเริ่มต้นกำหนด"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid ""
+"Posting %(partner)s over its credit limit requires an override by a member "
+"of %(group)s. Configure the override group on the credit policy, or have an "
+"authorised user post this invoice."
+msgstr ""
+"การผ่านรายการ %(partner)s เกินวงเงินสินเชื่อต้องได้รับการยกเว้นจากสมาชิกของ "
+"%(group)s กรุณากำหนดกลุ่มการยกเว้นในนโยบายสินเชื่อ "
+"หรือให้ผู้ใช้ที่ได้รับอนุญาตผ่านรายการใบแจ้งหนี้นี้"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid ""
+"Posting brings %(partner)s to %(new).2f, over the %(limit).2f credit limit "
+"(excess %(excess).2f)."
+msgstr ""
+"การผ่านรายการทำให้ %(partner)s เพิ่มเป็น %(new).2f ซึ่งเกินวงเงินสินเชื่อ "
+"%(limit).2f (ส่วนเกิน %(excess).2f)"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__rating_ids
+msgid "Ratings"
+msgstr "การให้คะแนน"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_override_log__reason
+msgid "Reason"
+msgstr "เหตุผล"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_bank_statement_line__eh_credit_override_reason
+#: model:ir.model.fields,help:eh_account_credit_limit.field_account_move__eh_credit_override_reason
+msgid ""
+"Reason for overriding the customer credit limit on this specific invoice. "
+"Setting this field is a positive act: the gate sees it as 'manager has "
+"explicitly accepted this excess' and records the override before posting."
+msgstr ""
+"เหตุผลในการแทนที่วงเงินเครดิตของลูกค้าในใบแจ้งหนี้เฉพาะนี้ "
+"การตั้งค่าฟิลด์นี้เป็นการกระทำโดยเจตนา: เกตจะถือว่าเป็น "
+"'ผู้จัดการยอมรับส่วนเกินนี้อย่างชัดเจน' และบันทึกการแทนที่ก่อนลงบัญชี"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_move_form_eh_credit
+msgid "Required only when posting would exceed the customer's credit limit"
+msgstr "จำเป็นเฉพาะเมื่อการลงบัญชีจะเกินวงเงินเครดิตของลูกค้า"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__activity_user_id
+msgid "Responsible User"
+msgstr "ผู้ใช้ที่รับผิดชอบ"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "ข้อผิดพลาดในการส่ง SMS"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_form
+msgid "Scope"
+msgstr "ขอบเขต"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__sequence
+msgid "Sequence"
+msgstr "ลำดับ"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_partner_form_eh_credit
+msgid ""
+"Set the limit per partner only when a specific customer needs different "
+"terms. Otherwise the company default policy's limit applies. Status flips to"
+" Warning above 80 percent of the limit and Over above 100 percent. Posting a"
+" customer invoice in Over state requires a manager override unless the "
+"policy is in warn-only mode."
+msgstr ""
+"ตั้งค่าวงเงินต่อพาร์ทเนอร์เฉพาะเมื่อลูกค้ารายใดรายหนึ่งต้องการเงื่อนไขที่แตกต่างเท่านั้น"
+" มิฉะนั้นจะใช้วงเงินของนโยบายเริ่มต้นของบริษัท สถานะจะเปลี่ยนเป็น Warning "
+"เมื่อเกิน 80 เปอร์เซ็นต์ของวงเงิน และเป็น Over เมื่อเกิน 100 เปอร์เซ็นต์ "
+"การลงบัญชีใบแจ้งหนี้ลูกค้าในสถานะ Over ต้องได้รับการอนุมัติแทนจากผู้จัดการ "
+"เว้นแต่นโยบายจะอยู่ในโหมดเตือนเท่านั้น"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"สถานะตามกิจกรรม\n"
+"เกินกำหนด: วันที่ครบกำหนดผ่านไปแล้ว\n"
+"วันนี้: วันที่จัดกิจกรรมคือวันนี้\n"
+"วางแผน: กิจกรรมในอนาคต"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_partner__eh_credit_exposure
+#: model:ir.model.fields,help:eh_account_credit_limit.field_res_users__eh_credit_exposure
+msgid ""
+"Sum of unpaid open AR plus, when the effective policy says so, draft "
+"customer invoices and not-yet-invoiced sale orders. Multi-currency lines are"
+" converted to the company currency at the rate captured on each document. "
+"Live; recomputes on every form load."
+msgstr ""
+"ผลรวมของ AR ที่เปิดค้างชำระ "
+"บวกกับใบแจ้งหนี้ลูกค้าฉบับร่างและใบสั่งขายที่ยังไม่ได้ออกใบแจ้งหนี้ "
+"เมื่อนโยบายที่มีผลบังคับใช้กำหนดไว้ "
+"บรรทัดหลายสกุลเงินจะถูกแปลงเป็นสกุลเงินของบริษัทตามอัตราที่บันทึกไว้ในแต่ละเอกสาร"
+" แบบเรียลไทม์ คำนวณใหม่ทุกครั้งที่โหลดฟอร์ม"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "Today"
+msgstr "วันนี้"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "ประเภทกิจกรรมข้อยกเว้นบนบันทึก"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_override_log_search
+msgid "User"
+msgstr "ผู้ใช้"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_override_log__user_id
+msgid "User who performed the action this row records."
+msgstr "ผู้ใช้ที่ดำเนินการซึ่งแถวนี้บันทึกไว้"
+
+#. module: eh_account_credit_limit
+#: model_terms:ir.ui.view,arch_db:eh_account_credit_limit.view_eh_credit_policy_search
+msgid "Warn Only"
+msgstr "เตือนเท่านั้น"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__eh_credit_policy__enforcement_mode__warn
+msgid "Warn only"
+msgstr "เตือนเท่านั้น"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__enforcement_mode
+msgid ""
+"Warn-only logs the breach to the move's chatter but does not block the post."
+" Block raises a UserError unless an override has been recorded on the move."
+msgstr ""
+"เตือนเท่านั้นจะบันทึกการฝ่าฝืนลงในแชตเตอร์ของรายการเคลื่อนไหวแต่ไม่บล็อกการลงบัญชี"
+" บล็อกจะเกิด UserError เว้นแต่มีการบันทึกการยกเว้นไว้ในรายการเคลื่อนไหว"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields.selection,name:eh_account_credit_limit.selection__res_partner__eh_credit_status__warn
+msgid "Warning"
+msgstr "คำเตือน"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,field_description:eh_account_credit_limit.field_eh_credit_policy__website_message_ids
+msgid "Website Messages"
+msgstr "ข้อความเว็บไซต์"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__website_message_ids
+msgid "Website communication history"
+msgstr "ประวัติการสื่อสารของเว็บไซต์"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__include_drafts
+msgid ""
+"When set, draft customer invoices count toward a partner's exposure "
+"alongside posted-and-unpaid invoices. Useful in shops where sales and "
+"accounting are different cohorts and drafts are a real commitment. Default "
+"off so the gate only considers what is posted."
+msgstr ""
+"เมื่อตั้งค่า "
+"ใบแจ้งหนี้ลูกค้าฉบับร่างจะถูกนับรวมในความเสี่ยงของพาร์ทเนอร์ควบคู่กับใบแจ้งหนี้ที่ผ่านรายการแล้วและยังไม่ชำระ"
+" "
+"มีประโยชน์ในร้านค้าที่ฝ่ายขายและฝ่ายบัญชีเป็นคนละกลุ่มและฉบับร่างถือเป็นข้อผูกพันจริง"
+" ปิดไว้ตามค่าเริ่มต้นเพื่อให้ประตูพิจารณาเฉพาะสิ่งที่ผ่านรายการแล้ว"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__include_sale_orders
+msgid ""
+"When set, the not-yet-invoiced portion of confirmed sales orders counts "
+"toward a partner's exposure. Catches credit risk earlier than waiting for "
+"the invoice: a customer with a 100k confirmed order but only 20k invoiced "
+"has 80k of real future receivables, and a strict gate should refuse a fresh "
+"order that pushes total commitments past the limit. Has no effect when the "
+"sale module is not installed."
+msgstr ""
+"เมื่อตั้งค่า "
+"ส่วนที่ยังไม่ได้ออกใบแจ้งหนี้ของใบสั่งขายที่ยืนยันแล้วจะถูกนับรวมในความเสี่ยงของพาร์ทเนอร์"
+" ช่วยจับความเสี่ยงด้านเครดิตได้เร็วกว่าการรอใบแจ้งหนี้: "
+"ลูกค้าที่มีคำสั่งซื้อยืนยันแล้ว 100k แต่ออกใบแจ้งหนี้เพียง 20k "
+"จะมีลูกหนี้ในอนาคตจริง 80k "
+"และประตูที่เข้มงวดควรปฏิเสธคำสั่งซื้อใหม่ที่ทำให้ภาระผูกพันรวมเกินขีดจำกัด "
+"ไม่มีผลเมื่อไม่ได้ติดตั้งโมดูล sale"
+
+#. module: eh_account_credit_limit
+#: model:ir.model.fields,help:eh_account_credit_limit.field_eh_credit_policy__is_company_default
+msgid ""
+"When set, this policy is the company-level default for partners that do not "
+"define their own override. Only one company-default policy may exist per "
+"company; the constraint enforces this."
+msgstr ""
+"เมื่อตั้งค่า "
+"นโยบายนี้เป็นค่าเริ่มต้นระดับบริษัทสำหรับพาร์ทเนอร์ที่ไม่ได้กำหนดการแทนที่ของตนเอง"
+" แต่ละบริษัทมีนโยบายเริ่มต้นของบริษัทได้เพียงหนึ่งเดียว "
+"ข้อจำกัดบังคับใช้สิ่งนี้"
+
+#. module: eh_account_credit_limit
+#. odoo-python
+#: code:addons/eh_account_credit_limit/models/account_move.py:0
+msgid "the credit-override group"
+msgstr "กลุ่มการแทนที่เครดิต"

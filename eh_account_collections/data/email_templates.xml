@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <!--
+            Three dunning email templates (friendly / firm / final).
+            Each renders against an eh.collections.case so the tone
+            escalates with the days_overdue and the body always
+            cites the live total_overdue_amount + oldest_overdue_date.
+
+            All three share the same suite-branded HTML wrapper so
+            a partner reading the chain sees consistent visual
+            identity. The `eh_collections.followup_level` records
+            point at one of these templates via mail_template_id.
+        -->
+
+        <!-- Level 1: friendly reminder -->
+        <record id="email_template_eh_dunning_friendly" model="mail.template">
+            <field name="name">EH Dunning: Friendly Reminder</field>
+            <field name="model_id" ref="model_eh_collections_case"/>
+            <field name="subject">Friendly reminder: outstanding balance - {{ object.partner_id.name }}</field>
+            <field name="email_from">{{ object.collector_id.email_formatted or (object.company_id.partner_id and object.company_id.partner_id.email_formatted) }}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;">
+                    <div style="max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;">
+                        <div style="border-top:3px solid #C9A372;padding-top:18px;">
+                            <h1 style="margin:0 0 6px 0;font-size:20px;color:#1A2C3D;">
+                                A friendly reminder
+                            </h1>
+                            <p style="margin:0 0 18px 0;color:#6c757d;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;">
+                                <t t-out="object.company_id.name"/>
+                            </p>
+                        </div>
+                        <p style="margin:0 0 14px 0;font-size:15px;line-height:1.55;">
+                            Dear <strong t-out="object.partner_id.name"/>,
+                        </p>
+                        <p style="margin:0 0 14px 0;font-size:15px;line-height:1.55;">
+                            We noticed that an open balance of
+                            <strong t-out="'{:,.2f}'.format(object.total_overdue_amount or 0.0)"/>
+                            <t t-out="object.currency_id.symbol or ''"/> is showing on your account.
+                            The oldest invoice dates back to
+                            <strong t-out="object.oldest_overdue_date and object.oldest_overdue_date.strftime('%Y-%m-%d') or ''"/>.
+                        </p>
+                        <p style="margin:0 0 14px 0;font-size:15px;line-height:1.55;">
+                            If payment has been issued in the last few days,
+                            please ignore this message; our records may
+                            simply be a couple of days behind. Otherwise,
+                            we'd appreciate it if you could settle the
+                            balance at your earliest convenience.
+                        </p>
+                        <p style="margin:18px 0 0 0;font-size:15px;line-height:1.55;">
+                            Thank you,<br/>
+                            <strong t-out="object.company_id.name"/>
+                        </p>
+                        <div style="margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;">
+                            ERP Heritage Accounting Suite
+                        </div>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <!-- Level 2: firm follow-up -->
+        <record id="email_template_eh_dunning_firm" model="mail.template">
+            <field name="name">EH Dunning: Firm Follow-Up</field>
+            <field name="model_id" ref="model_eh_collections_case"/>
+            <field name="subject">Action required: overdue balance - {{ object.partner_id.name }}</field>
+            <field name="email_from">{{ object.collector_id.email_formatted or (object.company_id.partner_id and object.company_id.partner_id.email_formatted) }}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;">
+                    <div style="max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;">
+                        <div style="border-top:3px solid #ffc107;padding-top:18px;">
+                            <h1 style="margin:0 0 6px 0;font-size:20px;color:#1A2C3D;">
+                                Action required
+                            </h1>
+                            <p style="margin:0 0 18px 0;color:#856404;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;font-weight:600;">
+                                Overdue balance
+                            </p>
+                        </div>
+                        <p style="margin:0 0 14px 0;font-size:15px;line-height:1.55;">
+                            Dear <strong t-out="object.partner_id.name"/>,
+                        </p>
+                        <p style="margin:0 0 14px 0;font-size:15px;line-height:1.55;">
+                            Our previous reminder appears to have gone
+                            unanswered. The balance of
+                            <strong t-out="'{:,.2f}'.format(object.total_overdue_amount or 0.0)"/>
+                            <t t-out="object.currency_id.symbol or ''"/> is now
+                            <strong t-out="object.days_overdue_max or 0"/> days past due.
+                        </p>
+                        <p style="margin:0 0 14px 0;font-size:15px;line-height:1.55;">
+                            Please arrange payment or contact us to discuss
+                            a payment plan within the next 7 days. Continued
+                            non-payment may result in late fees and could
+                            affect future credit terms.
+                        </p>
+                        <p style="margin:18px 0 0 0;font-size:15px;line-height:1.55;">
+                            Sincerely,<br/>
+                            <strong t-out="object.company_id.name"/>
+                        </p>
+                        <div style="margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;">
+                            ERP Heritage Accounting Suite
+                        </div>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <!-- Level 3: final notice -->
+        <record id="email_template_eh_dunning_final" model="mail.template">
+            <field name="name">EH Dunning: Final Notice</field>
+            <field name="model_id" ref="model_eh_collections_case"/>
+            <field name="subject">Final notice before referral - {{ object.partner_id.name }}</field>
+            <field name="email_from">{{ object.collector_id.email_formatted or (object.company_id.partner_id and object.company_id.partner_id.email_formatted) }}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div style="margin:0;padding:0;background-color:#FBF8F2;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#1A2C3D;">
+                    <div style="max-width:640px;margin:0 auto;padding:24px;background-color:#FBF8F2;">
+                        <div style="border-top:3px solid #dc3545;padding-top:18px;">
+                            <h1 style="margin:0 0 6px 0;font-size:20px;color:#1A2C3D;">
+                                Final notice
+                            </h1>
+                            <p style="margin:0 0 18px 0;color:#721c24;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;font-weight:700;">
+                                Before external referral
+                            </p>
+                        </div>
+                        <p style="margin:0 0 14px 0;font-size:15px;line-height:1.55;">
+                            Dear <strong t-out="object.partner_id.name"/>,
+                        </p>
+                        <p style="margin:0 0 14px 0;font-size:15px;line-height:1.55;">
+                            Despite our prior reminders, the balance of
+                            <strong t-out="'{:,.2f}'.format(object.total_overdue_amount or 0.0)"/>
+                            <t t-out="object.currency_id.symbol or ''"/> remains
+                            unpaid and is now
+                            <strong t-out="object.days_overdue_max or 0"/> days overdue.
+                        </p>
+                        <p style="margin:0 0 14px 0;font-size:15px;line-height:1.55;">
+                            This is our final notice before we refer the
+                            matter externally for collection. We strongly
+                            encourage you to settle this balance, or to
+                            contact us within 7 days to make alternative
+                            arrangements.
+                        </p>
+                        <p style="margin:18px 0 0 0;font-size:15px;line-height:1.55;">
+                            Sincerely,<br/>
+                            <strong t-out="object.company_id.name"/>
+                        </p>
+                        <div style="margin-top:32px;padding-top:14px;border-top:1px solid #C9A372;text-align:center;font-size:11px;color:#6c757d;letter-spacing:0.05em;">
+                            ERP Heritage Accounting Suite
+                        </div>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</odoo>

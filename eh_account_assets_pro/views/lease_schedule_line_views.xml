@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_lease_schedule_line_tree" model="ir.ui.view">
+        <field name="name">eh.lease.schedule.line.list</field>
+        <field name="model">eh.lease.schedule.line</field>
+        <field name="arch" type="xml">
+            <list string="Lease Schedule Lines" sample="1"
+                  default_order="period_date, sequence"
+                  decoration-success="is_posted"
+                  decoration-muted="not is_posted">
+                <field name="lease_id"/>
+                <field name="sequence"/>
+                <field name="period_date"/>
+                <field name="liability_open"/>
+                <field name="payment_amount" sum="Payments"/>
+                <field name="service_amount" sum="Service" optional="hide"/>
+                <field name="interest" sum="Interest"/>
+                <field name="principal" sum="Principal"/>
+                <field name="liability_close"/>
+                <field name="rou_amount" sum="ROU"/>
+                <field name="is_posted" readonly="1"/>
+                <field name="is_event_accrual" optional="hide" readonly="1"/>
+                <field name="posted_at" optional="hide"/>
+                <field name="move_id" optional="hide"/>
+                <field name="currency_id" optional="hide"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+                <button name="action_post"
+                        type="object"
+                        string="Post"
+                        invisible="is_posted"
+                        icon="fa-check"/>
+                <button name="action_view_move"
+                        type="object"
+                        string="View Move"
+                        invisible="not is_posted"
+                        icon="fa-external-link"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_lease_schedule_line_search" model="ir.ui.view">
+        <field name="name">eh.lease.schedule.line.search</field>
+        <field name="model">eh.lease.schedule.line</field>
+        <field name="arch" type="xml">
+            <search string="Lease Schedule Lines">
+                <field name="lease_id"/>
+                <filter string="Posted" name="filter_posted"
+                        domain="[('is_posted', '=', True)]"/>
+                <filter string="Pending" name="filter_pending"
+                        domain="[('is_posted', '=', False)]"/>
+                <filter string="Due (today or earlier)" name="filter_due"
+                        domain="[('is_posted', '=', False),
+                                 ('period_date', '&lt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <group>
+                    <filter string="Lease" name="group_lease"
+                            context="{'group_by': 'lease_id'}"/>
+                    <filter string="Period (month)" name="group_period"
+                            context="{'group_by': 'period_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_lease_schedule_line" model="ir.actions.act_window">
+        <field name="name">Lease Schedule Lines</field>
+        <field name="res_model">eh.lease.schedule.line</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="view_eh_lease_schedule_line_search"/>
+        <field name="context">{'search_default_filter_pending': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No lease schedule lines yet</p>
+            <p>Each line splits a lease payment into principal and interest with the ROU depreciation for that period. Activate a lease contract to generate its amortisation schedule.</p>
+        </field>
+    </record>
+
+</odoo>

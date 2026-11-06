@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_asset_lvp_pool_tree" model="ir.ui.view">
+        <field name="name">eh.asset.lvp.pool.list</field>
+        <field name="model">eh.asset.lvp.pool</field>
+        <field name="arch" type="xml">
+            <list string="Low-value asset pools">
+                <field name="name"/>
+                <field name="company_id"
+                       optional="hide"
+                       groups="base.group_multi_company"/>
+                <field name="asset_count"/>
+                <field name="transferred_in_total" widget="monetary" sum="Total"/>
+                <field name="accumulated_depreciation" widget="monetary"/>
+                <field name="pool_balance" widget="monetary"/>
+                <field name="active" widget="boolean_toggle"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_asset_lvp_pool_form" model="ir.ui.view">
+        <field name="name">eh.asset.lvp.pool.form</field>
+        <field name="model">eh.asset.lvp.pool</field>
+        <field name="arch" type="xml">
+            <form string="Low-value asset pool">
+                <header>
+                    <button name="action_open_transfer_wizard"
+                            type="object"
+                            string="Transfer Asset"
+                            class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_compute_current_year"
+                            type="object"
+                            string="Compute Current Year"
+                            class="btn-secondary"
+                            groups="eh_account_base.group_eh_manager"
+                            confirm="Compute and freeze this pool's annual depreciation row for the current year?"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Low-Value Pool 2026"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="active"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="threshold" widget="monetary"/>
+                            <field name="first_year_rate"/>
+                            <field name="subsequent_year_rate"/>
+                        </group>
+                        <group>
+                            <field name="asset_count" readonly="1"/>
+                            <field name="transferred_in_total" widget="monetary" readonly="1"/>
+                            <field name="accumulated_depreciation" widget="monetary" readonly="1"/>
+                            <field name="pool_balance" widget="monetary" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="pool_account_id"/>
+                            <field name="accumulated_account_id"/>
+                        </group>
+                        <group>
+                            <field name="expense_account_id"/>
+                            <field name="journal_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Assets in pool">
+                            <field name="asset_ids" readonly="1">
+                                <list>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="acquisition_cost" widget="monetary"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Annual depreciation">
+                            <field name="line_ids">
+                                <list create="false" edit="false" delete="false">
+                                    <field name="company_id" column_invisible="1"/>
+                                    <field name="year"/>
+                                    <field name="opening_balance" widget="monetary"/>
+                                    <field name="additions" widget="monetary"/>
+                                    <field name="amount" widget="monetary" sum="Total"/>
+                                    <field name="first_year_rate" optional="hide"/>
+                                    <field name="subsequent_year_rate" optional="hide"/>
+                                    <field name="expense_account_id" optional="hide"/>
+                                    <field name="accumulated_account_id" optional="hide"/>
+                                    <field name="journal_id" optional="hide"/>
+                                    <field name="allocation_basis_quarantined"
+                                           string="FY Basis Review"
+                                           widget="boolean_toggle"
+                                           readonly="1"
+                                           optional="show"/>
+                                    <field name="allocation_basis_quarantine_note"
+                                           string="FY Basis Review Note"
+                                           optional="hide"/>
+                                    <field name="allocation_basis_original_values"
+                                           string="Legacy Value Snapshot"
+                                           optional="hide"/>
+                                    <field name="allocation_basis_reviewed_at"
+                                           optional="hide"/>
+                                    <field name="allocation_basis_reviewed_by_id"
+                                           optional="hide"/>
+                                    <field name="is_posted" widget="boolean_toggle" readonly="1"/>
+                                    <field name="move_id" optional="hide"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                    <button name="action_recompute_allocation_basis"
+                                            type="object"
+                                            string="Review &amp; Recompute"
+                                            invisible="not allocation_basis_quarantined or is_posted or move_id"
+                                            groups="eh_account_base.group_eh_manager"
+                                            confirm="Recompute this unposted legacy row from its proven pool-member evidence using the original locked rates? The original values will remain in the audit snapshot."
+                                            icon="fa-refresh"/>
+                                    <button name="action_acknowledge_allocation_basis_review"
+                                            type="object"
+                                            string="Acknowledge Review"
+                                            invisible="not allocation_basis_quarantined or not (is_posted or move_id) or allocation_basis_reviewed_at"
+                                            groups="eh_account_base.group_eh_manager"
+                                            confirm="Acknowledge review of this posted legacy row without changing its values or linked journal entry?"
+                                            icon="fa-eye"/>
+                                    <button name="action_post"
+                                            type="object"
+                                            string="Post"
+                                            invisible="is_posted"
+                                            groups="eh_account_base.group_eh_manager"
+                                            icon="fa-check"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                    <field name="currency_id" invisible="1"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_asset_lvp_pool_search" model="ir.ui.view">
+        <field name="name">eh.asset.lvp.pool.search</field>
+        <field name="model">eh.asset.lvp.pool</field>
+        <field name="arch" type="xml">
+            <search string="Low-value pools">
+                <field name="name"/>
+                <field name="pool_account_id"/>
+                <field name="journal_id"/>
+                <filter string="Archived" name="archived"
+                        domain="[('active', '=', False)]"/>
+                <group>
+                    <filter string="Company" name="group_company"
+                            context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company"/>
+                    <filter string="Pool Journal" name="group_journal"
+                            context="{'group_by': 'journal_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_asset_lvp_pool" model="ir.actions.act_window">
+        <field name="name">Low-value pools</field>
+        <field name="res_model">eh.asset.lvp.pool</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_asset_lvp_pool_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first low-value pool</p>
+            <p>Group low-value assets into a single pool for idempotent annual depreciation under the Australian regime. Use New to open a pool, then add eligible assets to it.</p>
+        </field>
+    </record>
+
+</odoo>

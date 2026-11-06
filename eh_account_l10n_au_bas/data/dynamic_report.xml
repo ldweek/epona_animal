@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        Register the immutable BAS run snapshot in the dynamic-reports
+        catalog. Compute writes audit evidence; rendering reads the latest
+        computed/lodged run for the exact company and quarter.
+    -->
+    <record id="report_au_bas" model="eh.account.dynamic.report">
+        <field name="code">au_bas</field>
+        <field name="name">Australian BAS Run</field>
+        <field name="handler_model">eh.account.dynamic.report.handler.au_bas</field>
+        <field name="sequence">200</field>
+        <field name="description">Australian Business Activity Statement snapshot for one company and quarter. Renders the exact computed or lodged 33-label worksheet; Simpler BAS renders its lodgeable G1, 1A, 1B and PAYG-W subset.</field>
+    </record>
+
+</odoo>

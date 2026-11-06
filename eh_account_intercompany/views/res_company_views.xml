@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_company_form_eh_ic_consolidation" model="ir.ui.view">
+        <field name="name">res.company.form.eh.ic.consolidation</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Consolidation" name="eh_ic_consolidation"
+                      groups="eh_account_base.group_eh_manager">
+                    <group string="Elimination workspace">
+                        <field name="eh_ic_consolidation_only"/>
+                    </group>
+                    <div class="alert alert-warning" role="alert">
+                        Enable this only for a non-trading consolidation
+                        workspace. Elimination journals must not be posted to
+                        a parent's or subsidiary's statutory general ledger.
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

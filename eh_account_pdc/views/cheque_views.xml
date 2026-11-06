@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_cheque_tree" model="ir.ui.view">
+        <field name="name">eh.cheque.list</field>
+        <field name="model">eh.cheque</field>
+        <field name="arch" type="xml">
+            <list string="Cheques" default_order="value_date desc" sample="1"
+                  decoration-danger="state == 'bounced' or is_overdue"
+                  decoration-success="state == 'cleared'"
+                  decoration-info="state == 'presented'"
+                  decoration-muted="state in ('cancelled', 'replaced')">
+                <field name="name"/>
+                <field name="cheque_number"/>
+                <field name="direction" widget="badge"
+                       decoration-info="direction == 'incoming'"
+                       decoration-warning="direction == 'outgoing'"/>
+                <field name="partner_id"/>
+                <field name="journal_id"/>
+                <field name="amount" sum="Total"/>
+                <field name="currency_id" optional="hide"/>
+                <field name="value_date"/>
+                <field name="days_outstanding" optional="hide"/>
+                <field name="dishonour_date" optional="hide"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'registered'"
+                       decoration-warning="state == 'presented'"
+                       decoration-success="state == 'cleared'"
+                       decoration-danger="state == 'bounced'"
+                       decoration-muted="state in ('replaced', 'cancelled')"/>
+                <field name="is_overdue" optional="hide"/>
+                <field name="bounce_reason_id" optional="hide"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_cheque_kanban" model="ir.ui.view">
+        <field name="name">eh.cheque.kanban</field>
+        <field name="model">eh.cheque</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" sample="1"
+                    class="o_kanban_small_column" records_draggable="false">
+                <field name="state"/>
+                <field name="direction"/>
+                <field name="partner_id"/>
+                <field name="amount"/>
+                <field name="currency_id"/>
+                <field name="value_date"/>
+                <field name="cheque_number"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong>
+                                        <field name="cheque_number"/>
+                                    </strong>
+                                    <span class="text-muted ms-2">
+                                        <field name="partner_id"/>
+                                    </span>
+                                </div>
+                                <field name="direction" widget="label_selection"/>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <div>
+                                    <field name="amount" widget="monetary"/>
+                                </div>
+                                <div class="text-muted">
+                                    <field name="value_date"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_eh_cheque_form" model="ir.ui.view">
+        <field name="name">eh.cheque.form</field>
+        <field name="model">eh.cheque</field>
+        <field name="arch" type="xml">
+            <form string="Cheque">
+                <header>
+                    <button name="action_register"
+                            type="object"
+                            string="Register"
+                            class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'draft'"/>
+                    <button name="action_print_cheque"
+                            type="object"
+                            string="Print Cheque"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="direction != 'outgoing'"/>
+                    <button name="action_present"
+                            type="object"
+                            string="Present at Bank"
+                            class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'registered'"/>
+                    <button name="action_clear"
+                            type="object"
+                            string="Mark Cleared"
+                            class="btn-success"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'presented'"/>
+                    <button name="action_open_bounce_wizard"
+                            type="object"
+                            string="Bounce"
+                            class="btn-warning"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'presented'"/>
+                    <button name="action_open_replace_wizard"
+                            type="object"
+                            string="Replace"
+                            class="btn-primary"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state != 'bounced'"/>
+                    <button name="action_cancel"
+                            type="object"
+                            string="Cancel"
+                            groups="eh_account_base.group_eh_manager"
+                            invisible="state not in ('draft', 'registered', 'bounced')"
+                            confirm="Cancel this cheque?"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,registered,presented,cleared"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Cheque">
+                            <field name="direction" widget="radio"
+                                   readonly="state != 'draft'"/>
+                            <field name="cheque_number"
+                                   readonly="state not in ('draft',)"/>
+                            <field name="partner_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="payee_name_snapshot"
+                                   invisible="not payee_name_snapshot"/>
+                            <field name="journal_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="book_id"
+                                   readonly="state != 'draft'"
+                                   invisible="direction != 'outgoing'"/>
+                            <field name="issuer_bank_name"
+                                   invisible="direction != 'incoming'"
+                                   readonly="state != 'draft'"/>
+                            <field name="issuer_account"
+                                   invisible="direction != 'incoming'"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <group string="Amount &amp; Dates">
+                            <field name="amount"
+                                   readonly="state not in ('draft',)"/>
+                            <field name="amount_in_words"/>
+                            <field name="currency_id"
+                                   groups="base.group_multi_currency"
+                                   readonly="state != 'draft'"/>
+                            <field name="issue_date"
+                                   readonly="state not in ('draft',)"/>
+                            <field name="value_date"
+                                   readonly="state != 'draft'"/>
+                            <field name="is_overdue"
+                                   invisible="state in ('cleared', 'replaced', 'cancelled')"/>
+                            <field name="days_outstanding"
+                                   invisible="state not in ('registered', 'presented')"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Lifecycle">
+                            <field name="presented_at"/>
+                            <field name="presented_by_id"/>
+                            <field name="cleared_at"
+                                   invisible="not cleared_at"/>
+                            <field name="cleared_by_id"
+                                   invisible="not cleared_by_id"/>
+                            <field name="bounced_at"
+                                   invisible="not bounced_at"/>
+                            <field name="bounced_by_id"
+                                   invisible="not bounced_by_id"/>
+                            <field name="cancelled_at"
+                                   invisible="not cancelled_at"/>
+                            <field name="cancelled_by_id"
+                                   invisible="not cancelled_by_id"/>
+                        </group>
+                        <group string="Bounce / Replacement"
+                               invisible="state not in ('bounced', 'replaced')">
+                            <field name="bounce_reason_id" readonly="1"/>
+                            <field name="dishonour_date" readonly="1"/>
+                            <field name="bounce_charges" readonly="1"/>
+                            <field name="bounce_charge_move_id"
+                                   invisible="not bounce_charge_move_id"/>
+                            <field name="bounce_move_id"
+                                   invisible="not bounce_move_id"/>
+                            <field name="replaces_id"
+                                   invisible="not replaces_id"/>
+                            <field name="replaced_by_id"
+                                   invisible="not replaced_by_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Linked Documents">
+                            <group>
+                                <field name="invoice_id"
+                                       readonly="state != 'draft'"/>
+                                <field name="present_move_id"
+                                       invisible="not present_move_id"/>
+                                <field name="clear_move_id"
+                                       invisible="not clear_move_id"/>
+                            </group>
+                        </page>
+                        <page string="Bounce Notes"
+                              invisible="state != 'bounced'">
+                            <field name="bounce_notes" readonly="1"/>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                    <chatter/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_cheque_search" model="ir.ui.view">
+        <field name="name">eh.cheque.search</field>
+        <field name="model">eh.cheque</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="cheque_number"/>
+                <field name="partner_id"/>
+                <field name="journal_id"/>
+                <filter name="filter_incoming" string="Received"
+                        domain="[('direction', '=', 'incoming')]"/>
+                <filter name="filter_outgoing" string="Issued"
+                        domain="[('direction', '=', 'outgoing')]"/>
+                <separator/>
+                <filter name="filter_open" string="Open"
+                        domain="[('state', 'in', ['draft', 'registered', 'presented'])]"/>
+                <filter name="filter_cleared" string="Cleared"
+                        domain="[('state', '=', 'cleared')]"/>
+                <filter name="filter_bounced" string="Bounced"
+                        domain="[('state', '=', 'bounced')]"/>
+                <filter name="filter_overdue" string="Overdue"
+                        domain="[('is_overdue', '=', True)]"/>
+                <group>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                    <filter name="group_direction" string="Direction"
+                            context="{'group_by': 'direction'}"/>
+                    <filter name="group_journal" string="Journal"
+                            context="{'group_by': 'journal_id'}"/>
+                    <filter name="group_partner" string="Partner"
+                            context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_value_month" string="Value Month"
+                            context="{'group_by': 'value_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="eh_account_pdc_cheque_view_graph" model="ir.ui.view">
+        <field name="name">eh.cheque.graph</field>
+        <field name="model">eh.cheque</field>
+        <field name="arch" type="xml">
+            <graph string="Cheques" sample="1">
+                <field name="value_date" interval="month"/>
+                <field name="state"/>
+                <field name="amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_pdc_cheque_view_pivot" model="ir.ui.view">
+        <field name="name">eh.cheque.pivot</field>
+        <field name="model">eh.cheque</field>
+        <field name="arch" type="xml">
+            <pivot string="Cheques" sample="1">
+                <field name="partner_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_cheque" model="ir.actions.act_window">
+        <field name="name">Cheques</field>
+        <field name="res_model">eh.cheque</field>
+        <field name="view_mode">list,kanban,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_cheque_search"/>
+        <field name="context">{'search_default_filter_open': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Register your first cheque</p>
+            <p>Track incoming and outgoing post-dated cheques through their lifecycle, from receipt to clearing or bounce. Use the New button to record a cheque.</p>
+        </field>
+    </record>
+
+    <record id="action_eh_cheque_incoming" model="ir.actions.act_window">
+        <field name="name">Received Cheques</field>
+        <field name="res_model">eh.cheque</field>
+        <field name="view_mode">list,kanban,form,graph,pivot</field>
+        <field name="domain">[('direction', '=', 'incoming')]</field>
+        <field name="context">{'default_direction': 'incoming', 'search_default_filter_open': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Record your first received cheque</p>
+            <p>Post-dated cheques received from customers, tracked until they clear or bounce. Use the New button to register a cheque received from a customer.</p>
+        </field>
+    </record>
+
+    <record id="action_eh_cheque_outgoing" model="ir.actions.act_window">
+        <field name="name">Issued Cheques</field>
+        <field name="res_model">eh.cheque</field>
+        <field name="view_mode">list,kanban,form,graph,pivot</field>
+        <field name="domain">[('direction', '=', 'outgoing')]</field>
+        <field name="context">{'default_direction': 'outgoing', 'search_default_filter_open': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Record your first issued cheque</p>
+            <p>Post-dated cheques you issue to suppliers, tracked until they clear or bounce. Use the New button to register a cheque issued to a supplier.</p>
+        </field>
+    </record>
+
+</odoo>

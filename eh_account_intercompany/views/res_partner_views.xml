@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- Inter-company routing is accounting configuration.  Keep it beside
+         the partner accounting properties and expose it only to the same EH
+         manager role enforced by the field and ORM authorisation hook. -->
+    <record id="view_partner_form_eh_intercompany" model="ir.ui.view">
+        <field name="name">res.partner.form.eh.intercompany</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='accounting']" position="inside">
+                <group string="Inter-company routing"
+                       groups="eh_account_base.group_eh_manager">
+                    <field name="eh_represented_company_id"
+                           options="{'no_create': True}"/>
+                    <p class="text-muted">
+                        Select the group company represented by this global
+                        contact. Posted invoices can then route to that
+                        company's configured inter-company mirror journal.
+                    </p>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

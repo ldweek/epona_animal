@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_borrowing_cost_list" model="ir.ui.view">
+        <field name="name">eh.borrowing.cost.list</field>
+        <field name="model">eh.borrowing.cost</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="qualifying_asset"/>
+                <field name="period_end"/>
+                <field name="capitalisable" widget="monetary" optional="show"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'capitalised'"
+                       decoration-warning="state == 'reversed'"
+                       decoration-muted="state == 'cancelled'"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_borrowing_cost_form" model="ir.ui.view">
+        <field name="name">eh.borrowing.cost.form</field>
+        <field name="model">eh.borrowing.cost</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_capitalise" type="object"
+                            string="Capitalise" class="btn-primary"
+                            invisible="state != 'draft'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state != 'draft'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reverse" type="object"
+                            string="Reverse" class="btn-secondary"
+                            invisible="state != 'capitalised'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reset_to_draft" type="object"
+                            string="Reopen for Correction"
+                            invisible="state not in ('reversed', 'cancelled')"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_release_integrity_review"
+                            type="object"
+                            string="Release Legacy Review"
+                            class="btn-secondary"
+                            invisible="not eh_integrity_review_required"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,capitalised,reversed,cancelled"/>
+                </header>
+                <sheet>
+                    <field name="move_id" invisible="1"/>
+                    <field name="reversal_move_id" invisible="1"/>
+                    <field name="move_count" invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_move" type="object"
+                                class="oe_stat_button" icon="fa-book"
+                                invisible="not move_id">
+                            <span class="o_stat_text">Entry</span>
+                        </button>
+                        <button name="action_view_moves" type="object"
+                                class="oe_stat_button" icon="fa-history"
+                                invisible="move_count == 0">
+                            <field name="move_count" widget="statinfo"
+                                   string="Journal History"/>
+                        </button>
+                    </div>
+                    <div class="alert alert-danger" role="alert"
+                         invisible="not eh_integrity_review_required">
+                        <strong>Legacy integrity review required.</strong>
+                        <field name="eh_integrity_review_reason" readonly="1"/>
+                        <field name="integrity_review_note"
+                               placeholder="Manager evidence attestation..."/>
+                    </div>
+                    <field name="eh_integrity_review_required" invisible="1"/>
+                    <group string="Legacy Review Evidence"
+                           invisible="not integrity_reviewed_by_id">
+                        <field name="integrity_reviewed_by_id" readonly="1"/>
+                        <field name="integrity_reviewed_at" readonly="1"/>
+                        <field name="integrity_review_note" readonly="1"/>
+                    </group>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="qualifying_asset"/>
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                            <field name="accounting_date"
+                                   readonly="state != 'draft'"/>
+                            <field name="posted_accounting_date"
+                                   invisible="not posted_accounting_date"
+                                   readonly="1"/>
+                            <field name="reversal_date"
+                                   invisible="state != 'capitalised'"
+                                   readonly="state != 'capitalised'"/>
+                            <field name="posted_reversal_date"
+                                   invisible="not posted_reversal_date"
+                                   readonly="1"/>
+                            <field name="commencement_date"/>
+                            <field name="cessation_date"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="specific_borrowing_cost" widget="monetary"/>
+                            <field name="temporary_investment_income" widget="monetary"/>
+                            <field name="general_expenditure" widget="monetary"/>
+                            <field name="capitalisation_rate"/>
+                            <field name="capitalisation_rate_basis"/>
+                            <field name="apply_actual_borrowing_cost_cap"/>
+                            <field name="actual_borrowing_cost" widget="monetary"
+                                   invisible="not apply_actual_borrowing_cost_cap"/>
+                        </group>
+                    </group>
+                    <group string="Dated Expenditure (alternative weighted-average base)">
+                        <field name="expenditure_line_ids" nolabel="1" colspan="2">
+                            <list editable="bottom">
+                                <field name="date"/>
+                                <field name="label"/>
+                                <field name="amount" widget="monetary"/>
+                                <field name="currency_id" column_invisible="1"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Suspension Periods (IAS 23.20-21)">
+                        <field name="suspension_line_ids" nolabel="1" colspan="2">
+                            <list editable="bottom">
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <field name="label"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Result">
+                        <field name="weighted_average_base" widget="monetary" readonly="1"
+                               invisible="not expenditure_line_ids"/>
+                        <field name="uncapped_amount" widget="monetary" readonly="1"/>
+                        <field name="capitalisable" widget="monetary" readonly="1"/>
+                    </group>
+                    <group string="Accounts">
+                        <group>
+                            <field name="asset_account_id"/>
+                            <field name="borrowing_cost_account_id"/>
+                        </group>
+                        <group>
+                            <field name="journal_id"/>
+                        </group>
+                    </group>
+                    <field name="notes"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_borrowing_cost_search" model="ir.ui.view">
+        <field name="name">eh.borrowing.cost.search</field>
+        <field name="model">eh.borrowing.cost</field>
+        <field name="arch" type="xml">
+            <search string="Borrowing Costs">
+                <field name="name"/>
+                <field name="qualifying_asset"/>
+                <field name="state"/>
+                <field name="company_id"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <separator/>
+                <filter name="draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="capitalised" string="Capitalised"
+                        domain="[('state', '=', 'capitalised')]"/>
+                <filter name="reversed" string="Reversed"
+                        domain="[('state', '=', 'reversed')]"/>
+                <filter name="cancelled" string="Cancelled"
+                        domain="[('state', '=', 'cancelled')]"/>
+                <separator/>
+                <filter name="integrity_review" string="Legacy Review Required"
+                        domain="[('eh_integrity_review_required', '=', True)]"/>
+                <group>
+                    <filter name="group_company" string="Company"
+                            domain="[]" context="{'group_by': 'company_id'}"/>
+                    <filter name="group_state" string="State"
+                            domain="[]" context="{'group_by': 'state'}"/>
+                    <filter name="group_period" string="Period End"
+                            domain="[]" context="{'group_by': 'period_end:year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="eh_account_borrowing_costs_view_graph" model="ir.ui.view">
+        <field name="name">eh.borrowing.cost.graph</field>
+        <field name="model">eh.borrowing.cost</field>
+        <field name="arch" type="xml">
+            <graph string="Capitalised Borrowing Costs" sample="1">
+                <field name="period_end" interval="month"/>
+                <field name="capitalisable" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_borrowing_costs_view_pivot" model="ir.ui.view">
+        <field name="name">eh.borrowing.cost.pivot</field>
+        <field name="model">eh.borrowing.cost</field>
+        <field name="arch" type="xml">
+            <pivot string="Capitalised Borrowing Costs" sample="1">
+                <field name="period_end" interval="month" type="row"/>
+                <field name="state" type="col"/>
+                <field name="capitalisable" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_borrowing_cost" model="ir.actions.act_window">
+        <field name="name">Borrowing Costs</field>
+        <field name="res_model">eh.borrowing.cost</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_borrowing_cost_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Record your first borrowing cost capitalisation</p>
+            <p>Capitalise borrowing costs on a qualifying asset under IAS 23. Create a record, enter the period expenditure and rates, then capitalise to post the entry.</p>
+        </field>
+    </record>
+
+</odoo>

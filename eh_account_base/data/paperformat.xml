@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <!--
+            Shared paperformats for ERP Heritage suite reports.
+
+            Two formats are registered so per-module reports can pick the
+            one that suits their column count without each addon defining
+            its own variation.
+
+            * Portrait fits forms-style reports (asset card, dunning
+              letter, statement of account) where the layout is mostly
+              vertical key/value.
+            * Landscape fits tabular registers (cheque list, budget vs
+              actual, depreciation schedule) where the column count would
+              shrink unreadably on portrait.
+
+            DPI is set to 90 to match the dynamic_reports legacy format
+            so PDFs rendered through either path look identical when
+            printed.
+        -->
+
+        <record id="paperformat_eh_portrait" model="report.paperformat">
+            <field name="name">A4 Portrait (ERP Heritage)</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <!-- The 35mm top margin pushes the body content well below
+                 the company header band that web.external_layout draws,
+                 so report titles never collide with the company logo +
+                 name + address strip. header_spacing is the gap from
+                 page top to the start of the header itself. -->
+            <field name="margin_top">35</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">8</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="paperformat_eh_landscape" model="report.paperformat">
+            <field name="name">A4 Landscape (ERP Heritage)</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">8</field>
+            <field name="margin_right">8</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">8</field>
+            <field name="dpi">90</field>
+        </record>
+
+    </data>
+</odoo>

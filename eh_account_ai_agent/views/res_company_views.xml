@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_res_company_form_eh_ai" model="ir.ui.view">
+        <field name="name">res.company.form.eh.ai</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="EH AI agent" name="eh_ai_agent">
+                    <group>
+                        <group string="Provider">
+                            <field name="eh_ai_provider_key"/>
+                            <field name="eh_ai_provider_config"/>
+                        </group>
+                        <group string="Anomaly scan">
+                            <field name="eh_ai_anomaly_lookback_days"/>
+                            <field name="eh_ai_anomaly_median_multiplier"/>
+                            <field name="eh_ai_anomaly_approval_threshold"/>
+                            <field name="eh_ai_anomaly_use_company_calendar"/>
+                            <field name="eh_ai_anomaly_weekend_days"
+                                   invisible="eh_ai_anomaly_use_company_calendar"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

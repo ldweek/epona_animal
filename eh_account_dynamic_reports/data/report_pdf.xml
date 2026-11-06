@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <!--
+            One ir.actions.report record drives every dynamic report's PDF.
+            The Qweb template is universal: it consumes the standard
+            payload shape, so adding a new report does not require a new
+            template, just a new handler.
+
+            report_name MUST match the abstract model name used for render
+            values: "report.<report_name>" → that abstract model owns
+            _get_report_values().
+        -->
+        <record id="action_report_dynamic_pdf" model="ir.actions.report">
+            <field name="name">Dynamic Report</field>
+            <field name="model">eh.account.dynamic.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">eh_account_dynamic_reports.report_dynamic_pdf_template</field>
+            <field name="report_file">eh_account_dynamic_reports.report_dynamic_pdf_template</field>
+            <field name="paperformat_id" ref="paperformat_eh_dynamic_report"/>
+            <field name="binding_model_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

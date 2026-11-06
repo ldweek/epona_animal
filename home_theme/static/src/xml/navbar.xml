@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+  <!-- Override entire desktop t-else block -->
+  <t t-name="home_theme.NavBar.AppsMenu" t-inherit="web.NavBar.AppsMenu" t-inherit-mode="extension">
+    <xpath expr="//t[@t-else='']" position="replace">
+      <t t-else="">
+        <t t-set="hm" t-value="this.env.services.home_menu"/>
+
+        <!-- Case 1: initial Home, no app visited yet -> show nothing -->
+        <t t-if="hm &amp;&amp; hm.hasHomeMenu &amp;&amp; !hm.hasBackgroundAction">
+          <!-- nothing -->
+        </t>
+
+        <!-- Case 2: Home after visiting an app -> right arrow to go back -->
+        <a t-elif="hm &amp;&amp; hm.hasHomeMenu &amp;&amp; hm.hasBackgroundAction"
+           href="#"
+           class="o_menu_toggle o_home_menu_toggle border-0"
+           accesskey="h"
+           title="Back to app"
+           t-on-click.prevent="() => hm.toggle(false)"
+        >
+          <i class="oi oi-arrow-right"/>
+        </a>
+
+        <!-- Case 3: inside an app -> app icon, hover reveals the Home arrow -->
+        <a t-elif="!isScopedApp"
+           href="#"
+           class="o_menu_toggle o_app_toggle border-0"
+           accesskey="h"
+           title="Go to Home"
+           t-on-click.prevent="() => hm.toggle(true)"
+        >
+          <img t-if="currentApp?.webIconData"
+               class="o_app_icon"
+               t-att-src="currentApp.webIconData"
+               t-att-alt="currentApp.name"/>
+          <!-- No current app (e.g. inside the Website editor): show the Home
+               arrow directly instead of the generic apps grid. -->
+          <i t-else="" class="oi oi-arrow-left"/>
+          <!-- arrow shown on hover over the app icon -->
+          <i class="oi oi-arrow-left o_hover_arrow"/>
+        </a>
+
+        <!-- Case 4: scoped app (PWA) -> spacer -->
+        <div t-else="" class="mx-2"/>
+      </t>
+    </xpath>
+  </t>
+
+</templates>

@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_business_combination_list" model="ir.ui.view">
+        <field name="name">eh.business.combination.list</field>
+        <field name="model">eh.business.combination</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="acquiree_name"/>
+                <field name="acquisition_date"/>
+                <field name="consideration_transferred" widget="monetary" optional="show"/>
+                <field name="goodwill" widget="monetary" optional="show"/>
+                <field name="bargain_purchase_gain" widget="monetary" optional="hide"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'recognised'"
+                       decoration-muted="state in ('reversed', 'cancelled')"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_business_combination_search" model="ir.ui.view">
+        <field name="name">eh.business.combination.search</field>
+        <field name="model">eh.business.combination</field>
+        <field name="arch" type="xml">
+            <search string="Business Combinations">
+                <field name="name"/>
+                <field name="acquiree_name"/>
+                <field name="acquisition_date"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <filter name="draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="recognised" string="Recognised"
+                        domain="[('state', '=', 'recognised')]"/>
+                <filter name="reversed" string="Reversed"
+                        domain="[('state', '=', 'reversed')]"/>
+                <separator/>
+                <filter name="group_state" string="State"
+                        context="{'group_by': 'state'}"/>
+                <filter name="group_company" string="Company"
+                        context="{'group_by': 'company_id'}"
+                        groups="base.group_multi_company"/>
+                <filter name="group_acquisition_month"
+                        string="Acquisition Month"
+                        context="{'group_by': 'acquisition_date:month'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_business_combination_form" model="ir.ui.view">
+        <field name="name">eh.business.combination.form</field>
+        <field name="model">eh.business.combination</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="asset_line_ids" invisible="1"/>
+                    <button name="action_recognise" type="object"
+                            string="Recognise Goodwill" class="btn-primary"
+                            invisible="state != 'draft' or asset_line_ids"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_recognise_ppa" type="object"
+                            string="Post Purchase Price Allocation"
+                            class="btn-primary"
+                            invisible="state != 'draft' or not asset_line_ids"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_close_measurement_period"
+                            type="object" string="Close Measurement Period"
+                            invisible="state != 'recognised' or measurement_period_closed"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_reverse" type="object"
+                            string="Reverse" class="btn-secondary"
+                            invisible="state != 'recognised'"
+                            groups="eh_account_base.group_eh_manager"
+                            confirm="Post an immutable counter-entry? Applied downstream adjustments and remeasurements must be reversed first."/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state != 'draft'"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,recognised,reversed"/>
+                </header>
+                <sheet>
+                    <field name="move_id" invisible="1"/>
+                    <field name="reversal_move_id" invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_move" type="object"
+                                class="oe_stat_button" icon="fa-book"
+                                invisible="not move_id">
+                            <span class="o_stat_text">Entry</span>
+                        </button>
+                        <button name="action_view_reversal" type="object"
+                                class="oe_stat_button" icon="fa-undo"
+                                invisible="not reversal_move_id">
+                            <span class="o_stat_text">Reversal</span>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="acquiree_name"/>
+                            <field name="acquisition_date"
+                                   readonly="state != 'draft'"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id"
+                                   readonly="state != 'draft'"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="consideration_transferred"
+                                   widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="nci_measurement"
+                                   readonly="state != 'draft'"/>
+                            <field name="nci_pct"
+                                   readonly="state != 'draft'"
+                                   invisible="nci_measurement != 'proportionate'"/>
+                            <field name="nci_amount" widget="monetary"
+                                   readonly="state != 'draft' or nci_measurement == 'proportionate'"/>
+                            <field name="fv_identifiable_net_assets"
+                                   widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="tax_rate" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <group string="Step Acquisition (IFRS 3.42)">
+                        <group>
+                            <field name="previously_held_interest_carrying"
+                                   widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="previously_held_interest_fv"
+                                   widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="remeasurement_gain" widget="monetary"
+                                   readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="remeasure_gain_account_id"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <label for="fx_reclass_note"/>
+                        <field name="fx_reclass_note" colspan="2" nolabel="1"
+                               placeholder="Where the cumulative translation difference on the previously-held foreign interest is recycled (IAS 21.48) - handled by the consolidation / FX module, not posted here..."/>
+                    </group>
+                    <group string="Goodwill">
+                        <field name="goodwill" widget="monetary" readonly="1"/>
+                        <field name="bargain_purchase_gain" widget="monetary" readonly="1"/>
+                        <field name="fair_value_step_up" widget="monetary"
+                               readonly="1" invisible="not tax_rate"/>
+                        <field name="deferred_tax" widget="monetary"
+                               readonly="1" invisible="not tax_rate"/>
+                    </group>
+                    <group string="Accounts">
+                        <group>
+                            <field name="goodwill_account_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="clearing_account_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="nci_account_id"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="gain_account_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="deferred_tax_account_id"
+                                   readonly="state != 'draft'"
+                                   invisible="not tax_rate"/>
+                            <field name="journal_id"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Identifiable Assets &amp; Liabilities"
+                              name="ppa">
+                            <field name="asset_line_ids"
+                                   readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="company_id"
+                                           column_invisible="1"/>
+                                    <field name="account_id"/>
+                                    <field name="is_liability"/>
+                                    <field name="fair_value" widget="monetary"/>
+                                    <field name="tax_base" widget="monetary"
+                                           optional="show"/>
+                                    <field name="currency_id"
+                                           column_invisible="1"/>
+                                </list>
+                            </field>
+                            <group class="oe_subtotal_footer">
+                                <field name="identifiable_net_assets"
+                                       widget="monetary" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Contingent Consideration"
+                              name="contingent">
+                            <group>
+                                <group>
+                                    <field name="contingent_consideration_initial_fv"
+                                           widget="monetary"
+                                           readonly="state != 'draft'"/>
+                                    <field name="contingent_classification"
+                                           readonly="state != 'draft'"/>
+                                    <field name="contingent_consideration_current_fv"
+                                           widget="monetary" readonly="1"
+                                           invisible="not contingent_consideration_initial_fv"/>
+                                </group>
+                                <group>
+                                    <field name="contingent_account_id"
+                                           readonly="state != 'draft'"/>
+                                    <field name="contingent_pnl_account_id"
+                                           readonly="state != 'draft'"
+                                           invisible="contingent_classification != 'liability'"/>
+                                </group>
+                            </group>
+                            <field name="contingent_remeasure_ids"
+                                   invisible="contingent_classification != 'liability'">
+                                <list>
+                                    <field name="date"/>
+                                    <field name="previous_fair_value"
+                                           widget="monetary" optional="show"/>
+                                    <field name="new_fair_value"
+                                           widget="monetary"/>
+                                    <field name="delta" widget="monetary"
+                                           optional="show"/>
+                                    <field name="currency_id"
+                                           column_invisible="1"/>
+                                    <field name="state" widget="badge"
+                                           decoration-success="state == 'applied'"
+                                           decoration-muted="state in ('reversed', 'cancelled')"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Measurement-Period Adjustments"
+                              name="mpa">
+                            <group>
+                                <group>
+                                    <field name="measurement_period_end"
+                                           readonly="1"/>
+                                    <field name="measurement_period_closed"
+                                           readonly="1"/>
+                                </group>
+                            </group>
+                            <field name="adjustment_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="goodwill_delta"
+                                           widget="monetary" optional="show"/>
+                                    <field name="currency_id"
+                                           column_invisible="1"/>
+                                    <field name="state" widget="badge"
+                                           decoration-success="state == 'applied'"
+                                           decoration-muted="state in ('reversed', 'cancelled')"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                    <field name="notes" placeholder="Purchase price allocation notes..."/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_bizcombo_adjustment_form" model="ir.ui.view">
+        <field name="name">eh.bizcombo.adjustment.form</field>
+        <field name="model">eh.bizcombo.adjustment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_apply" type="object"
+                            string="Apply Adjustment" class="btn-primary"
+                            invisible="state != 'draft'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state != 'draft'"/>
+                    <button name="action_reverse" type="object"
+                            string="Reverse" class="btn-secondary"
+                            invisible="state != 'applied'"
+                            groups="eh_account_base.group_eh_manager"
+                            confirm="Post an immutable counter-entry and restore the pre-adjustment acquisition amounts?"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,applied,reversed"/>
+                </header>
+                <sheet>
+                    <field name="move_id" invisible="1"/>
+                    <field name="reversal_move_id" invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_move" type="object"
+                                class="oe_stat_button" icon="fa-book"
+                                invisible="not move_id">
+                            <span class="o_stat_text">Entry</span>
+                        </button>
+                        <button name="action_view_reversal" type="object"
+                                class="oe_stat_button" icon="fa-undo"
+                                invisible="not reversal_move_id">
+                            <span class="o_stat_text">Reversal</span>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="combination_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="name"/>
+                            <field name="date" string="Information Date"/>
+                            <field name="retrospective_effective_date"/>
+                            <field name="accounting_date"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="consideration_delta"
+                                   widget="monetary"/>
+                            <field name="consideration_delta_kind"
+                                   invisible="not consideration_delta"/>
+                            <field name="nci_delta" widget="monetary"/>
+                            <field name="goodwill_delta" widget="monetary"
+                                   readonly="1" invisible="state not in ('applied', 'reversed')"/>
+                        </group>
+                    </group>
+                    <group string="IFRS 3.49(b) Catch-up">
+                        <group>
+                            <field name="catchup_depreciation_amortisation"
+                                   widget="monetary"/>
+                            <field name="catchup_treatment"
+                                   invisible="not catchup_depreciation_amortisation"/>
+                            <field name="catchup_accumulated_account_id"
+                                   invisible="not catchup_depreciation_amortisation"/>
+                        </group>
+                        <group>
+                            <field name="catchup_expense_account_id"
+                                   invisible="not catchup_depreciation_amortisation or catchup_treatment != 'current_period'"/>
+                            <field name="comparative_equity_account_id"
+                                   invisible="not catchup_depreciation_amortisation or catchup_treatment != 'comparative_restatement'"/>
+                        </group>
+                        <field name="comparative_restatement_note"
+                               colspan="2"
+                               invisible="not catchup_depreciation_amortisation or catchup_treatment != 'comparative_restatement'"
+                               placeholder="Comparative periods, close/reopen approval, and disclosure reference..."/>
+                    </group>
+                    <field name="line_ids">
+                        <list editable="bottom">
+                            <field name="asset_line_id"
+                                   domain="[('combination_id', '=', parent.combination_id)]"/>
+                            <field name="current_fair_value"
+                                   widget="monetary"/>
+                            <field name="previous_fair_value"
+                                   widget="monetary" optional="hide"/>
+                            <field name="revised_fair_value"
+                                   widget="monetary"/>
+                            <field name="delta" widget="monetary"/>
+                            <field name="currency_id" column_invisible="1"/>
+                            <field name="company_id" column_invisible="1"/>
+                        </list>
+                    </field>
+                    <field name="notes"
+                           placeholder="Measurement-period adjustment notes..."/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_bizcombo_contingent_remeasure_form" model="ir.ui.view">
+        <field name="name">eh.bizcombo.contingent.remeasure.form</field>
+        <field name="model">eh.bizcombo.contingent.remeasure</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_apply" type="object"
+                            string="Apply Remeasurement" class="btn-primary"
+                            invisible="state != 'draft'"
+                            groups="eh_account_base.group_eh_manager"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state != 'draft'"/>
+                    <button name="action_reverse" type="object"
+                            string="Reverse" class="btn-secondary"
+                            invisible="state != 'applied'"
+                            groups="eh_account_base.group_eh_manager"
+                            confirm="Post an immutable counter-entry for this remeasurement?"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,applied,reversed"/>
+                </header>
+                <sheet>
+                    <field name="move_id" invisible="1"/>
+                    <field name="reversal_move_id" invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_move" type="object"
+                                class="oe_stat_button" icon="fa-book"
+                                invisible="not move_id">
+                            <span class="o_stat_text">Entry</span>
+                        </button>
+                        <button name="action_view_reversal" type="object"
+                                class="oe_stat_button" icon="fa-undo"
+                                invisible="not reversal_move_id">
+                            <span class="o_stat_text">Reversal</span>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="combination_id"
+                                   readonly="state != 'draft'"/>
+                            <field name="date"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="previous_fair_value"
+                                   widget="monetary" readonly="1"
+                                   invisible="state not in ('applied', 'reversed')"/>
+                            <field name="new_fair_value" widget="monetary"/>
+                            <field name="delta" widget="monetary"
+                                   readonly="1" invisible="state not in ('applied', 'reversed')"/>
+                        </group>
+                    </group>
+                    <field name="notes"
+                           placeholder="Remeasurement basis and inputs..."/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="eh_account_business_combination_bizcombo_view_graph" model="ir.ui.view">
+        <field name="name">eh.business.combination.graph</field>
+        <field name="model">eh.business.combination</field>
+        <field name="arch" type="xml">
+            <graph string="Business Combinations" type="bar">
+                <field name="acquisition_date" interval="month"/>
+                <field name="consideration_transferred" type="measure"/>
+                <field name="goodwill" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_business_combination_bizcombo_view_pivot" model="ir.ui.view">
+        <field name="name">eh.business.combination.pivot</field>
+        <field name="model">eh.business.combination</field>
+        <field name="arch" type="xml">
+            <pivot string="Business Combinations">
+                <field name="state" type="row"/>
+                <field name="acquisition_date" interval="year" type="col"/>
+                <field name="consideration_transferred" type="measure"/>
+                <field name="goodwill" type="measure"/>
+                <field name="nci_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_business_combination" model="ir.actions.act_window">
+        <field name="name">Business Combinations</field>
+        <field name="res_model">eh.business.combination</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id"
+               ref="view_eh_business_combination_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Record your first business combination</p>
+            <p>Track acquisitions under IFRS 3, measure consideration transferred and non-controlling interest, and compute goodwill or a bargain purchase gain. Use the New button to set up an acquisition.</p>
+        </field>
+    </record>
+
+</odoo>

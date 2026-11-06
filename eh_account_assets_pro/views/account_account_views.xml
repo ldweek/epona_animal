@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_form_eh_asset" model="ir.ui.view">
+        <field name="name">account.account.form.eh.asset.autocreate</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="arch" type="xml">
+            <sheet position="inside">
+                <group string="Automatic Asset Creation"
+                       name="eh_asset_autocreate">
+                    <field name="eh_asset_auto"/>
+                    <field name="eh_asset_category_id"
+                           invisible="eh_asset_auto == 'no'"
+                           required="eh_asset_auto != 'no'"/>
+                </group>
+            </sheet>
+        </field>
+    </record>
+
+</odoo>

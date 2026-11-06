@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_om_account_followup_print" model="ir.ui.view">
+            <field name="name">account.followup.print.form</field>
+            <field name="model">followup.print</field>
+            <field name="arch" type="xml">
+                <form string="Send follow-ups">
+                    <group>
+                        <group>
+                            <field name="followup_id" options="{'no_create': True}"/>
+                            <field name="date" groups="base.group_no_one"/>
+                        </group>
+                    </group>
+                    <p class="text-muted">
+                        Send the reminders due to the customers of the plan: the emails are sent, the letters are
+                        gathered in one PDF and the manual actions are scheduled. The excluded customers and the
+                        ones who promised to pay later are left alone.
+                    </p>
+                    <footer>
+                        <button name="do_process" string="Send Reminders" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_om_account_followup_print" model="ir.actions.act_window">
+            <field name="name">Send All Reminders</field>
+            <field name="res_model">followup.print</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_finance_followup" parent="account.menu_finance"
+                  name="Follow-Ups"
+                  groups="account.group_account_invoice"/>
+
+        <menuitem action="action_om_account_followup_print"
+                  id="om_account_followup_print_menu"
+                  parent="menu_finance_followup"
+                  name="Send All Reminders"
+                  groups="account.group_account_user,account.group_account_manager"
+                  sequence="2"/>
+
+    </data>
+</odoo>

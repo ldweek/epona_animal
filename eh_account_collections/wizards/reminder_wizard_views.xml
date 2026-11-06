@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_collections_reminder_wizard_form" model="ir.ui.view">
+        <field name="name">eh.collections.reminder.wizard.form</field>
+        <field name="model">eh.collections.reminder.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Send reminder">
+                <group>
+                    <field name="case_id" readonly="1"/>
+                    <field name="partner_id" readonly="1"/>
+                    <field name="channel"/>
+                    <field name="subject"
+                           invisible="channel == 'sms'"/>
+                </group>
+                <field name="body" placeholder="Reminder message..."/>
+                <footer>
+                    <button name="action_send" type="object"
+                            string="Send" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

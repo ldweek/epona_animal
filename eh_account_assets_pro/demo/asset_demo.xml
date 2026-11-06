@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="demo_asset_category_it" model="eh.asset.category">
+            <field name="name">IT Hardware</field>
+            <field name="code">DEMO_ITHW</field>
+            <field name="method">straight_line</field>
+            <field name="useful_life_months">36</field>
+            <field name="salvage_rate">0.0</field>
+            <field name="prorate_first_period" eval="True"/>
+        </record>
+
+        <record id="demo_asset_category_furniture" model="eh.asset.category">
+            <field name="name">Office Furniture</field>
+            <field name="code">DEMO_OFFFURN</field>
+            <field name="method">straight_line</field>
+            <field name="useful_life_months">60</field>
+            <field name="salvage_rate">0.10</field>
+        </record>
+
+        <record id="demo_asset_category_vehicle" model="eh.asset.category">
+            <field name="name">Vehicles</field>
+            <field name="code">DEMO_VEH</field>
+            <field name="method">reducing_balance</field>
+            <field name="useful_life_months">60</field>
+            <field name="declining_factor">2.0</field>
+            <field name="salvage_rate">0.15</field>
+        </record>
+
+    </data>
+</odoo>

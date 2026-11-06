@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="eh_account_reconcile_pro.ReconcileWorkspace">
+    <div class="eh_rec o_action">
+
+        <!-- Top bar -->
+        <div class="eh_rec_topbar">
+            <div class="eh_rec_brand">
+                <span class="eh_rec_brand_label">ERP Heritage</span>
+                <span class="eh_rec_brand_title">Reconciliation Workspace</span>
+            </div>
+
+            <div class="eh_rec_journal_picker">
+                <label class="eh_rec_field_label">Journal</label>
+                <select class="eh_rec_select"
+                        t-on-change="onJournalChange"
+                        t-att-value="state.selectedJournalId || ''">
+                    <option value="">Select a journal...</option>
+                    <t t-foreach="state.journals" t-as="j" t-key="j.id">
+                        <option t-att-value="j.id"
+                                t-att-selected="j.id === state.selectedJournalId">
+                            <t t-out="j.code"/> / <t t-out="j.name"/>
+                        </option>
+                    </t>
+                </select>
+            </div>
+
+            <div class="eh_rec_session_summary" t-if="state.session">
+                <div class="eh_rec_stat">
+                    <div class="eh_rec_stat_value"><t t-out="state.session.matches_made"/></div>
+                    <div class="eh_rec_stat_label">Matches</div>
+                </div>
+                <div class="eh_rec_stat">
+                    <div class="eh_rec_stat_value"><t t-out="state.session.matches_via_suggestion"/></div>
+                    <div class="eh_rec_stat_label">From Suggestions</div>
+                </div>
+                <div class="eh_rec_stat">
+                    <div class="eh_rec_stat_value"><t t-out="state.session.matches_manual"/></div>
+                    <div class="eh_rec_stat_label">Manual</div>
+                </div>
+                <div class="eh_rec_stat">
+                    <div class="eh_rec_stat_value"><t t-out="state.session.skips"/></div>
+                    <div class="eh_rec_stat_label">Skipped</div>
+                </div>
+                <button class="eh_rec_btn_bulk"
+                        t-on-click="autoReconcile"
+                        t-att-disabled="state.loading">
+                    Auto reconcile safe matches
+                </button>
+                <button class="eh_rec_btn_close"
+                        t-on-click="closeSession"
+                        t-att-disabled="state.loading">
+                    Close session
+                </button>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="eh_rec_body">
+
+            <t t-if="state.error">
+                <div class="eh_rec_error">
+                    <strong>Error.</strong>
+                    <span class="eh_rec_error_text" t-out="state.error"/>
+                </div>
+            </t>
+
+            <t t-elif="state.loading">
+                <div class="eh_rec_loading">
+                    <span class="eh_rec_dot"/>
+                    Loading workspace...
+                </div>
+            </t>
+
+            <t t-elif="!state.selectedJournalId">
+                <div class="eh_rec_empty">
+                    <div class="eh_rec_empty_label">Pick a journal</div>
+                    <div class="eh_rec_empty_msg">
+                        Select a bank or cash journal above to load its
+                        unreconciled statement lines.
+                    </div>
+                </div>
+            </t>
+
+            <t t-else="">
+                <div class="eh_rec_split">
+
+                    <!-- Left: statement lines -->
+                    <div class="eh_rec_pane eh_rec_pane_left">
+                        <div class="eh_rec_pane_header">
+                            <span class="eh_rec_pane_title">Statement Lines</span>
+                            <span class="eh_rec_pane_count">
+                                <t t-out="state.pagination.total"/> open
+                            </span>
+                        </div>
+                        <div class="eh_rec_pane_body">
+                            <div class="eh_rec_statement_filters">
+                                <div class="eh_rec_statement_search">
+                                    <input type="search"
+                                           placeholder="Search reference or partner"
+                                           t-model="state.statementSearch"
+                                           t-on-keydown="searchStatements"/>
+                                    <button type="button"
+                                            t-on-click="searchStatements">
+                                        Search
+                                    </button>
+                                </div>
+                                <div class="eh_rec_statement_filter_row">
+                                    <select t-on-change="onStatementDirectionChange"
+                                            t-att-value="state.statementDirection">
+                                        <option value="">All directions</option>
+                                        <option value="in">Money in</option>
+                                        <option value="out">Money out</option>
+                                    </select>
+                                    <input type="date"
+                                           aria-label="From date"
+                                           t-model="state.statementDateFrom"/>
+                                    <input type="date"
+                                           aria-label="To date"
+                                           t-model="state.statementDateTo"/>
+                                    <button type="button"
+                                            t-on-click="searchStatements">
+                                        Apply dates
+                                    </button>
+                                </div>
+                            </div>
+                            <t t-if="!state.statementLines.length">
+                                <div class="eh_rec_empty">
+                                    <div class="eh_rec_empty_label">All clear</div>
+                                    <div class="eh_rec_empty_msg">
+                                        No unreconciled statement lines on this journal.
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-foreach="state.statementLines" t-as="sl" t-key="sl.id">
+                                <div class="eh_rec_sl"
+                                     t-att-class="sl.id === state.selectedLineId ? 'eh_rec_sl_selected' : ''"
+                                     t-on-click="() => this.selectLine(sl.id)">
+                                    <div class="eh_rec_sl_top">
+                                        <span class="eh_rec_sl_date" t-out="sl.date or ''"/>
+                                        <span class="eh_rec_sl_amount"
+                                              t-att-class="sl.amount &lt; 0 ? 'eh_rec_amt_neg' : 'eh_rec_amt_pos'">
+                                            <t t-out="fmtMoney(sl.amount)"/>
+                                            <span class="eh_rec_currency"
+                                                  t-if="sl.currency_code">
+                                                <t t-out="sl.currency_code"/>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="eh_rec_sl_partner" t-if="sl.partner_name">
+                                        <t t-out="sl.partner_name"/>
+                                    </div>
+                                    <div class="eh_rec_sl_ref" t-if="sl.payment_ref">
+                                        <t t-out="sl.payment_ref"/>
+                                    </div>
+                                </div>
+                            </t>
+                            <div class="eh_rec_pagination"
+                                 t-if="state.pagination.total">
+                                <button type="button"
+                                        t-on-click="previousStatementPage"
+                                        t-att-disabled="!state.pagination.has_previous">
+                                    Previous
+                                </button>
+                                <span>
+                                    <t t-out="state.pagination.offset + 1"/>-<t t-out="paginationEnd()"/>
+                                    of <t t-out="state.pagination.total"/>
+                                </span>
+                                <button type="button"
+                                        t-on-click="nextStatementPage"
+                                        t-att-disabled="!state.pagination.has_next">
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: suggestions -->
+                    <div class="eh_rec_pane eh_rec_pane_right">
+                        <div class="eh_rec_pane_header">
+                            <span class="eh_rec_pane_title">Suggestions</span>
+                            <span class="eh_rec_pane_count" t-if="state.selectedLineId">
+                                <t t-out="state.suggestions.length"/> candidate(s)
+                            </span>
+                        </div>
+                        <div class="eh_rec_pane_body">
+
+                            <t t-if="!state.selectedLineId">
+                                <div class="eh_rec_empty">
+                                    <div class="eh_rec_empty_label">Select a line</div>
+                                    <div class="eh_rec_empty_msg">
+                                        Pick a statement line on the left to see scored suggestions and decide.
+                                    </div>
+                                </div>
+                            </t>
+
+                            <t t-elif="state.suggestionsLoading">
+                                <div class="eh_rec_loading">
+                                    <span class="eh_rec_dot"/>
+                                    Scoring candidates...
+                                </div>
+                            </t>
+
+                            <t t-else="">
+                                <!-- Selected line context -->
+                                <t t-set="sel" t-value="selectedLine()"/>
+                                <div class="eh_rec_sel_card"
+                                     t-att-class="state.dragActive ? 'eh_rec_sel_card_drop' : ''"
+                                     t-on-dragover="onDropZoneDragOver"
+                                     t-on-dragleave="onDropZoneDragLeave"
+                                     t-on-drop="onDropZoneDrop"
+                                     t-if="sel">
+                                    <div class="eh_rec_sel_label">Selected statement line</div>
+                                    <div class="eh_rec_sel_main">
+                                        <div class="eh_rec_sel_amount"
+                                             t-att-class="sel.amount &lt; 0 ? 'eh_rec_amt_neg' : 'eh_rec_amt_pos'">
+                                            <t t-out="fmtMoney(sel.amount)"/>
+                                            <span class="eh_rec_currency" t-if="sel.currency_code">
+                                                <t t-out="sel.currency_code"/>
+                                            </span>
+                                        </div>
+                                        <div class="eh_rec_sel_meta">
+                                            <span t-out="sel.date or ''"/>
+                                            <span t-if="sel.partner_name"> / <t t-out="sel.partner_name"/></span>
+                                        </div>
+                                    </div>
+                                    <div class="eh_rec_sel_ref" t-if="sel.payment_ref">
+                                        <t t-out="sel.payment_ref"/>
+                                    </div>
+                                    <div class="eh_rec_sel_hint">
+                                        Drag a candidate onto this card to match it, or tick several below and use Match selected.
+                                    </div>
+                                </div>
+
+                                <div class="eh_rec_candidate_search">
+                                    <input type="search"
+                                           placeholder="Search open journal items, payments, partners or accounts"
+                                           t-model="state.candidateSearch"
+                                           t-on-keydown="searchCandidates"/>
+                                    <button type="button"
+                                            t-on-click="searchCandidates">
+                                        Search items
+                                    </button>
+                                </div>
+
+                                <div class="eh_rec_prediction"
+                                     t-if="state.prediction and (state.prediction.account_name or state.prediction.partner_name)">
+                                    <span class="eh_rec_field_label">History prediction</span>
+                                    <span t-if="state.prediction.account_name">
+                                        <t t-out="state.prediction.account_name"/>
+                                        (<t t-out="fmtPercent(state.prediction.account_score)"/>,
+                                        <t t-out="state.prediction.account_support"/> prior match(es))
+                                    </span>
+                                    <span t-if="state.prediction.partner_name">
+                                        / <t t-out="state.prediction.partner_name"/>
+                                    </span>
+                                </div>
+
+                                <!-- Suggestions list -->
+                                <t t-if="!state.suggestions.length">
+                                    <div class="eh_rec_empty">
+                                        <div class="eh_rec_empty_label">No matches above threshold</div>
+                                        <div class="eh_rec_empty_msg">
+                                            The suggestion engine could not find a candidate scoring above 0.30. Use Skip if you want to come back to this line later.
+                                        </div>
+                                    </div>
+                                </t>
+
+                                <t t-foreach="state.suggestions" t-as="s" t-key="s.aml_id">
+                                    <div class="eh_rec_sug"
+                                         t-att-class="isAmlSelected(s.aml_id) ? 'eh_rec_sug_checked' : ''"
+                                         draggable="true"
+                                         t-on-dragstart="(ev) => this.onSuggestionDragStart(ev, s.aml_id)">
+                                        <div class="eh_rec_sug_top">
+                                            <span class="eh_rec_sug_idy">
+                                                <input type="checkbox" class="eh_rec_sug_check"
+                                                       t-att-checked="isAmlSelected(s.aml_id)"
+                                                       t-on-change="() => this.toggleAmlSelection(s.aml_id)"/>
+                                                <span class="eh_rec_sug_move">
+                                                    <t t-out="s.move_name or ''"/>
+                                                </span>
+                                            </span>
+                                            <span class="eh_rec_sug_conf"
+                                                  t-att-class="confidenceColor(s.score)">
+                                                <t t-out="fmtPercent(s.score)"/>
+                                            </span>
+                                        </div>
+                                        <div class="eh_rec_sug_amount">
+                                            <t t-out="fmtMoney(s.amount_residual)"/>
+                                            <span class="eh_rec_currency" t-if="s.currency_code">
+                                                <t t-out="s.currency_code"/>
+                                            </span>
+                                        </div>
+                                        <div class="eh_rec_sug_meta">
+                                            <span t-out="s.date or ''"/>
+                                            <span t-if="s.partner_name"> / <t t-out="s.partner_name"/></span>
+                                        </div>
+                                        <div class="eh_rec_sug_meta"
+                                             t-if="s.account_code or s.account_name">
+                                            <span t-out="s.account_code or ''"/>
+                                            <span t-if="s.account_name"> / <t t-out="s.account_name"/></span>
+                                        </div>
+                                        <div class="eh_rec_sug_rules" t-if="s.rules_fired and s.rules_fired.length">
+                                            <span class="eh_rec_field_label">Rules</span>
+                                            <span class="eh_rec_sug_rules_text">
+                                                <t t-out="rulesFiredText(s.rules_fired)"/>
+                                            </span>
+                                        </div>
+                                        <div class="eh_rec_sug_actions">
+                                            <button class="eh_rec_btn_match"
+                                                    t-on-click="() => this.match(s.aml_id, 'suggestion')">
+                                                Accept match
+                                            </button>
+                                        </div>
+                                    </div>
+                                </t>
+
+                                <!-- Bottom action row -->
+                                <div class="eh_rec_writeoff_controls">
+                                    <select class="eh_rec_select"
+                                            t-on-change="onWriteoffAccountChange">
+                                        <option value="">Select write-off account...</option>
+                                        <t t-foreach="state.writeoffAccounts" t-as="account" t-key="account.id">
+                                            <option t-att-value="account.id">
+                                                <t t-out="account.label"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                    <input type="text"
+                                           placeholder="Write-off label"
+                                           t-model="state.writeoffLabel"/>
+                                    <button class="eh_rec_btn_skip"
+                                            t-on-click="applyWriteoff">
+                                        Manual write-off
+                                    </button>
+                                    <button class="eh_rec_btn_skip"
+                                            t-on-click="applyFxWriteoff">
+                                        FX residual (max 5.00)
+                                    </button>
+                                </div>
+                                <div class="eh_rec_actions_row">
+                                    <button class="eh_rec_btn_bulk"
+                                            t-if="selectedAmlCount()"
+                                            t-on-click="matchSelected">
+                                        Match selected (<t t-out="selectedAmlCount()"/>)
+                                    </button>
+                                    <button class="eh_rec_btn_skip"
+                                            t-on-click="skip">
+                                        Skip for now
+                                    </button>
+                                </div>
+                            </t>
+
+                        </div>
+                    </div>
+
+                </div>
+            </t>
+
+        </div>
+    </div>
+</t>
+
+</templates>

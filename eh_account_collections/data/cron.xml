@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <!--
+            Daily cron that runs the auto creator. Idempotent: existing
+            open cases get refreshed totals; partners with new overdue
+            invoices get a new case; resolved cases are left alone unless
+            new overdue activity creates a fresh case.
+        -->
+        <record id="cron_eh_collections_auto_create" model="ir.cron">
+            <field name="name">ERP Heritage: Auto create collections cases</field>
+            <field name="model_id" ref="model_eh_collections_case"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_auto_create_cases()</field>
+            <field name="active" eval="True"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="user_id" ref="base.user_root"/>
+        </record>
+
+        <!--
+            Daily follow-up dispatcher. Picks the highest applicable
+            level for each case whose next_followup_date is today or
+            past, applies it (email, activity, escalation) and advances
+            the level marker. Per case savepoints isolate failures.
+        -->
+        <record id="cron_eh_collections_send_followups" model="ir.cron">
+            <field name="name">ERP Heritage: Send collections follow-ups</field>
+            <field name="model_id" ref="model_eh_collections_case"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_send_followups()</field>
+            <field name="active" eval="True"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="user_id" ref="base.user_root"/>
+        </record>
+
+        <!--
+            Nightly aging refresh on every open case. The auto-create
+            cron only updates cases whose partner has a row in today's
+            overdue aggregation; partners who paid down their balance
+            overnight need this second pass so the case shows the
+            real (zero or reduced) total instead of yesterday's stale
+            figure. Runs slightly later than auto_create so any new
+            cases the same morning are already in scope.
+        -->
+        <record id="cron_eh_collections_refresh_open" model="ir.cron">
+            <field name="name">ERP Heritage: Refresh aging on open collections cases</field>
+            <field name="model_id" ref="model_eh_collections_case"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_refresh_open_cases()</field>
+            <field name="active" eval="True"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="user_id" ref="base.user_root"/>
+        </record>
+
+        <!--
+            Daily broken-promise escalator. Bumps priority and (when
+            configured) moves the case to an escalated stage on cases
+            whose latest promise to pay has lapsed. The exact immutable
+            promise action is recorded when handled, so the same commitment
+            can never be escalated twice while a new promise remains eligible.
+        -->
+        <record id="cron_eh_collections_handle_broken_promises" model="ir.cron">
+            <field name="name">ERP Heritage: Handle broken collections promises</field>
+            <field name="model_id" ref="model_eh_collections_case"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_handle_broken_promises()</field>
+            <field name="active" eval="True"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="user_id" ref="base.user_root"/>
+        </record>
+
+    </data>
+</odoo>

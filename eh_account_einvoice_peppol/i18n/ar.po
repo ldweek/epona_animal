@@ -1,0 +1,1023 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_einvoice_peppol
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__access_point_key
+msgid "Access Point Key"
+msgstr "مفتاح نقطة الوصول"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__transmission_id
+msgid ""
+"Access-point transmission id, when one is supplied. Used for cross-reference"
+" against the access-point's delivery receipts and the MLR (message level "
+"response) queue."
+msgstr ""
+"معرّف إرسال نقطة الوصول، عند توفيره. يُستخدم للإحالة المرجعية مقابل إيصالات "
+"التسليم الخاصة بنقطة الوصول وقائمة انتظار MLR (استجابة مستوى الرسالة)."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_needaction
+msgid "Action Needed"
+msgstr "إجراء مطلوب"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_ids
+msgid "Activities"
+msgstr "الأنشطة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "زخرفة استثناء النشاط"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_state
+msgid "Activity State"
+msgstr "حالة النشاط"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "أيقونة نوع النشاط"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__access_point_key
+msgid ""
+"Adapter key under which the inbound XML arrived (e.g. 'storecove', 'pagero',"
+" 'manual'). Identifies which transport channel the message took; surfaces in"
+" the audit trail. Adapter must be registered via the access_point_registry "
+"before the value will roundtrip into a real submit/poll call."
+msgstr ""
+"مفتاح المحوّل الذي وصل تحته XML الوارد (مثل 'storecove' و'pagero' "
+"و'manual'). يحدد قناة النقل التي سلكتها الرسالة؛ ويظهر في مسار التدقيق. يجب "
+"تسجيل المحوّل عبر access_point_registry قبل أن تعود القيمة ضمن استدعاء "
+"submit/poll فعلي."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__as4_message_id
+msgid "As4 Message"
+msgstr "رسالة AS4"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_attachment_count
+msgid "Attachment Count"
+msgstr "عدد المرفقات"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__buyer_reference
+msgid "Buyer Reference"
+msgstr "مرجع المشتري"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Cannot create vendor bill without a resolved supplier."
+msgstr "لا يمكن إنشاء فاتورة مورّد دون تحديد المورّد."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model,name:eh_account_einvoice_peppol.model_res_company
+msgid "Companies"
+msgstr "الشركات"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__company_id
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Company"
+msgstr "الشركة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_partner__eh_peppol_legal_id
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_users__eh_peppol_legal_id
+msgid "Company registration number used in PartyLegalEntity/CompanyID."
+msgstr "رقم تسجيل الشركة المستخدم في PartyLegalEntity/CompanyID."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model,name:eh_account_einvoice_peppol.model_res_partner
+msgid "Contact"
+msgstr "جهة الاتصال"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Could not parse inbound UBL on %(name)s: %(err)s"
+msgstr "تعذّر تحليل UBL الوارد على %(name)s: %(err)s"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__eh_peppol_inbound__document_type__credit_note
+msgid "Credit note"
+msgstr "إشعار دائن"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__currency_id
+msgid "Currency"
+msgstr "العملة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__currency_code
+msgid "Currency Code"
+msgstr "كود العملة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__account_move__eh_peppol_transmission_status__delivered
+msgid "Delivered"
+msgstr "تم التوصيل"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__display_name
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__display_name
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_company__display_name
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_partner__display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Document"
+msgstr "المستند"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__document_type
+msgid "Document Type"
+msgstr "نوع المستند"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Document type"
+msgstr "نوع المستند"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__due_date
+msgid "Due Date"
+msgstr "موعد إجراء المكالمة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__duplicate_inbound_id
+msgid "Duplicate Inbound"
+msgstr "وارد مكرر"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Duplicate detection"
+msgstr "اكتشاف التكرار"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid ""
+"Duplicate flag raised: same UBL hash already exists on inbound %(other)s."
+msgstr ""
+"تم رفع علامة التكرار: نفس تجزئة UBL موجودة بالفعل في الوارد %(other)s."
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Duplicates"
+msgstr "التكرارات"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.actions.server,name:eh_account_einvoice_peppol.cron_eh_peppol_poll_ir_actions_server
+msgid "ERP Heritage: Poll Peppol access points"
+msgstr "ERP Heritage: استقصاء نقاط وصول Peppol"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_ready
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__eh_peppol_ready
+msgid "Eh Peppol Ready"
+msgstr "جاهز لـ PEPPOL"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_sent_at
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__eh_peppol_sent_at
+msgid "Eh Peppol Sent At"
+msgstr "تاريخ إرسال PEPPOL"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_transmission_id
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__eh_peppol_transmission_id
+msgid "Eh Peppol Transmission"
+msgstr "إرسال PEPPOL"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_transmission_message
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__eh_peppol_transmission_message
+msgid "Eh Peppol Transmission Message"
+msgstr "رسالة إرسال PEPPOL"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_transmission_status
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__eh_peppol_transmission_status
+msgid "Eh Peppol Transmission Status"
+msgstr "حالة إرسال PEPPOL"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__account_move__eh_peppol_transmission_status__error
+msgid "Error"
+msgstr "خطأ"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__eh_peppol_inbound__state__exception
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Exception"
+msgstr "استثناء"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_account_move_form_eh_peppol
+msgid "Export Peppol XML"
+msgstr "تصدير PEPPOL XML"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__file_hash
+msgid "File Hash"
+msgstr "تجزئة الملف"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_follower_ids
+msgid "Followers"
+msgstr "المتابعين"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "المتابعين (الشركاء)"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "أيقونة من Font awesome مثال: fa-tasks"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__has_message
+msgid "Has Message"
+msgstr "يحتوي على رسالة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__id
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__id
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_company__id
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_partner__id
+msgid "ID"
+msgstr "المُعرف"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__currency_code
+msgid "ISO 4217 currency code from the source UBL."
+msgstr "رمز العملة ISO 4217 من مصدر UBL."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_exception_icon
+msgid "Icon"
+msgstr "الأيقونة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "الأيقونة للإشارة إلى النشاط المستثنى."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_company__eh_peppol_access_point_key
+msgid ""
+"Identifier of the access-point adapter the company uses for inbound poll and"
+" outbound submit. Defaults to 'manual', which means the deployment routes "
+"XML by file drop / email / portal upload. Set this to one of the registered "
+"adapter keys to enable live AS4 transport (install the corresponding ERP "
+"Heritage adapter module first)."
+msgstr ""
+"معرّف محوّل نقطة الوصول الذي تستخدمه الشركة للاستقصاء الوارد والإرسال "
+"الصادر. القيمة الافتراضية هي 'manual'، مما يعني أن النشر يوجّه XML عبر إسقاط"
+" الملفات / البريد الإلكتروني / التحميل عبر البوابة. اضبط هذه القيمة على أحد "
+"مفاتيح المحوّلات المسجّلة لتمكين نقل AS4 المباشر (ثبّت وحدة محوّل ERP "
+"Heritage المقابلة أولًا)."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "إذا كان محددًا، فهناك رسائل جديدة عليك رؤيتها."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_has_error
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "إذا كان محددًا، فقد حدث خطأ في تسليم بعض الرسائل."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.ui.menu,name:eh_account_einvoice_peppol.menu_eh_peppol_inbound
+msgid "Inbound"
+msgstr "واردة"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid ""
+"Inbound %(name)s duplicates %(other)s (same supplier and same file hash). "
+"Reject this record or clear the duplicate flag with a reason before posting."
+msgstr ""
+"الوارد %(name)s مكرر مع %(other)s (نفس المورّد ونفس تجزئة الملف). ارفض هذا "
+"السجل أو امسح علامة التكرار مع ذكر سبب قبل الترحيل."
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Inbound %s has no lines after parse; refusing to post an empty bill."
+msgstr "الوارد %s ليس له بنود بعد التحليل؛ يُرفض ترحيل فاتورة فارغة."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model,name:eh_account_einvoice_peppol.model_eh_peppol_inbound
+msgid "Inbound Peppol invoice"
+msgstr "فاتورة PEPPOL واردة"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Inbound record %s has no source XML attachment."
+msgstr "السجل الوارد %s ليس له مرفق XML مصدري."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__eh_peppol_inbound__document_type__invoice
+msgid "Invoice"
+msgstr "الفاتورة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__invoice_number
+msgid "Invoice Number"
+msgstr "رقم الفاتورة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_is_follower
+msgid "Is Follower"
+msgstr "متابع"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__issue_date
+msgid "Issue Date"
+msgstr "تاريخ الإصدار"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_company__eh_peppol_ap_config
+msgid ""
+"JSON credentials handed to the access-point adapter factory (api_key, "
+"base_url, sender id, signing cert path, etc.). Shape varies per adapter. "
+"Only read by live adapters; the manual file-drop default needs none."
+msgstr ""
+"بيانات اعتماد JSON المُسلَّمة إلى مصنع محوّل نقطة الوصول (api_key، base_url،"
+" معرّف المرسل، مسار شهادة التوقيع، إلخ). يختلف الشكل حسب المحوّل. تُقرأ فقط "
+"بواسطة المحوّلات المباشرة؛ لا يحتاج الإعداد الافتراضي اليدوي لإسقاط الملفات "
+"إلى أي منها."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model,name:eh_account_einvoice_peppol.model_account_move
+msgid "Journal Entry"
+msgstr "قيد اليومية"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Match"
+msgstr "مطابقة"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Match is only available in parsed or exception state."
+msgstr "المطابقة متاحة فقط في حالة التحليل أو الاستثناء."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__eh_peppol_inbound__state__matched
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Matched"
+msgstr "تمت المطابقة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__matched_at
+msgid "Matched At"
+msgstr "تاريخ المطابقة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__matched_by_id
+msgid "Matched By"
+msgstr "تمت المطابقة بواسطة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_has_error
+msgid "Message Delivery error"
+msgstr "خطأ في تسليم الرسائل"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__mlr_status
+msgid "Message Level Response status from the access point."
+msgstr "حالة الاستجابة على مستوى الرسالة من نقطة الوصول."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_ids
+msgid "Messages"
+msgstr "الرسائل"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__mlr_status
+msgid "Mlr Status"
+msgstr "حالة Mlr"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "الموعد النهائي لنشاطاتي"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__name
+msgid "Name"
+msgstr "الاسم"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "الفعالية التالية في تقويم الأنشطة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "الموعد النهائي للنشاط التالي"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_summary
+msgid "Next Activity Summary"
+msgstr "ملخص النشاط التالي"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_type_id
+msgid "Next Activity Type"
+msgstr "نوع النشاط التالي"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid ""
+"No Peppol access-point adapter is registered for key %r. Install the "
+"corresponding ERP Heritage adapter module, or set the company access point "
+"to 'manual'."
+msgstr ""
+"لم يتم تسجيل مُحوّل نقطة وصول Peppol للمفتاح %r. ثبّت وحدة مُحوّل ERP "
+"Heritage المقابلة، أو اضبط نقطة وصول الشركة على 'manual'."
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "No purchase journal configured for company %s."
+msgstr "لم يتم تكوين دفتر يومية مشتريات للشركة %s."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__account_move__eh_peppol_transmission_status__not_sent
+msgid "Not sent"
+msgstr "لم يُرسَل"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__note
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Note"
+msgstr "الملاحظات"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_needaction_counter
+msgid "Number of Actions"
+msgstr "عدد الإجراءات"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_has_error_counter
+msgid "Number of errors"
+msgstr "عدد الأخطاء"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "عدد الرسائل التي تتطلب اتخاذ إجراء"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "عدد الرسائل الحادث بها خطأ في التسليم"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Only accounting managers can post inbound Peppol invoices."
+msgstr "لا يمكن سوى لمديري المحاسبة ترحيل فواتير Peppol الواردة."
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Only matched inbound records can be posted (state is %s)."
+msgstr "لا يمكن ترحيل سوى السجلات الواردة المطابَقة (الحالة هي %s)."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_endpoint_scheme
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_account_move__eh_peppol_endpoint_scheme
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_partner__eh_peppol_endpoint_scheme
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_users__eh_peppol_endpoint_scheme
+msgid ""
+"OpenPeppol scheme id for the endpoint. Examples: '0192' Norway organisation "
+"number, '0088' GLN, '0151' Australian Business Number, '9930' German VAT-id."
+msgstr ""
+"معرّف مخطط OpenPeppol لنقطة النهاية. أمثلة: '0192' رقم المؤسسة النرويجي، "
+"'0088' GLN، '0151' رقم الأعمال الأسترالي، '9930' رقم VAT الألماني."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_company__eh_peppol_inbox_email
+msgid ""
+"Optional alias the access point forwards inbound XML to. Sites that use "
+"email-as-transport (rather than direct API delivery) configure this and "
+"route the alias to a mail-fetcher that creates eh.peppol.inbound records."
+msgstr ""
+"اسم مستعار اختياري يعيد نقطة الوصول توجيه XML الوارد إليه. المواقع التي "
+"تستخدم البريد الإلكتروني كوسيلة نقل (بدلاً من التسليم المباشر عبر API) "
+"تُهيّئ هذا وتوجّه الاسم المستعار إلى جالب بريد ينشئ سجلات eh.peppol.inbound."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__order_reference
+msgid "Order Reference"
+msgstr "مرجع الطلب"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__xml_attachment_id
+msgid "Original UBL XML the access point delivered."
+msgstr "ملف UBL XML الأصلي الذي سلّمته نقطة الوصول."
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Parse"
+msgstr "تحليل"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Parse is only available in received or parsed state."
+msgstr "التحليل متاح فقط في حالة \"مستلَم\" أو \"محلَّل\"."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__eh_peppol_inbound__state__parsed
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Parsed"
+msgstr "محلَّل"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__parsed_at
+msgid "Parsed At"
+msgstr "تاريخ التحليل"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__parsed_by_id
+msgid "Parsed By"
+msgstr "تم التحليل بواسطة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_endpoint_id
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_account_move__eh_peppol_endpoint_id
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_partner__eh_peppol_endpoint_id
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_res_users__eh_peppol_endpoint_id
+msgid ""
+"Partner's Peppol participant id. Defaults at export time to the partner's "
+"VAT or email."
+msgstr ""
+"معرّف مشارك Peppol الخاص بالشريك. يكون الافتراضي عند التصدير هو رقم VAT "
+"الخاص بالشريك أو بريده الإلكتروني."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.ui.menu,name:eh_account_einvoice_peppol.menu_eh_peppol_root
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_res_company_form_eh_peppol
+msgid "Peppol"
+msgstr ""
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid "Peppol UBL 2.1 XML generated; %s bytes."
+msgstr "تم إنشاء Peppol UBL 2.1 XML؛ %s بايت."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_company__eh_peppol_access_point_key
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_res_company_form_eh_peppol
+msgid "Peppol access point"
+msgstr "نقطة الوصول Peppol"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_company__eh_peppol_ap_config
+msgid "Peppol access-point credentials (JSON)"
+msgstr "بيانات اعتماد نقطة الوصول Peppol (JSON)"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_endpoint_id
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__eh_peppol_endpoint_id
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_partner__eh_peppol_endpoint_id
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_users__eh_peppol_endpoint_id
+msgid "Peppol endpoint id"
+msgstr "معرّف نقطة النهاية Peppol"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_endpoint_scheme
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__eh_peppol_endpoint_scheme
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_partner__eh_peppol_endpoint_scheme
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_users__eh_peppol_endpoint_scheme
+msgid "Peppol endpoint scheme"
+msgstr "مخطط نقطة النهاية Peppol"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid ""
+"Peppol export is only defined for customer invoices and credit notes (got "
+"move_type=%s)."
+msgstr ""
+"تصدير Peppol معرّف فقط لفواتير العملاء والإشعارات الدائنة (تم الحصول على "
+"move_type=%s)."
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid "Peppol export requires a posted invoice; the move is %s."
+msgstr "يتطلب تصدير Peppol فاتورة مُرحّلة؛ الحركة هي %s."
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid "Peppol generator rejected the input: %s"
+msgstr "رفض منشئ Peppol المدخلات: %s"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid ""
+"Peppol identifier on partner %(partner)s is invalid: %(reason)s. Fix the "
+"participant id on the partner form (scheme + endpoint id) and retry."
+msgstr ""
+"معرّف Peppol على الشريك %(partner)s غير صالح: %(reason)s. أصلح معرّف المشارك"
+" في نموذج الشريك (المخطط + معرّف نقطة النهاية) وأعد المحاولة."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.actions.act_window,name:eh_account_einvoice_peppol.action_eh_peppol_inbound
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_tree
+msgid "Peppol inbound"
+msgstr "Peppol الوارد"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_company__eh_peppol_inbox_email
+msgid "Peppol inbox email"
+msgstr "البريد الإلكتروني لصندوق وارد Peppol"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid "Peppol invoice transmitted via %(ap)s (status %(status)s, id %(tid)s)."
+msgstr ""
+"تم إرسال فاتورة Peppol عبر %(ap)s (الحالة %(status)s، المعرّف %(tid)s)."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_partner__eh_peppol_legal_id
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_res_users__eh_peppol_legal_id
+msgid "Peppol legal entity id"
+msgstr "معرّف الكيان القانوني Peppol"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid "Peppol transmission failed"
+msgstr "فشل إرسال Peppol"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid "Peppol transmission failed: %s"
+msgstr "فشل إرسال Peppol: %s"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid ""
+"Peppol transmission is only defined for customer invoices and credit notes "
+"(got move_type=%s)."
+msgstr ""
+"إرسال Peppol محدد فقط لفواتير العملاء وإشعارات الدائن (تم الحصول على "
+"move_type=%s)."
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/account_move.py:0
+msgid "Peppol transmission requires a posted invoice; the move is %s."
+msgstr "يتطلب إرسال Peppol فاتورة مُرحّلة؛ الحركة هي %s."
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Post bill"
+msgstr "ترحيل فاتورة المورّد"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__eh_peppol_inbound__state__posted
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Posted"
+msgstr "مُرحّل"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__posted_at
+msgid "Posted At"
+msgstr "تاريخ الترحيل"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__posted_by_id
+msgid "Posted By"
+msgstr "تم الترحيل بواسطة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__move_id
+msgid "Posted bill"
+msgstr "فاتورة مورّد مرحّلة"
+
+#. module: eh_account_einvoice_peppol
+#. odoo-python
+#: code:addons/eh_account_einvoice_peppol/models/peppol_inbound.py:0
+msgid "Posted inbound records cannot be rejected."
+msgstr "لا يمكن رفض السجلات الواردة المرحّلة."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__order_reference
+msgid ""
+"Purchase-order reference carried in the source UBL, when present. Used to "
+"look up purchase.order for the three-way match in the AP automation module."
+msgstr ""
+"مرجع أمر الشراء المُضمَّن في UBL المصدر، عند وجوده. يُستخدَم للبحث عن "
+"purchase.order لأجل المطابقة الثلاثية في وحدة أتمتة AP."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__account_move__eh_peppol_transmission_status__queued
+msgid "Queued"
+msgstr "في صف الانتظار"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__rating_ids
+msgid "Ratings"
+msgstr "التقييمات"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__eh_peppol_inbound__state__received
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Received"
+msgstr "تم الاستلام"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__received_at
+msgid "Received At"
+msgstr "تاريخ الاستلام"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Received date"
+msgstr "تاريخ الاستلام"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Reject"
+msgstr "رفض"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Reject this inbound record?"
+msgstr "هل تريد رفض هذا السجل الوارد؟"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__eh_peppol_inbound__state__rejected
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Rejected"
+msgstr "تم الرفض"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__rejection_reason
+msgid "Rejection Reason"
+msgstr "سبب الرفض"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Resolution"
+msgstr "الحل"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__purchase_order_id
+msgid "Resolved PO"
+msgstr "أمر الشراء المطابَق"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__partner_id
+msgid "Resolved supplier"
+msgstr "المورّد المطابَق"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_user_id
+msgid "Responsible User"
+msgstr "المستخدم المسؤول"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__file_hash
+msgid ""
+"SHA-256 hex digest of the source XML. Used for the duplicate-detection "
+"check; a re-submission with the same hash from the same supplier in the same"
+" company refuses to post twice."
+msgstr ""
+"خلاصة SHA-256 السداسية العشرية للـ XML المصدر. تُستخدم للتحقق من اكتشاف "
+"التكرار؛ فإعادة الإرسال بالهاش نفسه من المورّد نفسه في الشركة نفسها ترفض "
+"الترحيل مرتين."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__smp_discovery_log
+msgid "SMP / NAPTR participant-lookup trace recorded at poll time."
+msgstr "تم تسجيل تتبع البحث عن المشارك SMP / NAPTR وقت الاستقصاء."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "خطأ في تسليم الرسائل النصية القصيرة"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_account_move_form_eh_peppol
+msgid "Send via Peppol"
+msgstr "إرسال عبر PEPPOL"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields.selection,name:eh_account_einvoice_peppol.selection__account_move__eh_peppol_transmission_status__sent
+msgid "Sent"
+msgstr "تم الإرسال"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_ap_key
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_account_move__eh_peppol_ap_key
+msgid "Sent via access point"
+msgstr "أُرسِل عبر نقطة الوصول"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__name
+msgid "Sequence-assigned reference for the inbound record."
+msgstr "المرجع المعيّن بالتسلسل للسجل الوارد."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__duplicate_inbound_id
+msgid ""
+"Set when another inbound record exists with the same (supplier, file_hash) "
+"tuple in the same company."
+msgstr ""
+"يُضبط عندما يوجد سجل وارد آخر بنفس المجموعة (supplier, file_hash) في الشركة "
+"نفسها."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__smp_discovery_log
+msgid "Smp Discovery Log"
+msgstr "سجل اكتشاف SMP"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__xml_attachment_id
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Source XML"
+msgstr "XML المصدر"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__state
+msgid "State"
+msgstr "الحالة"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Status"
+msgstr "الحالة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"الأنشطة المعتمدة على الحالة\n"
+"المتأخرة: تاريخ الاستحقاق مر\n"
+"اليوم: تاريخ النشاط هو اليوم\n"
+"المخطط: الأنشطة المستقبلية."
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Supplier"
+msgstr "المزود"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Supplier (parsed)"
+msgstr "المورّد (تم تحليله)"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__supplier_endpoint_id
+msgid "Supplier Endpoint"
+msgstr "نقطة نهاية المورّد"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__supplier_endpoint_scheme
+msgid "Supplier Endpoint Scheme"
+msgstr "مخطط نقطة نهاية المورّد"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__supplier_name
+msgid "Supplier Name"
+msgstr "اسم المورّد"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__supplier_vat_id
+msgid "Supplier Vat"
+msgstr "الرقم الضريبي للمورّد"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__transmission_id
+msgid "Transmission"
+msgstr "ناقل الحركة"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_account_bank_statement_line__eh_peppol_ready
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_account_move__eh_peppol_ready
+msgid ""
+"True when the partner has both a Peppol endpoint id and a scheme set. "
+"Surfaces on the move form so the operator knows whether they can press "
+"Export Peppol."
+msgstr ""
+"صحيح عندما يمتلك الشريك كلاً من معرّف نقطة نهاية Peppol ونظام محدّد. يظهر في"
+" نموذج الحركة ليعرف المشغّل ما إذا كان بإمكانه الضغط على Export Peppol."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "نوع النشاط المستثنى في السجل."
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_search
+msgid "Unresolved supplier"
+msgstr "مورد غير محدد"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_eh_peppol_inbound_form
+msgid "Vendor invoice number"
+msgstr "رقم فاتورة المورد"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__partner_id
+msgid ""
+"Vendor record matched from the inbound supplier block. Resolution order: "
+"VAT/ABN, Peppol endpoint id, name + country. Strict: ambiguous matches leave"
+" the field empty for manual selection."
+msgstr ""
+"سجل المورد المطابق من كتلة المورّد الواردة. ترتيب التحليل: VAT/ABN، معرّف "
+"نقطة نهاية Peppol، الاسم + الدولة. صارم: التطابقات الغامضة تترك الحقل فارغًا"
+" للاختيار اليدوي."
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,field_description:eh_account_einvoice_peppol.field_eh_peppol_inbound__website_message_ids
+msgid "Website Messages"
+msgstr "رسائل الموقع الإلكتروني"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__website_message_ids
+msgid "Website communication history"
+msgstr "سجل تواصل الموقع الإلكتروني"
+
+#. module: eh_account_einvoice_peppol
+#: model_terms:ir.ui.view,arch_db:eh_account_einvoice_peppol.view_partner_form_eh_peppol
+msgid "e.g. 0151:12345678901"
+msgstr "مثال: 0151:12345678901"
+
+#. module: eh_account_einvoice_peppol
+#: model:ir.model.fields,help:eh_account_einvoice_peppol.field_eh_peppol_inbound__as4_message_id
+msgid "ebMS3 / AS4 MessageId reported by the access point."
+msgstr "معرّف الرسالة ebMS3 / AS4 MessageId المُبلَّغ عنه من نقطة الوصول."

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!-- Vendor Bill Automation: lives under Vendors so the operator
+             reaches it from the same place as the standard bill flow. -->
+
+        <menuitem id="menu_eh_ap_root"
+                  name="AP Automation"
+                  parent="account.menu_finance_payables"
+                  sequence="50"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <menuitem id="menu_eh_ap_intake"
+                  name="Bill Inbox"
+                  parent="menu_eh_ap_root"
+                  action="action_eh_ap_intake"
+                  sequence="10"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <menuitem id="menu_eh_ap_intake_exception"
+                  name="Exceptions"
+                  parent="menu_eh_ap_root"
+                  action="action_eh_ap_intake_exception"
+                  sequence="20"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <menuitem id="menu_eh_ap_intake_line"
+                  name="Intake Lines"
+                  parent="menu_eh_ap_root"
+                  action="action_eh_ap_intake_line"
+                  sequence="30"
+                  groups="eh_account_base.group_eh_user"/>
+
+        <menuitem id="menu_eh_ap_tolerance_profile"
+                  name="AP Tolerance Profiles"
+                  parent="eh_account_base.menu_eh_config_operations"
+                  action="action_eh_ap_tolerance_profile"
+                  sequence="50"
+                  groups="eh_account_base.group_eh_manager"/>
+
+        <menuitem id="menu_eh_ap_duplicate_override_audit"
+                  name="AP Duplicate Overrides"
+                  parent="eh_account_base.menu_eh_config_audit"
+                  action="action_eh_ap_duplicate_override_log"
+                  sequence="50"
+                  groups="eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_ap_line_decision_audit"
+                  name="AP Line Decisions"
+                  parent="eh_account_base.menu_eh_config_audit"
+                  action="action_eh_ap_line_decision_log"
+                  sequence="51"
+                  groups="eh_account_base.group_eh_auditor"/>
+
+        <menuitem id="menu_eh_ap_payment_hold_audit"
+                  name="AP Payment Holds"
+                  parent="eh_account_base.menu_eh_config_audit"
+                  action="action_eh_ap_payment_hold_log"
+                  sequence="52"
+                  groups="eh_account_base.group_eh_auditor"/>
+
+    </data>
+</odoo>

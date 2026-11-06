@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_bsi_profile_list" model="ir.ui.view">
+        <field name="name">eh.account.bank.statement.import.profile.list</field>
+        <field name="model">eh.account.bank.statement.import.profile</field>
+        <field name="arch" type="xml">
+            <list string="Bank Statement Import Profiles">
+                <field name="name"/>
+                <field name="journal_id"/>
+                <field name="currency_code"/>
+                <field name="csv_delimiter"/>
+                <field name="decimal_separator"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_bsi_profile_search" model="ir.ui.view">
+        <field name="name">eh.account.bank.statement.import.profile.search</field>
+        <field name="model">eh.account.bank.statement.import.profile</field>
+        <field name="arch" type="xml">
+            <search string="Bank Statement Import Profiles">
+                <field name="name"/>
+                <field name="journal_id"/>
+                <field name="company_id"
+                       groups="base.group_multi_company"/>
+                <group>
+                    <filter name="group_journal" string="Journal"
+                            context="{'group_by': 'journal_id'}"/>
+                    <filter name="group_company" string="Company"
+                            context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_bsi_profile_form" model="ir.ui.view">
+        <field name="name">eh.account.bank.statement.import.profile.form</field>
+        <field name="model">eh.account.bank.statement.import.profile</field>
+        <field name="arch" type="xml">
+            <form string="Bank Statement Import Profile">
+                <sheet>
+                    <h1>
+                        <field name="name" placeholder="Australian Bank A AUD"/>
+                    </h1>
+                    <group>
+                        <group string="Bank defaults">
+                            <field name="journal_id" options="{'no_create': True}"/>
+                            <field name="currency_code" placeholder="AUD"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="CSV layout">
+                            <group>
+                                <group>
+                                    <field name="csv_delimiter"/>
+                                    <field name="csv_quotechar"/>
+                                    <field name="csv_encoding"/>
+                                    <field name="csv_header_rows"/>
+                                </group>
+                                <group>
+                                    <field name="decimal_separator"/>
+                                    <field name="date_format" placeholder="%Y-%m-%d"/>
+                                </group>
+                            </group>
+                            <group string="Column mapping (zero-based indices)">
+                                <group>
+                                    <field name="col_date"/>
+                                    <field name="col_amount"/>
+                                    <field name="col_debit"/>
+                                    <field name="col_credit"/>
+                                </group>
+                                <group>
+                                    <field name="col_ref"/>
+                                    <field name="col_narration"/>
+                                    <field name="col_partner"/>
+                                </group>
+                            </group>
+                            <p class="text-muted">Use either a single signed amount column (col_amount) or a debit / credit column pair. Set unused columns to -1.</p>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_bsi_profile" model="ir.actions.act_window">
+        <field name="name">Bank Statement Import Profiles</field>
+        <field name="res_model">eh.account.bank.statement.import.profile</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_bsi_profile_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No import profiles yet.</p>
+            <p>Create one profile per bank you import statements from. The profile defines the CSV column layout and decimal/date conventions; reuse it on every import from that bank.</p>
+        </field>
+    </record>
+
+</odoo>

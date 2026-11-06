@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+
+        <!--
+            Canonical BAS label set per the ATO Business Activity
+            Statement form. Tag bindings (tag_ids) are deliberately
+            empty here; a deployment configures the tags that match
+            its chart of accounts during onboarding. The compute
+            refuses to run a label whose aggregation is non-manual
+            with no tags, so a misconfiguration is loud rather than
+            silent.
+        -->
+
+        <record id="bas_label_g1" model="eh.bas.label">
+            <field name="code">G1</field>
+            <field name="name">Total sales (incl GST)</field>
+            <field name="sequence">10</field>
+            <field name="aggregation">total_sales_incl</field>
+            <field name="description">Total sales including GST and any other amounts. Auto-computed from the sale-type GST base plus GST collected on posted invoices in the period.</field>
+        </record>
+        <record id="bas_label_g2" model="eh.bas.label">
+            <field name="code">G2</field>
+            <field name="name">Export sales</field>
+            <field name="sequence">20</field>
+            <field name="aggregation">manual</field>
+        </record>
+        <record id="bas_label_g3" model="eh.bas.label">
+            <field name="code">G3</field>
+            <field name="name">Other GST-free sales</field>
+            <field name="sequence">30</field>
+            <field name="aggregation">manual</field>
+        </record>
+        <record id="bas_label_g4" model="eh.bas.label">
+            <field name="code">G4</field>
+            <field name="name">Input-taxed sales</field>
+            <field name="sequence">40</field>
+            <field name="aggregation">manual</field>
+            <field name="description">Sales that are input-taxed (financial supplies, residential rent).</field>
+        </record>
+        <record id="bas_label_g7" model="eh.bas.label">
+            <field name="code">G7</field>
+            <field name="name">Adjustments (sales)</field>
+            <field name="sequence">70</field>
+            <field name="aggregation">manual</field>
+            <field name="description">Adjustments to GST on sales: bad debt write-offs, change-of-use, etc.</field>
+        </record>
+        <record id="bas_label_g10" model="eh.bas.label">
+            <field name="code">G10</field>
+            <field name="name">Capital purchases</field>
+            <field name="sequence">100</field>
+            <field name="aggregation">manual</field>
+        </record>
+        <record id="bas_label_g11" model="eh.bas.label">
+            <field name="code">G11</field>
+            <field name="name">Non-capital purchases</field>
+            <field name="sequence">110</field>
+            <field name="aggregation">manual</field>
+        </record>
+        <record id="bas_label_g13" model="eh.bas.label">
+            <field name="code">G13</field>
+            <field name="name">Purchases for input-taxed sales</field>
+            <field name="sequence">130</field>
+            <field name="aggregation">manual</field>
+            <field name="description">Purchases used to make input-taxed sales (cannot claim GST credit).</field>
+        </record>
+        <record id="bas_label_g14" model="eh.bas.label">
+            <field name="code">G14</field>
+            <field name="name">Purchases without GST in price</field>
+            <field name="sequence">140</field>
+            <field name="aggregation">manual</field>
+            <field name="description">GST-free purchases (basic food, exports, etc.).</field>
+        </record>
+        <record id="bas_label_g15" model="eh.bas.label">
+            <field name="code">G15</field>
+            <field name="name">Estimated private use of purchases</field>
+            <field name="sequence">150</field>
+            <field name="aggregation">manual</field>
+        </record>
+        <record id="bas_label_g18" model="eh.bas.label">
+            <field name="code">G18</field>
+            <field name="name">Adjustments (purchases)</field>
+            <field name="sequence">180</field>
+            <field name="aggregation">manual</field>
+            <field name="description">Adjustments to GST on purchases: change-of-use, repayment of bad debts.</field>
+        </record>
+        <record id="bas_label_1a" model="eh.bas.label">
+            <field name="code">1A</field>
+            <field name="name">GST on sales</field>
+            <field name="sequence">200</field>
+            <field name="aggregation">gst_on_sales</field>
+            <field name="description">GST collected. Auto-computed from the tax journal items of sale-type GST taxes on posted invoices in the period.</field>
+        </record>
+        <record id="bas_label_1b" model="eh.bas.label">
+            <field name="code">1B</field>
+            <field name="name">GST on purchases</field>
+            <field name="sequence">210</field>
+            <field name="aggregation">gst_on_purchases</field>
+            <field name="description">GST paid (input tax credits). Auto-computed from the tax journal items of purchase-type GST taxes on posted bills in the period.</field>
+        </record>
+        <record id="bas_label_w1" model="eh.bas.label">
+            <field name="code">W1</field>
+            <field name="name">Total wages and salaries</field>
+            <field name="sequence">300</field>
+            <field name="aggregation">manual</field>
+        </record>
+        <record id="bas_label_w2" model="eh.bas.label">
+            <field name="code">W2</field>
+            <field name="name">PAYG withheld from wages and salaries</field>
+            <field name="sequence">310</field>
+            <field name="aggregation">manual</field>
+        </record>
+        <record id="bas_label_w3" model="eh.bas.label">
+            <field name="code">W3</field>
+            <field name="name">Other amounts withheld (excluding ABN withholding)</field>
+            <field name="sequence">320</field>
+            <field name="aggregation">manual</field>
+            <field name="description">PAYG amounts withheld other than from wages: investment income, foreign-resident withholding.</field>
+        </record>
+        <record id="bas_label_w4" model="eh.bas.label">
+            <field name="code">W4</field>
+            <field name="name">Amounts withheld where no ABN was quoted</field>
+            <field name="sequence">330</field>
+            <field name="aggregation">manual</field>
+            <field name="description">PAYG withholding of 47% from suppliers who did not quote an ABN.</field>
+        </record>
+        <record id="bas_label_w5" model="eh.bas.label">
+            <field name="code">W5</field>
+            <field name="name">Total PAYG amount withheld</field>
+            <field name="sequence">340</field>
+            <field name="aggregation">payg_withheld_total</field>
+            <field name="description">Sum of W2 + W3 + W4. Computed line.</field>
+        </record>
+
+        <!-- PAYG instalments (T-codes) -->
+        <record id="bas_label_t1" model="eh.bas.label">
+            <field name="code">T1</field>
+            <field name="name">PAYG instalment income</field>
+            <field name="sequence">400</field>
+            <field name="aggregation">manual</field>
+            <field name="description">Gross business income for the instalment period.</field>
+        </record>
+        <record id="bas_label_t2" model="eh.bas.label">
+            <field name="code">T2</field>
+            <field name="name">PAYG instalment rate</field>
+            <field name="sequence">410</field>
+            <field name="aggregation">manual</field>
+            <field name="description">Commissioner's rate (%) used when calculating T1 x T2.</field>
+        </record>
+        <record id="bas_label_t3" model="eh.bas.label">
+            <field name="code">T3</field>
+            <field name="name">New varied PAYG instalment rate</field>
+            <field name="sequence">420</field>
+            <field name="aggregation">manual</field>
+            <field name="description">Variation rate when the taxpayer expects a different liability.</field>
+        </record>
+        <record id="bas_label_t4" model="eh.bas.label">
+            <field name="code">T4</field>
+            <field name="name">Reason for variation</field>
+            <field name="sequence">430</field>
+            <field name="aggregation">manual</field>
+            <field name="description">ATO reason code: 21-current business structure, 22-current investments, 23-significant change in trading conditions, 24-internal business restructure, 25-change in legislation or product mix, 26-financial market changes, 27-use of income tax losses.</field>
+        </record>
+        <record id="bas_label_t7" model="eh.bas.label">
+            <field name="code">T7</field>
+            <field name="name">PAYG instalment amount</field>
+            <field name="sequence">440</field>
+            <field name="aggregation">manual</field>
+            <field name="description">PAYG instalment payable for the period (T1 x T2 or fixed amount).</field>
+        </record>
+
+        <!-- FBT instalments (F-codes) -->
+        <record id="bas_label_f1" model="eh.bas.label">
+            <field name="code">F1</field>
+            <field name="name">FBT instalment</field>
+            <field name="sequence">500</field>
+            <field name="aggregation">manual</field>
+            <field name="description">Quarterly FBT instalment per the ATO's notional FBT amount.</field>
+        </record>
+        <record id="bas_label_f2" model="eh.bas.label">
+            <field name="code">F2</field>
+            <field name="name">Estimated total FBT payable</field>
+            <field name="sequence">510</field>
+            <field name="aggregation">manual</field>
+            <field name="description">Estimate of FBT payable for the FBT year when varying F1.</field>
+        </record>
+        <record id="bas_label_f3" model="eh.bas.label">
+            <field name="code">F3</field>
+            <field name="name">Varied FBT instalment</field>
+            <field name="sequence">520</field>
+            <field name="aggregation">manual</field>
+        </record>
+        <record id="bas_label_f4" model="eh.bas.label">
+            <field name="code">F4</field>
+            <field name="name">Reason for FBT variation</field>
+            <field name="sequence">530</field>
+            <field name="aggregation">manual</field>
+        </record>
+
+        <!-- Fuel Tax Credits -->
+        <record id="bas_label_7c" model="eh.bas.label">
+            <field name="code">7C</field>
+            <field name="name">Fuel tax credit</field>
+            <field name="sequence">600</field>
+            <field name="aggregation">manual</field>
+            <field name="description">Credit for fuel tax included in the price of fuel acquired for eligible business use.</field>
+        </record>
+        <record id="bas_label_7d" model="eh.bas.label">
+            <field name="code">7D</field>
+            <field name="name">Fuel tax credit over-claim adjustment</field>
+            <field name="sequence">610</field>
+            <field name="aggregation">manual</field>
+            <field name="description">Adjustment when a previously claimed FTC needs reducing.</field>
+        </record>
+
+        <!-- Wine Equalisation Tax -->
+        <record id="bas_label_1c" model="eh.bas.label">
+            <field name="code">1C</field>
+            <field name="name">Wine equalisation tax</field>
+            <field name="sequence">220</field>
+            <field name="aggregation">manual</field>
+            <field name="description">WET payable on wholesale wine dealings.</field>
+        </record>
+        <record id="bas_label_1d" model="eh.bas.label">
+            <field name="code">1D</field>
+            <field name="name">Wine equalisation tax refundable</field>
+            <field name="sequence">230</field>
+            <field name="aggregation">manual</field>
+        </record>
+
+        <!-- Luxury Car Tax -->
+        <record id="bas_label_1e" model="eh.bas.label">
+            <field name="code">1E</field>
+            <field name="name">Luxury car tax</field>
+            <field name="sequence">240</field>
+            <field name="aggregation">manual</field>
+            <field name="description">LCT payable on luxury car sales.</field>
+        </record>
+        <record id="bas_label_1f" model="eh.bas.label">
+            <field name="code">1F</field>
+            <field name="name">Luxury car tax refundable</field>
+            <field name="sequence">250</field>
+            <field name="aggregation">manual</field>
+        </record>
+
+    </data>
+</odoo>

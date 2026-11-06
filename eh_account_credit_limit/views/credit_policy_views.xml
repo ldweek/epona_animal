@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_credit_policy_list" model="ir.ui.view">
+        <field name="name">eh.credit.policy.list</field>
+        <field name="model">eh.credit.policy</field>
+        <field name="arch" type="xml">
+            <list string="Credit Policies">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="is_company_default" widget="boolean_toggle"/>
+                <field name="default_credit_limit" widget="monetary"/>
+                <field name="enforcement_mode"/>
+                <field name="include_drafts" optional="show"/>
+                <field name="include_sale_orders" optional="show"/>
+                <field name="override_group_id" optional="show"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_credit_policy_form" model="ir.ui.view">
+        <field name="name">eh.credit.policy.form</field>
+        <field name="model">eh.credit.policy</field>
+        <field name="arch" type="xml">
+            <form string="Credit Policy">
+                <sheet>
+                    <h1>
+                        <field name="name" placeholder="Default policy"/>
+                    </h1>
+                    <group>
+                        <group string="Scope">
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="is_company_default"/>
+                            <field name="active"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group string="Enforcement">
+                            <field name="default_credit_limit"
+                                   widget="monetary"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="enforcement_mode"/>
+                            <field name="include_drafts"/>
+                            <field name="include_sale_orders"/>
+                            <field name="override_group_id"
+                                   options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <p class="text-muted">
+                        Block mode raises a UserError on customer invoice post when exposure exceeds the limit. The override field on the invoice plus a comment from a manager records the bypass to the immutable audit log. Warn-only logs the breach to chatter and lets the post proceed.
+                    </p>
+                    <group>
+                        <field name="notes" colspan="2"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_credit_policy_search" model="ir.ui.view">
+        <field name="name">eh.credit.policy.search</field>
+        <field name="model">eh.credit.policy</field>
+        <field name="arch" type="xml">
+            <search string="Credit Policies">
+                <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="enforcement_mode"/>
+                <filter name="company_default" string="Company Default"
+                        domain="[('is_company_default', '=', True)]"/>
+                <separator/>
+                <filter name="mode_block" string="Block on Post"
+                        domain="[('enforcement_mode', '=', 'block')]"/>
+                <filter name="mode_warn" string="Warn Only"
+                        domain="[('enforcement_mode', '=', 'warn')]"/>
+                <separator/>
+                <filter name="inactive" string="Archived"
+                        domain="[('active', '=', False)]"/>
+                <group>
+                    <filter name="group_company" string="Company"
+                            context="{'group_by': 'company_id'}"/>
+                    <filter name="group_mode" string="Enforcement Mode"
+                            context="{'group_by': 'enforcement_mode'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_credit_policy" model="ir.actions.act_window">
+        <field name="name">Credit Policies</field>
+        <field name="res_model">eh.credit.policy</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_credit_policy_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No credit policies yet.</p>
+            <p>Create one default policy per company. Mark it 'Company default' so partners without an override use this limit. Set per-partner overrides on the partner form when a specific customer needs different terms.</p>
+        </field>
+    </record>
+
+    <record id="view_eh_credit_override_log_list" model="ir.ui.view">
+        <field name="name">eh.credit.override.log.list</field>
+        <field name="model">eh.credit.override.log</field>
+        <field name="arch" type="xml">
+            <list string="Credit Override Audit Log"
+                  default_order="create_date desc"
+                  create="0" edit="0" delete="0">
+                <field name="create_date"/>
+                <field name="user_id"/>
+                <field name="reason_author_id" optional="show"/>
+                <field name="reason_authored_at" optional="hide"/>
+                <field name="partner_id"/>
+                <field name="move_id"/>
+                <field name="exposure_at_override" widget="monetary"/>
+                <field name="limit_at_override" widget="monetary"/>
+                <field name="move_amount" widget="monetary"/>
+                <field name="excess" widget="monetary"
+                       decoration-danger="1"/>
+                <field name="reason"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_credit_override_log_form" model="ir.ui.view">
+        <field name="name">eh.credit.override.log.form</field>
+        <field name="model">eh.credit.override.log</field>
+        <field name="arch" type="xml">
+            <form string="Credit Override" create="0" delete="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="create_date" readonly="1"/>
+                            <field name="user_id" readonly="1"/>
+                            <field name="reason_author_id" readonly="1"/>
+                            <field name="reason_authored_at" readonly="1"/>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="move_id" readonly="1"/>
+                            <field name="company_id" readonly="1"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="exposure_at_override" widget="monetary" readonly="1"/>
+                            <field name="limit_at_override" widget="monetary" readonly="1"/>
+                            <field name="move_amount" widget="monetary" readonly="1"/>
+                            <field name="excess" widget="monetary" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="reason" readonly="1" colspan="2"/>
+                        <field name="comment"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_credit_override_log_search" model="ir.ui.view">
+        <field name="name">eh.credit.override.log.search</field>
+        <field name="model">eh.credit.override.log</field>
+        <field name="arch" type="xml">
+            <search string="Credit Override Log">
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <field name="move_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <filter name="today" string="Today"
+                        domain="[('create_date', '>=', datetime.datetime.combine(context_today(), datetime.time(0, 0, 0)))]"/>
+                <filter name="last_30_days" string="Last 30 Days"
+                        domain="[('create_date', '>=', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d'))]"/>
+                <group>
+                    <filter name="group_partner" string="Partner"
+                            context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_user" string="User"
+                            context="{'group_by': 'user_id'}"/>
+                    <filter name="group_move" string="Journal Entry"
+                            context="{'group_by': 'move_id'}"/>
+                    <filter name="group_company" string="Company"
+                            context="{'group_by': 'company_id'}"/>
+                    <filter name="group_create_date" string="Override Date"
+                            context="{'group_by': 'create_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="eh_account_credit_limit_override_log_view_graph" model="ir.ui.view">
+        <field name="name">eh.credit.override.log.graph</field>
+        <field name="model">eh.credit.override.log</field>
+        <field name="arch" type="xml">
+            <graph string="Credit Overrides" type="bar" sample="1">
+                <field name="create_date" interval="month"/>
+                <field name="partner_id"/>
+                <field name="excess" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="eh_account_credit_limit_override_log_view_pivot" model="ir.ui.view">
+        <field name="name">eh.credit.override.log.pivot</field>
+        <field name="model">eh.credit.override.log</field>
+        <field name="arch" type="xml">
+            <pivot string="Credit Overrides" sample="1">
+                <field name="partner_id" type="row"/>
+                <field name="create_date" interval="month" type="col"/>
+                <field name="excess" type="measure"/>
+                <field name="move_amount" type="measure"/>
+                <field name="exposure_at_override" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_eh_credit_override_log" model="ir.actions.act_window">
+        <field name="name">Credit Override Log</field>
+        <field name="res_model">eh.credit.override.log</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_eh_credit_override_log_search"/>
+        <field name="context">{'create': 0}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No credit overrides recorded yet</p>
+            <p>This append-only audit trail records every time a manager bypasses the credit gate to post an over-limit customer invoice. Rows appear here automatically, one per override, showing the partner, exposure, limit, and excess.</p>
+        </field>
+    </record>
+
+</odoo>

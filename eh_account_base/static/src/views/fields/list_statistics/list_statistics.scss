@@ -1,0 +1,33 @@
+// Odoo 19 contact-statistics layout, shared by suite JSON statistic fields.
+.o_eh_list_statistics {
+    min-width: 0;
+    line-height: 1;
+}
+
+.o_eh_list_statistics_badge {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    cursor: default;
+    // Odoo 16 has no `.smaller` utility; fixed equivalent keeps parity.
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.o_eh_list_statistics_action {
+    appearance: none;
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+
+    &:hover,
+    &:focus-visible {
+        filter: brightness(0.9);
+    }
+
+    &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+    }
+}

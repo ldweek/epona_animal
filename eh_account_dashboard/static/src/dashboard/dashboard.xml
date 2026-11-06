@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="eh_account_dashboard.Dashboard">
+        <div class="eh_dashboard_root" data-testid="eh-financial-dashboard">
+
+            <!-- Shared gradient defs for every sparkline area fill. Kept
+                 once at the root so SVG ids stay unique on the page. -->
+            <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+                <defs>
+                    <linearGradient id="ehSparkFillUp" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#7BCEA0" stop-opacity="0.30"/>
+                        <stop offset="100%" stop-color="#7BCEA0" stop-opacity="0"/>
+                    </linearGradient>
+                    <linearGradient id="ehSparkFillFlat" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#6B7E72" stop-opacity="0.24"/>
+                        <stop offset="100%" stop-color="#6B7E72" stop-opacity="0"/>
+                    </linearGradient>
+                    <linearGradient id="ehSparkFillDown" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#E08C7B" stop-opacity="0.26"/>
+                        <stop offset="100%" stop-color="#E08C7B" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+
+            <div class="eh_dashboard_inner">
+
+                <!-- ============================ top bar ====================== -->
+                <div class="eh_dashboard_topbar">
+                    <div class="eh_dashboard_title">
+                        <span class="eh_dashboard_eyebrow">ERP Heritage</span>
+                        <h1>Financial Dashboard</h1>
+                        <div class="eh_dashboard_company"
+                             t-if="state.snapshot?.company">
+                            <t t-esc="state.snapshot.company.name"/>
+                            <t t-if="state.snapshot?.period?.date_from">
+                                &#183;
+                                <t t-esc="state.snapshot.period.date_from"/> to
+                                <t t-esc="state.snapshot.period.date_to"/>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="eh_dashboard_controls">
+                        <select class="eh_dashboard_select"
+                                data-testid="eh-dashboard-period"
+                                t-on-change="onChangePeriod"
+                                t-att-value="state.periodMode || state.snapshot?.period?.mode || 'mtd'">
+                            <option value="mtd">Month to date</option>
+                            <option value="qtd">Quarter to date</option>
+                            <option value="ytd">Year to date</option>
+                            <option value="last_30">Last 30 days</option>
+                            <option value="last_90">Last 90 days</option>
+                            <option value="custom">Custom range</option>
+                        </select>
+                        <div class="eh_dashboard_custom_period"
+                             t-if="state.periodMode === 'custom'">
+                            <label>
+                                <span>From</span>
+                                <input type="date"
+                                       class="eh_dashboard_date"
+                                       t-att-value="state.customDateFrom"
+                                       t-on-input="onCustomDateFrom"/>
+                            </label>
+                            <label>
+                                <span>To</span>
+                                <input type="date"
+                                       class="eh_dashboard_date"
+                                       t-att-value="state.customDateTo"
+                                       t-on-input="onCustomDateTo"/>
+                            </label>
+                            <button class="eh_dashboard_btn"
+                                    type="button"
+                                    t-on-click="onApplyCustomPeriod">
+                                Apply
+                            </button>
+                        </div>
+                        <label class="eh_dashboard_toggle">
+                            <input type="checkbox"
+                                   t-on-change="onTogglePosted"
+                                   t-att-checked="state.snapshot?.period?.posted_only"/>
+                            <span class="eh_dashboard_toggle_track"/>
+                            Posted only
+                        </label>
+                        <button class="eh_dashboard_btn"
+                                data-testid="eh-dashboard-refresh"
+                                t-on-click="onClickRefresh">
+                            <i class="fa fa-refresh"/> Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <div t-if="state.error" class="eh_dashboard_inline_error" role="alert">
+                    <i class="fa fa-exclamation-triangle me-2"/>
+                    <t t-esc="state.error"/>
+                </div>
+
+                <div t-if="state.loading and !state.snapshot"
+                     class="eh_dashboard_skeleton">
+                    <div class="eh_dashboard_skeleton_card"/>
+                    <div class="eh_dashboard_skeleton_card"/>
+                    <div class="eh_dashboard_skeleton_card"/>
+                </div>
+
+                <!-- ============================== body ====================== -->
+                <div t-if="state.snapshot" class="eh_dashboard_body">
+
+                    <!-- Headline liquidity -->
+                    <section class="eh_dashboard_section">
+                        <div class="eh_dashboard_section_header">Liquidity &amp; working capital</div>
+                        <div class="eh_dashboard_grid eh_dashboard_grid_hero">
+                            <KpiTile
+                                caption="labels.cashPosition"
+                                value="formatMoney(state.snapshot.liquidity.cash_position)"
+                                secondary="cashAccountSecondary(state.snapshot.liquidity.cash_account_count)"
+                                statusClass="'eh_dash_status_ok'"
+                                icon="'fa-bank'"
+                                drilldownLabel="labels.viewCashEntries"
+                                onDrilldown.bind="() => this.onClickDrilldown('action_drilldown_cash')"
+                                t-props="deltaProps('cash_position', { higherIsBetter: true })"/>
+                            <KpiTile
+                                caption="labels.receivables"
+                                value="formatMoney(state.snapshot.liquidity.receivable_total)"
+                                secondary="receivableSecondary(state.snapshot.liquidity)"
+                                statusClass="state.snapshot.liquidity.receivable_overdue
+                                    ? 'eh_dash_status_danger'
+                                    : 'eh_dash_status_info'"
+                                icon="'fa-arrow-down'"
+                                drilldownLabel="labels.openReceivables"
+                                onDrilldown.bind="() => this.onClickDrilldown('action_drilldown_receivables')"
+                                t-props="deltaProps('receivable_total', { higherIsBetter: false })"/>
+                            <KpiTile
+                                caption="labels.payables"
+                                value="formatMoney(state.snapshot.liquidity.payable_total)"
+                                secondary="payableSecondary(state.snapshot.liquidity)"
+                                statusClass="state.snapshot.liquidity.payable_overdue
+                                    ? 'eh_dash_status_warn'
+                                    : 'eh_dash_status_neutral'"
+                                icon="'fa-arrow-up'"
+                                drilldownLabel="labels.openPayables"
+                                onDrilldown.bind="() => this.onClickDrilldown('action_drilldown_payables')"
+                                t-props="deltaProps('payable_total', { higherIsBetter: true })"/>
+                        </div>
+                    </section>
+
+                    <!-- Trends (left) + attention rail (right) -->
+                    <section class="eh_dashboard_section">
+                        <div class="eh_dashboard_section_header">Trends &amp; what needs attention</div>
+                        <div class="eh_dashboard_split">
+
+                            <div class="eh_dashboard_panel">
+                                <div class="eh_dashboard_panel_head">
+                                    <span class="eh_dashboard_panel_title">Cash position</span>
+                                    <span class="eh_dashboard_panel_sub">last 30 days</span>
+                                </div>
+                                <Sparkline
+                                    series="cashTrend"
+                                    height="148"
+                                    formatLabel.bind="formatMoney"/>
+
+                                <div class="eh_dashboard_chart_row">
+                                    <div>
+                                        <div class="eh_dashboard_panel_head">
+                                            <span class="eh_dashboard_panel_title">Revenue</span>
+                                            <span class="eh_dashboard_panel_sub">30d</span>
+                                        </div>
+                                        <Sparkline
+                                            series="revenueTrend"
+                                            height="84"
+                                            formatLabel.bind="formatMoney"/>
+                                    </div>
+                                    <div>
+                                        <div class="eh_dashboard_panel_head">
+                                            <span class="eh_dashboard_panel_title">Expense</span>
+                                            <span class="eh_dashboard_panel_sub">30d</span>
+                                        </div>
+                                        <Sparkline
+                                            series="expenseTrend"
+                                            height="84"
+                                            formatLabel.bind="formatMoney"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="eh_dashboard_attention">
+                                <div class="eh_dashboard_panel_head">
+                                    <span class="eh_dashboard_panel_title">Needs attention</span>
+                                    <span class="eh_dashboard_panel_sub">
+                                        <t t-if="attentionOutstanding">
+                                            <t t-esc="attentionOutstanding"/> open
+                                        </t>
+                                        <t t-else="">all clear</t>
+                                    </span>
+                                </div>
+                                <t t-foreach="attentionItems" t-as="item" t-key="item.key">
+                                    <div t-att-class="'eh_dash_attn_row' + (item.drill ? ' is-clickable' : '')"
+                                         t-on-click="() => item.drill ? this.onClickDrilldown(item.drill) : null">
+                                        <span t-att-class="'eh_dash_attn_icon tone-' + item.tone">
+                                            <i t-att-class="'fa ' + item.icon"/>
+                                        </span>
+                                        <div class="eh_dash_attn_body">
+                                            <div class="eh_dash_attn_label"><t t-esc="item.label"/></div>
+                                            <div class="eh_dash_attn_sub"><t t-esc="item.sub"/></div>
+                                        </div>
+                                        <span t-att-class="'eh_dash_attn_count' + (item.count ? '' : ' is-zero')">
+                                            <t t-esc="formatInt(item.count)"/>
+                                        </span>
+                                        <i t-if="item.drill" class="fa fa-chevron-right eh_dash_attn_go"/>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Period profit and loss -->
+                    <section class="eh_dashboard_section">
+                        <div class="eh_dashboard_section_header">Period profit &amp; loss</div>
+                        <div class="eh_dashboard_grid eh_dashboard_grid_3">
+                            <KpiTile
+                                caption="labels.revenue"
+                                value="formatMoney(state.snapshot.pnl.revenue)"
+                                statusClass="'eh_dash_status_info'"
+                                icon="'fa-line-chart'"
+                                drilldownLabel="labels.viewEntries"
+                                onDrilldown.bind="() => this.onClickDrilldown('action_drilldown_period_revenue')"
+                                t-props="deltaProps('revenue', { higherIsBetter: true })"/>
+                            <KpiTile
+                                caption="labels.expense"
+                                value="formatMoney(state.snapshot.pnl.expense)"
+                                statusClass="'eh_dash_status_neutral'"
+                                icon="'fa-shopping-cart'"
+                                drilldownLabel="labels.viewEntries"
+                                onDrilldown.bind="() => this.onClickDrilldown('action_drilldown_period_expense')"
+                                t-props="deltaProps('expense', { higherIsBetter: false })"/>
+                            <KpiTile
+                                caption="labels.netResult"
+                                value="formatMoney(state.snapshot.pnl.net)"
+                                statusClass="netStatus(state.snapshot.pnl.net)"
+                                icon="'fa-trophy'"
+                                t-props="deltaProps('net', { higherIsBetter: true })"/>
+                        </div>
+                    </section>
+
+                    <!-- Financial ratios (liquidity / efficiency /
+                         profitability / leverage), computed server-side
+                         with zero-denominator guards; the note explains
+                         any n/a value. -->
+                    <section class="eh_dashboard_section"
+                             t-if="ratioCategories.length">
+                        <div class="eh_dashboard_section_header">Financial ratios</div>
+                        <div class="eh_dash_ratio_provenance"
+                             aria-label="Ratio input provenance">
+                            <t t-foreach="ratioProvenanceItems" t-as="source"
+                               t-key="source.key">
+                                <span t-att-class="'eh_dash_ratio_source tone-' + source.tone"
+                                      t-att-data-source="source.key">
+                                    <i class="fa fa-info-circle"/>
+                                    <t t-esc="source.label"/>
+                                </span>
+                            </t>
+                        </div>
+                        <t t-foreach="ratioCategories" t-as="cat" t-key="cat.key">
+                            <div class="eh_dash_ratio_cat">
+                                <div class="eh_dash_ratio_cat_title" t-esc="cat.label"/>
+                                <div class="eh_dashboard_grid eh_dashboard_grid_ratios">
+                                    <t t-foreach="cat.ratios" t-as="ratio" t-key="ratio.key">
+                                        <div t-att-class="'eh_dash_ratio ' + ratioStatusClass(ratio)"
+                                             t-att-title="ratio.note || ''">
+                                            <div class="eh_dash_ratio_caption" t-esc="ratio.label"/>
+                                            <div class="eh_dash_ratio_value" t-esc="formatRatioValue(ratio)"/>
+                                            <div class="eh_dash_ratio_delta"
+                                                 t-if="ratioDeltaLabel(ratio)"
+                                                 t-esc="ratioDeltaLabel(ratio)"/>
+                                            <div class="eh_dash_ratio_note"
+                                                 t-if="ratio.note"
+                                                 t-esc="ratio.note"/>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </t>
+                    </section>
+
+                    <!-- Suite operations (only when a matching module is present) -->
+                    <section class="eh_dashboard_section"
+                             t-if="state.snapshot.modules.approval
+                                or state.snapshot.modules.collections
+                                or state.snapshot.modules.budget">
+                        <div class="eh_dashboard_section_header">Suite operations</div>
+                        <div class="eh_dashboard_grid eh_dashboard_grid_3">
+                            <KpiTile t-if="state.snapshot.modules.approval"
+                                caption="labels.pendingApprovals"
+                                value="formatInt(state.snapshot.operations.pending_approval_count)"
+                                secondary="pendingApprovalSecondary(state.snapshot.operations.pending_approval_count)"
+                                statusClass="state.snapshot.operations.pending_approval_count
+                                    ? 'eh_dash_status_warn'
+                                    : 'eh_dash_status_ok'"
+                                icon="'fa-check-circle'"
+                                drilldownLabel="labels.reviewQueue"
+                                onDrilldown.bind="() => this.onClickDrilldown('action_drilldown_pending_approvals')"/>
+                            <KpiTile t-if="state.snapshot.modules.collections"
+                                caption="labels.activeCollections"
+                                value="formatInt(state.snapshot.operations.active_collections_count)"
+                                secondary="collectionsSecondary(state.snapshot.operations.active_collections_total)"
+                                statusClass="state.snapshot.operations.active_collections_count
+                                    ? 'eh_dash_status_danger'
+                                    : 'eh_dash_status_neutral'"
+                                icon="'fa-phone'"
+                                drilldownLabel="labels.openWorkbench"
+                                onDrilldown.bind="() => this.onClickDrilldown('action_drilldown_active_collections')"/>
+                            <KpiTile t-if="state.snapshot.modules.budget"
+                                caption="labels.activeBudgets"
+                                value="formatInt(state.snapshot.operations.active_budget_count)"
+                                secondary="budgetSecondary(state.snapshot.operations.overrun_budget_count)"
+                                statusClass="state.snapshot.operations.overrun_budget_count
+                                    ? 'eh_dash_status_danger'
+                                    : 'eh_dash_status_ok'"
+                                icon="'fa-tachometer'"
+                                drilldownLabel="labels.viewBudgets"
+                                onDrilldown.bind="() => this.onClickDrilldown('action_drilldown_overrun_budgets')"/>
+                        </div>
+                    </section>
+
+                    <!-- Continuous control monitoring (suite module signals) -->
+                    <section class="eh_dashboard_section"
+                             t-if="state.snapshot.modules.credit_limit
+                                or state.snapshot.modules.sepa_dd
+                                or state.snapshot.modules.close_workflow
+                                or state.snapshot.modules.year_end
+                                or state.snapshot.modules.fx">
+                        <div class="eh_dashboard_section_header">Continuous control monitoring</div>
+                        <div class="eh_dashboard_grid eh_dashboard_grid_4">
+                            <KpiTile t-if="state.snapshot.modules.credit_limit"
+                                caption="labels.creditLimitSignals"
+                                value="formatInt(state.snapshot.controls.credit_limit_breach_count)"
+                                secondary="creditOverrideSecondary(state.snapshot.controls.credit_limit_override_count_30d)"
+                                statusClass="state.snapshot.controls.credit_limit_breach_count
+                                    ? 'eh_dash_status_warn'
+                                    : 'eh_dash_status_ok'"
+                                icon="'fa-credit-card'"
+                                drilldownLabel="labels.overrideLog"
+                                onDrilldown.bind="() => this.onClickDrilldown('action_drilldown_credit_overrides')"/>
+                            <KpiTile t-if="state.snapshot.modules.sepa_dd"
+                                caption="labels.sepaDormancy"
+                                value="formatInt(state.snapshot.controls.dormant_mandate_count)"
+                                secondary="labels.mandatesIdle"
+                                statusClass="state.snapshot.controls.dormant_mandate_count
+                                    ? 'eh_dash_status_warn'
+                                    : 'eh_dash_status_ok'"
+                                icon="'fa-clock-o'"
+                                drilldownLabel="labels.reviewMandates"
+                                onDrilldown.bind="() => this.onClickDrilldown('action_drilldown_dormant_mandates')"/>
+                            <KpiTile t-if="state.snapshot.modules.close_workflow"
+                                caption="labels.periodClose"
+                                value="formatInt(state.snapshot.controls.in_progress_close_count)"
+                                secondary="labels.runsInProgress"
+                                statusClass="state.snapshot.controls.in_progress_close_count
+                                    ? 'eh_dash_status_info'
+                                    : 'eh_dash_status_neutral'"
+                                icon="'fa-tasks'"
+                                drilldownLabel="labels.openRuns"
+                                onDrilldown.bind="() => this.onClickDrilldown('action_drilldown_open_close_runs')"/>
+                            <KpiTile t-if="state.snapshot.modules.year_end"
+                                caption="labels.yearEndRuns"
+                                value="formatInt(state.snapshot.controls.open_year_end_run_count)"
+                                secondary="labels.openOrUnposted"
+                                statusClass="state.snapshot.controls.open_year_end_run_count
+                                    ? 'eh_dash_status_info'
+                                    : 'eh_dash_status_neutral'"
+                                icon="'fa-flag-checkered'"
+                                drilldownLabel="labels.openRuns"
+                                onDrilldown.bind="() => this.onClickDrilldown('action_drilldown_open_year_end')"/>
+                            <KpiTile t-if="state.snapshot.modules.fx"
+                                caption="labels.fxRevaluation"
+                                value="formatInt(state.snapshot.controls.pending_fx_run_count)"
+                                secondary="labels.computedUnposted"
+                                statusClass="state.snapshot.controls.pending_fx_run_count
+                                    ? 'eh_dash_status_info'
+                                    : 'eh_dash_status_neutral'"
+                                icon="'fa-exchange'"
+                                drilldownLabel="labels.openRuns"
+                                onDrilldown.bind="() => this.onClickDrilldown('action_drilldown_pending_fx')"/>
+                        </div>
+                    </section>
+
+                    <footer class="eh_dashboard_footer">
+                        <span class="eh_dashboard_footer_brand">ERP Heritage Accounting Suite</span>
+                        <span class="eh_dashboard_footer_meta">
+                            Read-only · figures reconcile to the trial balance · auto-refresh 60s
+                        </span>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="eh_account_dashboard.KpiTile">
+        <div t-att-class="'eh_dash_kpi ' + props.statusClass">
+            <div class="eh_dash_kpi_caption">
+                <i t-att-class="'fa ' + props.icon"/>
+                <t t-esc="props.caption"/>
+            </div>
+            <div class="eh_dash_kpi_value">
+                <t t-esc="props.value"/>
+            </div>
+            <div class="eh_dash_kpi_delta"
+                 t-if="props.delta !== undefined and props.delta !== null">
+                <span t-att-class="'eh_dash_delta_badge ' + deltaClass">
+                    <i t-att-class="'fa ' + deltaArrow"/>
+                    <t t-esc="props.deltaLabel || props.delta"/>
+                    <t t-if="props.deltaPct !== undefined and props.deltaPct !== null">
+                        (<t t-esc="props.deltaPct"/>%)
+                    </t>
+                </span>
+                <span class="eh_dash_delta_caption">vs prior period</span>
+            </div>
+            <div class="eh_dash_kpi_secondary"
+                 t-if="props.secondary">
+                <t t-esc="props.secondary"/>
+            </div>
+            <button t-if="props.drilldownLabel and props.onDrilldown"
+                    class="eh_dash_kpi_drill"
+                    t-on-click="props.onDrilldown">
+                <t t-esc="props.drilldownLabel"/>
+                <i class="fa fa-chevron-right"/>
+            </button>
+        </div>
+    </t>
+
+    <t t-name="eh_account_dashboard.Sparkline">
+        <div class="eh_dash_spark_wrap">
+            <t t-if="!plottable">
+                <div class="eh_dash_spark_empty">
+                    Not enough data points yet to draw a trend.
+                </div>
+            </t>
+            <t t-else="">
+                <svg class="eh_dash_spark"
+                     t-att-viewBox="viewBox"
+                     preserveAspectRatio="none"
+                     t-att-style="'height:' + height + 'px;'">
+                    <line class="eh_dash_spark_base"
+                          x1="0" t-att-y1="geometry.baseline"
+                          x2="600" t-att-y2="geometry.baseline"/>
+                    <path t-att-class="'eh_dash_spark_area ' + accentClass"
+                          t-att-d="geometry.area"/>
+                    <polyline t-att-class="'eh_dash_spark_line ' + accentClass"
+                              t-att-points="geometry.polyline"/>
+                    <circle t-att-class="'eh_dash_spark_glow ' + accentClass"
+                            t-att-cx="geometry.last.x"
+                            t-att-cy="geometry.last.y"
+                            r="6"/>
+                    <circle t-att-class="'eh_dash_spark_dot ' + accentClass"
+                            t-att-cx="geometry.last.x"
+                            t-att-cy="geometry.last.y"
+                            r="3"/>
+                </svg>
+                <div class="eh_dash_spark_legend">
+                    <span class="eh_dash_spark_label">
+                        Latest <strong t-esc="formatValue(geometry.lastValue)"/>
+                    </span>
+                    <span class="eh_dash_spark_label">
+                        High <strong t-esc="formatValue(geometry.max)"/>
+                    </span>
+                    <span class="eh_dash_spark_label">
+                        Low <strong t-esc="formatValue(geometry.min)"/>
+                    </span>
+                </div>
+            </t>
+        </div>
+    </t>
+
+</templates>

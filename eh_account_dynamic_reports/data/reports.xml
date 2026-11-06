@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="report_executive_summary" model="eh.account.dynamic.report">
+            <field name="code">executive_summary</field>
+            <field name="name">Executive Summary</field>
+            <field name="handler_model">eh.account.dynamic.report.handler.executive_summary</field>
+            <field name="sequence">5</field>
+            <field name="description">Board-pack KPI and ratio statement: profitability (revenue, gross/operating/net profit and margins), cash and liquidity (cash position, receivables, payables, net working capital) and the core ratios (current, quick, DSO, DPO, return on assets). Single-pass SUM aggregates per KPI; reconciles to the live dashboard and to Profit and Loss / Balance Sheet for the same window. Divide-by-zero-safe ratios render n/a. Cash, receivable and payable rows drill to journal items.</field>
+        </record>
+
+        <record id="report_deferred_revenue" model="eh.account.dynamic.report">
+            <field name="code">deferred_revenue</field>
+            <field name="name">Deferred Revenue</field>
+            <field name="handler_model">eh.account.dynamic.report.handler.deferred_revenue</field>
+            <field name="sequence">110</field>
+            <field name="description">Period-by-period deferred revenue recognition waterfall, auto-discovered from the asset ledger. One row per deferral with a Before bucket, monthly (or coarser for wide windows) in-window buckets, a Later bucket and a row Total. Honours posted-only and drills to the recognition journal entries. Requires the Asset Management module to populate; renders an empty schedule with a note when it is not installed.</field>
+        </record>
+
+        <record id="report_deferred_expense" model="eh.account.dynamic.report">
+            <field name="code">deferred_expense</field>
+            <field name="name">Deferred Expense</field>
+            <field name="handler_model">eh.account.dynamic.report.handler.deferred_expense</field>
+            <field name="sequence">120</field>
+            <field name="description">Period-by-period deferred expense recognition waterfall, auto-discovered from the asset ledger. Same bucketed layout as the Deferred Revenue schedule but scoped to deferred-expense deferrals. Requires the Asset Management module to populate; renders an empty schedule with a note when it is not installed.</field>
+        </record>
+
+        <record id="report_bank_reconciliation" model="eh.account.dynamic.report">
+            <field name="code">bank_reconciliation</field>
+            <field name="name">Bank Reconciliation</field>
+            <field name="handler_model">eh.account.dynamic.report.handler.bank_reconciliation</field>
+            <field name="sequence">130</field>
+            <field name="description">Per bank or cash journal, a reconciliation proof that bridges the last statement balance plus outstanding receipts minus outstanding payments to the book balance per GL, flagging any unexplained difference with a balance check. Outstanding receipts and payments list the individual unreconciled items with drill-down. A journal with no statement shows the book balance with an empty outstanding section rather than an error.</field>
+        </record>
+
+        <record id="report_trial_balance" model="eh.account.dynamic.report">
+            <field name="code">trial_balance</field>
+            <field name="name">Trial Balance</field>
+            <field name="handler_model">eh.account.dynamic.report.handler.trial_balance</field>
+            <field name="sequence">10</field>
+            <field name="description">Standard accounting Trial Balance with opening, period movement, and closing balances per account. Single SQL pass with conditional aggregation; drill down to journal items per account.</field>
+        </record>
+
+        <record id="report_profit_and_loss" model="eh.account.dynamic.report">
+            <field name="code">profit_and_loss</field>
+            <field name="name">Profit and Loss</field>
+            <field name="handler_model">eh.account.dynamic.report.handler.profit_and_loss</field>
+            <field name="sequence">20</field>
+            <field name="description">Period income statement with Income and Expenses sections plus Net Profit. Two SQL passes (one per section) with the standard filter set; drill down to journal items per account.</field>
+        </record>
+
+        <record id="report_balance_sheet" model="eh.account.dynamic.report">
+            <field name="code">balance_sheet</field>
+            <field name="name">Balance Sheet</field>
+            <field name="handler_model">eh.account.dynamic.report.handler.balance_sheet</field>
+            <field name="sequence">30</field>
+            <field name="description">Cumulative point in time snapshot at date_to with Assets, Liabilities, Equity sections, plus Current Year Earnings, Total Liabilities and Equity, and an automatic Balance Check that surfaces any drift in the underlying ledger.</field>
+        </record>
+
+        <record id="report_general_ledger" model="eh.account.dynamic.report">
+            <field name="code">general_ledger</field>
+            <field name="name">General Ledger</field>
+            <field name="handler_model">eh.account.dynamic.report.handler.general_ledger</field>
+            <field name="sequence">40</field>
+            <field name="description">Per account ledger with opening balance, every journal item in the period (date, journal, move, partner, label, debit, credit, running balance), and an account total. Drill down: account headers open the journal items list filtered to that account; entry rows open the specific journal entry form.</field>
+        </record>
+
+        <record id="report_partner_ledger" model="eh.account.dynamic.report">
+            <field name="code">partner_ledger</field>
+            <field name="name">Partner Ledger</field>
+            <field name="handler_model">eh.account.dynamic.report.handler.partner_ledger</field>
+            <field name="sequence">50</field>
+            <field name="description">Per partner ledger with opening balance, every journal item in the period attached to that partner, and a partner total. Drill down: partner headers open the journal items list filtered to that partner; entry rows open the specific journal entry form.</field>
+        </record>
+
+        <record id="report_aged_receivable" model="eh.account.dynamic.report">
+            <field name="code">aged_receivable</field>
+            <field name="name">Aged Receivable</field>
+            <field name="handler_model">eh.account.dynamic.report.handler.aged_receivable</field>
+            <field name="sequence">60</field>
+            <field name="description">Open customer balances at date_to, including journal items without a partner, bucketed by a configurable interval, bucket count, and maturity- or invoice-date basis. Drill down opens the exact items behind each partner or partnerless row.</field>
+        </record>
+
+        <record id="report_aged_payable" model="eh.account.dynamic.report">
+            <field name="code">aged_payable</field>
+            <field name="name">Aged Payable</field>
+            <field name="handler_model">eh.account.dynamic.report.handler.aged_payable</field>
+            <field name="sequence">70</field>
+            <field name="description">Open vendor balances at date_to, including partnerless payables, using the configurable aging grid shared with Aged Receivable and signed so displayed amounts represent what the company owes.</field>
+        </record>
+
+        <record id="report_cash_flow" model="eh.account.dynamic.report">
+            <field name="code">cash_flow</field>
+            <field name="name">Cash Flow Statement</field>
+            <field name="handler_model">eh.account.dynamic.report.handler.cash_flow</field>
+            <field name="sequence">80</field>
+            <field name="description">Direct or indirect Cash Flow Statement with Operating, Investing, and Financing activities, reconciliation-accurate settlement tracing, cash equivalents, disclosed IAS 7 flows, exchange-rate effects, Opening Cash, Closing Cash, and an explicit Balance Check.</field>
+        </record>
+
+        <record id="report_customer_statement" model="eh.account.dynamic.report">
+            <field name="code">customer_statement</field>
+            <field name="name">Customer Statement</field>
+            <field name="handler_model">eh.account.dynamic.report.handler.customer_statement</field>
+            <field name="sequence">90</field>
+            <field name="description">Per-partner statement of open invoices and recent payments on the receivable account, ordered by date with a running balance and a final amount due. Driven by the same partial-reconcile rewind as the aged report so a back-dated statement reflects what was open on that date.</field>
+        </record>
+
+        <record id="report_vendor_statement" model="eh.account.dynamic.report">
+            <field name="code">vendor_statement</field>
+            <field name="name">Vendor Statement</field>
+            <field name="handler_model">eh.account.dynamic.report.handler.vendor_statement</field>
+            <field name="sequence">95</field>
+            <field name="description">Mirror of the customer statement on the payable side: open vendor bills and payments with a running balance and the amount the company currently owes the vendor.</field>
+        </record>
+
+        <record id="report_analytic_balance" model="eh.account.dynamic.report">
+            <field name="code">analytic_balance</field>
+            <field name="name">Analytic Balance</field>
+            <field name="handler_model">eh.account.dynamic.report.handler.analytic_balance</field>
+            <field name="sequence">100</field>
+            <field name="description">Ledger-convention analytic balance per analytic account, allocation-percentage weighted and filterable by analytic plan/account and GL dimensions. Credits remain negative and debits positive so every slice reconciles directly to journal items.</field>
+        </record>
+
+        <record id="action_eh_report_analytic_balance" model="ir.actions.client">
+            <field name="name">Analytic Balance</field>
+            <field name="tag">eh_account_dynamic_report</field>
+            <field name="context">{'report_code': 'analytic_balance'}</field>
+        </record>
+
+        <menuitem id="menu_eh_report_analytic_balance"
+                  name="Analytic Balance"
+                  parent="menu_ledgers"
+                  action="action_eh_report_analytic_balance"
+                  sequence="100"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+    </data>
+</odoo>

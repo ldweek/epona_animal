@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_sepa_creditor_list" model="ir.ui.view">
+        <field name="name">eh.sepa.creditor.list</field>
+        <field name="model">eh.sepa.creditor</field>
+        <field name="arch" type="xml">
+            <list string="SEPA Creditors">
+                <field name="name"/>
+                <field name="creditor_identifier"/>
+                <field name="journal_id"/>
+                <field name="iban"/>
+                <field name="default_local_instrument"/>
+                <field name="batch_booking" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_sepa_creditor_form" model="ir.ui.view">
+        <field name="name">eh.sepa.creditor.form</field>
+        <field name="model">eh.sepa.creditor</field>
+        <field name="arch" type="xml">
+            <form string="SEPA Creditor">
+                <sheet>
+                    <h1>
+                        <field name="name" placeholder="Acme Pty Ltd EUR collection"/>
+                    </h1>
+                    <group>
+                        <group string="Identification">
+                            <field name="creditor_identifier"/>
+                            <field name="creditor_name"/>
+                            <field name="default_local_instrument"/>
+                            <field name="batch_booking"/>
+                            <field name="pre_notification_days"/>
+                        </group>
+                        <group string="Bank / Collection">
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="journal_id"
+                                   options="{'no_create': True}"/>
+                            <field name="iban"/>
+                            <field name="bic"/>
+                        </group>
+                    </group>
+                    <p class="text-muted">
+                        IBAN and BIC are validated locally on save (ISO 13616 mod-97 for IBAN, ISO 9362 structure for BIC). The creditor identifier comes from your national authority and is rendered into CdtrSchmeId on every collection file.
+                    </p>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_eh_sepa_creditor_search" model="ir.ui.view">
+        <field name="name">eh.sepa.creditor.search</field>
+        <field name="model">eh.sepa.creditor</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="creditor_identifier"/>
+                <field name="journal_id"/>
+                <group>
+                    <filter name="group_journal" string="Journal"
+                            context="{'group_by': 'journal_id'}"/>
+                    <filter name="group_company" string="Company"
+                            context="{'group_by': 'company_id'}"
+                            groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_eh_sepa_creditor" model="ir.actions.act_window">
+        <field name="name">SEPA Creditors</field>
+        <field name="res_model">eh.sepa.creditor</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_sepa_creditor_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No SEPA creditors yet.</p>
+            <p>Create one creditor record per (company, bank journal) you collect with. The creditor carries the creditor identifier, the collection IBAN, and the default scheme variant.</p>
+        </field>
+    </record>
+
+</odoo>

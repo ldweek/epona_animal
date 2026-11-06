@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_eh_contribution_report_search" model="ir.ui.view">
+        <field name="name">eh.contribution.report.search</field>
+        <field name="model">eh.contribution.report</field>
+        <field name="arch" type="xml">
+            <search string="Contribution and CVP">
+                <field name="name"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <filter name="draft" string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter name="done" string="Done"
+                        domain="[('state', '=', 'done')]"/>
+                <filter name="no_break_even" string="No Break-even"
+                        domain="[('cvp_status', '!=', 'available')]"/>
+                <separator/>
+                <filter name="group_period" string="Period"
+                        context="{'group_by': 'period_start:month'}"/>
+                <filter name="group_status" string="CVP Status"
+                        context="{'group_by': 'cvp_status'}"/>
+                <filter name="group_company" string="Company"
+                        context="{'group_by': 'company_id'}"
+                        groups="base.group_multi_company"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_eh_contribution_report_list" model="ir.ui.view">
+        <field name="name">eh.contribution.report.list</field>
+        <field name="model">eh.contribution.report</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="total_revenue" widget="monetary" optional="show"/>
+                <field name="total_contribution" widget="monetary"/>
+                <field name="cm_ratio_pct" optional="show"/>
+                <field name="operating_income" widget="monetary" optional="show"/>
+                <field name="breakeven_units" optional="hide"/>
+                <field name="margin_of_safety_pct" optional="hide"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_eh_contribution_report_form" model="ir.ui.view">
+        <field name="name">eh.contribution.report.form</field>
+        <field name="model">eh.contribution.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_fetch_ledger_revenue" type="object"
+                            string="Fetch Ledger Revenue"
+                            invisible="state != 'draft'"/>
+                    <button name="action_done" type="object"
+                            string="Mark Done" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_reset_to_draft" type="object"
+                            string="Reset to Draft"
+                            invisible="state != 'done'"/>
+                    <field name="state" widget="statusbar" readonly="1"
+                           statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="period_start"
+                                   readonly="state != 'draft'"/>
+                            <field name="period_end"
+                                   readonly="state != 'draft'"/>
+                            <field name="fixed_costs" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="target_profit" widget="monetary"
+                                   readonly="state != 'draft'"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"
+                                   readonly="state != 'draft'"/>
+                            <field name="include_branch_companies"
+                                   readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="total_revenue" widget="monetary" readonly="1"/>
+                            <field name="total_variable_cost" widget="monetary" readonly="1"/>
+                            <field name="total_contribution" widget="monetary" readonly="1"/>
+                            <field name="cm_ratio_pct" readonly="1"/>
+                            <field name="unit_cm" readonly="1"/>
+                            <field name="operating_income" widget="monetary" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Product Lines">
+                        <field name="line_ids" nolabel="1" colspan="2"
+                               readonly="state != 'draft'">
+                            <list editable="bottom">
+                                <field name="company_id" column_invisible="1"/>
+                                <field name="card_id"/>
+                                <field name="product_id"/>
+                                <field name="units_sold"
+                                       readonly="revenue_source == 'ledger'"/>
+                                <field name="revenue_source"/>
+                                <field name="revenue" widget="monetary"
+                                       readonly="revenue_source == 'ledger'"/>
+                                <field name="variable_cost" widget="monetary" readonly="1"/>
+                                <field name="contribution" widget="monetary" readonly="1"/>
+                                <field name="cm_ratio_pct" readonly="1"/>
+                                <field name="currency_id" column_invisible="1"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Cost-Volume-Profit">
+                        <field name="cvp_status" widget="badge" readonly="1"/>
+                        <group>
+                            <field name="breakeven_units" readonly="1"/>
+                            <field name="breakeven_revenue"
+                                   widget="monetary" readonly="1"/>
+                            <field name="margin_of_safety_pct" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="target_profit_units" readonly="1"/>
+                            <field name="operating_leverage" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes" nolabel="1" colspan="2"
+                               placeholder="Mix assumptions, relevant range, how fixed costs were compiled..."/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_eh_contribution_report" model="ir.actions.act_window">
+        <field name="name">Contribution &amp; CVP</field>
+        <field name="res_model">eh.contribution.report</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_eh_contribution_report_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Build your first contribution report</p>
+            <p>Analyse contribution margin, breakeven and cost-volume-profit for a period. Create a report, pick the period, and add the products to include.</p>
+        </field>
+    </record>
+
+</odoo>

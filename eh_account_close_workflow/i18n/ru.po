@@ -1,0 +1,1442 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* eh_account_close_workflow
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-01 04:32+0000\n"
+"PO-Revision-Date: 2026-07-01 04:32+0000\n"
+"Last-Translator: ERP Heritage <info@erpheritage.com.au>\n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/run.py:0
+msgid "%d draft entries must be posted or deleted before close."
+msgstr "%d черновых проводок необходимо провести или удалить перед закрытием."
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/run.py:0
+msgid "%d posted entries do not balance to zero."
+msgstr "%d проведённых проводок не сбалансированы до нуля."
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/run.py:0
+msgid "%d statement lines remain in suspense."
+msgstr "%d строк выписки остаются на счёте расхождений."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_check__is_blocking
+msgid ""
+"A blocking check in 'fail' status prevents the close from moving to "
+"approval."
+msgstr ""
+"Блокирующая проверка в статусе 'fail' не позволяет закрытию перейти к "
+"утверждению."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_task__responsible_role__accountant
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_task_template__responsible_role__accountant
+msgid "Accountant"
+msgstr "Бухгалтер"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__message_needaction
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__message_needaction
+msgid "Action Needed"
+msgstr "Требуются действия"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_checklist__active
+msgid "Active"
+msgstr "Активный"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__activity_ids
+msgid "Activities"
+msgstr "Активность"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Оформление задачи-исключения"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__activity_state
+msgid "Activity State"
+msgstr "Состояние активности"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Значок типа активности"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_form
+msgid "Approve and Close"
+msgstr "Одобрить и закрыть"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__approved_at
+msgid "Approved At"
+msgstr "Одобрено"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__approved_by_id
+msgid "Approved By"
+msgstr "Утверждено"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_search
+msgid "Assigned To"
+msgstr "Назначено"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__assigned_user_id
+msgid "Assigned User"
+msgstr "Назначенный пользователь"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__message_attachment_count
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__message_attachment_count
+msgid "Attachment Count"
+msgstr "Количество вложений"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_form
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_form
+msgid "Block"
+msgstr "Блок"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_task__state__blocked
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_search
+msgid "Blocked"
+msgstr "Заблокировано"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__blocked_reason
+msgid "Blocked Reason"
+msgstr "Причина блокировки"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_task__responsible_role__both
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_task_template__responsible_role__both
+msgid "Both"
+msgstr "Оба"
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/run.py:0
+msgid "Can only approve from pending approval."
+msgstr "Утверждение возможно только из состояния ожидания утверждения."
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/run.py:0
+msgid "Can only reopen a closed run."
+msgstr "Повторно открыть можно только закрытый прогон."
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/run.py:0
+msgid "Can only request approval from in progress."
+msgstr "Запросить утверждение можно только из состояния 'В процессе'."
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/run.py:0
+msgid "Cannot close: %d task(s) blocked: %s"
+msgstr "Невозможно закрыть: %d задач заблокировано: %s"
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/run.py:0
+msgid "Cannot request approval: %d required task(s) still pending: %s"
+msgstr ""
+"Невозможно запросить утверждение: %d обязательных задач всё ещё в ожидании: "
+"%s"
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/run.py:0
+msgid ""
+"Cannot request approval: automated close checks failed: %s. Resolve them and"
+" re-run the checks."
+msgstr ""
+"Невозможно запросить утверждение: автоматические проверки закрытия не "
+"пройдены: %s. Устраните их и запустите проверки заново."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__check_ids
+msgid "Check"
+msgstr "Проверить"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_check__checked_at
+msgid "Checked At"
+msgstr "Проверено в"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__checklist_id
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task_template__checklist_id
+msgid "Checklist"
+msgstr "Чеклист"
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/checklist.py:0
+msgid "Checklist '%s' has no task templates; cannot start a run."
+msgstr ""
+"Контрольный список '%s' не содержит шаблонов задач; невозможно запустить "
+"выполнение."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.constraint,message:eh_account_close_workflow.constraint_eh_close_checklist_unique_code
+msgid "Checklist code must be unique per company."
+msgstr "Код контрольного списка должен быть уникальным для каждой компании."
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/checklist.py:0
+msgid "Checklist code must match [a-zA-Z][a-zA-Z0-9_]* (got %r)."
+msgstr ""
+"Код контрольного списка должен соответствовать [a-zA-Z][a-zA-Z0-9_]* "
+"(получено %r)."
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_form
+msgid "Checks"
+msgstr "Проверки"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_checklist_form
+msgid "Close Checklist"
+msgstr "Контрольный список закрытия"
+
+#. module: eh_account_close_workflow
+#: model:ir.actions.act_window,name:eh_account_close_workflow.action_eh_close_checklist
+#: model:ir.ui.menu,name:eh_account_close_workflow.menu_eh_close_checklist
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_checklist_tree
+msgid "Close Checklists"
+msgstr "Контрольные списки закрытия"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_form
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_search
+msgid "Close Run"
+msgstr "Закрыть запуск"
+
+#. module: eh_account_close_workflow
+#: model:ir.actions.act_window,name:eh_account_close_workflow.action_eh_close_run
+#: model:ir.ui.menu,name:eh_account_close_workflow.menu_eh_close_run
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_tree
+msgid "Close Runs"
+msgstr "Закрыть запуски"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_form
+msgid "Close Task"
+msgstr "Закрыть задачу"
+
+#. module: eh_account_close_workflow
+#: model:ir.actions.act_window,name:eh_account_close_workflow.action_eh_close_task
+#: model:ir.ui.menu,name:eh_account_close_workflow.menu_eh_close_task
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_tree
+msgid "Close Tasks"
+msgstr "Закрыть задачи"
+
+#. module: eh_account_close_workflow
+#: model:ir.model,name:eh_account_close_workflow.model_eh_close_task_template
+msgid "Close checklist task template"
+msgstr "Закрыть шаблон задачи контрольного списка"
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/checklist.py:0
+msgid "Close from %s"
+msgstr "Закрыть из %s"
+
+#. module: eh_account_close_workflow
+#: model:ir.model,name:eh_account_close_workflow.model_eh_close_task
+msgid "Close run task"
+msgstr "Закрыть задачу запуска"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_run__state__closed
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_search
+msgid "Closed"
+msgstr "Закрыто"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_check__code
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_checklist__code
+msgid "Code"
+msgstr "Код"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_checklist__company_id
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__company_id
+msgid "Company"
+msgstr "Компания"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__completed_at
+msgid "Completed At"
+msgstr "Завершено в"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__completed_by_id
+msgid "Completed By"
+msgstr "Кем завершено"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_form
+msgid "Completion"
+msgstr "Завершение"
+
+#. module: eh_account_close_workflow
+#. odoo-javascript
+#: code:addons/eh_account_close_workflow/static/src/js/tours/close_tour.js:0
+msgid ""
+"Configure <b>Task Templates</b> first. Each template seeds a checklist task "
+"on every new run: reconcile bank, post depreciation, run revaluation, review"
+" aged AR, etc. Set the responsible role on each so the right person gets "
+"assigned at run-time."
+msgstr ""
+"Сначала настройте <b>Шаблоны задач</b>. Каждый шаблон создаёт задачу "
+"контрольного списка при каждом новом запуске: сверка банка, разноска "
+"амортизации, запуск переоценки, проверка просроченной AR и т. д. Задайте "
+"ответственную роль для каждого, чтобы во время выполнения назначался нужный "
+"человек."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_check__count
+msgid "Count"
+msgstr "Количество"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_check__create_uid
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_checklist__create_uid
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__create_uid
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__create_uid
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task_template__create_uid
+msgid "Created by"
+msgstr "Создано:"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_check__create_date
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_checklist__create_date
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__create_date
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__create_date
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task_template__create_date
+msgid "Created on"
+msgstr "Дата создания:"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_checklist_form
+msgid "Definition"
+msgstr "Определение"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_checklist__description
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__description
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task_template__description
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_form
+msgid "Description"
+msgstr "Описание"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_check__detail
+msgid "Detail"
+msgstr "Детали"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__description
+msgid ""
+"Detailed instructions for the preparer. Supports rich text and links so a "
+"checklist template can embed screenshots and references to other Odoo "
+"records."
+msgstr ""
+"Подробные инструкции для составителя. Поддерживает форматированный текст и "
+"ссылки, поэтому шаблон контрольного списка может встраивать снимки экрана и "
+"ссылки на другие записи Odoo."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_check__display_name
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_checklist__display_name
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__display_name
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__display_name
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task_template__display_name
+msgid "Display Name"
+msgstr "Отображаемое имя"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_checklist__name
+msgid ""
+"Display name of the checklist template. Convention: '<Cadence> Close', e.g. "
+"'Monthly Close', 'Quarterly Close'."
+msgstr ""
+"Отображаемое имя шаблона контрольного списка. Соглашение: '<Cadence> Close',"
+" например 'Monthly Close', 'Quarterly Close'."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__sequence
+msgid ""
+"Display order on the run's task list. Lower numbers render first; the handle"
+" widget on the list view writes this field directly."
+msgstr ""
+"Порядок отображения в списке задач запуска. Меньшие числа отображаются "
+"первыми; виджет-маркер в представлении списка записывает это поле напрямую."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_task__state__done
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_form
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_search
+msgid "Done"
+msgstr "Готово"
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/run.py:0
+msgid "Draft journal entries in period"
+msgstr "Черновики проводок в периоде"
+
+#. module: eh_account_close_workflow
+#. odoo-javascript
+#: code:addons/eh_account_close_workflow/static/src/js/tours/close_tour.js:0
+msgid ""
+"Each <b>run</b> walks four stages: Open → In Progress → Pending Approval → "
+"Closed. The kanban view shows progress per run and flags blocked tasks in "
+"red. A run can be reopened from Closed if a late entry needs to land in the "
+"period."
+msgstr ""
+"Каждый <b>прогон</b> проходит четыре этапа: Открыт → В работе → Ожидает "
+"утверждения → Закрыт. Представление канбан показывает прогресс по каждому "
+"прогону и отмечает заблокированные задачи красным. Прогон можно снова "
+"открыть из состояния Закрыт, если запоздалую запись нужно провести в этом "
+"периоде."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_check__status__fail
+msgid "Fail"
+msgstr "Неудача"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__message_follower_ids
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__message_follower_ids
+msgid "Followers"
+msgstr "Подписчики"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__message_partner_ids
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Подписчики"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Шрифт, отличный значок, например. к.-а.-задачи"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__notes
+msgid ""
+"Free-form notes from preparer, reviewer, or approver. Goes into the audit "
+"pack alongside the chatter trail."
+msgstr ""
+"Произвольные заметки от составителя, проверяющего или утверждающего. "
+"Включаются в аудиторский пакет вместе с историей чата."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__blocked_reason
+msgid ""
+"Free-text explanation of why the task is blocked. Surfaces on the form and "
+"in the close-run audit pack so the reviewer understands the dependency."
+msgstr ""
+"Произвольное текстовое объяснение того, почему задача заблокирована. "
+"Отображается в форме и в аудиторском пакете закрытия, чтобы проверяющий "
+"понял зависимость."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__has_failed_blocking_checks
+msgid "Has Failed Blocking Checks"
+msgstr "Не пройдены блокирующие проверки"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__has_message
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__has_message
+msgid "Has Message"
+msgstr "Есть сообщение"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__name
+msgid ""
+"Human-readable label for this close run. Convention: '<Company> <Period> "
+"Close', e.g. 'Acme March 2026 Close'."
+msgstr ""
+"Понятная метка для этого запуска закрытия. Соглашение: '<Company> <Period> "
+"Close', например 'Acme March 2026 Close'."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_check__id
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_checklist__id
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__id
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__id
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task_template__id
+msgid "ID"
+msgstr "Номер"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__activity_exception_icon
+msgid "Icon"
+msgstr "Иконка"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Иконка, указывающая на задачу-исключение."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__message_needaction
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+"Если флажок установлен, значит, новые сообщения требуют вашего внимания."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__message_has_error
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__message_has_sms_error
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__message_has_error
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Если отмечено, некоторые сообщения имеют ошибку доставки."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_run__state__in_progress
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_task__state__in_progress
+msgid "In Progress"
+msgstr "В процессе"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__period_to
+msgid "Inclusive end date of the period being closed."
+msgstr "Включительная конечная дата закрываемого периода."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__period_from
+msgid ""
+"Inclusive start date of the period being closed. Defaults to the first day "
+"of the month derived from period_to when left blank."
+msgstr ""
+"Включительная начальная дата закрываемого периода. По умолчанию — первый "
+"день месяца, полученного из period_to, если оставлено пустым."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task_template__responsible_role
+msgid "Indicative; does not enforce permissions."
+msgstr "Ориентировочно; не применяет разрешения."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_check__is_blocking
+msgid "Is Blocking"
+msgstr "Блокирует"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__message_is_follower
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__message_is_follower
+msgid "Is Follower"
+msgstr "Является подписчиком"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__is_required
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task_template__is_required
+msgid "Is Required"
+msgstr "Необходимо"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_check__write_uid
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_checklist__write_uid
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__write_uid
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__write_uid
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task_template__write_uid
+msgid "Last Updated by"
+msgstr "Последнее обновление:"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_check__write_date
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_checklist__write_date
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__write_date
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__write_date
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task_template__write_date
+msgid "Last Updated on"
+msgstr "Дата последнего обновления:"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__company_id
+msgid ""
+"Legal entity this close covers. Each entity has its own independent close "
+"run; multi-entity groups should run one checklist per company."
+msgstr ""
+"Юридическое лицо, которое охватывает это закрытие. У каждого лица есть "
+"собственный независимый прогон закрытия; группам с несколькими лицами "
+"следует выполнять один контрольный список на компанию."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__state
+msgid ""
+"Lifecycle state. open: just instantiated, no tasks worked. in_progress: "
+"preparer is working through tasks. pending_approval: preparer requested "
+"manager sign-off; no more task edits without reopening. closed: approved and"
+" locked. reopened: manager unlocked for further edits; audit trail of "
+"original prepare/review/approve preserved."
+msgstr ""
+"Состояние жизненного цикла. open: только что создано, задачи не выполнялись."
+" in_progress: подготавливающий работает над задачами. pending_approval: "
+"подготавливающий запросил утверждение руководителя; дальнейшее "
+"редактирование задач невозможно без повторного открытия. closed: утверждено "
+"и заблокировано. reopened: руководитель разблокировал для дальнейшего "
+"редактирования; журнал аудита исходной подготовки/проверки/утверждения "
+"сохраняется."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_checklist__description
+msgid ""
+"Long-form description of when and how this checklist is used. Visible to "
+"preparers when they pick a checklist."
+msgstr ""
+"Подробное описание того, когда и как используется этот контрольный список. "
+"Видно составителям при выборе контрольного списка."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_task__responsible_role__manager
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_task_template__responsible_role__manager
+msgid "Manager"
+msgstr "Руководитель"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_form
+msgid "March 2026 Close"
+msgstr "Закрытие марта 2026"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_form
+msgid "Mark Done"
+msgstr "Отметить как выполненное"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_form
+msgid "Mark done"
+msgstr "Отметить как выполненное"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_form
+msgid "Mark not applicable"
+msgstr "Отметить как неприменимое"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__message_has_error
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__message_has_error
+msgid "Message Delivery error"
+msgstr "Ошибка доставки сообщения"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__message_ids
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__message_ids
+msgid "Messages"
+msgstr "Сообщения"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Крайний срок моей активности"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_search
+msgid "My Tasks"
+msgstr "Мои задачи"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_check__name
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_checklist__name
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__name
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__name
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task_template__name
+msgid "Name"
+msgstr "Имя"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Следующее событие календаря активности"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Следующий срок мероприятия"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__activity_summary
+msgid "Next Activity Summary"
+msgstr "Резюме следующего действия"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__activity_type_id
+msgid "Next Activity Type"
+msgstr "Следующий Тип Мероприятия"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_task__state__not_applicable
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_form
+msgid "Not Applicable"
+msgstr "Не применимо"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__notes
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__notes
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_form
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_form
+msgid "Notes"
+msgstr "Заметки"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__message_needaction_counter
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Число действий"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__message_has_error_counter
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__message_has_error_counter
+msgid "Number of errors"
+msgstr "Число ошибок"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__message_needaction_counter
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Количество сообщений, требующих принятия мер"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__message_has_error_counter
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Количество недоставленных сообщений"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_checklist__task_template_count
+msgid "Number of task templates currently defined on this checklist."
+msgstr ""
+"Количество шаблонов задач, определённых в данный момент в этом контрольном "
+"списке."
+
+#. module: eh_account_close_workflow
+#. odoo-javascript
+#: code:addons/eh_account_close_workflow/static/src/js/tours/close_tour.js:0
+msgid ""
+"On a run, the <b>tasks tab</b> is your checklist. Each task carries an "
+"assignee, due date, and a Done/Skipped/Blocked status. Pending Approval "
+"blocks until every required task is complete."
+msgstr ""
+"При выполнении <b>вкладка задач</b> — это ваш контрольный список. Каждая "
+"задача имеет ответственного, срок и статус "
+"Выполнено/Пропущено/Заблокировано. Статус «Ожидает утверждения» остаётся "
+"заблокированным, пока не будут завершены все обязательные задачи."
+
+#. module: eh_account_close_workflow
+#. odoo-javascript
+#: code:addons/eh_account_close_workflow/static/src/js/tours/close_tour.js:0
+msgid ""
+"Once Closed, the run is locked but the period isn't. Use <b>Reopen</b> to "
+"roll back to In Progress when a missed entry needs to land. Reopens are "
+"stamped with user + reason in chatter for audit."
+msgstr ""
+"После закрытия прогон блокируется, но период — нет. Используйте "
+"<b>Reopen</b>, чтобы вернуться в состояние «В процессе», когда нужно внести "
+"пропущенную проводку. Повторные открытия отмечаются пользователем и причиной"
+" в чате для аудита."
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/run.py:0
+msgid "Only an Accounting Manager can reopen a closed run."
+msgstr ""
+"Повторно открыть закрытый прогон может только менеджер по бухгалтерии."
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/task.py:0
+msgid "Only an Accounting Manager can reset a task."
+msgstr "Сбросить задачу может только менеджер по бухгалтерии."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_run__state__open
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_search
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_search
+msgid "Open"
+msgstr "Открыть"
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/run.py:0
+msgid "Open bank/cash suspense lines"
+msgstr "Открытые строки промежуточного счёта банка/кассы"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_checklist__company_id
+msgid ""
+"Optional company scope. When set, the checklist is only selectable for that "
+"company; when blank, it is shared across all companies."
+msgstr ""
+"Необязательная область компании. Если задана, контрольный список можно "
+"выбрать только для этой компании; если пусто, он используется всеми "
+"компаниями."
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_checklist_form
+msgid "Optional description of when to use this checklist."
+msgstr ""
+"Необязательное описание того, когда использовать этот контрольный список."
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_checklist_form
+msgid "Optional detailed instructions."
+msgstr "Необязательные подробные инструкции."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_checklist__task_template_ids
+msgid ""
+"Ordered list of task templates instantiated on each new run. Editing a "
+"template here does not back-port to existing runs."
+msgstr ""
+"Упорядоченный список шаблонов задач, создаваемых при каждом новом запуске. "
+"Редактирование шаблона здесь не применяется задним числом к существующим "
+"запускам."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__run_id
+msgid "Parent close run this task belongs to."
+msgstr "Родительский запуск закрытия, к которому относится эта задача."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_check__status__pass
+msgid "Pass"
+msgstr "Зачёт"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_checklist__run_ids
+msgid "Past and current close runs created from this checklist."
+msgstr ""
+"Прошлые и текущие циклы закрытия, созданные из этого контрольного списка."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_task__state__pending
+msgid "Pending"
+msgstr "В ожидании"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_run__state__pending_approval
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_search
+msgid "Pending Approval"
+msgstr "Ожидает утверждения"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__progress_pct
+msgid ""
+"Percentage of tasks completed (done + not_applicable / total). Used by the "
+"kanban progress bar."
+msgstr ""
+"Процент завершённых задач (done + not_applicable / total). Используется "
+"индикатором выполнения kanban."
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_form
+msgid "Period"
+msgstr "Период"
+
+#. module: eh_account_close_workflow
+#: model:ir.ui.menu,name:eh_account_close_workflow.menu_eh_close_root
+msgid "Period Close"
+msgstr "Закрытие периода"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__period_from
+msgid "Period From"
+msgstr "Период с"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__period_to
+msgid "Period To"
+msgstr "Период до"
+
+#. module: eh_account_close_workflow
+#: model:ir.model,name:eh_account_close_workflow.model_eh_close_check
+msgid "Period close automated check result"
+msgstr "Результат автоматической проверки закрытия периода"
+
+#. module: eh_account_close_workflow
+#: model:ir.model,name:eh_account_close_workflow.model_eh_close_checklist
+msgid "Period close checklist template"
+msgstr "Шаблон контрольного списка закрытия периода"
+
+#. module: eh_account_close_workflow
+#: model:ir.model,name:eh_account_close_workflow.model_eh_close_run
+msgid "Period close run"
+msgstr "Запуск закрытия периода"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__prepared_at
+msgid "Prepared At"
+msgstr "Подготовлено"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__prepared_by_id
+msgid "Prepared By"
+msgstr "Подготовил"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_form
+msgid "Progress"
+msgstr "Прогресс"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_tree
+msgid "Progress %"
+msgstr "Прогресс %"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__progress_pct
+msgid "Progress Pct"
+msgstr "Прогресс, %"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__rating_ids
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__rating_ids
+msgid "Ratings"
+msgstr "Рейтинги"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_form
+msgid "Reconcile bank accounts"
+msgstr "Сверить банковские счета"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_form
+msgid "Reopen"
+msgstr "Возобновить"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_run__state__reopened
+msgid "Reopened"
+msgstr "Повторно открыто"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__reopened_at
+msgid "Reopened At"
+msgstr "Повторно открыто"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__reopened_by_id
+msgid "Reopened By"
+msgstr "Повторно открыто кем"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_form
+msgid "Request Approval"
+msgstr "Запрос на утверждение"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_search
+msgid "Required"
+msgstr "Обязательно"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__is_required
+msgid ""
+"Required tasks block the run from moving to pending_approval until they are "
+"done or marked not_applicable. Optional tasks do not block."
+msgstr ""
+"Обязательные задачи не позволяют запуску перейти в pending_approval, пока "
+"они не выполнены или не отмечены как not_applicable. Необязательные задачи "
+"не блокируют."
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_form
+msgid "Reset to Pending"
+msgstr "Сбросить в Ожидание"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__responsible_role
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task_template__responsible_role
+msgid "Responsible Role"
+msgstr "Ответственная роль"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__activity_user_id
+msgid "Responsible User"
+msgstr "Ответственный пользователь"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__check_ids
+msgid "Results of the most recent automated pre-close scan."
+msgstr "Результаты последнего автоматического сканирования перед закрытием."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__checklist_id
+msgid ""
+"Reusable checklist template that seeds the run's task list. Tasks copied "
+"from the template are independent instances; editing a task on the run does "
+"not change the template."
+msgstr ""
+"Многоразовый шаблон контрольного списка, формирующий список задач запуска. "
+"Задачи, скопированные из шаблона, являются независимыми экземплярами; "
+"изменение задачи в запуске не изменяет шаблон."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__reviewed_at
+msgid "Reviewed At"
+msgstr "Дата проверки"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__reviewed_by_id
+msgid "Reviewed By"
+msgstr "Кем проверено"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__responsible_role
+msgid ""
+"Role typically responsible for this task. Advisory only: Odoo group "
+"permissions are not enforced from this field. Used by the kanban for swim-"
+"lane grouping."
+msgstr ""
+"Роль, обычно ответственная за эту задачу. Только справочно: разрешения групп"
+" Odoo не применяются на основе этого поля. Используется в канбане для "
+"группировки по дорожкам."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_check__run_id
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_checklist__run_ids
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__run_id
+msgid "Run"
+msgstr "Запустить"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_form
+msgid "Run Checks"
+msgstr "Запустить проверки"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_checklist__run_count
+msgid "Run Count"
+msgstr "Количество запусков"
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/checklist.py:0
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_checklist_form
+msgid "Runs"
+msgstr "Запуски"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__message_has_sms_error
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Ошибка доставки SMS"
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/run.py:0
+msgid ""
+"Segregation of duties: %s prepared this run and cannot approve their own "
+"work."
+msgstr ""
+"Разделение обязанностей: %s подготовил(а) этот запуск и не может утвердить "
+"собственную работу."
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/run.py:0
+msgid ""
+"Segregation of duties: %s requested this approval and cannot also approve "
+"it. Another manager must review this close run."
+msgstr ""
+"Разделение обязанностей: %s запросил это утверждение и не может также его "
+"утвердить. Данное закрытие должен проверить другой руководитель."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_checklist__sequence
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__sequence
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task_template__sequence
+msgid "Sequence"
+msgstr "Последовательность"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__name
+msgid ""
+"Short label visible on the kanban / list view. Convention: imperative verb +"
+" object, e.g. 'Reconcile bank accounts', 'Post depreciation'."
+msgstr ""
+"Короткая метка, отображаемая в представлении канбан / списка. Соглашение: "
+"глагол в повелительном наклонении + объект, например «Сверить банковские "
+"счета», «Провести амортизацию»."
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_form
+msgid "Sign-off Audit Trail"
+msgstr "Журнал аудита утверждения"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_checklist__active
+msgid ""
+"Soft-archive flag. Inactive checklists do not appear in the run-creation "
+"picker but existing runs that reference them stay readable."
+msgstr ""
+"Флаг мягкого архивирования. Неактивные контрольные списки не отображаются в "
+"средстве выбора при создании запуска, но существующие запуски, ссылающиеся "
+"на них, остаются доступными для чтения."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_checklist__sequence
+msgid "Sort order in the checklist picker. Lower values render first."
+msgstr ""
+"Порядок сортировки в выборе контрольного списка. Меньшие значения "
+"отображаются первыми."
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_checklist_form
+msgid "Standard Monthly Close"
+msgstr "Стандартное ежемесячное закрытие"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_form
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_form
+msgid "Start"
+msgstr "Начало"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__state
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__state
+msgid "State"
+msgstr "Область"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_check__status
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_search
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_search
+msgid "Status"
+msgstr "Статус"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Статус, основанный на мероприятии\n"
+"Просроченная: Дата, уже прошла\n"
+"Сегодня: Дата мероприятия сегодня\n"
+"Запланировано: будущая деятельность."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__task_ids
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_form
+msgid "Task"
+msgstr "Задача"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__task_blocked_count
+msgid "Task Blocked Count"
+msgstr "Количество заблокированных задач"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__task_count
+msgid "Task Count"
+msgstr "Счетчик задач"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__task_done_count
+msgid "Task Done Count"
+msgstr "Количество выполненных задач"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__task_pending_count
+msgid "Task Pending Count"
+msgstr "Количество ожидающих задач"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_checklist__task_template_ids
+msgid "Task Template"
+msgstr "Шаблон задачи"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_checklist__task_template_count
+msgid "Task Template Count"
+msgstr "Количество шаблонов задач"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__state
+msgid ""
+"Task lifecycle state. pending / in_progress are open. done and "
+"not_applicable both count as complete. blocked prevents the run from closing"
+" until resolved."
+msgstr ""
+"Состояние жизненного цикла задачи. pending / in_progress являются открытыми."
+" done и not_applicable считаются завершёнными. blocked не позволяет закрыть "
+"выполнение до устранения."
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_checklist_form
+msgid "Task name"
+msgstr "Название задачи"
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/run.py:0
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_checklist_form
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_form
+msgid "Tasks"
+msgstr "Задачи"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__task_done_count
+msgid ""
+"Tasks in done or not_applicable state. Both count as completed for progress "
+"reporting."
+msgstr ""
+"Задачи в состоянии done или not_applicable. Обе считаются завершёнными в "
+"отчётности о ходе выполнения."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__task_ids
+msgid "Tasks instantiated from the checklist template for this run."
+msgstr ""
+"Задачи, созданные из шаблона контрольного списка для этого выполнения."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__task_blocked_count
+msgid ""
+"Tasks marked blocked. Approval is gated until every blocked task is resolved"
+" or marked not_applicable."
+msgstr ""
+"Задачи, отмеченные как blocked. Утверждение блокируется до тех пор, пока "
+"каждая заблокированная задача не будет устранена или отмечена как "
+"not_applicable."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__task_pending_count
+msgid ""
+"Tasks still in pending or in_progress. Required pending tasks block the "
+"request-approval transition."
+msgstr ""
+"Задачи, всё ещё находящиеся в состоянии pending или in_progress. "
+"Обязательные ожидающие задачи блокируют переход к запросу на утверждение."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__approved_at
+msgid "Timestamp at which approved_by_id closed the run."
+msgstr "Метка времени, когда approved_by_id закрыл запуск."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__prepared_at
+msgid "Timestamp at which prepared_by_id moved the run to in_progress."
+msgstr "Метка времени, когда prepared_by_id перевёл запуск в in_progress."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__reopened_at
+msgid "Timestamp at which reopened_by_id reopened the closed run."
+msgstr "Метка времени, когда reopened_by_id повторно открыл закрытый запуск."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__reviewed_at
+msgid "Timestamp at which reviewed_by_id requested approval."
+msgstr "Метка времени, когда reviewed_by_id запросил утверждение."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__completed_at
+msgid "Timestamp at which the task was marked complete."
+msgstr "Метка времени, когда задача была отмечена как выполненная."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__task_count
+msgid "Total number of tasks instantiated on this run."
+msgstr "Общее количество задач, созданных при этом запуске."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_checklist__run_count
+msgid "Total run count across the checklist's lifetime."
+msgstr ""
+"Общее количество запусков за всё время существования контрольного списка."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__has_failed_blocking_checks
+msgid "True when a blocking automated check is in 'fail' status."
+msgstr ""
+"True, когда блокирующая автоматическая проверка находится в статусе 'fail'."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Тип задачи-исключения в записи."
+
+#. module: eh_account_close_workflow
+#. odoo-python
+#: code:addons/eh_account_close_workflow/models/run.py:0
+msgid "Unbalanced posted entries"
+msgstr "Несбалансированные проведённые записи"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_task_form
+msgid "Unblock"
+msgstr "Разблокировать"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_checklist__code
+msgid ""
+"Unique programmatic identifier per company. Must match "
+"[a-zA-Z][a-zA-Z0-9_]*. Used for cross-record references (reports, "
+"automations) so a renamed name does not break external links."
+msgstr ""
+"Уникальный программный идентификатор для каждой компании. Должен "
+"соответствовать [a-zA-Z][a-zA-Z0-9_]*. Используется для перекрёстных ссылок "
+"между записями (отчёты, автоматизации), чтобы переименование не нарушало "
+"внешние ссылки."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__assigned_user_id
+msgid ""
+"User the preparer assigns this task to. Auto-fills with the current user "
+"when action_start fires and the field is empty."
+msgstr ""
+"Пользователь, которому составитель назначает эту задачу. Автоматически "
+"заполняется текущим пользователем, когда срабатывает action_start, а поле "
+"пустое."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__approved_by_id
+msgid ""
+"User who approved the close. Must be different from both the preparer and "
+"the reviewer per SoD enforcement."
+msgstr ""
+"Пользователь, утвердивший закрытие. Согласно применению SoD, должен "
+"отличаться как от составителя, так и от проверяющего."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__prepared_by_id
+msgid ""
+"User who first transitioned the run to in_progress. Captured for the "
+"segregation-of-duties check at approval time: a preparer cannot also "
+"approve."
+msgstr ""
+"Пользователь, первым переведший запуск в in_progress. Фиксируется для "
+"проверки разделения обязанностей на момент утверждения: составитель не может"
+" также утверждать."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__completed_by_id
+msgid ""
+"User who marked this task done or not_applicable. Captured for the close "
+"audit trail."
+msgstr ""
+"Пользователь, отметивший эту задачу как выполненную или not_applicable. "
+"Фиксируется для аудиторского следа закрытия."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__reopened_by_id
+msgid ""
+"User who reopened the run after close. Restricted to Accounting Manager "
+"group. The original prepare / review / approve trio is preserved alongside."
+msgstr ""
+"Пользователь, повторно открывший запуск после закрытия. Ограничено группой "
+"«Менеджер по бухгалтерскому учету». Исходная тройка «подготовка / проверка /"
+" утверждение» сохраняется рядом."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__reviewed_by_id
+msgid ""
+"User who requested approval. Captured for the SoD check: the requester "
+"cannot also approve."
+msgstr ""
+"Пользователь, запросивший утверждение. Фиксируется для проверки SoD: "
+"запрашивающий не может также утверждать."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields.selection,name:eh_account_close_workflow.selection__eh_close_check__status__warn
+msgid "Warning"
+msgstr "Предупреждение"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_run__website_message_ids
+#: model:ir.model.fields,field_description:eh_account_close_workflow.field_eh_close_task__website_message_ids
+msgid "Website Messages"
+msgstr "Веб-сайт сообщения"
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_run__website_message_ids
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__website_message_ids
+msgid "Website communication history"
+msgstr "История общений с сайта"
+
+#. module: eh_account_close_workflow
+#. odoo-javascript
+#: code:addons/eh_account_close_workflow/static/src/js/tours/close_tour.js:0
+msgid ""
+"Welcome to <b>Period Close Workflow</b>. This walkthrough shows the "
+"lifecycle and what to configure before your first close."
+msgstr ""
+"Добро пожаловать в <b>Period Close Workflow</b>. В этом руководстве показан "
+"жизненный цикл и то, что нужно настроить перед первым закрытием."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task_template__is_required
+msgid ""
+"When True, the task must reach 'done' or 'not applicable' before its run can"
+" be closed. Optional tasks are advisory."
+msgstr ""
+"При значении True задача должна достичь статуса 'done' или 'not applicable',"
+" прежде чем её прогон можно будет закрыть. Необязательные задачи носят "
+"рекомендательный характер."
+
+#. module: eh_account_close_workflow
+#: model:ir.model.fields,help:eh_account_close_workflow.field_eh_close_task__notes
+msgid ""
+"Working notes the preparer can leave for the reviewer. Distinct from "
+"chatter, which is the formal audit trail."
+msgstr ""
+"Рабочие заметки, которые составитель может оставить проверяющему. Отличаются"
+" от chatter, который является формальным аудиторским следом."
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_search
+msgid "Year"
+msgstr "Год"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_kanban
+msgid "blocked"
+msgstr "заблокировано"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_kanban
+msgid "done"
+msgstr "выполнено"
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_checklist_form
+msgid "standard_close"
+msgstr ""
+
+#. module: eh_account_close_workflow
+#: model_terms:ir.ui.view,arch_db:eh_account_close_workflow.view_eh_close_run_kanban
+msgid "tasks"
+msgstr "Задачи"

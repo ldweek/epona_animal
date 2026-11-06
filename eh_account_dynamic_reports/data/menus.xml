@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <!--
+            Each report opens an OWL client action with report_code in
+            context. The component fetches the corresponding
+            eh.account.dynamic.report record and renders it interactively.
+            For users who want a quick wizard driven export, the wizard
+            views are still available via direct navigation.
+        -->
+
+        <menuitem id="menu_financial_statements"
+                  name="Financial Statements"
+                  parent="account.menu_finance_reports"
+                  sequence="10"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+        <menuitem id="menu_ledgers"
+                  name="Ledgers and Balances"
+                  parent="account.menu_finance_reports"
+                  sequence="20"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+        <menuitem id="menu_partner_reports"
+                  name="Receivables and Payables"
+                  parent="account.menu_finance_reports"
+                  sequence="30"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+        <menuitem id="menu_management_reports"
+                  name="Management and Controls"
+                  parent="account.menu_finance_reports"
+                  sequence="40"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <record id="action_open_executive_summary_viewer" model="ir.actions.client">
+            <field name="name">Executive Summary</field>
+            <field name="tag">eh_account_dynamic_report</field>
+            <field name="context">{'report_code': 'executive_summary'}</field>
+        </record>
+
+        <menuitem id="menu_executive_summary"
+                  name="Executive Summary"
+                  parent="menu_financial_statements"
+                  action="action_open_executive_summary_viewer"
+                  sequence="10"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <record id="action_open_trial_balance_viewer" model="ir.actions.client">
+            <field name="name">Trial Balance</field>
+            <field name="tag">eh_account_dynamic_report</field>
+            <field name="context">{'report_code': 'trial_balance'}</field>
+        </record>
+
+        <menuitem id="menu_trial_balance"
+                  name="Trial Balance"
+                  parent="menu_ledgers"
+                  action="action_open_trial_balance_viewer"
+                  sequence="50"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <record id="action_open_profit_and_loss_viewer" model="ir.actions.client">
+            <field name="name">Profit and Loss</field>
+            <field name="tag">eh_account_dynamic_report</field>
+            <field name="context">{'report_code': 'profit_and_loss'}</field>
+        </record>
+
+        <menuitem id="menu_profit_and_loss"
+                  name="Profit and Loss"
+                  parent="menu_financial_statements"
+                  action="action_open_profit_and_loss_viewer"
+                  sequence="30"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <record id="action_open_balance_sheet_viewer" model="ir.actions.client">
+            <field name="name">Balance Sheet</field>
+            <field name="tag">eh_account_dynamic_report</field>
+            <field name="context">{'report_code': 'balance_sheet'}</field>
+        </record>
+
+        <menuitem id="menu_balance_sheet"
+                  name="Balance Sheet"
+                  parent="menu_financial_statements"
+                  action="action_open_balance_sheet_viewer"
+                  sequence="20"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <record id="action_open_general_ledger_viewer" model="ir.actions.client">
+            <field name="name">General Ledger</field>
+            <field name="tag">eh_account_dynamic_report</field>
+            <field name="context">{'report_code': 'general_ledger'}</field>
+        </record>
+
+        <menuitem id="menu_general_ledger"
+                  name="General Ledger"
+                  parent="menu_ledgers"
+                  action="action_open_general_ledger_viewer"
+                  sequence="60"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <record id="action_open_partner_ledger_viewer" model="ir.actions.client">
+            <field name="name">Partner Ledger</field>
+            <field name="tag">eh_account_dynamic_report</field>
+            <field name="context">{'report_code': 'partner_ledger'}</field>
+        </record>
+
+        <menuitem id="menu_partner_ledger"
+                  name="Partner Ledger"
+                  parent="menu_partner_reports"
+                  action="action_open_partner_ledger_viewer"
+                  sequence="70"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <record id="action_open_aged_receivable_viewer" model="ir.actions.client">
+            <field name="name">Aged Receivable</field>
+            <field name="tag">eh_account_dynamic_report</field>
+            <field name="context">{'report_code': 'aged_receivable'}</field>
+        </record>
+
+        <menuitem id="menu_aged_receivable"
+                  name="Aged Receivable"
+                  parent="menu_partner_reports"
+                  action="action_open_aged_receivable_viewer"
+                  sequence="80"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <record id="action_open_aged_payable_viewer" model="ir.actions.client">
+            <field name="name">Aged Payable</field>
+            <field name="tag">eh_account_dynamic_report</field>
+            <field name="context">{'report_code': 'aged_payable'}</field>
+        </record>
+
+        <menuitem id="menu_aged_payable"
+                  name="Aged Payable"
+                  parent="menu_partner_reports"
+                  action="action_open_aged_payable_viewer"
+                  sequence="85"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <record id="action_open_cash_flow_viewer" model="ir.actions.client">
+            <field name="name">Cash Flow Statement</field>
+            <field name="tag">eh_account_dynamic_report</field>
+            <field name="context">{'report_code': 'cash_flow'}</field>
+        </record>
+
+        <menuitem id="menu_cash_flow"
+                  name="Cash Flow Statement"
+                  parent="menu_financial_statements"
+                  action="action_open_cash_flow_viewer"
+                  sequence="40"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <record id="action_open_deferred_revenue_viewer" model="ir.actions.client">
+            <field name="name">Deferred Revenue</field>
+            <field name="tag">eh_account_dynamic_report</field>
+            <field name="context">{'report_code': 'deferred_revenue'}</field>
+        </record>
+
+        <menuitem id="menu_deferred_revenue"
+                  name="Deferred Revenue"
+                  parent="menu_management_reports"
+                  action="action_open_deferred_revenue_viewer"
+                  sequence="90"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <record id="action_open_deferred_expense_viewer" model="ir.actions.client">
+            <field name="name">Deferred Expense</field>
+            <field name="tag">eh_account_dynamic_report</field>
+            <field name="context">{'report_code': 'deferred_expense'}</field>
+        </record>
+
+        <menuitem id="menu_deferred_expense"
+                  name="Deferred Expense"
+                  parent="menu_management_reports"
+                  action="action_open_deferred_expense_viewer"
+                  sequence="95"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+        <record id="action_open_bank_reconciliation_viewer" model="ir.actions.client">
+            <field name="name">Bank Reconciliation</field>
+            <field name="tag">eh_account_dynamic_report</field>
+            <field name="context">{'report_code': 'bank_reconciliation'}</field>
+        </record>
+
+        <menuitem id="menu_bank_reconciliation"
+                  name="Bank Reconciliation"
+                  parent="menu_management_reports"
+                  action="action_open_bank_reconciliation_viewer"
+                  sequence="110"
+                  groups="-account.group_account_user,eh_account_base.group_eh_user,eh_account_base.group_eh_auditor"/>
+
+    </data>
+</odoo>

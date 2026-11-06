@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="home_theme.ColorSchemeSelector">
+        <div class="d-flex align-items-center justify-content-between px-3 py-2 w-100 o_color_scheme_selector">
+            <span class="me-3 small"><i class="fa fa-adjust me-1" title="Theme"/>Theme</span>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Color scheme">
+                <t t-foreach="options" t-as="opt" t-key="opt.value">
+                    <button
+                        type="button"
+                        t-att-class="'btn btn-sm ' + (state.current === opt.value ? 'btn-primary' : 'btn-outline-secondary')"
+                        t-on-click="(ev) => this.selectScheme(ev, opt.value)"
+                        t-att-title="opt.label"
+                        t-att-aria-pressed="state.current === opt.value ? 'true' : 'false'"
+                    >
+                        <i t-att-class="'fa ' + opt.icon" t-att-title="opt.label"/>
+                    </button>
+                </t>
+            </div>
+        </div>
+    </t>
+
+</templates>

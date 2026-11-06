@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!-- Main Home Screen Dashboard Template -->
+    <t t-name="HomeTheme.Dashboard">
+        <div class="o_home_screen_dashboard" t-ref="root"
+             t-att-class="{ o_ht_bg_dark: state.bgContrast === 'dark', o_ht_bg_light: state.bgContrast === 'light', o_ht_size_s: state.gridSize === 's', o_ht_size_l: state.gridSize === 'l' }">
+            <!-- Welcome + Search Section -->
+            <div class="o_home_hero">
+                <div class="o_home_hero_content">
+                    <p class="o_home_date" t-esc="currentDate"/>
+                    <h1 class="o_home_welcome">
+                        <span class="o_home_welcome_hi" t-esc="greeting + ','"/>
+                        <span class="o_home_welcome_name" t-esc="state.userName"/>
+                    </h1>
+                    <p class="o_home_subtitle">What would you like to do today?</p>
+
+                    <!-- Search Bar -->
+                    <div class="o_home_search_container">
+                        <div class="o_home_search_wrapper">
+                            <i class="fa fa-search o_home_search_icon"/>
+                            <input type="text"
+                                   class="o_home_search_input"
+                                   placeholder="Search menus, reports, options..."
+                                   t-ref="searchInput"
+                                   t-on-input="onSearchInput"
+                                   t-on-keydown="onSearchKeydown"
+                                   t-on-focus="onSearchFocus"
+                                   t-on-blur="onSearchBlur"
+                                   autocomplete="off"
+                                   spellcheck="false"/>
+                            <kbd class="o_home_search_kbd" t-if="state.searchQuery.length === 0">Ctrl+K</kbd>
+                            <t t-if="state.searchQuery.length > 0">
+                                <button class="o_home_search_clear" t-on-click="clearSearch">
+                                    <i class="fa fa-times"/>
+                                </button>
+                            </t>
+                        </div>
+
+                        <!-- Search Results Dropdown -->
+                        <t t-if="state.showSearchResults">
+                            <div class="o_home_search_results">
+                                <t t-foreach="state.searchResults" t-as="result" t-key="result.id">
+                                    <div t-att-class="'o_home_search_result_item' + (result_index === state.selectedResultIndex ? ' o_selected' : '')"
+                                         t-on-mousedown.prevent="() => {}"
+                                         t-on-click="() => this.onSearchResultClick(result)"
+                                         t-on-mouseenter="() => { this.state.selectedResultIndex = result_index; }">
+                                        <div class="o_search_result_icon">
+                                            <t t-if="result.web_icon_data">
+                                                <img t-att-src="'data:' + (result.web_icon_data_mimetype || 'image/png') + ';base64,' + result.web_icon_data"
+                                                     class="o_search_result_img"/>
+                                            </t>
+                                            <t t-elif="result.module_icon_url">
+                                                <img t-att-src="result.module_icon_url"
+                                                     class="o_search_result_img"/>
+                                            </t>
+                                            <t t-else="">
+                                                <div class="o_search_result_fa"
+                                                     t-att-style="'background-color:' + (result.background_color || '#875A7B')">
+                                                    <i t-att-class="result.icon_class || 'fa fa-th'"/>
+                                                </div>
+                                            </t>
+                                        </div>
+                                        <div class="o_search_result_text">
+                                            <span class="o_search_result_name" t-esc="result.name"/>
+                                            <span class="o_search_result_path" t-esc="result.full_path"/>
+                                        </div>
+                                        <i class="fa fa-chevron-right o_search_result_arrow"/>
+                                    </div>
+                                </t>
+                                <div class="o_home_search_hint">
+                                    <kbd>↑↓</kbd> navigate <kbd>↵</kbd> open <kbd>Esc</kbd> close
+                                </div>
+                            </div>
+                        </t>
+                        <!-- No results state -->
+                        <t t-if="state.showNoResults">
+                            <div class="o_home_search_results">
+                                <div class="o_home_search_no_results">
+                                    <div class="o_home_search_no_results_icon"><i class="fa fa-search"/></div>
+                                    <div class="o_home_search_no_results_text">No results</div>
+                                    <div class="o_home_search_no_results_hint">Try a different search term</div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Apps Section (scrolls independently; the hero above stays fixed) -->
+            <div class="o_home_apps_container">
+              <div class="o_home_apps_inner">
+
+                <!-- View toggle: flat grid vs grouped by category -->
+                <div class="o_home_apps_toolbar">
+                    <button class="o_home_group_btn"
+                            t-att-title="state.groupByCategory ? 'Switch to flat view' : 'Group apps by category'"
+                            t-on-click="() => this.toggleGroupMode()">
+                        <i t-att-class="state.groupByCategory ? 'fa fa-th-large' : 'fa fa-folder-o'"/>
+                        <span t-esc="state.groupByCategory ? 'Flat view' : 'Group by category'"/>
+                    </button>
+                    <button class="o_home_group_btn o_ht_size_btn"
+                            title="Icon size (small / medium / large)"
+                            t-on-click="() => this.cycleGridSize()">
+                        <i class="fa fa-expand"/>
+                        <span t-esc="'Size: ' + state.gridSize.toUpperCase()"/>
+                    </button>
+                </div>
+
+
+                <!-- Flat grid (with drag &amp; drop reordering) -->
+                <t t-if="!state.groupByCategory">
+                    <div class="o_home_apps_grid">
+                        <t t-foreach="visibleApps" t-as="app" t-key="app.id">
+                            <t t-call="HomeTheme.AppCard"/>
+                        </t>
+                    </div>
+                </t>
+
+                <!-- Grouped by category (collapsible) -->
+                <t t-else="">
+                    <t t-foreach="appGroups" t-as="group" t-key="group.key">
+                        <div class="o_home_category" t-att-class="{ 'o_collapsed': isCategoryCollapsed(group.key) }">
+                            <div class="o_home_category_header" t-on-click="() => this.toggleCategory(group.key)">
+                                <i class="o_home_category_caret fa"
+                                   t-att-class="isCategoryCollapsed(group.key) ? 'fa-chevron-right' : 'fa-chevron-down'"/>
+                                <span class="o_home_category_name" t-esc="group.name"/>
+                                <span class="o_home_category_count" t-esc="group.apps.length"/>
+                            </div>
+                            <div t-if="!isCategoryCollapsed(group.key)" class="o_home_apps_grid">
+                                <t t-foreach="group.apps" t-as="app" t-key="app.id">
+                                    <t t-call="HomeTheme.AppCard"/>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+              </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- Reusable app card (shared by flat and grouped views) -->
+    <t t-name="HomeTheme.AppCard">
+        <div class="o_home_app_card" t-att-class="{ o_kb_selected: state.kbSelectedId === app.id }" t-att-data-app-id="app.id" t-on-click="(ev) => this.onAppClick(app, ev)">
+            <div class="o_home_app_icon_wrapper">
+                <t t-if="app.web_icon_data">
+                    <img class="o_home_app_icon_img"
+                         t-att-src="'data:' + (app.web_icon_data_mimetype || 'image/png') + ';base64,' + app.web_icon_data"
+                         t-att-alt="app.name"/>
+                </t>
+                <t t-elif="app.module_icon_url">
+                    <img class="o_home_app_icon_img"
+                         t-att-src="app.module_icon_url"
+                         t-att-alt="app.name"/>
+                </t>
+                <t t-else="">
+                    <div class="o_home_app_icon"
+                         t-att-style="'background-color: ' + (app.background_color || '#875A7B')">
+                        <i t-att-class="app.icon_class || 'fa fa-th'"
+                           t-att-style="'color: ' + (app.icon_color || '#FFFFFF')"/>
+                    </div>
+                </t>
+            </div>
+            <div class="o_home_app_name">
+                <span t-esc="app.name"/>
+            </div>
+        </div>
+    </t>
+</templates>
